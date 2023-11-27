@@ -1,0 +1,21 @@
+name: 'Push repository'
+
+on:
+  push:
+    branches: [ 'main' ]
+
+jobs:
+  push_repository:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v3'
+      - name: 'Push repository'
+        uses: 'cpina/github-action-push-to-another-repository@main'
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'output'
+          destination-github-username: 'EpitechPromo2026'
+          destination-repository-name: ${{ vars.REPOSITORY_TARGET }}
+          user-email: 'robin.chabert@epitech.eu'
+          target-branch: 'main'

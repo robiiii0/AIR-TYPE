@@ -1,0 +1,24 @@
+name: 'Test compilation'
+
+on:
+  pull_request:
+    branches: [ 'main', 'dev' ]
+
+jobs:
+  test_code_style:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v3'
+      - name: 'Check code style'
+        run: 'bash output/check_format.sh'
+        timeout-minutes: 1
+
+  test_compilation:
+    runs-on: 'ubuntu-latest'
+    container:
+      image: 'epitechcontent/epitest-docker:latest'
+    steps:
+      - uses: 'actions/checkout@v3'
+      - name: 'Check compilation'
+        run: 'bash output/compile.sh'
+        timeout-minutes: 5

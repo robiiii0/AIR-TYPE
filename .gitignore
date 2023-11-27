@@ -1,0 +1,50 @@
+# Fichiers exécutables, objets et bibliothèques
+*.exe
+*.out
+*.app
+*.o
+*.a
+*.so
+
+# Fichiers de débogage
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Fichiers de sauvegarde
+*~
+*.swp
+*.swo
+*.bak
+
+# Fichiers de compilation
+*.gch
+*.pch
+
+# Répertoires de sortie
+bin/
+build/
+lib/
+
+# Fichiers de configuration générés
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+# Fichiers générés par divers outils
+.vscode/
+.idea/
+*.sln
+*.suo
+*.user
+*.userprefs
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Dépendances de package
+vendor/
