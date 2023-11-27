@@ -11,8 +11,13 @@ if [ "$?" -ne 0 ]; then
 fi
 
 # Binary must be present
-if [ ! -e "$CURRENT_DIR/pbrain-gomoku-ai" ]; then
-  echo "Binary is missing"
+if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
+  echo "Client binary is missing"
+  exit 1
+fi
+
+if [ ! -e "$CURRENT_DIR/r-type_server" ]; then
+  echo "Server binary is missing"
   exit 1
 fi
 
