@@ -1,0 +1,10 @@
+{
+    "name": "air-type",
+    "version": "1.0.0",
+    "description": "The goal of this project is to implement a air type game bot in C++",
+    "scripts": {
+      "format": "find . \\( -name '*.hpp' -o -name '*.cpp' \\) -exec clang-format -i {} +"
+    },
+    "author": "Robin Chabert, Aymeric Chaverot, Valentin Woehrel, Eddie Klai, Anton Jourdheuil",
+    "license": "ISC"
+  }
