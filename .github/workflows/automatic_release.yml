@@ -1,0 +1,19 @@
+name: 'Automatic Release'
+
+on:
+    push:
+        tags:
+            - 'v*'
+        branches: ['main']
+
+jobs:
+    automatic_build_and_release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - run: 'bash output/compile.sh'
+            - name: 'Automatic Releases'
+              uses: ncipollo/release-action@v1
+              with:
+                artifacts: "output/build/*"
+                token: ${{ secrets.GITHUB_TOKEN }}
