@@ -1,0 +1,80 @@
+Epitech 2023                                                     V. Woehrel
+                                                                 A. Chaverot
+                                                                 R. Chabert
+                                                                 E. Klai
+                                                                 A. Jourd'heuil
+                                R-TYPE Protocol
+
+Abstract:
+    This document describes the protocol used by the r-type_server to communicate
+    with a r-type_client.
+
+Introduction:
+    The goal of this project is to create a server and a client,
+    they communicate through our own UDP socket. The server hosts a game
+    that has to be playable by an human and displayable by a GUI. The server and
+    the AI exchange informations, so can the GUI and the server, though the
+    GUI and the AI cannot communicate with each other. The server can both send
+    informations without any prior interactions, and answer requests.
+
+Command and return:
+    When sending or receiving a command to or from the server, the message
+    should contain a code, a blank space, parameters if needed, separated by
+    spaces, and be terminated by a \n.
+    [Code] [Space] [Parameters]
+
+Connection:
+    When connecting to the server, a client will be set in a transitory state
+    before he confirms his identity by sending either GRAPHICAL for a GUI, or
+    the team_name for an AI. Only after that, if there is no other GUI, or if
+    the team isn't full, you will be connected and ready to interact with the
+    game.
+
+List of Client commands:
+    0b00000001    []                        create room
+    0b00001010    [id]                      connect room
+    0b00010100    []                        start game
+    0b00011110  [pseudo]                  Ask for the pseudo
+    0b00101000    [dir]                     Ask for all moves
+    0b00110010    [id]                      shoot status
+    0b00111100    [roomid]                  Ask for ping / tickrate / infoserv
+    0b01000110    [roomid]                  Ask for the leaderboard
+
+
+
+List of Server returns:
+    0b00000010    []                        room created
+    0b00000011    []                        room not created
+    0b00001011    [id]                      connected to the room
+    0b00001100    [id]                      not connected to the room
+    0b00001101    [pseudo]                  Connection of a new player
+    0b00001111    [pseudo]                  Disconection of a player
+    0b00010000    [n]                       Player expulsion
+    0b00010101    []                        game started
+    0b00010110    []                        game not started
+    0b00011110  [pseudo]                    return the pseudo
+    0b00101001    [direction]                Ask for all moves failed
+    0b00101010    [direction]                Ask for all moves succeed
+    0b00101011    [id] [X] [Y]              Position of the entity succeeded
+    0b00110011    [id]                      entity shoot status false
+    0b00110100    [id]                      entity shoot status true
+    0b00111100    [roomid]                  Ask for ping / tickrate / infoserv
+    0b01000111    [leaderboard]             Ask for the leaderboard succeeded
+
+    0b01010000         []                   End of a game
+    0b01011010         [unknown command]    Unknown command
+    0b01011011         [wrong command]      Bad command parameter
+
+
+Legend:
+    X           Width or horizontal position
+    Y           Height or vertical position
+    n           Player number
+    O           Orientation
+    L           Player or incantation level
+    e           Egg number
+    T           Time unit
+    N           Name of the team
+    R           Incantation result
+    M           Message
+    i           Resource number
