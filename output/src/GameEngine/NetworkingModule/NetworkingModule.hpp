@@ -13,10 +13,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
+#include "Client/Client.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
-#include "exceptions/SocketNotCreatedException/SocketNotCreatedException.hpp"
 #include "exceptions/CouldNotBindAddressException/CouldNotBindAddressException.hpp"
+#include "exceptions/SocketNotCreatedException/SocketNotCreatedException.hpp"
 
 namespace Engine {
     namespace Network {
@@ -25,12 +27,14 @@ namespace Engine {
                 NetworkingModule(int port, NetworkingTypeEnum type);
                 ~NetworkingModule();
 
-                int send(std::string message);
+                int                 send(std::string message, int client_id);
+                std::vector<Client> getClients() const;
 
             protected:
             private:
-                int                _socket_fd;
-                struct sockaddr_in _server_address;
+                int                                  _socket_fd;
+                struct sockaddr_in                   _server_address;
+                std::vector<Engine::Network::Client> _clients;
         };
     };  // namespace Network
 };      // namespace Engine
