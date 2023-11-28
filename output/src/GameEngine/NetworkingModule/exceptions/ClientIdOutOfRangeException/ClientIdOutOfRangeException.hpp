@@ -2,20 +2,20 @@
 ** EPITECH PROJECT, 2023
 ** output
 ** File description:
-** SocketNotCreatedException
+** ClientIdOutOfRangeException
 */
 
-#ifndef SOCKETNOTCREATEDEXCEPTION_HPP_
-#define SOCKETNOTCREATEDEXCEPTION_HPP_
+#ifndef CLIENTIDOUTOFRANGEEXCEPTION_HPP_
+#define CLIENTIDOUTOFRANGEEXCEPTION_HPP_
 
 #include <exception>
 
 namespace Engine {
     namespace Network {
-        class SocketNotCreatedException : public std::exception {
+        class ClientIdOutOfRangeException : public std::exception {
             public:
-                SocketNotCreatedException();
-                ~SocketNotCreatedException();
+                ClientIdOutOfRangeException();
+                ~ClientIdOutOfRangeException();
 
                 const char *what() const throw() override;
 
@@ -25,4 +25,4 @@ namespace Engine {
     };  // namespace Network
 };      // namespace Engine
 
-#endif /* !SOCKETNOTCREATEDEXCEPTION_HPP_ */
+#endif /* !CLIENTIDOUTOFRANGEEXCEPTION_HPP_ */

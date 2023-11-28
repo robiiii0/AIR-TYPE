@@ -10,14 +10,18 @@
 
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <unistd.h>
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "Client/Client.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
+#include "exceptions/ClientIdOutOfRangeException/ClientIdOutOfRangeException.hpp"
 #include "exceptions/CouldNotBindAddressException/CouldNotBindAddressException.hpp"
+#include "exceptions/CouldNotSendException/CouldNotSendException.hpp"
 #include "exceptions/SocketNotCreatedException/SocketNotCreatedException.hpp"
 
 namespace Engine {
@@ -27,7 +31,7 @@ namespace Engine {
                 NetworkingModule(int port, NetworkingTypeEnum type);
                 ~NetworkingModule();
 
-                int                 send(std::string message, int client_id);
+                int send(std::string message, std::size_t client_id);
                 std::vector<Client> getClients() const;
 
             protected:
@@ -35,6 +39,8 @@ namespace Engine {
                 int                                  _socket_fd;
                 struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
+                const uint8_t _protocol_prefix = 0xAA;
+                const uint8_t _protocol_suffix = 0xBB;
         };
     };  // namespace Network
 };      // namespace Engine

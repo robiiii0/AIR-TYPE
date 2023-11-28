@@ -8,7 +8,7 @@
 #ifndef COULDNOTBINDADDRESSEXCEPTION_HPP_
 #define COULDNOTBINDADDRESSEXCEPTION_HPP_
 
-#include <stdexcept>
+#include <exception>
 
 namespace Engine {
     namespace Network {

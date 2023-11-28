@@ -29,10 +29,25 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
     }
 }
 
-Engine::Network::NetworkingModule::~NetworkingModule() {}
+Engine::Network::NetworkingModule::~NetworkingModule() { close(_socket_fd); }
 
 int Engine::Network::NetworkingModule::send(std::string message,
-                                            int         client_id) {
+                                            std::size_t client_id) {
+    int index = -1;
+    std::string msg = std::to_string(_protocol_prefix) + message +
+                      std::to_string(_protocol_suffix);
+
+    if (client_id > 0) {
+        throw ClientIdOutOfRangeException();
+    }
+    for (int i = 0; i < _clients.size(); i++) {
+        if (_clients[i].getId() == client_id) index = i;
+    }
+    if (index == -1) throw ClientIdOutOfRangeException();
+    if (sendto(_socket_fd, message.c_str(), message.size(), 0,
+               (struct sockaddr *)&_clients[index].getAddress(),
+               sizeof(_clients[index].getAddress())) < 0)
+        throw CouldNotSendException(_clients[index]);
     return 0;
 }
 
