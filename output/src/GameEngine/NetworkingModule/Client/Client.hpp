@@ -13,21 +13,30 @@
 
 #include <string>
 
+#include "../Buffer/Buffer.hpp"
+
 namespace Engine {
     namespace Network {
         class Client {
             public:
-                Client(const std::string &ip, const int &port);
+                Client(const std::string &ip, const int &port,
+                       const int &socket_fd);
                 ~Client();
 
-                struct sockaddr_in getAddress() const;
-                std::size_t        getId() const;
+                struct sockaddr_in       getAddress() const;
+                std::size_t              getId() const;
+                Engine::Network::Buffer &getBuffer();
+                int                      getSocketFd() const;
+                bool                     isThreaded() const;
 
             protected:
             private:
-                inline std::size_t getClientId() noexcept;
-                static std::size_t _id;
-                struct sockaddr_in _address;
+                inline std::size_t      getClientId() noexcept;
+                static std::size_t      _id;
+                struct sockaddr_in      _address;
+                Engine::Network::Buffer _buffer;
+                int                     _socket_fd;
+                bool                    _is_threaded;
         };
 
         std::size_t Client::_id = 0;

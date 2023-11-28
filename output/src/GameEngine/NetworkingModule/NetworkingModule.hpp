@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <thread>
 #include <vector>
 
 #include "Client/Client.hpp"
@@ -28,19 +29,24 @@ namespace Engine {
     namespace Network {
         class NetworkingModule {
             public:
-                NetworkingModule(int port, NetworkingTypeEnum type);
+                NetworkingModule(int port, NetworkingTypeEnum type,
+                                 int max_clients = 4);
                 ~NetworkingModule();
 
-                int send(std::string message, std::size_t client_id);
+                int         send(std::string message, std::size_t client_id);
+                std::string receive(std::size_t client_id);
                 std::vector<Client> getClients() const;
 
             protected:
             private:
+                void                                 handleConnections();
+                void                                 handleRetrieval(Engine::Network::Client &client);
                 int                                  _socket_fd;
                 struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
-                const uint8_t _protocol_prefix = 0xAA;
-                const uint8_t _protocol_suffix = 0xBB;
+                int                                  _max_clients;
+                const uint8_t                        _protocol_prefix = 0xAA;
+                const uint8_t                        _protocol_suffix = 0xBB;
         };
     };  // namespace Network
 };      // namespace Engine
