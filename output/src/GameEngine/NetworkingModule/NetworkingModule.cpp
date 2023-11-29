@@ -83,8 +83,8 @@ void Engine::Network::NetworkingModule::runUDP(
         if (isNewClient(client_address)) {
             Engine::Network::Client client(client_address, 0);
             std::string             message = buffer;
-            client.getBuffer()->write(buffer, bytesReceived);
             _clients.push_back(client);
+            client.getBuffer()->write(buffer, bytesReceived);
         } else {
             addMessageToClientBuffer(buffer, bytesReceived, client_address);
         }
