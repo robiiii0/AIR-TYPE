@@ -6,8 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(./)
 
-add_executable(networking
-    main.cpp
+add_library(engine_networking
     NetworkingModule.cpp
     Buffer/Buffer.cpp
     Client/Client.cpp
