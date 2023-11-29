@@ -32,10 +32,12 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
              sizeof(_server_address)) < 0) {
         throw CouldNotBindAddressException();
     }
+    _running_thread = std::thread(&Engine::Network::NetworkingModule::run, this);
 }
 
 Engine::Network::NetworkingModule::~NetworkingModule() {
     if (_socket_fd != 1) close(_socket_fd);
+    _running_thread.join();
 }
 
 void Engine::Network::NetworkingModule::run() {

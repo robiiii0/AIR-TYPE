@@ -59,6 +59,7 @@ namespace Engine {
                 int                                  _max_clients;
                 const uint8_t                        _protocol_prefix = 0xAA;
                 const uint8_t                        _protocol_suffix = 0xBB;
+                std::thread                          _running_thread;
         };
     };  // namespace Network
 };      // namespace Engine
