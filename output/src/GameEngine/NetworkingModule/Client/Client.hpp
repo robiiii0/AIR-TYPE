@@ -10,6 +10,7 @@
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <unistd.h>
 
 #include <string>
 
@@ -28,6 +29,10 @@ namespace Engine {
                 Engine::Network::Buffer &getBuffer();
                 int                      getSocketFd() const;
                 bool                     isThreaded() const;
+                bool                     isConnected() const;
+
+                void setConnected(bool connected);
+                void setThreaded(bool threaded);
 
             protected:
             private:
@@ -37,6 +42,7 @@ namespace Engine {
                 Engine::Network::Buffer _buffer;
                 int                     _socket_fd;
                 bool                    _is_threaded;
+                bool                    _is_connected;
         };
 
         std::size_t Client::_id = 0;

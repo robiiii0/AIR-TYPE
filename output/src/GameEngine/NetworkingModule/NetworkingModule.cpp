@@ -11,6 +11,7 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
                                                     NetworkingTypeEnum type,
                                                     int max_clients) :
     _max_clients(max_clients) {
+    _socket_fd = -1;
     switch (type) {
         case TCP:
             _socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -22,16 +23,20 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
     if (_socket_fd == -1) {
         throw SocketNotCreatedException();
     }
+
     _server_address.sin_family = AF_INET;
     _server_address.sin_addr.s_addr = INADDR_ANY;
     _server_address.sin_port = htons(port);
+
     if (bind(_socket_fd, (struct sockaddr *)&_server_address,
              sizeof(_server_address)) < 0) {
         throw CouldNotBindAddressException();
     }
 }
 
-Engine::Network::NetworkingModule::~NetworkingModule() { close(_socket_fd); }
+Engine::Network::NetworkingModule::~NetworkingModule() {
+    if (_socket_fd != 1) close(_socket_fd);
+}
 
 int Engine::Network::NetworkingModule::send(std::string message,
                                             std::size_t client_id) {
@@ -77,17 +82,16 @@ std::vector<Engine::Network::Client>
 void Engine::Network::NetworkingModule::handleConnections() {
     while (true) {
         struct sockaddr_in client_address;
-        int                client_address_size = sizeof(client_address);
+        socklen_t          client_address_size = sizeof(client_address);
         int                client_socket_fd =
             accept(_socket_fd, (struct sockaddr *)&client_address,
                    (socklen_t *)&client_address_size);
-        std::string        ip;
-        ip += client_address.sin_addr.s_addr;
-
         if (client_socket_fd < 0) {
-            throw std::exception(); // TODO: Create exception
+            throw std::exception();  // TODO: Create exception
         }
-        _clients.push_back(Client(ip, client_address.sin_port, client_socket_fd));
+        std::string ip = inet_ntoa(client_address.sin_addr);
+        _clients.push_back(
+            Client(ip, ntohs(client_address.sin_port), client_socket_fd));
         for (auto &client : _clients) {
             if (client.isThreaded() == false) {
                 std::thread thread(&NetworkingModule::handleRetrieval, client);
@@ -103,12 +107,14 @@ void Engine::Network::NetworkingModule::handleRetrieval(
     char buffer[1024] = {0};
 
     while (true) {
-        int valread = read(client.getSocketFd(), buffer, 1024);
+        int val_read = recv(client.getSocketFd(), buffer, sizeof(buffer), 0);
 
-        if (valread == 0) {
+        if (val_read == 0) {
             close(client.getSocketFd());
             break;
+        } else if (val_read < 0) {
+            throw std::exception();  // TODO: Create exception
         }
-        client.getBuffer().write(buffer, valread);
+        client.getBuffer().write(buffer, val_read);
     }
 }
