@@ -60,4 +60,5 @@ void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
             client.getBuffer().write(buffer, bytesReceived);
         }
     }
+    close(socket_fd);
 }

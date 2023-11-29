@@ -54,7 +54,6 @@ void Engine::Network::NetworkingModule::run() {
                                            client_socket_fd);
             messager.startReceiving(client);
             _clients.push_back(client);
-            messager.startReceiving(_clients.back());
         }
     }
 }
