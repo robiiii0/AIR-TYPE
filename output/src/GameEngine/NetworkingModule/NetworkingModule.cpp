@@ -59,6 +59,26 @@ void Engine::Network::NetworkingModule::run() {
     }
 }
 
+void Engine::Network::NetworkingModule::sendMessage(
+    const std::string &message, const std::size_t &client_id) {
+    Engine::Network::Messager messager(_type);
+    int index = 0;
+    if (client_id >= _clients.size()) {
+        throw ClientIdOutOfRangeException();
+    }
+    for (auto &client : _clients) {
+        if (client.getId() == client_id) {
+            if (!client.isConnected()) {
+                throw ClientDisconnectedException();
+            } else {
+                break;
+            }
+        }
+        index++;
+    }
+    messager.sendMessage(message, _clients[index]);
+}
+
 std::vector<Engine::Network::Client>
     Engine::Network::NetworkingModule::getClients() const {
     return _clients;

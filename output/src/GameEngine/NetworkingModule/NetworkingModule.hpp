@@ -20,6 +20,7 @@
 
 #include "Messaging/Messager.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
+#include "exceptions/ClientDisconnectedException/ClientDisconnectedException.hpp"
 #include "exceptions/ClientIdOutOfRangeException/ClientIdOutOfRangeException.hpp"
 #include "exceptions/CouldNotAcceptClientException/CouldNotAcceptClientException.hpp"
 #include "exceptions/CouldNotBindAddressException/CouldNotBindAddressException.hpp"
@@ -34,7 +35,11 @@ namespace Engine {
                                  int max_clients = 4);
                 ~NetworkingModule();
 
+                // Should be called in a thread, will automatically accept and
+                // retrieve messages from clients
                 void                run();
+                void                sendMessage(const std::string &message,
+                                                const std::size_t &client_id);
                 std::vector<Client> getClients() const;
 
             protected:
