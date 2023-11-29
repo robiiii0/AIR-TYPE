@@ -45,10 +45,8 @@ void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
     char buffer[1024];
     std::size_t bytesReceived = 0;
     int socket_fd = client.getSocketFd();
-    std::cout << "Receiving loop for client " << client.getId() << std::endl;
 
     while (true) {
-        std::cout << "Receiving" << std::endl;
         if (_mode) {
             bytesReceived = recv(socket_fd, buffer, 5000, 0);
         } else {
@@ -60,7 +58,6 @@ void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
             client.setConnected(false);
             break;
         } else if (bytesReceived <= 1024) {
-            std::cout << "Received " << bytesReceived << " bytes" << std::endl;
             client.getBuffer()->write(buffer, bytesReceived);
         }
     }

@@ -40,7 +40,6 @@ Engine::Network::NetworkingModule::~NetworkingModule() {
 
 void Engine::Network::NetworkingModule::run() {
     Engine::Network::Messager messager(_type);
-    std::cout << "Running" << std::endl;
     while (true) {
         if (_type == TCP) {
             struct sockaddr_in client_address;
@@ -70,10 +69,6 @@ void Engine::Network::NetworkingModule::run() {
                 std::cerr << "Error: " << (errno) << std::endl;
                 throw CouldNotReceiveException();
             } else {
-                std::cout << "Received " << bytesReceived << " bytes from "
-                          << inet_ntoa(client_address.sin_addr) << ":"
-                          << ntohs(client_address.sin_port) << std::endl;
-
                 bool isNewClient = true;
                 for (const auto &client : _clients) {
                     if (client.getAddress().sin_addr.s_addr ==
@@ -86,7 +81,6 @@ void Engine::Network::NetworkingModule::run() {
                 }
 
                 if (isNewClient) {
-                    std::cout << "New client connected" << std::endl;
                     Engine::Network::Client client(client_address, 0);
                     std::string             message = buffer;
                     client.getBuffer()->write(buffer, bytesReceived);
