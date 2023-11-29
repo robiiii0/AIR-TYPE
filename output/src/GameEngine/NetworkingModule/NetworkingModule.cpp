@@ -42,61 +42,76 @@ void Engine::Network::NetworkingModule::run() {
     Engine::Network::Messager messager(_type);
     while (true) {
         if (_type == TCP) {
-            struct sockaddr_in client_address;
-            socklen_t          client_address_size = sizeof(client_address);
-            int                client_socket_fd =
-                accept(_socket_fd, (struct sockaddr *)&client_address,
-                       &client_address_size);
-            if (client_socket_fd < 0) {
-                throw CouldNotAcceptClientException();
-            } else {
-                Engine::Network::Client client(client_address, _socket_fd);
-                messager.startReceiving(client);
-                _clients.push_back(client);
-            }
+            runTCP(messager);
         } else {
-            char               buffer[1024];
-            struct sockaddr_in client_address;
-            socklen_t          client_address_size = sizeof(client_address);
-            std::size_t        bytesReceived = 0;
+            runUDP(messager);
+        }
+    }
+}
 
-            bytesReceived = recvfrom(_socket_fd, buffer, sizeof(buffer), 0,
-                                     (struct sockaddr *)&client_address,
-                                     &client_address_size);
+void Engine::Network::NetworkingModule::runTCP(
+    Engine::Network::Messager &messager) {
+    struct sockaddr_in client_address;
+    socklen_t          client_address_size = sizeof(client_address);
+    int                client_socket_fd = accept(
+        _socket_fd, (struct sockaddr *)&client_address, &client_address_size);
+    if (client_socket_fd < 0) {
+        throw CouldNotAcceptClientException();
+    } else {
+        Engine::Network::Client client(client_address, _socket_fd);
+        messager.startReceiving(client);
+        _clients.push_back(client);
+    }
+}
 
-            if (bytesReceived == static_cast<std::size_t>(-1)) {
-                perror("recvfrom error");
-                std::cerr << "Error: " << (errno) << std::endl;
-                throw CouldNotReceiveException();
-            } else {
-                bool isNewClient = true;
-                for (const auto &client : _clients) {
-                    if (client.getAddress().sin_addr.s_addr ==
-                            client_address.sin_addr.s_addr &&
-                        client.getAddress().sin_port ==
-                            client_address.sin_port) {
-                        isNewClient = false;
-                        break;
-                    }
-                }
+void Engine::Network::NetworkingModule::runUDP(
+    Engine::Network::Messager &messager) {
+    char               buffer[1024];
+    struct sockaddr_in client_address;
+    socklen_t          client_address_size = sizeof(client_address);
+    std::size_t        bytesReceived = 0;
 
-                if (isNewClient) {
-                    Engine::Network::Client client(client_address, 0);
-                    std::string             message = buffer;
-                    client.getBuffer()->write(buffer, bytesReceived);
-                    _clients.push_back(client);
-                } else {
-                    for (auto &client : _clients) {
-                        if (client.getAddress().sin_addr.s_addr ==
-                                client_address.sin_addr.s_addr &&
-                            client.getAddress().sin_port ==
-                                client_address.sin_port) {
-                            client.getBuffer()->write(buffer, bytesReceived);
-                            break;
-                        }
-                    }
-                }
-            }
+    bytesReceived =
+        recvfrom(_socket_fd, buffer, sizeof(buffer), 0,
+                 (struct sockaddr *)&client_address, &client_address_size);
+
+    if (bytesReceived == static_cast<std::size_t>(-1)) {
+        perror("recvfrom error");
+        std::cerr << "Error: " << (errno) << std::endl;
+        throw CouldNotReceiveException();
+    } else {
+        if (isNewClient(client_address)) {
+            Engine::Network::Client client(client_address, 0);
+            std::string             message = buffer;
+            client.getBuffer()->write(buffer, bytesReceived);
+            _clients.push_back(client);
+        } else {
+            addMessageToClientBuffer(buffer, bytesReceived, client_address);
+        }
+    }
+}
+
+bool Engine::Network::NetworkingModule::isNewClient(
+    const struct sockaddr_in &client_address) {
+    for (const auto &client : _clients) {
+        if (client.getAddress().sin_addr.s_addr ==
+                client_address.sin_addr.s_addr &&
+            client.getAddress().sin_port == client_address.sin_port) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Engine::Network::NetworkingModule::addMessageToClientBuffer(
+    const char *buffer, std::size_t &bytesReceived,
+    const struct sockaddr_in &client_address) {
+    for (auto &client : _clients) {
+        if (client.getAddress().sin_addr.s_addr ==
+                client_address.sin_addr.s_addr &&
+            client.getAddress().sin_port == client_address.sin_port) {
+            client.getBuffer()->write(buffer, bytesReceived);
+            break;
         }
     }
 }

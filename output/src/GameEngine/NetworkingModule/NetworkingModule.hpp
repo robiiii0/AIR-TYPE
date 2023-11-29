@@ -44,6 +44,13 @@ namespace Engine {
                 std::vector<Client> getClients() const;
 
             protected:
+                void runTCP(Engine::Network::Messager &messager);
+                void runUDP(Engine::Network::Messager &messager);
+                bool isNewClient(const struct sockaddr_in &client_address);
+                void addMessageToClientBuffer(
+                    const char *buffer, std::size_t &bytesReceived,
+                    const struct sockaddr_in &client_address);
+
             private:
                 NetworkingTypeEnum                   _type;
                 int                                  _socket_fd;
