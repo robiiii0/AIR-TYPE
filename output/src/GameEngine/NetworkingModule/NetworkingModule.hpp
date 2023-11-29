@@ -18,6 +18,7 @@
 #include <thread>
 #include <vector>
 
+#include "Client/Client.hpp"
 #include "Messaging/Messager.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
 #include "exceptions/ClientDisconnectedException/ClientDisconnectedException.hpp"

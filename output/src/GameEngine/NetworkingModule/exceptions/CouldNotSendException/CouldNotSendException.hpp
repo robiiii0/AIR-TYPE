@@ -10,7 +10,7 @@
 
 #include <exception>
 
-#include "../Client/Client.hpp"
+#include "../../Client/Client.hpp"
 
 namespace Engine {
     namespace Network {

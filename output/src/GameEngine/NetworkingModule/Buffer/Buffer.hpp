@@ -14,6 +14,8 @@
 
 namespace Engine {
     namespace Network {
+        const std::size_t __circular_buffer_size = 4096;
+
         class Buffer {
             public:
                 Buffer();
@@ -28,11 +30,11 @@ namespace Engine {
 
             protected:
             private:
-                std::array<char, 4096> _buffer;
-                std::size_t            _read_head;
-                std::size_t            _write_head;
-                const uint8_t          _protocol_prefix = 0xAA;
-                const uint8_t          _protocol_suffix = 0xBB;
+                std::array<char, __circular_buffer_size> _buffer;
+                std::size_t                              _read_head;
+                std::size_t                              _write_head;
+                const uint8_t _protocol_prefix = 0xAA;
+                const uint8_t _protocol_suffix = 0xBB;
         };
     };  // namespace Network
 };      // namespace Engine

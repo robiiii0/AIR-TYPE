@@ -7,20 +7,19 @@
 
 #include "Client.hpp"
 
-Engine::Network::Client::Client(const std::string &ip, const int &port,
-                                const int &socket_fd) :
-    _socket_fd(socket_fd) {
-    _address.sin_family = AF_INET;
-    _address.sin_addr.s_addr = inet_addr(ip.c_str());
-    _address.sin_port = htons(port);
+// std::atomic<std::size_t> Engine::Network::Client::_id{0};
+
+Engine::Network::Client::Client(struct sockaddr_in address,
+                                const int          socket_fd) :
+    _socket_fd(socket_fd),
+    _is_threaded(false),
+    _is_connected(true),
+    _address(address) {
     _id = getClientId();
-    _is_threaded = false;
-    _is_connected = true;
+    _buffer = std::make_shared<Engine::Network::Buffer>();
 }
 
-Engine::Network::Client::~Client() {
-    close(_socket_fd);
-}
+Engine::Network::Client::~Client() { close(_socket_fd); }
 
 struct sockaddr_in Engine::Network::Client::getAddress() const {
     return _address;
@@ -28,7 +27,7 @@ struct sockaddr_in Engine::Network::Client::getAddress() const {
 
 std::size_t Engine::Network::Client::getId() const { return _id; }
 
-Engine::Network::Buffer &Engine::Network::Client::getBuffer() {
+std::shared_ptr<Engine::Network::Buffer> Engine::Network::Client::getBuffer() {
     return _buffer;
 }
 
@@ -47,6 +46,4 @@ void Engine::Network::Client::setThreaded(bool threaded) {
 }
 
 // TODO: Test if this works
-inline std::size_t Engine::Network::Client::getClientId() noexcept {
-    return _id++;
-}
+std::size_t Engine::Network::Client::getClientId() noexcept { return 0; }
