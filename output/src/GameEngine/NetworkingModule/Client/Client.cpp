@@ -8,6 +8,7 @@
 #include "Client.hpp"
 
 // std::atomic<std::size_t> Engine::Network::Client::_id{0};
+int Engine::Network::Client::__max_client_id = 0;
 
 Engine::Network::Client::Client(struct sockaddr_in address,
                                 const int          socket_fd) :
@@ -46,4 +47,4 @@ void Engine::Network::Client::setThreaded(bool threaded) {
 }
 
 // TODO: Test if this works
-std::size_t Engine::Network::Client::getClientId() noexcept { return 0; }
+std::size_t Engine::Network::Client::getClientId() noexcept { return __max_client_id++; }

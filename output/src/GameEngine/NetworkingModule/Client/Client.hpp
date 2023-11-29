@@ -37,6 +37,7 @@ namespace Engine {
             protected:
             private:
                 std::size_t                              getClientId() noexcept;
+                static int                               __max_client_id;
                 std::size_t                              _id;
                 struct sockaddr_in                       _address;
                 std::shared_ptr<Engine::Network::Buffer> _buffer;
