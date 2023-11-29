@@ -26,6 +26,7 @@ int main(int ac, char **av) {
                     std::cout << "IP: " << client.getAddress().sin_addr.s_addr << std::endl;
                     std::cout << "Port: " << client.getAddress().sin_port << std::endl;
                     std::cout << "Buffer Content: " << client.getBuffer()->read() << std::endl;
+                    networkingModule.sendMessage("Hello", client.getId());
                 }
                 update = nb;
             }

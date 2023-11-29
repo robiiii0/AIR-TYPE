@@ -124,7 +124,7 @@ void Engine::Network::NetworkingModule::sendMessage(
         }
         index++;
     }
-    messager.sendMessage(message, _clients[index]);
+    messager.sendMessage(message, _clients[index], _socket_fd);
 }
 
 std::vector<Engine::Network::Client>

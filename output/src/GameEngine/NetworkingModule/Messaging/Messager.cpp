@@ -17,7 +17,7 @@ Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type) {
 Engine::Network::Messager::~Messager() {}
 
 void Engine::Network::Messager::sendMessage(const std::string &message,
-                                             Engine::Network::Client &client) {
+                                             Engine::Network::Client &client, int socket_fd) {
     std::lock_guard<std::mutex> lock(mutex);
     const char *msg = message.c_str();
     std::size_t bytesSent = 0;
@@ -26,7 +26,7 @@ void Engine::Network::Messager::sendMessage(const std::string &message,
         bytesSent = send(client.getSocketFd(), msg, message.size(), 0);
     } else {
         struct sockaddr_in client_address = client.getAddress();
-        bytesSent = sendto(client.getSocketFd(), msg, message.size(), 0,
+        bytesSent = sendto(socket_fd, msg, message.size(), 0,
                            (struct sockaddr *)&client_address,
                            sizeof(client.getAddress()));
     }

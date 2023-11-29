@@ -25,7 +25,8 @@ namespace Engine {
                 ~Messager();
 
                 void sendMessage(const std::string       &message,
-                                 Engine::Network::Client &client);
+                                 Engine::Network::Client &client,
+                                 int                      socket_fd);
                 void startReceiving(Engine::Network::Client &client);
 
             protected:
