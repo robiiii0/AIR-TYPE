@@ -18,9 +18,10 @@
 #include <thread>
 #include <vector>
 
-#include "Client/Client.hpp"
+#include "Messaging/Messager.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
 #include "exceptions/ClientIdOutOfRangeException/ClientIdOutOfRangeException.hpp"
+#include "exceptions/CouldNotAcceptClientException/CouldNotAcceptClientException.hpp"
 #include "exceptions/CouldNotBindAddressException/CouldNotBindAddressException.hpp"
 #include "exceptions/CouldNotSendException/CouldNotSendException.hpp"
 #include "exceptions/SocketNotCreatedException/SocketNotCreatedException.hpp"
@@ -33,14 +34,12 @@ namespace Engine {
                                  int max_clients = 4);
                 ~NetworkingModule();
 
-                int         send(std::string message, std::size_t client_id);
-                std::string receive(std::size_t client_id);
+                void                run();
                 std::vector<Client> getClients() const;
 
             protected:
             private:
-                void                                 handleConnections();
-                void                                 handleRetrieval(Engine::Network::Client &client);
+                NetworkingTypeEnum                   _type;
                 int                                  _socket_fd;
                 struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
