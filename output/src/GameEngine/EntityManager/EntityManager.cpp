@@ -5,6 +5,8 @@
 ** EntityManager
 */
 
+// TODO faire des throw pour les erreurs (example : si on veut créer une entité et qu'il ny a plus de place)
+
 #include "EntityManager.hpp"
 
 /**
@@ -14,7 +16,7 @@
  * 0 to MAX_ENTITIES-1.
  */
 EntityManager::EntityManager() {
-    for (int i = 0; i < MAX_ENTITIES; i++) availableEntities.push(i);
+    for (std::uint32_t i = 0; i < __max_entities; i++) _available_entities.push(i);
 }
 
 /**
@@ -24,9 +26,13 @@ EntityManager::EntityManager() {
  * @return The ID of the created entity.
  */
 std::uint32_t EntityManager::createEntity() {
-    std::uint32_t id = availableEntities.front();
-    availableEntities.pop();
-    livingEntityCount++;
+    std::uint32_t id = _available_entities.front();
+    _available_entities.pop();
+    _living_entity_count++;
+    std::cout << "Created entity " << id << std::endl;
+    Entity entity;
+    entity.id = id;
+    _entities.push_back(entity);
     return id;
 }
 
@@ -36,10 +42,17 @@ std::uint32_t EntityManager::createEntity() {
  *
  * @param entity The ID of the entity to destroy.
  */
-void EntityManager::destroyEntity(std::uint32_t entity) {
-    signatures[entity] = 0;
-    availableEntities.push(entity);
-    livingEntityCount--;
+void EntityManager::destroyEntity(const std::uint32_t &entity_id) {
+    // signatures[entity] = 0;
+    _available_entities.push(entity_id);
+    _living_entity_count--;
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i].id == entity_id) {
+            _entities.erase(_entities.begin() + i);
+            break;
+        }
+    }
+    std::cout << "Destroyed entity " << entity_id << std::endl;
 }
 
 /**
@@ -48,10 +61,10 @@ void EntityManager::destroyEntity(std::uint32_t entity) {
  * @param entity The entity ID.
  * @param signature The signature to set for the entity.
  */
-void EntityManager::setSignature(std::uint32_t               entity,
-                                 std::bitset<MAX_COMPONENTS> signature) {
-    signatures[entity] = signature;
-}
+// void EntityManager::setSignature(std::uint32_t               entity,
+//                                  std::bitset<MAX_COMPONENTS> signature) {
+//     signatures[entity] = signature;
+// }
 
 /**
  * @brief Retrieves the signature of an entity.
@@ -59,6 +72,6 @@ void EntityManager::setSignature(std::uint32_t               entity,
  * @param entity The entity for which to retrieve the signature.
  * @return The signature of the entity.
  */
-std::bitset<MAX_COMPONENTS> EntityManager::getSignature(std::uint32_t entity) {
-    return signatures[entity];
-}
+// std::bitset<MAX_COMPONENTS> EntityManager::getSignature(std::uint32_t entity) {
+//     return signatures[entity];
+// }
