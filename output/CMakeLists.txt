@@ -11,7 +11,6 @@ set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/GameEngine/NetworkingModule)
 set(CLIENT_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Client)
 set(SERVER_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Server)
 set(BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
-set(EXECUTABLE_OUTPUT_PATH ${BUILD_DIR})
 
 # NetworkingModule library
 file(GLOB_RECURSE SRCS ${SRC_DIR}/*.cpp)
@@ -26,13 +25,3 @@ target_link_libraries(r-type_client engine_networking ${LIBS})
 file(GLOB_RECURSE SERVER_SRCS ${SERVER_SRC_DIR}/*.cpp)
 add_executable(r-type_server ${SERVER_SRCS})
 target_link_libraries(r-type_server engine_networking ${LIBS})
-
-# Set output directory for executables
-set(EXECUTABLE_OUTPUT_PATH ${BUILD_DIR})
-
-# Move executables to parent directory
-add_custom_command(TARGET r-type_client POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:r-type_client> ../)
-
-add_custom_command(TARGET r-type_server POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:r-type_server> ../)
