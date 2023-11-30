@@ -47,4 +47,6 @@ void Engine::Network::Client::setThreaded(bool threaded) {
 }
 
 // TODO: Test if this works
-std::size_t Engine::Network::Client::getClientId() noexcept { return __max_client_id++; }
+std::size_t Engine::Network::Client::getClientId() noexcept {
+    return __max_client_id++;
+}

@@ -11,7 +11,8 @@ Engine::Network::Buffer::Buffer() : _read_head(0), _write_head(0) {}
 
 Engine::Network::Buffer::~Buffer() {}
 
-void Engine::Network::Buffer::write(const char *message, const std::size_t &length) {
+void Engine::Network::Buffer::write(const char        *message,
+                                    const std::size_t &length) {
     for (std::size_t i = 0; i < length; i++) {
         _buffer[_write_head++] = message[i];
         _write_head %= __circular_buffer_size;
