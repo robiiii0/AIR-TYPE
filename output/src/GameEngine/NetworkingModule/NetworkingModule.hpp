@@ -28,40 +28,40 @@
 #include "exceptions/CouldNotSendException/CouldNotSendException.hpp"
 #include "exceptions/SocketNotCreatedException/SocketNotCreatedException.hpp"
 
-namespace Engine {
-    namespace Network {
-        class NetworkingModule {
-            public:
-                NetworkingModule(int port, NetworkingTypeEnum type,
-                                 int max_clients = 4);
-                ~NetworkingModule();
+namespace Engine
+{
+namespace Network
+{
+class NetworkingModule {
+   public:
+    NetworkingModule(int port, NetworkingTypeEnum type, int max_clients = 4);
+    ~NetworkingModule();
 
-                // Should be called in a thread, will automatically accept and
-                // retrieve messages from clients
-                void                run();
-                void                sendMessage(const std::string &message,
-                                                const std::size_t &client_id);
-                std::vector<Client> getClients() const;
+    // Should be called in a thread, will automatically accept and
+    // retrieve messages from clients
+    void run();
+    void sendMessage(const std::string& message, const std::size_t& client_id);
+    std::vector<Client> getClients() const;
 
-            protected:
-                void runTCP(Engine::Network::Messager &messager);
-                void runUDP(Engine::Network::Messager &messager);
-                bool isNewClient(const struct sockaddr_in &client_address);
-                void addMessageToClientBuffer(
-                    const char *buffer, std::size_t &bytesReceived,
-                    const struct sockaddr_in &client_address);
+   protected:
+    void runTCP(Engine::Network::Messager& messager);
+    void runUDP(Engine::Network::Messager& messager);
+    bool isNewClient(const struct sockaddr_in& client_address);
+    void addMessageToClientBuffer(const char* buffer,
+                                  std::size_t& bytesReceived,
+                                  const struct sockaddr_in& client_address);
 
-            private:
-                NetworkingTypeEnum                   _type;
-                int                                  _socket_fd;
-                struct sockaddr_in                   _server_address;
-                std::vector<Engine::Network::Client> _clients;
-                int                                  _max_clients;
-                const uint8_t                        _protocol_prefix = 0xAA;
-                const uint8_t                        _protocol_suffix = 0xBB;
-                std::thread                          _running_thread;
-        };
-    };  // namespace Network
-};      // namespace Engine
+   private:
+    NetworkingTypeEnum _type;
+    int _socket_fd;
+    struct sockaddr_in _server_address;
+    std::vector<Engine::Network::Client> _clients;
+    int _max_clients;
+    const uint8_t _protocol_prefix = 0xAA;
+    const uint8_t _protocol_suffix = 0xBB;
+    std::thread _running_thread;
+};
+};  // namespace Network
+};  // namespace Engine
 
 #endif /* !NETWORKINGMODULE_HPP_ */

@@ -11,7 +11,7 @@ Engine::Network::ClientDisconnectedException::ClientDisconnectedException() {}
 
 Engine::Network::ClientDisconnectedException::~ClientDisconnectedException() {}
 
-const char *Engine::Network::ClientDisconnectedException::what()
-    const noexcept {
+const char* Engine::Network::ClientDisconnectedException::what() const noexcept
+{
     return "Client disconnected";
 }

@@ -10,19 +10,21 @@
 
 #include <exception>
 
-namespace Engine {
-    namespace Network {
-        class SocketNotCreatedException : public std::exception {
-            public:
-                SocketNotCreatedException();
-                ~SocketNotCreatedException();
+namespace Engine
+{
+namespace Network
+{
+class SocketNotCreatedException : public std::exception {
+   public:
+    SocketNotCreatedException();
+    ~SocketNotCreatedException();
 
-                const char *what() const throw() override;
+    const char* what() const throw() override;
 
-            protected:
-            private:
-        };
-    };  // namespace Network
-};      // namespace Engine
+   protected:
+   private:
+};
+};  // namespace Network
+};  // namespace Engine
 
 #endif /* !SOCKETNOTCREATEDEXCEPTION_HPP_ */

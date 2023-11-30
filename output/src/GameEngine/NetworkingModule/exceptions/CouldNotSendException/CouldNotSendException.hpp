@@ -12,20 +12,22 @@
 
 #include "../../Client/Client.hpp"
 
-namespace Engine {
-    namespace Network {
-        class CouldNotSendException : public std::exception {
-            public:
-                CouldNotSendException(Engine::Network::Client client);
-                ~CouldNotSendException();
+namespace Engine
+{
+namespace Network
+{
+class CouldNotSendException : public std::exception {
+   public:
+    CouldNotSendException(Engine::Network::Client client);
+    ~CouldNotSendException();
 
-                const char *what() const throw() override;
+    const char* what() const throw() override;
 
-            protected:
-            private:
-                Client _client;
-        };
-    };  // namespace Network
-};      // namespace Engine
+   protected:
+   private:
+    Client _client;
+};
+};  // namespace Network
+};  // namespace Engine
 
 #endif /* !COULDNOTSENDEXCEPTION_HPP_ */

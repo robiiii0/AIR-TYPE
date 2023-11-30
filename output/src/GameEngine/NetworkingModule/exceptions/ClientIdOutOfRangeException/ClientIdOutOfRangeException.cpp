@@ -11,6 +11,7 @@ Engine::Network::ClientIdOutOfRangeException::ClientIdOutOfRangeException() {}
 
 Engine::Network::ClientIdOutOfRangeException::~ClientIdOutOfRangeException() {}
 
-const char *Engine::Network::ClientIdOutOfRangeException::what() const throw() {
+const char* Engine::Network::ClientIdOutOfRangeException::what() const throw()
+{
     return "Client id is out of range";
 }

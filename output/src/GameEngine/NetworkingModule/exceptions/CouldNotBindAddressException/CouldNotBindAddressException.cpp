@@ -9,10 +9,10 @@
 
 Engine::Network::CouldNotBindAddressException::CouldNotBindAddressException() {}
 
-Engine::Network::CouldNotBindAddressException::~CouldNotBindAddressException() {
-}
+Engine::Network::CouldNotBindAddressException::~CouldNotBindAddressException()
+{}
 
-const char *Engine::Network::CouldNotBindAddressException::what() const
-    throw() {
+const char* Engine::Network::CouldNotBindAddressException::what() const throw()
+{
     return "Error: could not bind address.";
 }
