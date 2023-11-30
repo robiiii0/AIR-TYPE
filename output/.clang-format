@@ -21,11 +21,6 @@ AlignConsecutiveDeclarations:
   AcrossComments: false
   AlignCompound: false
   PadOperators: false
-AlignConsecutiveMacros:
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
 AlignEscapedNewlines: DontAlign
 AlignOperands: Align
 AlignTrailingComments:
