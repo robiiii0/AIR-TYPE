@@ -6,11 +6,9 @@ echo "Current directory: $CURRENT_DIR"
 # Create a build directory if it doesn't exist
 mkdir -p "$CURRENT_DIR/build"
 
-# Change to the build directory
-cd "$CURRENT_DIR/build"
-
 # Run CMake to generate build files
-cmake ..
+cmake ./
+echo "building cmake"
 
 # Build the project
 make
