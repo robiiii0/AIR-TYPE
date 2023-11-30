@@ -5,7 +5,8 @@
 ** EntityManager
 */
 
-// TODO faire des throw pour les erreurs (example : si on veut créer une entité et qu'il ny a plus de place)
+// TODO faire des throw pour les erreurs (example : si on veut créer une entité
+// et qu'il ny a plus de place)
 
 #include "EntityManager.hpp"
 
@@ -17,7 +18,8 @@
  */
 Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
-    for (std::uint32_t i = 0; i < __max_entities; i++) _available_entities.push(i);
+    for (std::uint32_t i = 0; i < __max_entities; i++)
+        _available_entities.push(i);
 }
 
 /**
@@ -43,7 +45,8 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
  *
  * @param entity The ID of the entity to destroy.
  */
-void Engine::Entity::EntityManager::destroyEntity(const std::uint32_t &entity_id) {
+void Engine::Entity::EntityManager::destroyEntity(
+    const std::uint32_t &entity_id) {
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;
@@ -56,10 +59,14 @@ void Engine::Entity::EntityManager::destroyEntity(const std::uint32_t &entity_id
     std::cout << "Destroyed entity " << entity_id << std::endl;
 }
 
-void Engine::Entity::EntityManager::addComponent(std::uint32_t entity_id, Component::IComponent &component) {
-    
-
-
+/**
+ * @brief Adds a component to the specified entity.
+ * 
+ * @param entity_id The ID of the entity.
+ * @param component The component to be added.
+ */
+void Engine::Entity::EntityManager::addComponent(
+    std::uint32_t entity_id, Component::IComponent &component) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i].id == entity_id) {
             _componentManager.addComponent(_entities[i], component);
@@ -68,7 +75,7 @@ void Engine::Entity::EntityManager::addComponent(std::uint32_t entity_id, Compon
     }
 }
 
-
+// TODO si il y a le temps
 /**
  * @brief Sets the signature of an entity.
  *
@@ -86,6 +93,7 @@ void Engine::Entity::EntityManager::addComponent(std::uint32_t entity_id, Compon
  * @param entity The entity for which to retrieve the signature.
  * @return The signature of the entity.
  */
-// std::bitset<MAX_COMPONENTS> EntityManager::getSignature(std::uint32_t entity) {
+// std::bitset<MAX_COMPONENTS> EntityManager::getSignature(std::uint32_t entity)
+// {
 //     return signatures[entity];
 // }
