@@ -16,6 +16,7 @@
  * 0 to MAX_ENTITIES-1.
  */
 Engine::Entity::EntityManager::EntityManager() {
+    _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++) _available_entities.push(i);
 }
 
@@ -54,6 +55,19 @@ void Engine::Entity::EntityManager::destroyEntity(const std::uint32_t &entity_id
     }
     std::cout << "Destroyed entity " << entity_id << std::endl;
 }
+
+void Engine::Entity::EntityManager::addComponent(std::uint32_t entity_id, Component::IComponent &component) {
+    
+
+
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i].id == entity_id) {
+            _componentManager.addComponent(_entities[i], component);
+            break;
+        }
+    }
+}
+
 
 /**
  * @brief Sets the signature of an entity.

@@ -17,6 +17,7 @@
 #include <queue>
 
 #include "Entity/Entity.hpp"
+#include "ComponentManager/ComponentManager.hpp"
 
 namespace Engine {
     namespace Entity {
@@ -30,6 +31,8 @@ namespace Engine {
 
                 void destroyEntity(const std::uint32_t &entity);
 
+                void addComponent(std::uint32_t entity_id, Component::IComponent &component);
+
                 // void setSignature(std::uint32_t               entity,
                 //                   std::bitset<MAX_COMPONENTS> signature);
 
@@ -42,7 +45,7 @@ namespace Engine {
                 uint32_t _living_entity_count;
 
                 std::vector<Entity> _entities;
-
+                Component::ComponentManager _componentManager;
                 // the signature is a unique identifier for each entity to know
                 // which components it has attached to it. ReadMe for more info
                 // std::bitset<MAX_COMPONENTS> signatures;

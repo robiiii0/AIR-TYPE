@@ -20,18 +20,18 @@ namespace Engine {
                 public:
                     ComponentManager();
                     ~ComponentManager();
-                    static bool addComponent(std::uint32_t entity,
-                                             IComponent   *component);
+                    std::uint32_t addComponent(Entity     &entity,
+                                               IComponent &component);
 
-                    // static bool      removeComponent(std::uint32_t entity,
-                    //                                  Component component);
-                    // static bool      RemoveAllComponents(std::uint32_t
-                    // entity); static Component getComponent(std::uint32_t
-                    // entity); static bool      hasComponent(std::uint32_t
-                    // entity);
+                    bool removeComponent(Entity       &entity,
+                                         std::uint32_t component_id);
+                    bool removeAllComponents(Entity &entity);
+                    IComponent getComponent(Entity &entity, std::uint32_t component_id);
+                    bool hasComponent(Entity &entity, std::string component_name);
 
                 protected:
                 private:
+                    std::array<std::uint32_t, __max_entities> _component_ids;
             };
         };  // namespace Component
     };      // namespace Entity

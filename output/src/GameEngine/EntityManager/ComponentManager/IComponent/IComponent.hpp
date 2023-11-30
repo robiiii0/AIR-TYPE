@@ -17,6 +17,9 @@ namespace Engine {
                 public:
                     virtual std::any get();
                     virtual void     execute();
+                    virtual std::uint32_t getId();
+                    virtual void setId(std::uint32_t id);
+                    virtual std::string getName();
             };
         };  // namespace Component
     };      // namespace Entity
