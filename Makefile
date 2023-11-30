@@ -3,7 +3,7 @@
 .PHONY: all clean
 
 all:
-	$(MAKE) -C output/
+	cd output && cmake . && $(MAKE)
 
 clean:
-	$(MAKE) -C output/ clean
+	rm -rf r-type_client &&	rm -rf r-type_server
