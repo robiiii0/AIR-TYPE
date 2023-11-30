@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+echo "Current directory: $CURRENT_DIR"
 make -C "$CURRENT_DIR"
 
 
