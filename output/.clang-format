@@ -22,7 +22,6 @@ AlignConsecutiveDeclarations:
   AlignCompound: false
   PadOperators: false
 AlignConsecutiveMacros:
-  Enabled: true
   AcrossEmptyLines: false
   AcrossComments: false
   AlignCompound: false
