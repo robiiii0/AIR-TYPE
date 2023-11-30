@@ -1,16 +1,19 @@
 #!/bin/bash
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "Current directory: $CURRENT_DIR"
 
-make -C "$CURRENT_DIR"
+# Create a build directory if it doesn't exist
+mkdir -p "$CURRENT_DIR/build"
 
-# Tests compilation
-if [ "$?" -ne 0 ]; then
-    echo "Client compilation failed"
-    exit 1
-fi
+# Run CMake to generate build files
+cmake ./
+echo "building cmake"
 
-# Binary must be present
+# Build the project
+make
+
+# Your binary check logic here
 if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
   echo "Client binary is missing"
   exit 1
