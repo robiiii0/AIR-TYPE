@@ -15,7 +15,7 @@
  * This constructor initializes the availableEntities stack with entity IDs from
  * 0 to MAX_ENTITIES-1.
  */
-EntityManager::EntityManager() {
+Engine::Entity::EntityManager::EntityManager() {
     for (std::uint32_t i = 0; i < __max_entities; i++) _available_entities.push(i);
 }
 
@@ -25,7 +25,7 @@ EntityManager::EntityManager() {
  *
  * @return The ID of the created entity.
  */
-std::uint32_t EntityManager::createEntity() {
+std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::uint32_t id = _available_entities.front();
     _available_entities.pop();
     _living_entity_count++;
@@ -42,7 +42,7 @@ std::uint32_t EntityManager::createEntity() {
  *
  * @param entity The ID of the entity to destroy.
  */
-void EntityManager::destroyEntity(const std::uint32_t &entity_id) {
+void Engine::Entity::EntityManager::destroyEntity(const std::uint32_t &entity_id) {
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;

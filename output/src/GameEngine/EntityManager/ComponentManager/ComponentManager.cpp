@@ -7,39 +7,40 @@
 
 #include "ComponentManager.hpp"
 
-template<typename Component>
-Engine::EntityManager::ComponentManager<Component>::ComponentManager() {}
+#include "IComponent/IComponent.hpp"
 
-template<typename Component>
-Engine::EntityManager::ComponentManager<Component>::~ComponentManager() {}
+Engine::Entity::Component::ComponentManager::ComponentManager() {}
 
-template<typename Component>
-bool Engine::EntityManager::ComponentManager<Component>::addComponent(
-    std::uint32_t entity, Component component) {
-    return flase;
-}
+Engine::Entity::Component::ComponentManager::~ComponentManager() {}
 
-template<typename Component>
-bool Engine::EntityManager::ComponentManager<Component>::removeComponent(
-    std::uint32_t entity, Component component) {
-        entity
+bool Engine::Entity::Component::ComponentManager::addComponent(
+    std::uint32_t entity, IComponent *component) {
+
+
     return false;
 }
 
-template<typename Component>
-bool Engine::EntityManager::ComponentManager<Component>::RemoveAllComponents(
-    std::uint32_t entity) {
-    return false;
-}
+// template<typename Component>
+// bool Engine::EntityManager::Component<Component>::removeComponent(
+//     std::uint32_t entity, Component component) {
+//         entity
+//     return false;
+// }
 
-template<typename Component>
-Component Engine::EntityManager::ComponentManager<Component>::getComponent(
-    std::uint32_t entity) {
-    return Component();
-}
+// template<typename Component>
+// bool Engine::EntityManager::Component<Component>::RemoveAllComponents(
+//     std::uint32_t entity) {
+//     return false;
+// }
 
-template<typename Component>
-bool Engine::EntityManager::ComponentManager<Component>::hasComponent(
-    std::uint32_t entity) {
-    return false;
-}
+// template<typename Component>
+// Component Engine::EntityManager::Component<Component>::getComponent(
+//     std::uint32_t entity) {
+//     return Component();
+// }
+
+// template<typename Component>
+// bool Engine::EntityManager::Component<Component>::hasComponent(
+//     std::uint32_t entity) {
+//     return false;
+// }
