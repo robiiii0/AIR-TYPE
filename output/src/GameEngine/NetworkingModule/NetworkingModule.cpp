@@ -11,6 +11,7 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
                                                     NetworkingTypeEnum type,
                                                     int max_clients) :
     _max_clients(max_clients), _type(type) {
+        
     _socket_fd = -1;
     switch (type) {
         case TCP:
