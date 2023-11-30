@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-
-int main() {
+int main()
+{
     std::cout << "Hello, Networking Module!" << std::endl;
 
     return 0;

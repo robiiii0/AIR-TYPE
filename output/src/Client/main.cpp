@@ -5,10 +5,10 @@
 ** main
 */
 
-
 #include <iostream>
 
-int main() {
+int main()
+{
 
     std::cout << "Hello, Client Module!" << std::endl;
 
