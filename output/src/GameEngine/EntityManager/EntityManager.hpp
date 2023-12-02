@@ -28,16 +28,18 @@ namespace Engine {
             public:
                 EntityManager();
                 std::uint32_t createEntity();
-
+                Entity& getEntity(std::uint32_t id) {
+                    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+                        if (_entities[i].id == id) {
+                            return _entities[i];
+                        }
+                    }
+                    throw std::runtime_error("Entity not found");
+                }
                 void destroyEntity(const std::uint32_t &entity);
 
-                void addComponent(std::uint32_t entity_id, Component::IComponent &component);
-
-                // void setSignature(std::uint32_t               entity,
-                //                   std::bitset<MAX_COMPONENTS> signature);
-
-                // std::bitset<MAX_COMPONENTS> getSignature(std::uint32_t
-                // entity);
+                // void addComponent(std::uint32_t entity_id, Component::IComponent &component);
+                void addComponent(Entity &entity, Component::IComponent &component);
 
             private:
                 std::queue<std::uint32_t> _available_entities;

@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include "../IComponent/IComponent.hpp"
+#include "../../IComponent/IComponent.hpp"
 
 namespace Engine {
     namespace Entity {
@@ -29,9 +29,9 @@ namespace Engine {
 
                         ~ULongComponent();
                         void          execute() override;
-                        std::any&     get() override;
-                        std::uint32_t getId() const override;
-                        void          setId(std::uint32_t id) override;
+                        // std::any&     get();
+                        // std::uint32_t getId() const override;
+                        // void          setId(std::uint32_t id) override;
                         std::string   getName() const override;
 
                     private:

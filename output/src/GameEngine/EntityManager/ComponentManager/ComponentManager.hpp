@@ -8,10 +8,11 @@
 #ifndef COMPONENTMANAGER_HPP_
 #define COMPONENTMANAGER_HPP_
 
-#include <cstdint>
+#include "../Entity/Entity.hpp"
 
-#include "../EntityManager.hpp"
 #include "IComponent/IComponent.hpp"
+
+    const std::uint32_t __max_entities = 100;
 
 namespace Engine {
     namespace Entity {
@@ -26,7 +27,7 @@ namespace Engine {
                     bool removeComponent(Entity       &entity,
                                          std::uint32_t component_id);
                     bool removeAllComponents(Entity &entity);
-                    IComponent getComponent(Entity &entity, std::uint32_t component_id);
+                    IComponent& getComponent(Entity &entity, std::uint32_t component_id);
                     bool hasComponent(Entity &entity, std::string component_name);
 
                 protected:

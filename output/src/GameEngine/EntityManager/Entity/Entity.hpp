@@ -20,7 +20,7 @@ namespace Engine {
     namespace Entity {
         struct Entity {
                 std::uint32_t                      id;
-                std::vector<Component::IComponent> components;
+                std::vector<Component::IComponent*> components;
                 // signature_t   signature;
         };
     }  // namespace Entity

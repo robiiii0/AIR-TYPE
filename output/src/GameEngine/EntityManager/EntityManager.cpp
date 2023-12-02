@@ -59,20 +59,35 @@ void Engine::Entity::EntityManager::destroyEntity(
     std::cout << "Destroyed entity " << entity_id << std::endl;
 }
 
+// Entity &Engine::Entity::EntityManager::getEntity(std::uint32_t id) {
+//     for (std::uint32_t i = 0; i < _entities.size(); i++) {
+//         if (_entities[i].id == id) {
+//             return _entities[i];
+//         }
+//     }
+//     throw std::runtime_error("Entity not found");
+// }
+
 /**
  * @brief Adds a component to the specified entity.
- * 
+ *
  * @param entity_id The ID of the entity.
  * @param component The component to be added.
  */
+// void Engine::Entity::EntityManager::addComponent(
+//     std::uint32_t entity_id, Component::IComponent &component) {
+//     for (std::uint32_t i = 0; i < _entities.size(); i++) {
+//         if (_entities[i].id == entity_id) {
+//             _componentManager.addComponent(_entities[i], component);
+//             break;
+//         }
+//     }
+// }
+
 void Engine::Entity::EntityManager::addComponent(
-    std::uint32_t entity_id, Component::IComponent &component) {
-    for (std::uint32_t i = 0; i < _entities.size(); i++) {
-        if (_entities[i].id == entity_id) {
-            _componentManager.addComponent(_entities[i], component);
-            break;
-        }
-    }
+    Entity &entity, Component::IComponent &component) {
+    // std::cout << "entity id : " << entity.id << std::endl;
+    _componentManager.addComponent(entity, component);
 }
 
 // TODO si il y a le temps

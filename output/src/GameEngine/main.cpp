@@ -1,22 +1,28 @@
-#include "EntityManager/EntityManager.hpp"
-#include "EntityManager/ComponentManager/ComponentManager.hpp"
 #include <array>
 
-int main()
-{
+#include "EntityManager/ComponentManager/ComponentManager.hpp"
+#include "EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.hpp"
+#include "EntityManager/EntityManager.hpp"
+
+int main() {
     std::array<std::uint32_t, 100> entities;
-    Engine::EntityManager::ComponentManager<int> componentManager;
-    EntityManager manager;
+    // Engine::EntityManager::ComponentManager<int> componentManager;
+    Engine::Entity::EntityManager manager;
+    Engine::Entity::Component::GenericComponents::ULongComponent component(
+        0, "ULongComponent", (std::uint64_t)10);
     for (int i = 0; i < 100; i++) {
         entities[i] = manager.createEntity();
+        manager.addComponent(manager.getEntity(i), component);
     }
+
+
 
     // manager.setSignature(entities[0], );
     // std::cout << manager.getSignature(entities[0]) << std::endl;
-    
+
     // manager.setSignature(entities[0], (10));
     // std::cout << manager.getSignature(entities[0]) << std::endl;
-    
+
     // manager.setSignature(entities[0], (23));
 
     // std::cout << manager.getSignature(entities[0]) << std::endl;
