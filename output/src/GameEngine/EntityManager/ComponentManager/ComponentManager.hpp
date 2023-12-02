@@ -25,10 +25,11 @@ namespace Engine {
                                                IComponent &component);
 
                     bool removeComponent(Entity       &entity,
-                                         std::uint32_t component_id);
+                                         std::string component_name);
                     bool removeAllComponents(Entity &entity);
                     IComponent& getComponent(Entity &entity, std::uint32_t component_id);
                     bool hasComponent(Entity &entity, std::string component_name);
+
 
                 protected:
                 private:

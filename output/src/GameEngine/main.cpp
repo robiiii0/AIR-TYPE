@@ -16,14 +16,18 @@ int main() {
         0, "StringComponent", "Hello World");
     Engine::Entity::Component::GenericComponents::DoubleComponent component3(
         0, "DoubleComponent", (double)10.5);
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1; i++) {
         entities[i] = manager.createEntity();
         manager.addComponent(manager.getEntity(i), component);
-        if (i%2 == 0) manager.addComponent(manager.getEntity(i), component2);
-        if (i%3 == 0) manager.addComponent(manager.getEntity(i), component3);
+        manager.addComponent(manager.getEntity(i), component2);
+        manager.addComponent(manager.getEntity(i), component3);
     }
 
+    if (manager.hasComponent(manager.getEntity(0), "ULongComponent")) {
+        std::cout << "Has ULongComponent" << std::endl;
+    }
 
+    manager.removeComponent(manager.getEntity(0), "all");
 
     // manager.setSignature(entities[0], );
     // std::cout << manager.getSignature(entities[0]) << std::endl;
@@ -35,7 +39,7 @@ int main() {
 
     // std::cout << manager.getSignature(entities[0]) << std::endl;
 
-    for (int i = 0; i < 100; i++) manager.destroyEntity(entities[i]);
+    for (int i = 0; i < 1; i++) manager.destroyEntity(entities[i]); // TODO faire la gestion d'erreur pour check si la chose que je veux suppre existe bien
     // entities.clear();
     // manager.destroyEntity(entity);
     // manager.setSignature(entity, std::bitset<MAX_COMPONENTS>());

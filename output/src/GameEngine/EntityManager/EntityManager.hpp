@@ -40,7 +40,10 @@ namespace Engine {
 
                 // void addComponent(std::uint32_t entity_id, Component::IComponent &component);
                 void addComponent(Entity &entity, Component::IComponent &component);
-
+                void removeComponent(Entity &entity, std::string component_name);
+                bool hasComponent(Entity &entity, std::string component_name) {
+                    return _componentManager.hasComponent(entity, component_name);
+                }
             private:
                 std::queue<std::uint32_t> _available_entities;
 

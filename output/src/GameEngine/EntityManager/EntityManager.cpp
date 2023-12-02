@@ -90,6 +90,16 @@ void Engine::Entity::EntityManager::addComponent(
     _componentManager.addComponent(entity, component);
 }
 
+void Engine::Entity::EntityManager::removeComponent(
+    Entity &entity, std::string component_name) {
+    if (component_name == "all")
+        _componentManager.removeAllComponents(entity);
+    else if (hasComponent(entity, component_name))
+        _componentManager.removeComponent(entity, component_name);
+    else
+        std::cout << "Component " << component_name << " not found" << std::endl;
+}
+
 // TODO si il y a le temps
 /**
  * @brief Sets the signature of an entity.
