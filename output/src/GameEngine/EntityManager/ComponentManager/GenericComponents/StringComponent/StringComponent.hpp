@@ -10,11 +10,33 @@
 
 #include <string>
 
+#include "../../IComponent/IComponent.hpp"
+
 namespace Engine {
     namespace Entity {
         namespace Component {
             namespace GenericComponents {
-                typedef std::string StringComponent;
+                class StringComponent : public IComponent {
+                    public:
+                        StringComponent(std::uint32_t id,
+                                        std::string   component_name,
+                                        std::string   value) :
+                            _id(id),
+                            _component_name(component_name),
+                            _value(value) {}
+
+                        ~StringComponent();
+                        void execute() override;
+                        // std::string   get();
+                        // std::uint32_t getId() const;
+                        // void          setId(std::uint32_t id);
+                        std::string getName() const override;
+
+                    private:
+                        std::uint32_t _id;
+                        std::string   _component_name;
+                        std::string   _value;
+                };
             }  // namespace GenericComponents
         }      // namespace Component
     }          // namespace Entity
