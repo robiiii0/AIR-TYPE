@@ -17,3 +17,6 @@ std::string Engine::Entity::Component::GenericComponents::StringComponent::
     return _component_name;
 }
 
+std::any& Engine::Entity::Component::GenericComponents::StringComponent::get() {
+    return _value;
+}

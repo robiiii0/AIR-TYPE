@@ -26,8 +26,8 @@ namespace Engine {
                             _value(value) {}
 
                         ~StringComponent();
-                        void execute() override;
-                        // std::string   get();
+                        void      execute() override;
+                        std::any& get() override;
                         // std::uint32_t getId() const;
                         // void          setId(std::uint32_t id);
                         std::string getName() const override;
@@ -35,7 +35,7 @@ namespace Engine {
                     private:
                         std::uint32_t _id;
                         std::string   _component_name;
-                        std::string   _value;
+                        std::any   _value;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

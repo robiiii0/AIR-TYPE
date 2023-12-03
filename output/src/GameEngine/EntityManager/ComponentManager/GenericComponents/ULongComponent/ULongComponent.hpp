@@ -28,11 +28,11 @@ namespace Engine {
                             _value(value) {}
 
                         ~ULongComponent();
-                        void          execute() override;
-                        // std::any&     get();
+                        void      execute() override;
+                        std::any& get() override;
                         // std::uint32_t getId() const override;
                         // void          setId(std::uint32_t id) override;
-                        std::string   getName() const override;
+                        std::string getName() const override;
 
                     private:
                         std::uint32_t _id;
