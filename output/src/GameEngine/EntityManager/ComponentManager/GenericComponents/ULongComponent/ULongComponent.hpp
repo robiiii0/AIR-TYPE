@@ -21,7 +21,7 @@ namespace Engine {
                 class ULongComponent : public IComponent {
                     public:
                         ULongComponent(std::uint32_t id,
-                                       std::string   component_name,
+                                       std::string   component_name, // TODO : enlever et mettre dan le constructeur un name directement qui ne changera pas vu qu'on peut pas avoir deux meme component.
                                        std::any      value) :
                             _id(id),
                             _component_name(component_name),
