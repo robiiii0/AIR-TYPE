@@ -9,6 +9,7 @@
 #define ICOMPONENT_HPP_
 
 #include <any>
+#include <string>
 
 namespace Engine {
     namespace Entity {
