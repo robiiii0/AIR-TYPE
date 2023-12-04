@@ -22,6 +22,8 @@
 *.gch
 *.pch
 
+vcpkg/
+
 r-type_client
 r-type_server
 
