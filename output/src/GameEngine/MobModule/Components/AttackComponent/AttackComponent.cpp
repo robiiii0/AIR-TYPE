@@ -6,14 +6,18 @@
 */
 
 #include "AttackComponent.hpp"
+#include <stdexcept>
 
 // TODO: gestion d'erreur si value n'est pas un int 
 
 Engine::MobModule::Components::AttackComponent::AttackComponent(
     std::uint32_t id, std::string component_name, std::any value) {
-    _id = id;
-    _component_name = "AttackComponent";
-    _damage = std::any_cast<int>(value);
+    if (value.type() == typeid(int)) {
+        _id = id;
+        _component_name = "AttackComponent";
+        _damage = std::any_cast<int>(value);
+    } else
+        throw std::runtime_error("AttackComponent value is not int");
 }
 
 Engine::MobModule::Components::AttackComponent::~AttackComponent() = default;

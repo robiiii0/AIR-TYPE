@@ -6,18 +6,18 @@
 */
 
 #include "HealthComponent.hpp"
+#include <stdexcept>
 
 Engine::MobModule::Components::HealthComponent::HealthComponent(
     std::uint32_t id, std::string component_name, std::any value) {
-    _id = id;
-    _component_name = "HealthComponent";
 
     if (value.type() == typeid(HealthComponentData)) {
+        _id = id;
+        _component_name = "HealthComponent";
         auto true_value = std::any_cast<HealthComponentData>(value);
         _data = true_value;
-    }  // else
-       //  throw std::runtime_error("HealthComponent value is not pair<int,
-       //  int>");
+    } else
+        throw std::runtime_error("HealthComponent value is not pair<int,int>");
 }
 
 Engine::MobModule::Components::HealthComponent::~HealthComponent() {}
