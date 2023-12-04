@@ -28,12 +28,12 @@ class ULongComponent : public IComponent {
         : _id(id), _component_name(component_name), _value(value)
     {}
 
-    ~ULongComponent();
-    void execute() override;
-    // std::any&     get();
-    // std::uint32_t getId() const override;
-    // void          setId(std::uint32_t id) override;
-    std::string getName() const override;
+                        ~ULongComponent();
+                        void          execute() override;
+                        std::any&     get();
+                        // std::uint32_t getId() const override;
+                        // void          setId(std::uint32_t id) override;
+                        std::string   getName() const override;
 
    private:
     std::uint32_t _id;

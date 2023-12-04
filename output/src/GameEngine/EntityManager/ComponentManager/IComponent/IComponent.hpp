@@ -9,6 +9,7 @@
 #define ICOMPONENT_HPP_
 
 #include <any>
+#include <string>
 
 namespace Engine
 {
@@ -19,7 +20,7 @@ namespace Component
 class IComponent {
    public:  // TODO mettre un setName??
     virtual ~IComponent(){};
-    // virtual std::any& get() = 0;
+    virtual std::any& get() = 0;
     // virtual void      update() = 0;
     virtual void execute() = 0;  // TODO: check if it
     // is needed virtual std::uint32_t getId() const = 0;
