@@ -13,4 +13,5 @@ add_executable(entity_manager
     ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
     ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp
     ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
+    ComponentManager/AComponent/AComponent.cpp
 )

@@ -17,8 +17,9 @@ namespace Engine {
         namespace Component {
             class AComponent : public IComponent {
             public:
-                std::uint32_t getId() const;
-                void setId(std::uint32_t id) = 0;
+                virtual ~AComponent() {};
+                std::uint32_t getId() const override;
+                void setId(std::uint32_t id) override;
             private:
                 std::uint32_t _id;
             };
