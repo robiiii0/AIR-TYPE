@@ -22,6 +22,9 @@
 *.gch
 *.pch
 
+r-type_client
+r-type_server
+
 # Répertoires de sortie
 bin/
 build/

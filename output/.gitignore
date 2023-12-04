@@ -35,6 +35,11 @@ cmake_install.cmake
 compile_commands.json
 package-lock.json
 
+
+Makefile
+client_executable
+server_executable
+
 # Fichiers générés par divers outils
 .vscode/
 .idea/
