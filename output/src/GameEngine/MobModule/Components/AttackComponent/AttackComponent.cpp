@@ -7,7 +7,7 @@
 
 #include "AttackComponent.hpp"
 
-
+// TODO: gestion d'erreur si value n'est pas un int 
 
 Engine::MobModule::Components::AttackComponent::AttackComponent(
     std::uint32_t id, std::string component_name, std::any value) {

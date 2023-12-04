@@ -13,6 +13,12 @@
 namespace Engine {
     namespace MobModule {
         namespace Components {
+
+            struct HealthComponentData {
+                    int health;
+                    int maxHealth;
+            };
+
             class HealthComponent :
                 public Engine::Entity::Component::
                     IComponent {  // a supprimer si on ajoute weaponManager
@@ -26,11 +32,10 @@ namespace Engine {
 
                 protected:
                 private:
-                    std::uint32_t _id;
-                    std::string   _component_name;
-                    int           _health;
-                    int           _maxHealth;
-                    std::any      _ptr;
+                    std::uint32_t       _id;
+                    std::string         _component_name;
+                    HealthComponentData _data;
+                    std::any            _ptr;
             };
         }  // namespace Components
     }      // namespace MobModule
