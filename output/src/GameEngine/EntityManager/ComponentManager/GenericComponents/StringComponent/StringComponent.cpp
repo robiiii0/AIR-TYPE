@@ -13,13 +13,13 @@ Engine::Entity::Component::GenericComponents::StringComponent::
 
 void Engine::Entity::Component::GenericComponents::StringComponent::execute() {}
 
+std::any& Engine::Entity::Component::GenericComponents::StringComponent::get()
+{
+    return _value;
+}
+
 std::string
 Engine::Entity::Component::GenericComponents::StringComponent::getName() const
 {
     return _component_name;
-}
-
-std::any& Engine::Entity::Component::GenericComponents::StringComponent::get()
-{
-    return _value;
 }

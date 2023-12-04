@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "../../IComponent/IComponent.hpp"
+#include "../../AComponent/AComponent.hpp"
 
 namespace Engine
 {
@@ -20,7 +20,7 @@ namespace Component
 {
 namespace GenericComponents
 {
-class StringComponent : public IComponent {
+class StringComponent : public AComponent {
    public:
     StringComponent(std::uint32_t id, std::string component_name,
                     std::string value)
@@ -30,8 +30,6 @@ class StringComponent : public IComponent {
     ~StringComponent();
     void execute() override;
     std::any& get() override;
-    // std::uint32_t getId() const;
-    // void          setId(std::uint32_t id);
     std::string getName() const override;
 
    private:

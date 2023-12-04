@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include "../../IComponent/IComponent.hpp"
+#include "../../AComponent/AComponent.hpp"
 
 namespace Engine
 {
@@ -22,7 +22,7 @@ namespace Component
 {
 namespace GenericComponents
 {
-class ULongComponent : public IComponent {
+class ULongComponent : public AComponent {
    public:
     ULongComponent(std::uint32_t id, std::string component_name, std::any value)
         : _id(id), _component_name(component_name), _value(value)
@@ -30,9 +30,7 @@ class ULongComponent : public IComponent {
 
     ~ULongComponent();
     void execute() override;
-    std::any& get();
-    // std::uint32_t getId() const override;
-    // void          setId(std::uint32_t id) override;
+    std::any& get() override;
     std::string getName() const override;
 
    private:

@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <string>
 
-#include "../../IComponent/IComponent.hpp"
+#include "../../AComponent/AComponent.hpp"
 
 namespace Engine
 {
@@ -21,7 +21,7 @@ namespace Component
 {
 namespace GenericComponents
 {
-class DoubleComponent : public IComponent {
+class DoubleComponent : public AComponent {
    public:
     DoubleComponent(std::uint32_t id, std::string component_name, double value)
         : _id(id), _component_name(component_name), _value(value)
@@ -30,8 +30,6 @@ class DoubleComponent : public IComponent {
     ~DoubleComponent();
     void execute() override;
     std::any& get();
-    // std::uint32_t getId() const;
-    // void          setId(std::uint32_t id);
     std::string getName() const override;
 
    private:
