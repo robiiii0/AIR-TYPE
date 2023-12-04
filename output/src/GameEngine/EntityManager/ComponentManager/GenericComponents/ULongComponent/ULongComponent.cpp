@@ -7,10 +7,11 @@
 
 #include "ULongComponent.hpp"
 
-Engine::Entity::Component::GenericComponents::ULongComponent::
-    ~ULongComponent() {}
+Engine::Entity::Component::GenericComponents::ULongComponent::~ULongComponent()
+{}
 
-void Engine::Entity::Component::GenericComponents::ULongComponent::execute() {
+void Engine::Entity::Component::GenericComponents::ULongComponent::execute()
+{
     std::cout << "Executing ULongComponent" << std::endl;
 }
 
@@ -30,7 +31,7 @@ void Engine::Entity::Component::GenericComponents::ULongComponent::execute() {
 // }
 
 std::string
-    Engine::Entity::Component::GenericComponents::ULongComponent::getName()
-        const {
+Engine::Entity::Component::GenericComponents::ULongComponent::getName() const
+{
     return (this->_component_name);
 }

@@ -8,12 +8,13 @@
 #include "StringComponent.hpp"
 
 Engine::Entity::Component::GenericComponents::StringComponent::
-    ~StringComponent() {}
+    ~StringComponent()
+{}
 
 void Engine::Entity::Component::GenericComponents::StringComponent::execute() {}
 
-std::string Engine::Entity::Component::GenericComponents::StringComponent::
-    getName() const {
+std::string
+Engine::Entity::Component::GenericComponents::StringComponent::getName() const
+{
     return _component_name;
 }
-

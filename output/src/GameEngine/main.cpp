@@ -1,12 +1,13 @@
 #include <array>
 
 #include "EntityManager/ComponentManager/ComponentManager.hpp"
-#include "EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.hpp"
-#include "EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.hpp"
 #include "EntityManager/ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.hpp"
+#include "EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.hpp"
+#include "EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.hpp"
 #include "EntityManager/EntityManager.hpp"
 
-int main() {
+int main()
+{
     std::array<std::uint32_t, 100> entities;
     // Engine::EntityManager::ComponentManager<int> componentManager;
     Engine::Entity::EntityManager manager;
@@ -39,7 +40,10 @@ int main() {
 
     // std::cout << manager.getSignature(entities[0]) << std::endl;
 
-    for (int i = 0; i < 1; i++) manager.destroyEntity(entities[i]); // TODO faire la gestion d'erreur pour check si la chose que je veux suppre existe bien
+    for (int i = 0; i < 1; i++)
+        manager.destroyEntity(
+            entities
+                [i]);  // TODO faire la gestion d'erreur pour check si la chose que je veux suppre existe bien
     // entities.clear();
     // manager.destroyEntity(entity);
     // manager.setSignature(entity, std::bitset<MAX_COMPONENTS>());

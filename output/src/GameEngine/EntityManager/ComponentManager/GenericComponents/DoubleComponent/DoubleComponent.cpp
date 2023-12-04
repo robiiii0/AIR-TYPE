@@ -8,12 +8,13 @@
 #include "DoubleComponent.hpp"
 
 Engine::Entity::Component::GenericComponents::DoubleComponent::
-    ~DoubleComponent() {}
+    ~DoubleComponent()
+{}
 
 void Engine::Entity::Component::GenericComponents::DoubleComponent::execute() {}
 
-std::string Engine::Entity::Component::GenericComponents::DoubleComponent::
-    getName() const {
+std::string
+Engine::Entity::Component::GenericComponents::DoubleComponent::getName() const
+{
     return _component_name;
 }
-
