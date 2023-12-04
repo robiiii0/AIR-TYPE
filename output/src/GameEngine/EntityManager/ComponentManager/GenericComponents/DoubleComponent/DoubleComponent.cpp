@@ -19,6 +19,7 @@ Engine::Entity::Component::GenericComponents::DoubleComponent::getName() const
     return _component_name;
 }
 
-std::any& Engine::Entity::Component::GenericComponents::DoubleComponent::get() {
+std::any& Engine::Entity::Component::GenericComponents::DoubleComponent::get()
+{
     return _value;
 }

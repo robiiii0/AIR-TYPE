@@ -12,7 +12,8 @@
 // TODO: gestion d'erreur si value n'est pas un int
 
 Engine::MobModule::Components::AttackComponent::AttackComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
+    std::uint32_t id, std::string component_name, std::any value)
+{
     if (value.type() == typeid(int)) {
         _id = id;
         _component_name = "AttackComponent";
@@ -25,11 +26,13 @@ Engine::MobModule::Components::AttackComponent::~AttackComponent() = default;
 
 void Engine::MobModule::Components::AttackComponent::execute() {}
 
-std::any& Engine::MobModule::Components::AttackComponent::get() {
+std::any& Engine::MobModule::Components::AttackComponent::get()
+{
     _ptr = _damage;
     return _ptr;
 }
 
-std::string Engine::MobModule::Components::AttackComponent::getName() const {
+std::string Engine::MobModule::Components::AttackComponent::getName() const
+{
     return _component_name;
 }

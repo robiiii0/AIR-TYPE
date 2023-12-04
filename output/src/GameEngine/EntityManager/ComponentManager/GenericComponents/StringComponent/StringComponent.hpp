@@ -27,21 +27,21 @@ class StringComponent : public IComponent {
         : _id(id), _component_name(component_name), _value(value)
     {}
 
-                        ~StringComponent();
-                        void      execute() override;
-                        std::any& get() override;
-                        // std::uint32_t getId() const;
-                        // void          setId(std::uint32_t id);
-                        std::string getName() const override;
+    ~StringComponent();
+    void execute() override;
+    std::any& get() override;
+    // std::uint32_t getId() const;
+    // void          setId(std::uint32_t id);
+    std::string getName() const override;
 
-                    private:
-                        std::uint32_t _id;
-                        std::string   _component_name;
-                        std::any   _value;
-                };
-            }  // namespace GenericComponents
-        }      // namespace Component
-    }          // namespace Entity
+   private:
+    std::uint32_t _id;
+    std::string _component_name;
+    std::any _value;
+};
+}  // namespace GenericComponents
+}  // namespace Component
+}  // namespace Entity
 }  // namespace Engine
 
 #endif /* !STRINGCOMPONENT_HPP_ */

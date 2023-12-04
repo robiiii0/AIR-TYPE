@@ -10,7 +10,8 @@
 #include <stdexcept>
 
 Engine::MobModule::Components::DefenseComponent::DefenseComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
+    std::uint32_t id, std::string component_name, std::any value)
+{
     if (value.type() == typeid(int)) {
         _id = id;
         _component_name = "DefenseComponent";
@@ -23,11 +24,13 @@ Engine::MobModule::Components::DefenseComponent::~DefenseComponent() = default;
 
 void Engine::MobModule::Components::DefenseComponent::execute() {}
 
-std::any& Engine::MobModule::Components::DefenseComponent::get() {
+std::any& Engine::MobModule::Components::DefenseComponent::get()
+{
     _ptr = _defense;
     return _ptr;
 }
 
-std::string Engine::MobModule::Components::DefenseComponent::getName() const {
+std::string Engine::MobModule::Components::DefenseComponent::getName() const
+{
     return _component_name;
 }
