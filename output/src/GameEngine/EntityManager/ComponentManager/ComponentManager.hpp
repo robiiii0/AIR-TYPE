@@ -34,6 +34,7 @@ class ComponentManager {
    protected:
    private:
     std::array<std::uint32_t, __max_entities> _component_ids;
+    std::uint32_t _current_id;
 };
 };  // namespace Component
 };  // namespace Entity
