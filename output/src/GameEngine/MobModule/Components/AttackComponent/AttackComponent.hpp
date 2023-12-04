@@ -14,7 +14,8 @@ namespace Engine {
     namespace MobModule {
         namespace Components {
             class AttackComponent :
-                public Engine::Entity::Component::IComponent { // a supprimer si on ajoute weaponManager
+                public Engine::Entity::Component::
+                    IComponent {  // a supprimer si on ajoute weaponManager
                 public:
                     AttackComponent(std::uint32_t id,
                                     std::string component_name, std::any value);
