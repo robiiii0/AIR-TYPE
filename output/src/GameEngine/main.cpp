@@ -5,12 +5,15 @@
 #include "EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.hpp"
 #include "EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.hpp"
 #include "EntityManager/EntityManager.hpp"
+
 // #include "MobModule/Components/AttackComponent/AttackComponent.hpp"
 // #include "MobModule/Components/HealthComponent/HealthComponent.hpp"
 
 int main() {
     std::array<std::uint32_t, 100> entities;
+
     // Engine::EntityManager::ComponentManager<int> componentManager;
+
     Engine::Entity::EntityManager                                manager;
     Engine::Entity::Component::GenericComponents::ULongComponent component(
         0, "ULongComponent", (std::uint64_t)10);
@@ -28,9 +31,11 @@ int main() {
     // int test = std::any_cast<int>(component4.get());
     // std::cout << "Component dmg is : " << test << std::endl;
 
-    // std::pair<int, int> test2 = std::any_cast<std::pair<int, int>>(component5.get());
+    // std::pair<int, int> test2 = std::any_cast<std::pair<int,
+    // int>>(component5.get());
 
-    // std::cout << "Component health is : " << test2.first << " out of " << test2.second << std::endl;
+    // std::cout << "Component health is : " << test2.first << " out of " <<
+    // test2.second << std::endl;
 
     for (int i = 0; i < 1; i++) {
         entities[i] = manager.createEntity();
