@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(./)
 
-add_library(entity_manager
+add_executable(entity_manager
     EntityManager.cpp
     ComponentManager/ComponentManager.cpp
     ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp

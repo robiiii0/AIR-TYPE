@@ -25,6 +25,8 @@ class IComponent {
     virtual std::uint32_t getId() const = 0;
     virtual void          setId(std::uint32_t id) = 0;
     virtual std::string getName() const = 0;
+    private:
+        std::uint32_t _id;
 };
 };  // namespace Component
 };  // namespace Entity
