@@ -195,7 +195,6 @@ SpaceBeforeParensOptions:
   AfterFunctionDefinitionName: false
   AfterIfMacros: true
   AfterOverloadedOperator: false
-  AfterRequiresInClause: false
   AfterRequiresInExpression: false
   BeforeNonEmptyParentheses: false
 SpaceBeforeRangeBasedForLoopColon: true
