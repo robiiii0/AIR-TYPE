@@ -5,7 +5,7 @@ on:
     branches: ['main', 'dev']
 
 jobs:
-  Setup CPP:
+  setup_pp:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Setup CPP
@@ -18,13 +18,10 @@ jobs:
   test_code_style:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: Setup CPP
-        uses: actions/setup-cpp@v3
-        with:
-          cpp-version: "latest"
-
-      - name: Install clang-format
-        run: sudo apt-get install -y clang-format
+      - uses: 'actions/checkout@v3'
+      - name: 'Check code style'
+        run: 'bash output/check_format.sh'
+        timeout-minutes: 1
 
   test_compilation:
     runs-on: ubuntu-latest
