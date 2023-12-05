@@ -5,6 +5,13 @@ on:
     branches: [ 'main', 'dev' ]
 
 jobs:
+  name: Setup CPP
+        uses: actions/setup-cpp@v3
+        with:
+          cpp-version: "latest"
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
   test_code_style:
     runs-on: 'ubuntu-latest'
     steps:
