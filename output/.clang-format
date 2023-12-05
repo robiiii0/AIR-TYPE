@@ -3,12 +3,6 @@ BasedOnStyle: Google
 AccessModifierOffset: 0
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: None
-AlignConsecutiveBitFields:
-  Enabled: false
-  AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
 AlignConsecutiveDeclarations:
   Enabled: true
   AcrossEmptyLines: false
