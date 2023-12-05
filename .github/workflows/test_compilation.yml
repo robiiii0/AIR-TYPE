@@ -2,11 +2,14 @@ name: 'Test compilation'
 
 on:
   pull_request:
-    branches: [ 'main', 'dev' ]
+    branches: ['main', 'dev']
 
 jobs:
-  setup_cpp:
-    runs-on: ubuntu-latest
+  Setup CPP:
+    - name: Install clang-format
+      run: sudo apt-get install -y clang-format
+  test_code_style:
+    runs-on: 'ubuntu-latest'
     steps:
       - name: Setup CPP
         uses: actions/setup-cpp@v3
@@ -21,9 +24,7 @@ jobs:
     container:
       image: epitechcontent/epitest-docker:latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Check compilation
-        run: bash output/compile.sh
+      - uses: 'actions/checkout@v3'
+      - name: 'Check compilation'
+        run: 'bash output/compile.sh'
         timeout-minutes: 5
