@@ -14,7 +14,7 @@ Engine::MobModule::Components::VisionComponent::VisionComponent(
 {
     if (value.type() == typeid(int)) {
         _id = id;
-        _component_name = "AttackComponent";
+        _component_name = "VisionComponent";
         _vision = std::any_cast<int>(value);
     } else
         throw std::runtime_error("VisionComponent value is not int");

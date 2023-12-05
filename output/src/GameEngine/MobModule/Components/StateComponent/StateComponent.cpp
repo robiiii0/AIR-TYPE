@@ -14,7 +14,7 @@ Engine::MobModule::Components::StateComponent::StateComponent(
 {
     if (value.type() == typeid(bool)) {
         _id = id;
-        _component_name = "AttackComponent";
+        _component_name = "StateComponent";
         _state = std::any_cast<bool>(value);
     } else
         throw std::runtime_error("StateComponent value is not bool");
