@@ -5,26 +5,35 @@ on:
     branches: [ 'main', 'dev' ]
 
 jobs:
-  Setup CPP:
-    uses: actions/setup-cpp@v3
-    with:
-    cpp-version: "latest"
-  Install clang-format:
-    run: sudo apt-get install -y clang-format
-  test_code_style:
-    runs-on: 'ubuntu-latest'
+  setup_cpp:
+    runs-on: ubuntu-latest
     steps:
-      - uses: 'actions/checkout@v3'
-      - name: 'Check code style'
-        run: 'bash output/check_format.sh'
+    - name: Setup CPP
+      uses: actions/setup-cpp@v3
+      with:
+        cpp-version: "latest"
+
+    - name: Install clang-format
+      run: sudo apt-get install -y clang-format
+
+  test_code_style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check code style
+        run: bash output/check_format.sh
         timeout-minutes: 1
 
   test_compilation:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     container:
-      image: 'epitechcontent/epitest-docker:latest'
+      image: epitechcontent/epitest-docker:latest
     steps:
-      - uses: 'actions/checkout@v3'
-      - name: 'Check compilation'
-        run: 'bash output/compile.sh'
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check compilation
+        run: bash output/compile.sh
         timeout-minutes: 5
