@@ -5,8 +5,6 @@
 ** EntityManager
 */
 
-// TODO add namespace
-
 #ifndef ENTITYMANAGER_HPP_
 #define ENTITYMANAGER_HPP_
 
@@ -41,7 +39,6 @@ class EntityManager {
     }
     void destroyEntity(const std::uint32_t& entity);
 
-    // void addComponent(std::uint32_t entity_id, Component::IComponent &component);
     void addComponent(Entity& entity, Component::IComponent& component);
     void removeComponent(Entity& entity, std::string component_name);
     bool hasComponent(Entity& entity, std::string component_name)
@@ -56,9 +53,6 @@ class EntityManager {
 
     std::vector<Entity> _entities;
     Component::ComponentManager _componentManager;
-    // the signature is a unique identifier for each entity to know
-    // which components it has attached to it. ReadMe for more info
-    // std::bitset<MAX_COMPONENTS> signatures;
 };
 }  // namespace Entity
 }  // namespace Engine

@@ -15,7 +15,6 @@
 
 #include "../ComponentManager/IComponent/IComponent.hpp"
 
-// TODO Add namespace
 namespace Engine
 {
 namespace Entity
@@ -23,7 +22,6 @@ namespace Entity
 struct Entity {
     std::uint32_t id;
     std::vector<Component::IComponent*> components;
-    // signature_t   signature;
 };
 }  // namespace Entity
 }  // namespace Engine
