@@ -15,15 +15,13 @@
 
 #include "../ComponentManager/IComponent/IComponent.hpp"
 
-namespace Engine
-{
-namespace Entity
-{
-struct Entity {
-    std::uint32_t id;
-    std::vector<Component::IComponent*> components;
-};
-}  // namespace Entity
+namespace Engine {
+    namespace Entity {
+        struct Entity {
+                std::uint32_t                        id;
+                std::vector<Component::IComponent *> components;
+        };
+    }  // namespace Entity
 }  // namespace Engine
 
 #endif /* !ENTITY_HPP_ */

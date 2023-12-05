@@ -10,36 +10,34 @@
 
 #include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
 
-namespace Engine
-{
-namespace MobModule
-{
-namespace Components
-{
+namespace Engine {
+    namespace MobModule {
+        namespace Components {
 
-struct HealthComponentData {
-    int health;
-    int maxHealth;
-};
+            struct HealthComponentData {
+                    int health;
+                    int maxHealth;
+            };
 
-class HealthComponent : public Engine::Entity::Component::IComponent {
-   public:
-    HealthComponent(std::uint32_t id, std::string component_name,
-                    std::any value);
-    ~HealthComponent();
-    void execute() override;
-    std::any& get() override;
-    std::string getName() const override;
+            class HealthComponent :
+                public Engine::Entity::Component::IComponent {
+                public:
+                    HealthComponent(std::uint32_t id,
+                                    std::string component_name, std::any value);
+                    ~HealthComponent();
+                    void        execute() override;
+                    std::any&   get() override;
+                    std::string getName() const override;
 
-   protected:
-   private:
-    std::uint32_t _id;
-    std::string _component_name;
-    HealthComponentData _data;
-    std::any _ptr;
-};
-}  // namespace Components
-}  // namespace MobModule
+                protected:
+                private:
+                    std::uint32_t       _id;
+                    std::string         _component_name;
+                    HealthComponentData _data;
+                    std::any            _ptr;
+            };
+        }  // namespace Components
+    }      // namespace MobModule
 }  // namespace Engine
 
 #endif /* !HEALTHCOMPONENT_HPP_ */

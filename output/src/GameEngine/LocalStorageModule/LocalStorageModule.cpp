@@ -12,9 +12,8 @@ Engine::LocalStorage::LocalStorageModule::LocalStorageModule() {}
 Engine::LocalStorage::LocalStorageModule::~LocalStorageModule() {}
 
 void Engine::LocalStorage::LocalStorageModule::writeToFile(
-    const std::string& filename, const std::string& content)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename, const std::string& content) {
+    std::string   final_filename = "./data/" + filename;
     std::ofstream file(final_filename);
 
     if (!file.is_open()) {
@@ -25,12 +24,11 @@ void Engine::LocalStorage::LocalStorageModule::writeToFile(
 }
 
 std::string Engine::LocalStorage::LocalStorageModule::readFromFile(
-    const std::string& filename)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename) {
+    std::string   final_filename = "./data/" + filename;
     std::ifstream file(final_filename);
-    std::string content = "";
-    std::string buffer = "";
+    std::string   content = "";
+    std::string   buffer = "";
 
     if (!file.is_open()) {
         throw CouldNotOpenFileException();
@@ -43,12 +41,11 @@ std::string Engine::LocalStorage::LocalStorageModule::readFromFile(
 }
 
 std::string Engine::LocalStorage::LocalStorageModule::readFromFile(
-    const std::string& filename, const std::string& contains)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename, const std::string& contains) {
+    std::string   final_filename = "./data/" + filename;
     std::ifstream file(final_filename);
-    std::string content = "";
-    std::string buffer = "";
+    std::string   content = "";
+    std::string   buffer = "";
 
     if (!file.is_open()) {
         throw CouldNotOpenFileException();
@@ -63,11 +60,10 @@ std::string Engine::LocalStorage::LocalStorageModule::readFromFile(
 }
 
 std::string Engine::LocalStorage::LocalStorageModule::getFirstLineFromFile(
-    const std::string& filename)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename) {
+    std::string   final_filename = "./data/" + filename;
     std::ifstream file(final_filename);
-    std::string content = "";
+    std::string   content = "";
 
     if (!file.is_open()) {
         throw CouldNotOpenFileException();
@@ -78,11 +74,10 @@ std::string Engine::LocalStorage::LocalStorageModule::getFirstLineFromFile(
 }
 
 std::string Engine::LocalStorage::LocalStorageModule::getLineFromFile(
-    const std::string& filename, int line)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename, int line) {
+    std::string   final_filename = "./data/" + filename;
     std::ifstream file(final_filename);
-    std::string content = "";
+    std::string   content = "";
 
     if (!file.is_open()) {
         throw CouldNotOpenFileException();
@@ -95,11 +90,10 @@ std::string Engine::LocalStorage::LocalStorageModule::getLineFromFile(
 }
 
 std::string Engine::LocalStorage::LocalStorageModule::getLineFromFile(
-    const std::string& filename, const std::string& contains)
-{
-    std::string final_filename = "./data/" + filename;
+    const std::string& filename, const std::string& contains) {
+    std::string   final_filename = "./data/" + filename;
     std::ifstream file(final_filename);
-    std::string content = "";
+    std::string   content = "";
 
     if (!file.is_open()) {
         throw CouldNotOpenFileException();

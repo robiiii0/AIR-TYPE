@@ -10,17 +10,15 @@
 
 #include <exception>
 
-namespace Engine
-{
-namespace LocalStorage
-{
-class CouldNotOpenFileException : public std::exception {
-   public:
-    CouldNotOpenFileException();
-    ~CouldNotOpenFileException();
-    const char* what() const noexcept override;
-};
-}  // namespace LocalStorage
+namespace Engine {
+    namespace LocalStorage {
+        class CouldNotOpenFileException : public std::exception {
+            public:
+                CouldNotOpenFileException();
+                ~CouldNotOpenFileException();
+                const char* what() const noexcept override;
+        };
+    }  // namespace LocalStorage
 }  // namespace Engine
 
 #endif /* !COULDNOTOPENFILEEXCEPTION_HPP_ */
