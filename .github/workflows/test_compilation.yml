@@ -5,7 +5,7 @@ on:
     branches: ['main', 'dev']
 
 jobs:
-  Setup CPP:
+  setup_pp:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Setup CPP
