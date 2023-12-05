@@ -9,7 +9,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Setup CPP
-        uses: actions/setup-cpp@v1
+        uses: aminya/setup-cpp@v0.36.1
         with:
           cpp-version: "latest"
       - name: Install clang-format
