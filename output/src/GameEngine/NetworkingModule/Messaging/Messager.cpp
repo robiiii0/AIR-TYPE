@@ -7,8 +7,7 @@
 
 #include "Messager.hpp"
 
-Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type)
-{
+Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type) {
     if (type == Engine::Network::NetworkingTypeEnum::TCP)
         _mode = true;
     else
@@ -17,28 +16,26 @@ Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type)
 
 Engine::Network::Messager::~Messager() {}
 
-void Engine::Network::Messager::sendMessage(const std::string& message,
-                                            Engine::Network::Client& client,
-                                            int socket_fd)
-{
+void Engine::Network::Messager::sendMessage(const std::string       &message,
+                                            Engine::Network::Client &client,
+                                            int socket_fd) {
     std::lock_guard<std::mutex> lock(mutex);
-    const char* msg = message.c_str();
-    std::size_t bytesSent = 0;
+    const char                 *msg = message.c_str();
+    std::size_t                 bytesSent = 0;
 
     if (_mode) {
         bytesSent = send(client.getSocketFd(), msg, message.size(), 0);
     } else {
         struct sockaddr_in client_address = client.getAddress();
         bytesSent = sendto(socket_fd, msg, message.size(), 0,
-                           (struct sockaddr*)&client_address,
+                           (struct sockaddr *)&client_address,
                            sizeof(client.getAddress()));
     }
-    if (bytesSent < 0)
-        throw CouldNotSendException(client);
+    if (bytesSent < 0) throw CouldNotSendException(client);
 }
 
-void Engine::Network::Messager::startReceiving(Engine::Network::Client& client)
-{
+void Engine::Network::Messager::startReceiving(
+    Engine::Network::Client &client) {
     std::lock_guard<std::mutex> lock(mutex);
 
     std::thread receiveThread([this, &client] { receiveLoop(client); });
@@ -47,11 +44,10 @@ void Engine::Network::Messager::startReceiving(Engine::Network::Client& client)
 
 #include <iostream>
 
-void Engine::Network::Messager::receiveLoop(Engine::Network::Client& client)
-{
-    char buffer[1024];
+void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
+    char        buffer[1024];
     std::size_t bytesReceived = 0;
-    int socket_fd = client.getSocketFd();
+    int         socket_fd = client.getSocketFd();
 
     while (true) {
         if (_mode) {

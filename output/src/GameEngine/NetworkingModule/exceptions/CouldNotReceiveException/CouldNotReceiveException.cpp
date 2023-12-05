@@ -11,7 +11,6 @@ Engine::Network::CouldNotReceiveException::CouldNotReceiveException() {}
 
 Engine::Network::CouldNotReceiveException::~CouldNotReceiveException() {}
 
-const char* Engine::Network::CouldNotReceiveException::what() const noexcept
-{
+const char *Engine::Network::CouldNotReceiveException::what() const noexcept {
     return "Could not receive message";
 }

@@ -10,18 +10,16 @@
 
 #include <exception>
 
-namespace Engine
-{
-namespace Network
-{
-class CouldNotReceiveException : public std::exception {
-   public:
-    CouldNotReceiveException();
-    ~CouldNotReceiveException();
+namespace Engine {
+    namespace Network {
+        class CouldNotReceiveException : public std::exception {
+            public:
+                CouldNotReceiveException();
+                ~CouldNotReceiveException();
 
-    const char* what() const noexcept override;
-};
-};  // namespace Network
-};  // namespace Engine
+                const char *what() const noexcept override;
+        };
+    };  // namespace Network
+};      // namespace Engine
 
 #endif /* !COULDNOTRECEIVEEXCEPTION_HPP_ */

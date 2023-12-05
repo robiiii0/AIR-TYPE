@@ -10,18 +10,16 @@
 
 #include <exception>
 
-namespace Engine
-{
-namespace Network
-{
-class ClientDisconnectedException : public std::exception {
-   public:
-    ClientDisconnectedException();
-    ~ClientDisconnectedException();
+namespace Engine {
+    namespace Network {
+        class ClientDisconnectedException : public std::exception {
+            public:
+                ClientDisconnectedException();
+                ~ClientDisconnectedException();
 
-    const char* what() const noexcept override;
-};
-};  // namespace Network
-};  // namespace Engine
+                const char *what() const noexcept override;
+        };
+    };  // namespace Network
+};      // namespace Engine
 
 #endif /* !CLIENTDISCONNECTEDEXCEPTION_HPP_ */
