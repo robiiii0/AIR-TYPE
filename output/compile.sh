@@ -1,18 +1,26 @@
 #!/bin/bash
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "Current directory: $CURRENT_DIR"
 
-make -C "$CURRENT_DIR"
+# Create a build directory if it doesn't exist
+mkdir -p "$CURRENT_DIR/build"
 
-# Tests compilation
-if [ "$?" -ne 0 ]; then
-    echo "Client compilation failed"
-    exit 1
+# Run CMake to generate build files
+cmake ./
+echo "building cmake"
+
+# Build the project
+make
+
+# Your binary check logic here
+if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
+  echo "Client binary is missing"
+  exit 1
 fi
 
-# Binary must be present
-if [ ! -e "$CURRENT_DIR/pbrain-gomoku-ai" ]; then
-  echo "Binary is missing"
+if [ ! -e "$CURRENT_DIR/r-type_server" ]; then
+  echo "Server binary is missing"
   exit 1
 fi
 
