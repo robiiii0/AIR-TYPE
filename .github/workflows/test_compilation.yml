@@ -19,6 +19,9 @@ jobs:
       - name: test_code_style
         run: 'bash output/check_format.sh'
         timeout-minutes: 1
+      - name: Display Clang Version
+        run: |
+          clang --version
 
   test_compilation:
     runs-on: ubuntu-latest
