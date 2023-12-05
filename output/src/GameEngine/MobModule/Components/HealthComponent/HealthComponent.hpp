@@ -22,9 +22,7 @@ struct HealthComponentData {
     int maxHealth;
 };
 
-class HealthComponent
-    : public Engine::Entity::Component::
-          IComponent {
+class HealthComponent : public Engine::Entity::Component::IComponent {
    public:
     HealthComponent(std::uint32_t id, std::string component_name,
                     std::any value);

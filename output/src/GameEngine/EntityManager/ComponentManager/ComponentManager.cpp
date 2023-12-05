@@ -46,9 +46,9 @@ bool Engine::Entity::Component::ComponentManager::removeAllComponents(
     return false;
 }
 
-Engine::Entity::Component::IComponent& Engine::Entity::Component::
-    ComponentManager::getComponent(
-        Entity& entity, std::uint32_t component_id)
+Engine::Entity::Component::IComponent&
+Engine::Entity::Component::ComponentManager::getComponent(
+    Entity& entity, std::uint32_t component_id)
 {
     throw std::runtime_error("Component not found");
 }

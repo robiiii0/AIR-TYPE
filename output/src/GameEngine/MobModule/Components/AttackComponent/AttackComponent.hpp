@@ -16,9 +16,7 @@ namespace MobModule
 {
 namespace Components
 {
-class AttackComponent
-    : public Engine::Entity::Component::
-          IComponent {
+class AttackComponent : public Engine::Entity::Component::IComponent {
    public:
     AttackComponent(std::uint32_t id, std::string component_name,
                     std::any value);
