@@ -10,21 +10,19 @@
 
 #include <exception>
 
-namespace Engine
-{
-namespace Network
-{
-class ClientIdOutOfRangeException : public std::exception {
-   public:
-    ClientIdOutOfRangeException();
-    ~ClientIdOutOfRangeException();
+namespace Engine {
+    namespace Network {
+        class ClientIdOutOfRangeException : public std::exception {
+            public:
+                ClientIdOutOfRangeException();
+                ~ClientIdOutOfRangeException();
 
-    const char* what() const throw() override;
+                const char *what() const throw() override;
 
-   protected:
-   private:
-};
-};  // namespace Network
-};  // namespace Engine
+            protected:
+            private:
+        };
+    };  // namespace Network
+};      // namespace Engine
 
 #endif /* !CLIENTIDOUTOFRANGEEXCEPTION_HPP_ */

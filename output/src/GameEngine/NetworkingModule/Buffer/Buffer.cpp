@@ -11,22 +11,19 @@ Engine::Network::Buffer::Buffer() : _read_head(0), _write_head(0) {}
 
 Engine::Network::Buffer::~Buffer() {}
 
-void Engine::Network::Buffer::write(const char* message,
-                                    const std::size_t& length)
-{
+void Engine::Network::Buffer::write(const char        *message,
+                                    const std::size_t &length) {
     for (std::size_t i = 0; i < length; i++) {
         _buffer[_write_head++] = message[i];
         _write_head %= __circular_buffer_size;
     }
 }
 
-void Engine::Network::Buffer::write(const std::string& message)
-{
+void Engine::Network::Buffer::write(const std::string &message) {
     write(message.c_str(), message.length());
 }
 
-std::string Engine::Network::Buffer::read()
-{
+std::string Engine::Network::Buffer::read() {
     std::string message;
     while (_read_head != _write_head) {
         message += _buffer[_read_head++];
@@ -35,8 +32,7 @@ std::string Engine::Network::Buffer::read()
     return message;
 }
 
-std::string Engine::Network::Buffer::read(const int& length)
-{
+std::string Engine::Network::Buffer::read(const int &length) {
     std::string message;
 
     for (int i = 0; i < length && _read_head != _write_head; i++) {
@@ -46,8 +42,7 @@ std::string Engine::Network::Buffer::read(const int& length)
     return message;
 }
 
-std::string Engine::Network::Buffer::readNextPacket()
-{
+std::string Engine::Network::Buffer::readNextPacket() {
     std::string packet;
 
     while (_read_head != _write_head) {
