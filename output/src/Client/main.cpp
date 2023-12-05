@@ -8,7 +8,7 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, Client Module!" <<                 std::endl;
+    std::cout << "Hello, Client Module!" << std::endl;
 
     return 0;
 }
