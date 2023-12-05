@@ -6,12 +6,11 @@
 */
 
 #include "HealthComponent.hpp"
+
 #include <stdexcept>
 
 Engine::MobModule::Components::HealthComponent::HealthComponent(
-    std::uint32_t id, std::string component_name, std::any value)
-{
-
+    std::uint32_t id, std::string component_name, std::any value) {
     if (value.type() == typeid(HealthComponentData)) {
         _id = id;
         _component_name = "HealthComponent";
@@ -25,13 +24,11 @@ Engine::MobModule::Components::HealthComponent::~HealthComponent() {}
 
 void Engine::MobModule::Components::HealthComponent::execute() {}
 
-std::any& Engine::MobModule::Components::HealthComponent::get()
-{
+std::any& Engine::MobModule::Components::HealthComponent::get() {
     _ptr = std::make_any<HealthComponentData>(_data);
     return _ptr;
 }
 
-std::string Engine::MobModule::Components::HealthComponent::getName() const
-{
+std::string Engine::MobModule::Components::HealthComponent::getName() const {
     return _component_name;
 }
