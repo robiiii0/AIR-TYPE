@@ -165,7 +165,6 @@ ReferenceAlignment: Pointer
 ReflowComments: true
 RemoveBracesLLVM: false
 RemoveSemicolon: false
-RequiresClausePosition: OwnLine
 RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Always
 ShortNamespaceLines: 1
