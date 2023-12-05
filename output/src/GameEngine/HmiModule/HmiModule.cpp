@@ -15,9 +15,7 @@
 Engine::Hmi::HmiModule::HmiModule(sf::RenderWindow* window) :
     _window(window),
     _mouse_pos({0, 0}),
-    _mouse_pressed
-
-    (false),
+    _mouse_pressed      (false),
     _keyboard(_keyboard.reset()) {}
 
 /**
