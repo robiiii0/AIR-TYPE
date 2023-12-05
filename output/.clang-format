@@ -5,9 +5,7 @@ AlignAfterOpenBracket: Align
 AlignArrayOfStructures: None
 AlignEscapedNewlines: DontAlign
 AlignOperands: Align
-AlignTrailingComments:
-  Kind: Always
-  OverEmptyLines: 0
+AlignTrailingComments: Align
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: Never
