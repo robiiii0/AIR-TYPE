@@ -10,6 +10,9 @@
 
 namespace Engine {
     namespace Network {
+        /*
+        * @brief Enum for the networking type
+        */
         enum NetworkingTypeEnum {
             TCP,
             UDP

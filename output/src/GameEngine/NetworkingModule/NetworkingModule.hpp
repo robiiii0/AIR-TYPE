@@ -80,8 +80,10 @@ namespace Engine {
                 /*
                  * @brief Get the list of clients connected to the server
                  * @return The list of clients connected to the server
+                 * @exceptsafe Shall not throw exceptions
+                 * @relatesalso Engine::Network::Client
                  */
-                std::vector<Client> getClients() const;
+                std::vector<Client> getClients() const noexcept;
 
             protected:
                 void runTCP(Engine::Network::Messager &messager);
