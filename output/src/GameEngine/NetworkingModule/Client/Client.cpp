@@ -7,7 +7,6 @@
 
 #include "Client.hpp"
 
-// std::atomic<std::size_t> Engine::Network::Client::_id{0};
 int Engine::Network::Client::__max_client_id = 0;
 
 Engine::Network::Client::Client(struct sockaddr_in address,
