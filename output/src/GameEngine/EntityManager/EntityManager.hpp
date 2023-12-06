@@ -17,44 +17,46 @@
 #include "ComponentManager/ComponentManager.hpp"
 #include "Entity/Entity.hpp"
 
-namespace Engine
-{
-namespace Entity
-{
-const std::uint32_t __max_entities = 100;
-const std::uint8_t __max_components = 255;
+namespace Engine {
+    namespace Entity {
+        const std::uint32_t __max_entities = 100;
+        const std::uint8_t  __max_components = 255;
 
-class EntityManager {
-   public:
-    EntityManager();
-    std::uint32_t createEntity();
-    Entity& getEntity(std::uint32_t id)
-    {
-        for (std::uint32_t i = 0; i < _entities.size(); i++) {
-            if (_entities[i].id == id) {
-                return _entities[i];
-            }
-        }
-        throw std::runtime_error("Entity not found");
-    }
-    void destroyEntity(const std::uint32_t& entity);
+        class EntityManager {
+            public:
+                EntityManager();
+                std::uint32_t createEntity();
 
-    void addComponent(Entity& entity, Component::IComponent& component);
-    void removeComponent(Entity& entity, std::string component_name);
-    bool hasComponent(Entity& entity, std::string component_name)
-    {
-        return _componentManager.hasComponent(entity, component_name);
-    }
+                Entity& getEntity(std::uint32_t id) {
+                    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+                        if (_entities[i].id == id) {
+                            return _entities[i];
+                        }
+                    }
+                    throw std::runtime_error("Entity not found");
+                }
 
-   private:
-    std::queue<std::uint32_t> _available_entities;
+                void destroyEntity(const std::uint32_t& entity);
 
-    uint32_t _living_entity_count;
+                void addComponent(Entity&                entity,
+                                  Component::IComponent& component);
+                void removeComponent(Entity&     entity,
+                                     std::string component_name);
 
-    std::vector<Entity> _entities;
-    Component::ComponentManager _componentManager;
-};
-}  // namespace Entity
+                bool hasComponent(Entity& entity, std::string component_name) {
+                    return _componentManager.hasComponent(entity,
+                                                          component_name);
+                }
+
+            private:
+                std::queue<std::uint32_t> _available_entities;
+
+                uint32_t _living_entity_count;
+
+                std::vector<Entity>         _entities;
+                Component::ComponentManager _componentManager;
+        };
+    }  // namespace Entity
 }  // namespace Engine
 
 #endif /* !ENTITYMANAGER_HPP_ */

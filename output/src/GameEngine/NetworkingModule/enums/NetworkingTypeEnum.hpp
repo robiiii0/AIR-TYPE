@@ -8,12 +8,16 @@
 #ifndef NETWORKINGTYPEENUM_HPP_
 #define NETWORKINGTYPEENUM_HPP_
 
-namespace Engine
-{
-namespace Network
-{
-enum NetworkingTypeEnum { TCP, UDP };
-};  // namespace Network
-};  // namespace Engine
+namespace Engine {
+    namespace Network {
+        /*
+         * @brief Enum for the networking type
+         */
+        enum NetworkingTypeEnum {
+            TCP,
+            UDP
+        };
+    };  // namespace Network
+};      // namespace Engine
 
 #endif /* !NETWORKINGTYPEENUM_HPP_ */

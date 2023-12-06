@@ -13,43 +13,41 @@
 #include <bitset>
 
 typedef struct mouse_pos_s {
-    unsigned int x;
-    unsigned int y;
+        unsigned int x;
+        unsigned int y;
 } mouse_pos_t;
 
-namespace Engine
-{
-namespace Hmi
-{
-class HmiModule {
-   public:
-    HmiModule(sf::RenderWindow* window);
-    ~HmiModule();
+namespace Engine {
+    namespace Hmi {
+        class HmiModule {
+            public:
+                HmiModule(sf::RenderWindow* window);
+                ~HmiModule();
 
-    void update();
+                void update();
 
-    mouse_pos_t getMousePos() const;
-    bool isMousePressed() const;
-    bool isKeyPressed(const std::string) const;
+                mouse_pos_t getMousePos() const;
+                bool        isMousePressed() const;
+                bool        isKeyPressed(const std::string) const;
 
-   private:
-    sf::RenderWindow _window;
-    bool _mouse_pressed;
+            private:
+                sf::RenderWindow _window;
+                bool             _mouse_pressed;
 
-    /**
+                /**
                  * @brief (x, y)
                  *
                  */
-    mouse_pos_t _mouse_pos;
+                mouse_pos_t _mouse_pos;
 
-    /**
+                /**
                  * @brief up = 0, down = 1, left = 2, right = 3, space = 4,
                  * escape = 5
                  *
                  */
-    std::bitset<6> _keyboard;
-};
-};  // namespace Hmi
-};  // namespace Engine
+                std::bitset<6> _keyboard;
+        };
+    };  // namespace Hmi
+};      // namespace Engine
 
 #endif /* !HMIMODULE_HPP_ */
