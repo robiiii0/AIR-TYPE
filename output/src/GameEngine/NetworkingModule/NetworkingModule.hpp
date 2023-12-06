@@ -37,21 +37,27 @@ namespace Engine {
                 ~NetworkingModule();
 
                 /*
-                * @brief Run the networking module to make it listen to
-                * incoming messages
-                */
-                void                run();
+                 * @brief Run the networking module to make it listen to
+                 * incoming messages
+                 */
+                void run();
                 /*
-                * @brief Send a message to a specific client
-                * @param message The message to send
-                * @param client_id The id of the client to send the message to
-                */
-                void                sendMessage(const std::string &message,
-                                                const std::size_t &client_id);
+                 * @brief Send a message to a specific client
+                 * @param message The message to send
+                 * @param client_id The id of the client to send the message to
+                 */
+                void sendMessage(const std::string &message,
+                                 const std::size_t &client_id);
                 /*
-                * @brief Get the list of clients connected to the server
-                * @return The list of clients connected to the server
-                */
+                 * @brief Send a message to all the clients connected to the
+                 * server
+                 * @param message The message to send
+                 */
+                void broadcastMessage(const std::string &message);
+                /*
+                 * @brief Get the list of clients connected to the server
+                 * @return The list of clients connected to the server
+                 */
                 std::vector<Client> getClients() const;
 
             protected:

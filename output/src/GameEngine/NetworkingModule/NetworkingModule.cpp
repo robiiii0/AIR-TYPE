@@ -139,6 +139,17 @@ void Engine::Network::NetworkingModule::sendMessage(
     messager.sendMessage(message, _clients[index], _socket_fd);
 }
 
+void Engine::Network::NetworkingModule::broadcastMessage(
+    const std::string &message) {
+    Engine::Network::Messager messager(_type);
+    for (auto &client : _clients) {
+        if (!client.isConnected()) {
+            continue;
+        }
+        messager.sendMessage(message, client, _socket_fd);
+    }
+}
+
 std::vector<Engine::Network::Client>
     Engine::Network::NetworkingModule::getClients() const {
     return _clients;
