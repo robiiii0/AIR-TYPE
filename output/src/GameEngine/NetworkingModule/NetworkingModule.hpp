@@ -36,11 +36,22 @@ namespace Engine {
                                  int max_clients = 4);
                 ~NetworkingModule();
 
-                // Should be called in a thread, will automatically accept and
-                // retrieve messages from clients
+                /*
+                * @brief Run the networking module to make it listen to
+                * incoming messages
+                */
                 void                run();
+                /*
+                * @brief Send a message to a specific client
+                * @param message The message to send
+                * @param client_id The id of the client to send the message to
+                */
                 void                sendMessage(const std::string &message,
                                                 const std::size_t &client_id);
+                /*
+                * @brief Get the list of clients connected to the server
+                * @return The list of clients connected to the server
+                */
                 std::vector<Client> getClients() const;
 
             protected:
