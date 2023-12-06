@@ -191,6 +191,6 @@ void Engine::Network::NetworkingModule::broadcastMessage(
 }
 
 std::vector<Engine::Network::Client>
-    Engine::Network::NetworkingModule::getClients() const {
+    Engine::Network::NetworkingModule::getClients() const noexcept {
     return _clients;
 }
