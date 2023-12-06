@@ -33,7 +33,7 @@ namespace Engine {
         class NetworkingModule {
             public:
                 /*
-                 * @brief Constructor of the networking module
+                 * @brief Constructor of the networking module in server mode
                  * @param port The port to listen to
                  * @param type The type of the networking module
                  * @param max_clients The maximum number of clients that can
@@ -45,6 +45,22 @@ namespace Engine {
                  */
                 NetworkingModule(int port, NetworkingTypeEnum type,
                                  int max_clients = 4);
+                /*
+                 * @brief Constructor of the networking module in client mode
+                 * @param port The port to listen to
+                 * @param type The type of the networking module
+                 * @param ip_address The ip address to listen to
+                 * @param server_port The port of the server to connect to
+                 * @param max_clients The maximum number of clients that can
+                 * connect to the server
+                 * @throws SocketNotCreatedException If the socket could not be
+                 * created
+                 * @throws CouldNotBindAddressException If the address could not
+                 * be bound to the socket
+                 */
+                NetworkingModule(int port, NetworkingTypeEnum type,
+                                 const std::string &server_address,
+                                 int server_port, int max_clients = 4);
                 ~NetworkingModule();
 
                 /*
@@ -86,6 +102,7 @@ namespace Engine {
                 std::vector<Client> getClients() const noexcept;
 
             protected:
+                void addClient(const struct sockaddr_in &client_address);
                 void runTCP(Engine::Network::Messager &messager);
                 void runUDP(Engine::Network::Messager &messager);
                 bool isNewClient(const struct sockaddr_in &client_address);

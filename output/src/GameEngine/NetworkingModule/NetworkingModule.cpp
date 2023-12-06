@@ -36,6 +36,40 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
         std::thread(&Engine::Network::NetworkingModule::run, this);
 }
 
+Engine::Network::NetworkingModule::NetworkingModule(
+    int port, NetworkingTypeEnum type, const std::string &server_address,
+    int server_port, int max_clients) :
+    _max_clients(max_clients), _type(type) {
+    _socket_fd = -1;
+    switch (type) {
+        case TCP:
+            _socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+            break;
+        case UDP:
+            _socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+            break;
+    }
+    if (_socket_fd == -1) {
+        throw SocketNotCreatedException();
+    }
+
+    _server_address.sin_family = AF_INET;
+    _server_address.sin_addr.s_addr = INADDR_ANY;
+    _server_address.sin_port = htons(port);
+
+    if (bind(_socket_fd, (struct sockaddr *)&_server_address,
+             sizeof(_server_address)) < 0) {
+        throw CouldNotBindAddressException();
+    }
+    _running_thread =
+        std::thread(&Engine::Network::NetworkingModule::run, this);
+    struct sockaddr_in final_server_address;
+    final_server_address.sin_family = AF_INET;
+    final_server_address.sin_addr.s_addr = inet_addr(server_address.c_str());
+    final_server_address.sin_port = htons(server_port);
+    addClient(final_server_address);
+}
+
 Engine::Network::NetworkingModule::~NetworkingModule() {
     if (_socket_fd != 1) close(_socket_fd);
     _running_thread.join();
@@ -50,6 +84,12 @@ void Engine::Network::NetworkingModule::run() {
             runUDP(messager);
         }
     }
+}
+
+void Engine::Network::NetworkingModule::addClient(
+    const struct sockaddr_in &client_address) {
+    Engine::Network::Client client(client_address, 0);  // ! Only works for UDP
+    _clients.push_back(client);
 }
 
 void Engine::Network::NetworkingModule::runTCP(
