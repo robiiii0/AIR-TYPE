@@ -32,6 +32,17 @@ namespace Engine {
     namespace Network {
         class NetworkingModule {
             public:
+                /*
+                 * @brief Constructor of the networking module
+                 * @param port The port to listen to
+                 * @param type The type of the networking module
+                 * @param max_clients The maximum number of clients that can
+                 * connect to the server
+                 * @throws SocketNotCreatedException If the socket could not be
+                 * created
+                 * @throws CouldNotBindAddressException If the address could not
+                 * be bound to the socket
+                 */
                 NetworkingModule(int port, NetworkingTypeEnum type,
                                  int max_clients = 4);
                 ~NetworkingModule();
@@ -39,12 +50,22 @@ namespace Engine {
                 /*
                  * @brief Run the networking module to make it listen to
                  * incoming messages
+                 * @throws CouldNotAcceptClientException If the server could not
+                 * accept a client in TCP mode
+                 * @throws CouldNotSendReceiveException If the server could not
+                 * receive a message in UDP mode
                  */
                 void run();
                 /*
                  * @brief Send a message to a specific client
                  * @param message The message to send
                  * @param client_id The id of the client to send the message to
+                 * @throws ClientIdOutOfRangeException If the client id is
+                 * greater than the number of clients connected to the server
+                 * @throws ClientDisconnectedException If the client the message
+                 * is sent to is disconnected
+                 * @throws CouldNotSendException If the message could not be
+                 * sent
                  */
                 void sendMessage(const std::string &message,
                                  const std::size_t &client_id);
@@ -52,6 +73,8 @@ namespace Engine {
                  * @brief Send a message to all the clients connected to the
                  * server
                  * @param message The message to send
+                 * @throws CouldNotSendException If the message could not be
+                 * sent
                  */
                 void broadcastMessage(const std::string &message);
                 /*
