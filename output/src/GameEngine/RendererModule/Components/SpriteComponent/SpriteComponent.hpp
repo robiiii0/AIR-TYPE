@@ -28,7 +28,7 @@ namespace Engine {
                     void setRotation(float rotation);
                     void setScale(float x, float y);
                     void setOrigin(float x, float y);
-
+                    void setTextureRect(const sf::IntRect& rect);
 
                     // Texture
                     void setRepeated(bool repeated);

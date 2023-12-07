@@ -78,3 +78,9 @@ void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
 {
     _sprite.setPosition(x, y);
 }
+
+void Engine::RendererModule::Components::SpriteComponent::setTextureRect(
+    const sf::IntRect& rect)
+{
+    _sprite.setTextureRect(rect);
+}
