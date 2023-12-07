@@ -9,6 +9,7 @@ include_directories(./)
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 add_library(WindowModule
-    WindowManager/Window.cpp)
+    WindowManager/Window.cpp
+        Components/AnimationComponent/AnimationComponent.cpp)
 
 target_link_libraries(WindowModule sfml-graphics sfml-window sfml-system)
