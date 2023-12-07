@@ -8,13 +8,13 @@
 #ifndef SPRITECOMPONENT_HPP_
 #define SPRITECOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace Engine {
     namespace RendererModule {
         namespace Components {
-            class SpriteComponent : public Engine::Entity::Component::IComponent {
+            class SpriteComponent : public Engine::Entity::Component::AComponent {
                 public:
                     SpriteComponent(std::uint32_t id,
                                     std::string component_name, std::any value);
