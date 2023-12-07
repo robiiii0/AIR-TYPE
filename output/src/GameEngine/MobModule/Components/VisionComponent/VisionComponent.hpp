@@ -8,13 +8,13 @@
 #ifndef VISIONCOMPONENT_HPP_
 #define VISIONCOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
             class VisionComponent :
-                public Engine::Entity::Component::IComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
                     VisionComponent(std::uint32_t id,
                                     std::string component_name, std::any value);
