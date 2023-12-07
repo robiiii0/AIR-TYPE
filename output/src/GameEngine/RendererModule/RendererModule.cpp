@@ -22,10 +22,20 @@ void Engine::RendererModule::RendererModule::init()
 }
 
 void Engine::RendererModule::RendererModule::update()
-{
+{ // update les animations, la camera, etc
+    while (_window.pollEvent(_event)) {
+        if (_event.type == sf::Event::Closed)
+            _window.close();
+    }
+
 }
 
 void Engine::RendererModule::RendererModule::render() // draw la scene
 {
+    _window.clear();
+    for (auto& entity : _entities) {
+        if (!entity->hasComponent<Engine::RendererModule::Components::SpriteComponent>())
+            _window.draw(sprite.sprite);
+    }
     _window.display();
 }

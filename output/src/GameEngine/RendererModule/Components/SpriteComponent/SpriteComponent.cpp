@@ -16,13 +16,11 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     if (value.type() != typeid(std::string))
         throw std::runtime_error("SpriteComponent: value is not a string");
     else {
-
         _path = std::any_cast<std::string>(value);
         if (!_texture.loadFromFile(_path))
             throw std::runtime_error("SpriteComponent: texture not found");
         _sprite.setTexture(_texture);
         _ptr = value;
-        
     }
 }
 
