@@ -58,3 +58,20 @@ bool Engine::Entity::Component::ComponentManager::hasComponent(
     }
     return false;
 }
+
+void Engine::Entity::Component::ComponentManager::getAllComponents(
+    Entity& entity) {
+    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
+        std::cout << entity.components[i]->getName() << std::endl;
+    }
+}
+
+std::any& Engine::Entity::Component::ComponentManager::getComponentValue(
+    Entity& entity, std::string component_name) {
+    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
+        if (entity.components[i]->getName() == component_name) {
+            return entity.components[i]->get();
+        }
+    }
+    throw std::runtime_error("Component not found");
+}

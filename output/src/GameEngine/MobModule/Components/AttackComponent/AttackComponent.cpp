@@ -15,16 +15,16 @@ Engine::MobModule::Components::AttackComponent::AttackComponent(
         _id = id;
         _component_name = "AttackComponent";
         _damage = std::any_cast<int>(value);
+        _ptr = value;
     } else
         throw std::runtime_error("AttackComponent value is not int");
 }
 
-Engine::MobModule::Components::AttackComponent::~AttackComponent() = default;
+Engine::MobModule::Components::AttackComponent::~AttackComponent() {};
 
 void Engine::MobModule::Components::AttackComponent::execute() {}
 
 std::any& Engine::MobModule::Components::AttackComponent::get() {
-    _ptr = _damage;
     return _ptr;
 }
 

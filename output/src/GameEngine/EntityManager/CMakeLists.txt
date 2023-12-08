@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(./)
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-
 add_executable(entity_manager
     ../main.cpp
     EntityManager.cpp
@@ -16,8 +14,7 @@ add_executable(entity_manager
     ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp
     ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
     ComponentManager/AComponent/AComponent.cpp
-
-    ../RendererModule/RendererModule.cpp
+    ../MobModule/Components/HealthComponent/HealthComponent.cpp
+    ../MobModule/Components/AttackComponent/AttackComponent.cpp
+    ../MobModule/MobManager/MobManager.cpp
 )
-
-target_link_libraries(WindowModule sfml-graphics sfml-window sfml-system)
