@@ -6,6 +6,7 @@
 */
 
 #include "DoubleComponent.hpp"
+#include <stdexcept>
 
 Engine::Entity::Component::GenericComponents::DoubleComponent::DoubleComponent(
     std::any value) {
