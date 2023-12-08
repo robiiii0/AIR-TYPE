@@ -8,10 +8,8 @@
 #include "SpriteComponent.hpp"
 #include <stdexcept>
 
-Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    std::uint32_t id, std::string component_name, std::any value)
+Engine::RendererModule::Components::SpriteComponent::SpriteComponent(std::any value)
 {
-    _id = id;
     _component_name = "SpriteComponent";
     if (value.type() != typeid(std::string))
         throw std::runtime_error("SpriteComponent: value is not a string");

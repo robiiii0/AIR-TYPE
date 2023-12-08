@@ -16,8 +16,7 @@ namespace Engine {
         namespace Components {
             class SpriteComponent : public Engine::Entity::Component::AComponent {
                 public:
-                    SpriteComponent(std::uint32_t id,
-                                    std::string component_name, std::any value);
+                    SpriteComponent(std::any value);
                     ~SpriteComponent();
                     void        execute() override;
                     std::any&   get() override;

@@ -16,8 +16,7 @@ namespace Engine {
             class VisionComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    VisionComponent(std::uint32_t id,
-                                    std::string component_name, std::any value);
+                    VisionComponent(std::any value);
                     ~VisionComponent();
                     void        execute() override;
                     std::any&   get() override;

@@ -16,8 +16,7 @@ namespace Engine {
             class StateComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    StateComponent(std::uint32_t id, std::string component_name,
-                                   std::any value);
+                    StateComponent(std::any value);
                     ~StateComponent();
                     void        execute() override;
                     std::any&   get() override;

@@ -22,8 +22,7 @@ namespace Engine {
             class HealthComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    HealthComponent(std::uint32_t id,
-                                    std::string component_name, std::any value);
+                    HealthComponent(std::any value);
                     ~HealthComponent();
                     void        execute() override;
                     std::any&   get() override;

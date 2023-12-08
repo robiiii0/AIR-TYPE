@@ -16,8 +16,7 @@ namespace Engine {
             class AttackComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AttackComponent(std::uint32_t id,
-                                    std::string component_name, std::any value);
+                    AttackComponent(std::any value);
                     ~AttackComponent();
                     void        execute() override;
                     std::any&   get() override;

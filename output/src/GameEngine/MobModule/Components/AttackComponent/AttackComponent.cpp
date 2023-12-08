@@ -9,10 +9,8 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::AttackComponent::AttackComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
+Engine::MobModule::Components::AttackComponent::AttackComponent(std::any value) {
     if (value.type() == typeid(int)) {
-        _id = id;
         _component_name = "AttackComponent";
         _damage = std::any_cast<int>(value);
         _ptr = value;

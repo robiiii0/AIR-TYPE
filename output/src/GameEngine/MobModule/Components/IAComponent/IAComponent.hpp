@@ -15,8 +15,7 @@ namespace Engine {
         namespace Components {
             class IAComponent : public Engine::Entity::Component::AComponent {
                 public:
-                    IAComponent(std::uint32_t id, std::string component_name,
-                                std::any value);
+                    IAComponent(std::any value);
                     ~IAComponent();
                     void        execute() override;
                     std::any&   get() override;

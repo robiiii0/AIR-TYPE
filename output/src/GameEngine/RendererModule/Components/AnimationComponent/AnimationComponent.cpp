@@ -7,9 +7,7 @@
 
 #include "AnimationComponent.hpp"
 
-Engine::RendererModule::Components::AnimationComponent::AnimationComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
-    _id = id;
+Engine::RendererModule::Components::AnimationComponent::AnimationComponent(std::any value) {
     _component_name = "AnimationComponent";
     if (value.type() != typeid(sf::IntRect))
         throw std::runtime_error("AnimationComponent: value is not a string");
