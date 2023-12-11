@@ -71,7 +71,7 @@ void Engine::Entity::EntityManager::removeComponent(
                   << std::endl;
 }
 
-template <typename T>
+template<typename T>
 T& Engine::Entity::EntityManager::getComponentValue(
     Entity& entity, std::string component_name) {
     return entity.getComponentValue<T>(entity, component_name);

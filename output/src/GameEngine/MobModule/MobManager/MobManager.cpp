@@ -10,4 +10,3 @@
 Engine::MobModule::MobManager::MobManager() {}
 
 Engine::MobModule::MobManager::~MobManager() {}
-

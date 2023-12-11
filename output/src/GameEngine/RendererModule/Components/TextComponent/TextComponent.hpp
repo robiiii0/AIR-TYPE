@@ -24,7 +24,8 @@ namespace Engine {
             };
 
             template<typename T>
-            class TextComponent : public Engine::RendererModule::IRendererComponent {
+            class TextComponent :
+                public Engine::RendererModule::IRendererComponent {
                 public:
                     TextComponent(T value);
                     ~TextComponent();

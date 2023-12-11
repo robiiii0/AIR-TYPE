@@ -16,7 +16,7 @@ namespace Engine {
     namespace Entity {
         namespace Component {
             namespace GenericComponents {
-                template <typename T>
+                template<typename T>
                 class StringComponent : public AComponent {
                     public:
                         StringComponent(std::string value);
@@ -26,8 +26,8 @@ namespace Engine {
                         std::string getName() const override;
 
                     private:
-                        std::string   _component_name;
-                        T _data;
+                        std::string _component_name;
+                        T           _data;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

@@ -17,7 +17,6 @@ namespace Engine {
                 MobManager();
                 ~MobManager();
 
-
             protected:
             private:
         };

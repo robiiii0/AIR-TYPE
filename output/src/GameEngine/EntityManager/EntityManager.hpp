@@ -52,8 +52,9 @@ namespace Engine {
                     _componentManager.getAllComponents(entity);
                 }
 
-                template <typename T>
-                T& getComponentValue(Entity& entity, std::string component_name);
+                template<typename T>
+                T& getComponentValue(Entity&     entity,
+                                     std::string component_name);
 
             private:
                 std::queue<std::uint32_t> _available_entities;

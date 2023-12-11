@@ -9,7 +9,7 @@
 
 #include <stdexcept>
 
-template <typename T>
+template<typename T>
 Engine::MobModule::Components::HealthComponent<T>::HealthComponent(
     HealthComponentData data) {
     if (typeid(T) != typeid(int))
@@ -20,13 +20,13 @@ Engine::MobModule::Components::HealthComponent<T>::HealthComponent(
     }
 }
 
-template <typename T>
+template<typename T>
 Engine::MobModule::Components::HealthComponent<T>::~HealthComponent() {}
 
-template <typename T>
+template<typename T>
 void Engine::MobModule::Components::HealthComponent<T>::execute() {}
 
-template <typename T>
+template<typename T>
 std::string Engine::MobModule::Components::HealthComponent<T>::getName() const {
     return _component_name;
 }

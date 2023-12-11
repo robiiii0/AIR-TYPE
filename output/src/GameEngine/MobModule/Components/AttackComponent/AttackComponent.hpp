@@ -13,7 +13,7 @@
 namespace Engine {
     namespace MobModule {
         namespace Components {
-            template <typename T>
+            template<typename T>
             class AttackComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
@@ -24,8 +24,8 @@ namespace Engine {
 
                 protected:
                 private:
-                    std::string   _component_name;
-                    T _data;
+                    std::string _component_name;
+                    T           _data;
             };
         }  // namespace Components
     }      // namespace MobModule

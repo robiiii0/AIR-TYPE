@@ -9,8 +9,9 @@
 
 #include <stdexcept>
 
-template <typename T>
-Engine::Entity::Component::GenericComponents::DoubleComponent<T>::DoubleComponent(double data) {
+template<typename T>
+Engine::Entity::Component::GenericComponents::DoubleComponent<
+    T>::DoubleComponent(double data) {
     if (typeid(T) != typeid(double))
         throw std::invalid_argument("T is not a double");
     else {
@@ -19,13 +20,16 @@ Engine::Entity::Component::GenericComponents::DoubleComponent<T>::DoubleComponen
     }
 }
 
-template <typename T>
-Engine::Entity::Component::GenericComponents::DoubleComponent<T>::~DoubleComponent() {}
+template<typename T>
+Engine::Entity::Component::GenericComponents::DoubleComponent<
+    T>::~DoubleComponent() {}
 
-template <typename T>
-void Engine::Entity::Component::GenericComponents::DoubleComponent<T>::execute() {}
+template<typename T>
+void Engine::Entity::Component::GenericComponents::DoubleComponent<
+    T>::execute() {}
 
-template <typename T>
-std::string Engine::Entity::Component::GenericComponents::DoubleComponent<T>::getName() const {
+template<typename T>
+std::string Engine::Entity::Component::GenericComponents::DoubleComponent<
+    T>::getName() const {
     return _component_name;
 }
