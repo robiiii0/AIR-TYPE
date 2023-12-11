@@ -8,13 +8,23 @@
 #ifndef PHYSICMODULE_HPP_
 #define PHYSICMODULE_HPP_
 
-class PhysicModule {
-    public:
-        PhysicModule();
-        ~PhysicModule();
+#include "../EntityManager/Entity/Entity.hpp"
+#include "../EntityManager/EntityManager.hpp"
 
-    protected:
-    private:
-};
+namespace Engine {
+    namespace Physic {
+        template<typename T>
+        class PhysicModule {
+            public:
+                PhysicModule();
+                ~PhysicModule();
+                void update();
+                bool isColliding(Entity::Entity &entity1, Entity::Entity &entity2);
+
+            protected:
+            private:
+        };
+    };  // namespace Physic
+};      // namespace Engine
 
 #endif /* !PHYSICMODULE_HPP_ */
