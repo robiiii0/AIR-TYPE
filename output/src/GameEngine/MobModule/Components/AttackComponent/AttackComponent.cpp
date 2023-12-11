@@ -10,23 +10,21 @@
 #include <stdexcept>
 
 template <typename T>
-Engine::MobModule::Components::AttackComponent<T>::AttackComponent(
-    std::any value) {
-    if (value.type() == typeid(int)) {
+Engine::MobModule::Components::AttackComponent<T>::AttackComponent(int data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else
         _component_name = "AttackComponent";
-        _damage = std::any_cast<int>(value);
-        _ptr = value;
-    } else
-        throw std::runtime_error("AttackComponent value is not int");
+        _data = data;
 }
 
 template <typename T>
-Engine::MobModule::Components::AttackComponent::~AttackComponent(){};
+Engine::MobModule::Components::AttackComponent<T>::~AttackComponent(){};
 
 template <typename T>
-void Engine::MobModule::Components::AttackComponent::execute() {}
+void Engine::MobModule::Components::AttackComponent<T>::execute() {}
 
 template <typename T>
-std::string Engine::MobModule::Components::AttackComponent::getName() const {
+std::string Engine::MobModule::Components::AttackComponent<T>::getName() const {
     return _component_name;
 }

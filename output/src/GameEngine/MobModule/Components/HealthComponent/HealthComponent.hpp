@@ -19,21 +19,19 @@ namespace Engine {
                     int maxHealth;
             };
 
+            template <typename T>
             class HealthComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    HealthComponent(std::any value);
+                    HealthComponent(HealthComponentData data);
                     ~HealthComponent();
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
 
                 protected:
                 private:
-                    std::uint32_t       _id;
                     std::string         _component_name;
-                    HealthComponentData _data;
-                    std::any            _ptr;
+                    T _data;
             };
         }  // namespace Components
     }      // namespace MobModule

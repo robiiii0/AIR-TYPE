@@ -9,25 +9,24 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::HealthComponent::HealthComponent(
-    std::any value) {
-    if (value.type() == typeid(HealthComponentData)) {
+template <typename T>
+Engine::MobModule::Components::HealthComponent<T>::HealthComponent(
+    HealthComponentData data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else {
         _component_name = "HealthComponent";
-        auto true_value = std::any_cast<HealthComponentData>(value);
-        _data = true_value;
-    } else
-        throw std::runtime_error("HealthComponent value is not pair<int,int>");
+        _data = data;
+    }
 }
 
-Engine::MobModule::Components::HealthComponent::~HealthComponent() {}
+template <typename T>
+Engine::MobModule::Components::HealthComponent<T>::~HealthComponent() {}
 
-void Engine::MobModule::Components::HealthComponent::execute() {}
+template <typename T>
+void Engine::MobModule::Components::HealthComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::HealthComponent::get() {
-    _ptr = std::make_any<HealthComponentData>(_data);
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::HealthComponent::getName() const {
+template <typename T>
+std::string Engine::MobModule::Components::HealthComponent<T>::getName() const {
     return _component_name;
 }

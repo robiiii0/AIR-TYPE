@@ -17,10 +17,9 @@ namespace Engine {
             class AttackComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AttackComponent(int value);
+                    AttackComponent(int data);
                     ~AttackComponent();
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
 
                 protected:

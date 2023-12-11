@@ -9,23 +9,23 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::IAComponent::IAComponent(std::any value) {
-    if (value.type() == typeid(int)) {
+template <typename T>
+Engine::MobModule::Components::IAComponent<T>::IAComponent(int data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else {
         _component_name = "IAComponent";
-        _ia = std::any_cast<int>(value);
-    } else
-        throw std::runtime_error("IAComponent value is not int");
+        _data = data;
+    }
 }
 
-Engine::MobModule::Components::IAComponent::~IAComponent() {}
+template <typename T>
+Engine::MobModule::Components::IAComponent<T>::~IAComponent() {}
 
-void Engine::MobModule::Components::IAComponent::execute() {}
+template <typename T>
+void Engine::MobModule::Components::IAComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::IAComponent::get() {
-    _ptr = _ia;
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::IAComponent::getName() const {
+template <typename T>
+std::string Engine::MobModule::Components::IAComponent<T>::getName() const {
     return _component_name;
 }
