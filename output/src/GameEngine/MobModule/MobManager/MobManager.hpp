@@ -17,17 +17,6 @@ namespace Engine {
                 MobManager();
                 ~MobManager();
 
-                std::uint32_t addComponent(
-                    Engine::Entity::Entity&                entity,
-                    Engine::Entity::Component::IComponent& component);
-                bool removeComponent(Engine::Entity::Entity& entity,
-                                     std::string             component_name);
-                bool removeAllComponents(Engine::Entity::Entity& entity);
-                Engine::Entity::Component::IComponent& getComponent(
-                    Engine::Entity::Entity& entity, std::string component_name);
-                bool hasComponent(Engine::Entity::Entity& entity,
-                                  std::string             component_name);
-
             protected:
             private:
         };
