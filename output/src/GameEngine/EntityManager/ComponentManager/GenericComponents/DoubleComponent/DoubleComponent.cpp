@@ -9,26 +9,23 @@
 
 #include <stdexcept>
 
-Engine::Entity::Component::GenericComponents::DoubleComponent::DoubleComponent(
-    std::any value) {
-    if (value.type() == typeid(double)) {
+template <typename T>
+Engine::Entity::Component::GenericComponents::DoubleComponent<T>::DoubleComponent(double data) {
+    if (typeid(T) != typeid(double))
+        throw std::invalid_argument("T is not a double");
+    else {
         _component_name = "DoubleComponent";
-        _value = std::any_cast<double>(value);
-    } else
-        throw std::runtime_error("DoubleComponent value is not double");
+        _data = data;
+    }
 }
 
-Engine::Entity::Component::GenericComponents::DoubleComponent::
-    ~DoubleComponent() {}
+template <typename T>
+Engine::Entity::Component::GenericComponents::DoubleComponent<T>::~DoubleComponent() {}
 
-void Engine::Entity::Component::GenericComponents::DoubleComponent::execute() {}
+template <typename T>
+void Engine::Entity::Component::GenericComponents::DoubleComponent<T>::execute() {}
 
-std::string
-    Engine::Entity::Component::GenericComponents::DoubleComponent::getName()
-        const {
+template <typename T>
+std::string Engine::Entity::Component::GenericComponents::DoubleComponent<T>::getName() const {
     return _component_name;
-}
-
-std::any& Engine::Entity::Component::GenericComponents::DoubleComponent::get() {
-    return _value;
 }
