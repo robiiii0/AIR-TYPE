@@ -6,7 +6,6 @@
 */
 
 #include "src/Game/Game.hpp"
-#include <iostream>
 
 int main() {
     Game game;
