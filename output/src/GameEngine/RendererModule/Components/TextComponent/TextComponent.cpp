@@ -42,3 +42,21 @@ sf::Drawable &
     Engine::RendererModule::Components::TextComponent<T>::getDrawable() {
     return _text;
 }
+
+template<typename T>
+void Engine::RendererModule::Components::TextComponent<T>::setTextData(
+    TextData data) {
+    _data = data;
+    _text.setString(_data.text);
+    _text.setFont(_data.font);
+    _text.setColor(_data.color);
+    _text.setPosition(_data.position);
+    _text.setScale(_data.scale);
+    _text.setRotation(_data.rotation);
+}
+
+template<typename T>
+Engine::RendererModule::Components::TextData
+    Engine::RendererModule::Components::TextComponent<T>::getTextData() const {
+    return _data;
+}

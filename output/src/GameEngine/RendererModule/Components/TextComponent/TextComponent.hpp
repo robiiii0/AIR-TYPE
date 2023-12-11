@@ -33,6 +33,8 @@ namespace Engine {
                     std::string   getName() const override;
                     bool          isDrawable() const override;
                     sf::Drawable &getDrawable() override;
+                    void          setTextData(TextData data);
+                    TextData      getTextData() const;
 
                 protected:
                 private:
