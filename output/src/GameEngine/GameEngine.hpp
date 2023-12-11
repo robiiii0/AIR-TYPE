@@ -23,6 +23,12 @@ namespace Engine {
 
             void run();
 
+            Entity::EntityManager            *getEntityManager() const;
+            Hmi::HmiModule                   *getHmiModule() const;
+            LocalStorage::LocalStorageModule *getLocalStorageModule() const;
+            Network::NetworkingModule        *getNetworkingModule() const;
+            RendererModule::RendererModule   *getRendererModule() const;
+
         private:
             Entity::EntityManager            *_entityManager;
             Hmi::HmiModule                   *_hmiModule;
