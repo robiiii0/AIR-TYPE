@@ -22,7 +22,7 @@ namespace Engine {
                     public:
                         ULongComponent(std::any value);
                         ~ULongComponent();
-                        
+
                         void        execute() override;
                         std::any&   get() override;
                         std::string getName() const override;

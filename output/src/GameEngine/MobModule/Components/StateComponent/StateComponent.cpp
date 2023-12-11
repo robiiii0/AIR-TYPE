@@ -22,9 +22,7 @@ Engine::MobModule::Components::StateComponent::~StateComponent() {}
 
 void Engine::MobModule::Components::StateComponent::execute() {}
 
-std::any& Engine::MobModule::Components::StateComponent::get() {
-    return _ptr;
-}
+std::any& Engine::MobModule::Components::StateComponent::get() { return _ptr; }
 
 std::string Engine::MobModule::Components::StateComponent::getName() const {
     return _component_name;

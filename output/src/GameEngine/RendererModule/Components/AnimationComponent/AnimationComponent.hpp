@@ -34,7 +34,6 @@ namespace Engine {
                     std::any      _ptr;
                     sf::IntRect   _rect;
                     float         _time;
-
             };
         };  // namespace Components
     };      // namespace RendererModule

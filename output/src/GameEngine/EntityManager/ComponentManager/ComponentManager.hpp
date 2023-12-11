@@ -33,7 +33,8 @@ namespace Engine {
 
                     void getAllComponents(Entity& entity);
 
-                    std::any& getComponentValue(Entity& entity, std::string component_name);
+                    std::any& getComponentValue(Entity&     entity,
+                                                std::string component_name);
 
                 protected:
                 private:

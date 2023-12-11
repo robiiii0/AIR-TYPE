@@ -11,7 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-
 namespace Engine {
     namespace RendererModule {
         class RendererModule {
@@ -21,13 +20,13 @@ namespace Engine {
                 void init();
                 void update();
                 void render();
+
             protected:
             private:
                 sf::RenderWindow _window;
-                sf::Event        _event; // a enlever si on a un event manager
-                
+                sf::Event        _event;  // a enlever si on a un event manager
         };
     };  // namespace RendererModule
-};
+};      // namespace Engine
 
 #endif /* !RENDERERMODULE_HPP_ */

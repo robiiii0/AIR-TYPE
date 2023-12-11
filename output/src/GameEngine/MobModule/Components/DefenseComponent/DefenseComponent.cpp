@@ -9,7 +9,8 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::DefenseComponent::DefenseComponent(std::any value) {
+Engine::MobModule::Components::DefenseComponent::DefenseComponent(
+    std::any value) {
     if (value.type() == typeid(int)) {
         _component_name = "DefenseComponent";
         _defense = std::any_cast<int>(value);

@@ -9,11 +9,12 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::MobTypeComponent::MobTypeComponent(std::any value) {
+Engine::MobModule::Components::MobTypeComponent::MobTypeComponent(
+    std::any value) {
     if (value.type() == typeid(int)) {
         _component_name = "MobTypeComponent";
         _type = std::any_cast<int>(value);
-    _ptr = _type;
+        _ptr = _type;
 
     } else
         throw std::runtime_error("MobTypeComponent value is not int");

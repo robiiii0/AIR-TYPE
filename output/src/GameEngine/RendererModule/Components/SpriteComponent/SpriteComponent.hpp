@@ -8,20 +8,21 @@
 #ifndef SPRITECOMPONENT_HPP_
 #define SPRITECOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 #include <SFML/Graphics.hpp>
+
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
         namespace Components {
-            class SpriteComponent : public Engine::Entity::Component::AComponent {
+            class SpriteComponent :
+                public Engine::Entity::Component::AComponent {
                 public:
                     SpriteComponent(std::any value);
                     ~SpriteComponent();
                     void        execute() override;
                     std::any&   get() override;
                     std::string getName() const override;
-
 
                     // Sprite
                     void setRotation(float rotation);
@@ -42,8 +43,8 @@ namespace Engine {
                     std::string   _path;
                     std::any      _ptr;
             };
-        };
-    };
-};
+        };  // namespace Components
+    };      // namespace RendererModule
+};          // namespace Engine
 
 #endif /* !SPRITECOMPONENT_HPP_ */

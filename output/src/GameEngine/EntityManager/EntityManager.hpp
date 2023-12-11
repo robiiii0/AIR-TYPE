@@ -52,8 +52,10 @@ namespace Engine {
                     _componentManager.getAllComponents(entity);
                 }
 
-                std::any& getComponentValue(Entity& entity, std::string component_name) {
-                    return _componentManager.getComponentValue(entity, component_name);
+                std::any& getComponentValue(Entity&     entity,
+                                            std::string component_name) {
+                    return _componentManager.getComponentValue(entity,
+                                                               component_name);
                 }
 
             private:

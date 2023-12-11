@@ -8,9 +8,10 @@
 #ifndef WINDOWCOMPONENT_HPP_
 #define WINDOWCOMPONENT_HPP_
 
-#include "../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
-#include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
+#include "../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -29,8 +30,8 @@ namespace Engine {
                 void setKeyRepeatEnabled(bool enabled, sf::Window window);
                 void requestFocus(sf::Window window);
 
-                sf::Vector2u getSize(sf::Window window) const;
-                bool         isFocus(sf::Window window) const;
+                sf::Vector2u     getSize(sf::Window window) const;
+                bool             isFocus(sf::Window window) const;
                 sf::WindowHandle getSystemHandle(sf::Window window) const;
 
             protected:

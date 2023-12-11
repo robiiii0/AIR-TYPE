@@ -7,7 +7,8 @@
 
 #include "AnimationComponent.hpp"
 
-Engine::RendererModule::Components::AnimationComponent::AnimationComponent(std::any value) {
+Engine::RendererModule::Components::AnimationComponent::AnimationComponent(
+    std::any value) {
     _component_name = "AnimationComponent";
     if (value.type() != typeid(sf::IntRect))
         throw std::runtime_error("AnimationComponent: value is not a string");
@@ -39,9 +40,8 @@ void Engine::RendererModule::Components::AnimationComponent::update(
     float deltaTime, int nbFrame, int rectBase) {
     _time += deltaTime;
     if (_time >= 0.1f) {
-        _rect.left += _rect.width ;
-        if (_rect.left >= nbFrame * _rect.width)
-            _rect.left = rectBase;
+        _rect.left += _rect.width;
+        if (_rect.left >= nbFrame * _rect.width) _rect.left = rectBase;
         _time = 0;
     }
 }

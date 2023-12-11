@@ -15,26 +15,26 @@
 namespace Engine {
     namespace Physic {
         namespace Components {
-            class PositionComponent : public Engine::Entity::Component::AComponent{
+            class PositionComponent :
+                public Engine::Entity::Component::AComponent {
                 public:
                     PositionComponent(std::any value);
                     ~PositionComponent();
 
-                    void execute() override;
-                    std::any& get() override;
+                    void        execute() override;
+                    std::any&   get() override;
                     std::string getName() const override;
 
                     void setPos(std::pair<float, float> pos);
+
                 protected:
                 private:
                     std::pair<float, float> _pos;
-                    std::string _component_name;
-                    std::any _value;
+                    std::string             _component_name;
+                    std::any                _value;
             };
-        };
-    };
-};
-
+        };  // namespace Components
+    };      // namespace Physic
+};          // namespace Engine
 
 #endif /* !POSITIONCOMPONENT_HPP_ */
- 
