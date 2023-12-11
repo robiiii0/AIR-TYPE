@@ -33,9 +33,6 @@ namespace Engine {
 
                     void getAllComponents(Entity& entity);
 
-                    std::any& getComponentValue(Entity&     entity,
-                                                std::string component_name);
-
                 protected:
                 private:
                     std::array<std::uint32_t, __max_entities> _component_ids;

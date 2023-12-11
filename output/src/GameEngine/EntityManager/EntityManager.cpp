@@ -30,8 +30,7 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
     _available_entities.pop();
     _living_entity_count++;
     std::cout << "Created entity " << id << std::endl;
-    Entity entity;
-    entity.id = id;
+    Entity entity(id);
     _entities.push_back(entity);
     return id;
 }
@@ -70,4 +69,10 @@ void Engine::Entity::EntityManager::removeComponent(
     else
         std::cout << "Component " << component_name << " not found"
                   << std::endl;
+}
+
+template <typename T>
+T& Engine::Entity::EntityManager::getComponentValue(
+    Entity& entity, std::string component_name) {
+    return entity.getComponentValue<T>(entity, component_name);
 }
