@@ -9,6 +9,7 @@ include_directories(output/src/Client/src/GameState)
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 add_executable(r_type
+        output/src/Client/main.cpp
         # output/src/Client/src/Game/Game.cpp
         # output/src/Client/src/Game/Game.hpp
         # output/src/Client/src/GameState/GameState.cpp
