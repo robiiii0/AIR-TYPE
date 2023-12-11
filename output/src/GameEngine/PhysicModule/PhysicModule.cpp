@@ -29,11 +29,10 @@ bool Engine::Physic::PhysicModule<T>::isColliding(Entity::Entity &entity1,
         data1._pos.first + data1._size.first > data2._pos.first &&
         data1._pos.second < data2._pos.second + data2._size.second &&
         data1._pos.second + data1._size.second > data2._pos.second) {
-            std::cout << entity1.id << " colliding with " << entity2.id << std::endl;
-            return true;
-        }
-    else {
+        std::cout << entity1.id << " colliding with " << entity2.id
+                  << std::endl;
+        return true;
+    } else {
         return false;
     }
 }
-

@@ -19,7 +19,8 @@ namespace Engine {
                 PhysicModule();
                 ~PhysicModule();
                 void update();
-                bool isColliding(Entity::Entity &entity1, Entity::Entity &entity2);
+                bool isColliding(Entity::Entity &entity1,
+                                 Entity::Entity &entity2);
 
             protected:
             private:

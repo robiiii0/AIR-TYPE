@@ -15,23 +15,21 @@
 namespace Engine {
     namespace Physic {
         namespace Components {
+            template<typename T>
             class PositionComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    PositionComponent(std::any value);
+                    PositionComponent(T data, std::pair<float, float>);
                     ~PositionComponent();
-
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
-
-                    void setPos(std::pair<float, float> pos);
+                    void        setPos(std::pair<float, float> pos);
 
                 protected:
                 private:
                     std::pair<float, float> _pos;
                     std::string             _component_name;
-                    std::any                _value;
+                    T                       data;
             };
         };  // namespace Components
     };      // namespace Physic
