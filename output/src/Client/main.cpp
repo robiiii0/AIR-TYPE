@@ -5,10 +5,12 @@
 ** main
 */
 
+#include "src/Game/Game.hpp"
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, Client Module!" << std::endl;
+    Game game;
 
+    game.run();
     return 0;
 }

@@ -11,9 +11,13 @@ Engine::RendererModule::RendererModule::RendererModule() {}
 
 Engine::RendererModule::RendererModule::~RendererModule() {}
 
-void Engine::RendererModule::RendererModule::init() {
-    _window.create(sf::VideoMode(1920, 1080), "R-Type");
-    _window.setFramerateLimit(60);
+sf::RenderWindow& Engine::RendererModule::RendererModule::getWindow() {
+    return _window;
+}
+
+void Engine::RendererModule::RendererModule::init(int width, int height, std::string title, int framerate) {
+    _window.create(sf::VideoMode(width, height), title);
+    _window.setFramerateLimit(framerate);
 }
 
 void Engine::RendererModule::RendererModule::
@@ -26,10 +30,10 @@ void Engine::RendererModule::RendererModule::
 void Engine::RendererModule::RendererModule::render()  // draw la scene
 {
     _window.clear();
-    for (auto& entity : _entities) {
-        if (!entity->hasComponent<
-                Engine::RendererModule::Components::SpriteComponent>())
-            _window.draw(sprite.sprite);
-    }
+//    for (auto& entity : _entities) {
+//        if (!entity->hasComponent<
+//                Engine::RendererModule::Components::SpriteComponent>())
+//            _window.draw(sprite.sprite);
+//    }
     _window.display();
 }

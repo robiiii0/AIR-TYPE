@@ -17,10 +17,10 @@ namespace Engine {
             public:
                 RendererModule();
                 ~RendererModule();
-                void init();
+                void init(int width, int height, std::string title, int framerate);
                 void update();
                 void render();
-
+                sf::RenderWindow& getWindow();
             protected:
             private:
                 sf::RenderWindow _window;
