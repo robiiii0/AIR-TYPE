@@ -10,6 +10,7 @@
 
 #include <any>
 #include <string>
+#include <cstdint>
 
 namespace Engine {
     namespace Entity {

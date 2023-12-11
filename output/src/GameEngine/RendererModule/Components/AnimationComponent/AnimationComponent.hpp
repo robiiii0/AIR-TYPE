@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
