@@ -8,9 +8,8 @@
 #ifndef TEXTCOMPONENT_HPP_
 #define TEXTCOMPONENT_HPP_
 
-#include <SFML/Graphics.hpp>
-
 #include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../RendererComponent/RendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -25,7 +24,7 @@ namespace Engine {
             };
 
             template<typename T>
-            class TextComponent : public Engine::Entity::Component::AComponent {
+            class TextComponent : public Engine::RendererModule::IRendererComponent {
                 public:
                     TextComponent(T value);
                     ~TextComponent();
