@@ -9,6 +9,5 @@
 
 int main() {
     std::cout << "Hello, Client Module!" << std::endl;
-
     return 0;
 }
