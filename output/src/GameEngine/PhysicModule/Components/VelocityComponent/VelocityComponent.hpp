@@ -20,23 +20,21 @@
 namespace Engine {
     namespace Physic {
         namespace Components {
+            template<typename T>
             class VelocityComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    VelocityComponent(std::any value);
+                    VelocityComponent(T data);
                     ~VelocityComponent();
-
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
-
-                    void setVelocity(std::pair<float, float> velocity);
+                    void        setVelocity(std::pair<float, float> velocity);
 
                 protected:
                 private:
                     std::pair<float, float> _velocity;
                     std::string             _component_name;
-                    std::any                _value;
+                    T                       data;
             };
         };  // namespace Components
     };      // namespace Physic

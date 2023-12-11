@@ -13,26 +13,25 @@
 namespace Engine {
     namespace Physic {
         namespace Components {
+            struct Data {
+                    std::pair<float, float> _pos;
+                    std::pair<float, float> _size;
+            };
+
+            template<typename T>
             class BoundingBoxComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    BoundingBoxComponent(std::any value);
+                    BoundingBoxComponent(Data data);
                     ~BoundingBoxComponent();
-
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
-
-                    void setBoundingBox(
-                        std::pair<std::pair<float, float>, std::pair<int, int>>
-                            pos);
+                    void        setBoundingBox(Data data);
 
                 protected:
                 private:
-                    std::pair<float, float> _pos;
-                    std::pair<float, float> _size;
-                    std::string             _component_name;
-                    std::any                _value;
+                    T           data;
+                    std::string _component_name;
             };
         };  // namespace Components
     };      // namespace Physic

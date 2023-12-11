@@ -7,28 +7,28 @@
 
 #include "VelocityComponent.hpp"
 
-Engine::Physic::Components::VelocityComponent::VelocityComponent(
-    std::any value) {
-    if (value.type() == typeid(std::pair<float, float>)) {
+template<typename T>
+Engine::Physic::Components::VelocityComponent<T>::VelocityComponent(T data) {
+    if (value.type() == typeid(T)) {
         _component_name = "VelocityComponent";
-        _value = std::any_cast<std::pair<float, float>>(value);
+        this->data = data;
     }
 }
 
-Engine::Physic::Components::VelocityComponent::~VelocityComponent() {}
+template<typename T>
+Engine::Physic::Components::VelocityComponent<T>::~VelocityComponent() {}
 
-void Engine::Physic::Components::VelocityComponent::execute() {}
+template<typename T>
+void Engine::Physic::Components::VelocityComponent<T>::execute() {}
 
-std::any &Engine::Physic::Components::VelocityComponent::get() {
-    return (_value);
-}
-
-std::string Engine::Physic::Components::VelocityComponent::getName() const {
+template<typename T>
+std::string Engine::Physic::Components::VelocityComponent<T>::getName() const {
     return (_component_name);
 }
 
-void Engine::Physic::Components::VelocityComponent::setVelocity(
+template<typename T>
+void Engine::Physic::Components::VelocityComponent<T>::setVelocity(
     std::pair<float, float> velocity) {
     _velocity = velocity;
-    _value = _velocity;
+    data = _velocity;
 }
