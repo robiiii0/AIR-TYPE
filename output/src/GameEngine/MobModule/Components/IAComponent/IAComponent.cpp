@@ -9,10 +9,8 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::IAComponent::IAComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
+Engine::MobModule::Components::IAComponent::IAComponent(std::any value) {
     if (value.type() == typeid(int)) {
-        _id = id;
         _component_name = "IAComponent";
         _ia = std::any_cast<int>(value);
     } else

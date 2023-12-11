@@ -18,14 +18,9 @@ namespace Engine {
             namespace GenericComponents {
                 class StringComponent : public AComponent {
                     public:
-                        StringComponent(std::uint32_t id,
-                                        std::string   component_name,
-                                        std::string   value) :
-                            _id(id),
-                            _component_name(component_name),
-                            _value(value) {}
-
+                        StringComponent(std::string value);
                         ~StringComponent();
+
                         void        execute() override;
                         std::any&   get() override;
                         std::string getName() const override;

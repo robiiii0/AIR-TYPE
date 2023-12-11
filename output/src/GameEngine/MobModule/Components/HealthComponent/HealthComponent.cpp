@@ -10,9 +10,8 @@
 #include <stdexcept>
 
 Engine::MobModule::Components::HealthComponent::HealthComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
+    std::any value) {
     if (value.type() == typeid(HealthComponentData)) {
-        _id = id;
         _component_name = "HealthComponent";
         auto true_value = std::any_cast<HealthComponentData>(value);
         _data = true_value;

@@ -8,15 +8,14 @@
 #ifndef IACOMPONENT_HPP_
 #define IACOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
-            class IAComponent : public Engine::Entity::Component::IComponent {
+            class IAComponent : public Engine::Entity::Component::AComponent {
                 public:
-                    IAComponent(std::uint32_t id, std::string component_name,
-                                std::any value);
+                    IAComponent(std::any value);
                     ~IAComponent();
                     void        execute() override;
                     std::any&   get() override;

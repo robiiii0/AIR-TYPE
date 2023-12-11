@@ -7,6 +7,15 @@
 
 #include "ULongComponent.hpp"
 
+Engine::Entity::Component::GenericComponents::ULongComponent::ULongComponent(
+    std::any value) {
+    if (value.type() == typeid(unsigned long)) {
+        _component_name = "ULongComponent";
+        _value = std::any_cast<unsigned long>(value);
+    } else
+        throw std::runtime_error("ULongComponent value is not unsigned long");
+}
+
 Engine::Entity::Component::GenericComponents::ULongComponent::
     ~ULongComponent() {}
 

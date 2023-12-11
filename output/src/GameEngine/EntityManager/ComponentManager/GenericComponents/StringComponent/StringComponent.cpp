@@ -7,6 +7,12 @@
 
 #include "StringComponent.hpp"
 
+Engine::Entity::Component::GenericComponents::StringComponent::StringComponent(
+    std::string value) {
+    _component_name = "StringComponent";
+    _value = value;
+}
+
 Engine::Entity::Component::GenericComponents::StringComponent::
     ~StringComponent() {}
 

@@ -20,14 +20,9 @@ namespace Engine {
             namespace GenericComponents {
                 class ULongComponent : public AComponent {
                     public:
-                        ULongComponent(std::uint32_t id,
-                                       std::string   component_name,
-                                       std::any      value) :
-                            _id(id),
-                            _component_name(component_name),
-                            _value(value) {}
-
+                        ULongComponent(std::any value);
                         ~ULongComponent();
+
                         void        execute() override;
                         std::any&   get() override;
                         std::string getName() const override;

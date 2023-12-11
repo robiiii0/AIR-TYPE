@@ -19,14 +19,9 @@ namespace Engine {
             namespace GenericComponents {
                 class DoubleComponent : public AComponent {
                     public:
-                        DoubleComponent(std::uint32_t id,
-                                        std::string   component_name,
-                                        double        value) :
-                            _id(id),
-                            _component_name(component_name),
-                            _value(value) {}
-
+                        DoubleComponent(double value);
                         ~DoubleComponent();
+
                         void        execute() override;
                         std::any&   get();
                         std::string getName() const override;

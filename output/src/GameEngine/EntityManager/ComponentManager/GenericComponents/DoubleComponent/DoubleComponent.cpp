@@ -7,6 +7,17 @@
 
 #include "DoubleComponent.hpp"
 
+#include <stdexcept>
+
+Engine::Entity::Component::GenericComponents::DoubleComponent::DoubleComponent(
+    std::any value) {
+    if (value.type() == typeid(double)) {
+        _component_name = "DoubleComponent";
+        _value = std::any_cast<double>(value);
+    } else
+        throw std::runtime_error("DoubleComponent value is not double");
+}
+
 Engine::Entity::Component::GenericComponents::DoubleComponent::
     ~DoubleComponent() {}
 

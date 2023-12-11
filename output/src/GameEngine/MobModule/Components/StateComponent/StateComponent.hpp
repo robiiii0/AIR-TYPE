@@ -8,16 +8,15 @@
 #ifndef STATECOMPONENT_HPP_
 #define STATECOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
             class StateComponent :
-                public Engine::Entity::Component::IComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    StateComponent(std::uint32_t id, std::string component_name,
-                                   std::any value);
+                    StateComponent(std::any value);
                     ~StateComponent();
                     void        execute() override;
                     std::any&   get() override;

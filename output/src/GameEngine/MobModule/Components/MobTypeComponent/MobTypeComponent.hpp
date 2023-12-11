@@ -8,17 +8,15 @@
 #ifndef MOBTYPECOMPONENT_HPP_
 #define MOBTYPECOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
             class MobTypeComponent :
-                public Engine::Entity::Component::IComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    MobTypeComponent(std::uint32_t id,
-                                     std::string   component_name,
-                                     std::any      value);
+                    MobTypeComponent(std::any value);
                     ~MobTypeComponent();
                     void        execute() override;
                     std::any&   get() override;
