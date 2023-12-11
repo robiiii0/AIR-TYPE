@@ -17,8 +17,8 @@ add_executable(Game
         ../GameEngine/GameEngine.cpp
         ../GameEngine/RendererModule/RendererModule.cpp
         ../GameEngine/RendererModule/WindowManager/Window.cpp
-        ../GameEngine/RendererModule/WindowManager/Components/AnimationComponent/AnimationComponent.cpp
-        ../GameEngine/RendererModule/WindowManager/Components/SpriteComponent/SpriteComponent.cpp
+        ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
+        ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
         ../GameEngine/EntityManager/EntityManager.cpp
         ../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp
         ../GameEngine/EntityManager/ComponentManager/AComponent/AComponent.cpp

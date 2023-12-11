@@ -5,10 +5,10 @@
 ** main
 */
 
-#include "src/Game/Game.hpp"
+#include "../GameEngine/GameEngine.hpp"
 
 int main() {
-    Game game;
+    Engine::GameEngine game;
 
     game.run();
     return 0;
