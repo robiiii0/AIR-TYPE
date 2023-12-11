@@ -9,7 +9,8 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::AttackComponent::AttackComponent(
+template <typename T>
+Engine::MobModule::Components::AttackComponent<T>::AttackComponent(
     std::any value) {
     if (value.type() == typeid(int)) {
         _component_name = "AttackComponent";
@@ -19,12 +20,13 @@ Engine::MobModule::Components::AttackComponent::AttackComponent(
         throw std::runtime_error("AttackComponent value is not int");
 }
 
+template <typename T>
 Engine::MobModule::Components::AttackComponent::~AttackComponent(){};
 
+template <typename T>
 void Engine::MobModule::Components::AttackComponent::execute() {}
 
-std::any& Engine::MobModule::Components::AttackComponent::get() { return _ptr; }
-
+template <typename T>
 std::string Engine::MobModule::Components::AttackComponent::getName() const {
     return _component_name;
 }

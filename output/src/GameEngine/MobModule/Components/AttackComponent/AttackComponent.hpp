@@ -13,10 +13,11 @@
 namespace Engine {
     namespace MobModule {
         namespace Components {
+            template <typename T>
             class AttackComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AttackComponent(std::any value);
+                    AttackComponent(int value);
                     ~AttackComponent();
                     void        execute() override;
                     std::any&   get() override;
@@ -24,10 +25,8 @@ namespace Engine {
 
                 protected:
                 private:
-                    std::uint32_t _id;
                     std::string   _component_name;
-                    int           _damage;
-                    std::any      _ptr;
+                    T _data;
             };
         }  // namespace Components
     }      // namespace MobModule
