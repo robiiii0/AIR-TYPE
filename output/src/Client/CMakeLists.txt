@@ -5,9 +5,9 @@ project(Game)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(../)
-include_directories(../GameEngine/ ../GameEngine/build)
-add_subdirectory(../GameEngine/RendererModule/ ../GameEngine/RendererModule/build)
-add_subdirectory(../GameEngine/EntityManager/ ../GameEngine/EntityManager/build)
+include_directories(../GameEngine/ ./GameEngine/build)
+add_subdirectory(../GameEngine/RendererModule/ ./GameEngine/RendererModule/build)
+add_subdirectory(../GameEngine/EntityManager/ ./GameEngine/EntityManager/build)
 
 
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
