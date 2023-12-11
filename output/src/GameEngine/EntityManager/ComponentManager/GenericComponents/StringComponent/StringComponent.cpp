@@ -7,23 +7,23 @@
 
 #include "StringComponent.hpp"
 
-Engine::Entity::Component::GenericComponents::StringComponent::StringComponent(
-    std::string value) {
+template<typename T>
+Engine::Entity::Component::GenericComponents::StringComponent<
+    T>::StringComponent(std::string value) {
     _component_name = "StringComponent";
     _value = value;
 }
 
-Engine::Entity::Component::GenericComponents::StringComponent::
-    ~StringComponent() {}
+template<typename T>
+Engine::Entity::Component::GenericComponents::StringComponent<
+    T>::~StringComponent() {}
 
-void Engine::Entity::Component::GenericComponents::StringComponent::execute() {}
+template<typename T>
+void Engine::Entity::Component::GenericComponents::StringComponent<
+    T>::execute() {}
 
-std::any& Engine::Entity::Component::GenericComponents::StringComponent::get() {
-    return _value;
-}
-
-std::string
-    Engine::Entity::Component::GenericComponents::StringComponent::getName()
-        const {
+template<typename T>
+std::string Engine::Entity::Component::GenericComponents::StringComponent<
+    T>::getName() const {
     return _component_name;
 }
