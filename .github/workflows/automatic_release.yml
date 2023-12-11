@@ -7,13 +7,32 @@ on:
         branches: ['main']
 
 jobs:
-    automatic_build_and_release:
+    build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - run: 'bash output/compile.sh'
-            - name: 'Automatic Releases'
-              uses: ncipollo/release-action@v1
+            - name: 'Checkout'
+              uses: actions/checkout@v4
+            - name: 'Binary build'
+              run: 'cd output && bash build_release.sh'
+
+    upload:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Checkout'
+              uses: actions/checkout@v4
+            - name: 'Download built binaries'
+              uses: actions/download-artifact@v3
               with:
-                artifacts: "output/build/*"
-                token: ${{ secrets.GITHUB_TOKEN }}
+                  path: 'output/release'
+            - name: 'Pack binaries'
+              run: 'cd output/release && tar -czf release.tar.gz *'
+            - name: 'Publish Release'
+              uses: softprops/action-gh-release@v1
+              with:
+                files: 'output/release/release.tar.gz'
+                tag_name: ${{ github.ref }}
+                body: |
+                    Release ${{ github.ref }}
+                    ---
+                    Automatic release by GitHub Actions
