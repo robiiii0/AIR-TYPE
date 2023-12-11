@@ -33,6 +33,11 @@ std::string Engine::RendererModule::Components::TextComponent<T>::getName()
 }
 
 template<typename T>
+bool Engine::RendererModule::Components::TextComponent<T>::isDrawable() const {
+    return true;
+}
+
+template<typename T>
 sf::Drawable &
     Engine::RendererModule::Components::TextComponent<T>::getDrawable() {
     return _text;

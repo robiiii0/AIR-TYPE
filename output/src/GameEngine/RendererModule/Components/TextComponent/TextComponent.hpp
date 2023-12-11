@@ -31,6 +31,7 @@ namespace Engine {
                     ~TextComponent();
                     void          execute() override;
                     std::string   getName() const override;
+                    bool          isDrawable() const override;
                     sf::Drawable &getDrawable() override;
 
                 protected:
