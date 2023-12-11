@@ -27,6 +27,13 @@ template<typename T>
 void Engine::RendererModule::Components::TextComponent<T>::execute() {}
 
 template<typename T>
-std::string Engine::RendererModule::Components::TextComponent<T>::getName() const {
+std::string Engine::RendererModule::Components::TextComponent<T>::getName()
+    const {
     return "RendererTextComponent";
+}
+
+template<typename T>
+sf::Drawable &
+    Engine::RendererModule::Components::TextComponent<T>::getDrawable() {
+    return _text;
 }

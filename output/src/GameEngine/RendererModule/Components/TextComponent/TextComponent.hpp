@@ -29,8 +29,9 @@ namespace Engine {
                 public:
                     TextComponent(T value);
                     ~TextComponent();
-                    void        execute() override;
-                    std::string getName() const override;
+                    void          execute() override;
+                    std::string   getName() const override;
+                    sf::Drawable &getDrawable() override;
 
                 protected:
                 private:
