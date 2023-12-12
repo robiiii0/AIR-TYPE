@@ -32,11 +32,9 @@ jobs:
             - name: 'Pack binaries'
               run: 'cd output/release && tar -czf release.tar.gz *'
             - name: 'Publish Release'
-              uses: softprops/action-gh-release@v1
+              uses: marvinpinto/action-automatic-releases@v1.2.1
               with:
+                repo_token: ${{ secrets.API_TOKEN_GITHUB }}
+                automatic_release_tag: ${{ github.ref }}
                 files: 'output/release/release.tar.gz'
-                tag_name: ${{ github.ref }}
-                body: |
-                    Release ${{ github.ref }}
-                    ---
-                    Automatic release by GitHub Actions
+                title: 'Build ${{ github.ref }}'
