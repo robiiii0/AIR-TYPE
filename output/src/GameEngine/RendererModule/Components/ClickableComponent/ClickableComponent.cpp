@@ -15,6 +15,8 @@ Engine::RendererModule::Components::ClickableComponent<T>::ClickableComponent(
     if (typeid(T) != = typeid(ClickableData))
         throw std::invalid_argument("TextComponent: value is not a TextData");
     else {
+        _data.isHovered = false;
+        _data.isClicked = false;
     }
 }
 
@@ -32,7 +34,17 @@ std::string Engine::RendererModule::Components::ClickableComponent<T>::getName()
 }
 
 template<typename T>
-void Engine::RendererModule::Components::ClickableComponent<T>::update() {}
+void Engine::RendererModule::Components::ClickableComponent<T>::update() {
+    // TODO: MousePosition and Entity position in parameters ?
+    // Get MousePosition
+    // Get Entity Position
+
+    // Check if MousePosition is in Entity Position
+    // Update _data.isHovered
+
+    // Check if Mouse is clicked
+    // Update _data.isClicked
+}
 
 template<typename T>
 bool Engine::RendererModule::Components::ClickableComponent<T>::isHovered()
