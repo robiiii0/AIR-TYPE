@@ -30,7 +30,7 @@ jobs:
               with:
                   path: 'output/release'
             - name: 'Pack binaries'
-              run: 'cd output/release/artifact && tar -czf release.tar.gz *'
+              run: 'cd output/release && tar -czf release.tar.gz *'
             - name: 'Publish Release'
               uses: softprops/action-gh-release@v1
               with:
