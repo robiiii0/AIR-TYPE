@@ -23,6 +23,14 @@ namespace Engine {
 
                 ~Entity() = default;
 
+                /**
+                 * Retrieves the value of a component with the specified name.
+                 * 
+                 * @tparam T The type of the component value to retrieve.
+                 * @param component_name The name of the component.
+                 * @return A pointer to the component value if found, nullptr otherwise.
+                 * @throws std::runtime_error if the component is not found.
+                 */
                 template<typename T>
                 T* getComponentValue(std::string component_name) {
                     for (auto& component : components) {

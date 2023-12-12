@@ -55,11 +55,26 @@ void Engine::Entity::EntityManager::destroyEntity(
     std::cout << "Destroyed entity " << entity_id << std::endl;
 }
 
+/**
+ * Adds a component to the specified entity.
+ *
+ * @param entity The entity to add the component to.
+ * @param component The component to add.
+ */
 void Engine::Entity::EntityManager::addComponent(
     Entity& entity, Component::IComponent& component) {
     _componentManager.addComponent(entity, component);
 }
 
+/**
+ * Removes a component from an entity.
+ * If the component_name is "all", removes all components from the entity.
+ * If the component_name is valid and exists in the entity, removes the specified component.
+ * If the component_name is invalid or does not exist in the entity, displays an error message.
+ *
+ * @param entity The entity from which to remove the component.
+ * @param component_name The name of the component to remove.
+ */
 void Engine::Entity::EntityManager::removeComponent(
     Entity& entity, std::string component_name) {
     if (component_name == "all")
@@ -71,8 +86,16 @@ void Engine::Entity::EntityManager::removeComponent(
                   << std::endl;
 }
 
+/**
+ * Retrieves the value of a component from the specified entity.
+ * 
+ * @tparam T The type of the component value to retrieve.
+ * @param entity The entity from which to retrieve the component value.
+ * @param component_name The name of the component.
+ * @return The value of the component.
+ */
 template<typename T>
 T& Engine::Entity::EntityManager::getComponentValue(
     Entity& entity, std::string component_name) {
-    return entity.getComponentValue<T>(entity, component_name);
+    return entity.getComponentValue<T>(component_name);
 }

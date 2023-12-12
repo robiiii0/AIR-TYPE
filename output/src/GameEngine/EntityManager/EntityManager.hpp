@@ -19,7 +19,7 @@
 
 namespace Engine {
     namespace Entity {
-        const std::uint32_t __max_entities = 100;
+        const std::uint32_t __max_entities = 10000;
         const std::uint8_t  __max_components = 255;
 
         class EntityManager {
@@ -58,9 +58,7 @@ namespace Engine {
 
             private:
                 std::queue<std::uint32_t> _available_entities;
-
                 uint32_t _living_entity_count;
-
                 std::vector<Entity>         _entities;
                 Component::ComponentManager _componentManager;
         };
