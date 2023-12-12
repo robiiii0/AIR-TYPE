@@ -35,6 +35,6 @@ jobs:
               uses: marvinpinto/action-automatic-releases@v1.2.1
               with:
                 repo_token: ${{ secrets.API_TOKEN_GITHUB }}
-                automatic_release_tag: ${{ github.ref }}
+                automatic_release_tag: "latest"
                 files: 'output/release/release.tar.gz'
                 title: 'Build ${{ github.ref }}'
