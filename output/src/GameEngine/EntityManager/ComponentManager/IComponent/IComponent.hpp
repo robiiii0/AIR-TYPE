@@ -8,7 +8,6 @@
 #ifndef ICOMPONENT_HPP_
 #define ICOMPONENT_HPP_
 
-#include <any>
 #include <string>
 
 namespace Engine {
@@ -17,7 +16,6 @@ namespace Engine {
             class IComponent {
                 public:
                     virtual ~IComponent(){};
-                    virtual std::any&     get() = 0;
                     virtual void          execute() = 0;
                     virtual std::uint32_t getId() const = 0;
                     virtual void          setId(std::uint32_t id) = 0;

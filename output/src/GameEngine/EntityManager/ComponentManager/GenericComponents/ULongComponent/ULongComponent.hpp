@@ -18,24 +18,18 @@ namespace Engine {
     namespace Entity {
         namespace Component {
             namespace GenericComponents {
+                template<typename T>
                 class ULongComponent : public AComponent {
                     public:
-                        ULongComponent(std::uint32_t id,
-                                       std::string   component_name,
-                                       std::any      value) :
-                            _id(id),
-                            _component_name(component_name),
-                            _value(value) {}
-
+                        ULongComponent(ulong data);
                         ~ULongComponent();
+
                         void        execute() override;
-                        std::any&   get() override;
                         std::string getName() const override;
 
                     private:
-                        std::uint32_t _id;
-                        std::string   _component_name;
-                        std::any      _value;
+                        std::string _component_name;
+                        T           _value;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

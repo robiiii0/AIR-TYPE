@@ -9,25 +9,25 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::MobTypeComponent::MobTypeComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
-    if (value.type() == typeid(int)) {
-        _id = id;
+template<typename T>
+Engine::MobModule::Components::MobTypeComponent<T>::MobTypeComponent(int data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else {
         _component_name = "MobTypeComponent";
-        _type = std::any_cast<int>(value);
-    } else
-        throw std::runtime_error("MobTypeComponent value is not int");
+        _data = data;
+    }
 }
 
-Engine::MobModule::Components::MobTypeComponent::~MobTypeComponent() = default;
+template<typename T>
+Engine::MobModule::Components::MobTypeComponent<T>::~MobTypeComponent() =
+    default;
 
-void Engine::MobModule::Components::MobTypeComponent::execute() {}
+template<typename T>
+void Engine::MobModule::Components::MobTypeComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::MobTypeComponent::get() {
-    _ptr = _type;
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::MobTypeComponent::getName() const {
+template<typename T>
+std::string Engine::MobModule::Components::MobTypeComponent<T>::getName()
+    const {
     return _component_name;
 }

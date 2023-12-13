@@ -14,4 +14,7 @@ add_executable(entity_manager
     ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp
     ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
     ComponentManager/AComponent/AComponent.cpp
+    ../MobModule/Components/HealthComponent/HealthComponent.cpp
+    ../MobModule/Components/AttackComponent/AttackComponent.cpp
+    ../MobModule/MobManager/MobManager.cpp
 )

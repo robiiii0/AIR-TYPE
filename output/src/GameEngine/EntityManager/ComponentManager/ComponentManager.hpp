@@ -31,6 +31,8 @@ namespace Engine {
                     bool        hasComponent(Entity&     entity,
                                              std::string component_name);
 
+                    void getAllComponents(Entity& entity);
+
                 protected:
                 private:
                     std::array<std::uint32_t, __max_entities> _component_ids;

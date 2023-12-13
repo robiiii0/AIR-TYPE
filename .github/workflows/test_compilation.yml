@@ -26,5 +26,5 @@ jobs:
     steps:
       - uses: 'actions/checkout@v3'
       - name: 'Check Compilation'
-        run: 'bash output/compile.sh'
+        run: 'cd output && bash compile.sh'
         timeout-minutes: 5

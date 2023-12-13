@@ -9,25 +9,22 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::AttackComponent::AttackComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
-    if (value.type() == typeid(int)) {
-        _id = id;
+template<typename T>
+Engine::MobModule::Components::AttackComponent<T>::AttackComponent(int data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else
         _component_name = "AttackComponent";
-        _damage = std::any_cast<int>(value);
-    } else
-        throw std::runtime_error("AttackComponent value is not int");
+    _data = data;
 }
 
-Engine::MobModule::Components::AttackComponent::~AttackComponent() = default;
+template<typename T>
+Engine::MobModule::Components::AttackComponent<T>::~AttackComponent(){};
 
-void Engine::MobModule::Components::AttackComponent::execute() {}
+template<typename T>
+void Engine::MobModule::Components::AttackComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::AttackComponent::get() {
-    _ptr = _damage;
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::AttackComponent::getName() const {
+template<typename T>
+std::string Engine::MobModule::Components::AttackComponent<T>::getName() const {
     return _component_name;
 }

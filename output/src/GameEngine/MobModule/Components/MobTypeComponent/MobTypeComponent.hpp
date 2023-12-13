@@ -8,28 +8,24 @@
 #ifndef MOBTYPECOMPONENT_HPP_
 #define MOBTYPECOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
+            template<typename T>
             class MobTypeComponent :
-                public Engine::Entity::Component::IComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    MobTypeComponent(std::uint32_t id,
-                                     std::string   component_name,
-                                     std::any      value);
+                    MobTypeComponent(int data);
                     ~MobTypeComponent();
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
 
                 protected:
                 private:
-                    std::uint32_t _id;
-                    std::string   _component_name;
-                    int           _type;
-                    std::any      _ptr;
+                    std::string _component_name;
+                    T           _data;
             };
         }  // namespace Components
     }      // namespace MobModule

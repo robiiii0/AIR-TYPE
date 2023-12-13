@@ -58,3 +58,10 @@ bool Engine::Entity::Component::ComponentManager::hasComponent(
     }
     return false;
 }
+
+void Engine::Entity::Component::ComponentManager::getAllComponents(
+    Entity& entity) {
+    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
+        std::cout << entity.components[i]->getName() << std::endl;
+    }
+}

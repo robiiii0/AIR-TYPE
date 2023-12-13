@@ -17,24 +17,17 @@ namespace Engine {
     namespace Entity {
         namespace Component {
             namespace GenericComponents {
+                template<typename T>
                 class DoubleComponent : public AComponent {
                     public:
-                        DoubleComponent(std::uint32_t id,
-                                        std::string   component_name,
-                                        double        value) :
-                            _id(id),
-                            _component_name(component_name),
-                            _value(value) {}
-
+                        DoubleComponent(double data);
                         ~DoubleComponent();
                         void        execute() override;
-                        std::any&   get();
                         std::string getName() const override;
 
                     private:
-                        std::uint32_t _id;
-                        std::string   _component_name;
-                        std::any      _value;
+                        std::string _component_name;
+                        T           _data;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

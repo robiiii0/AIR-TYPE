@@ -8,27 +8,24 @@
 #ifndef ATTACKCOMPONENT_HPP_
 #define ATTACKCOMPONENT_HPP_
 
-#include "../../../EntityManager/ComponentManager/IComponent/IComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace MobModule {
         namespace Components {
+            template<typename T>
             class AttackComponent :
-                public Engine::Entity::Component::IComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    AttackComponent(std::uint32_t id,
-                                    std::string component_name, std::any value);
+                    AttackComponent(int data);
                     ~AttackComponent();
                     void        execute() override;
-                    std::any&   get() override;
                     std::string getName() const override;
 
                 protected:
                 private:
-                    std::uint32_t _id;
-                    std::string   _component_name;
-                    int           _damage;
-                    std::any      _ptr;
+                    std::string _component_name;
+                    T           _data;
             };
         }  // namespace Components
     }      // namespace MobModule

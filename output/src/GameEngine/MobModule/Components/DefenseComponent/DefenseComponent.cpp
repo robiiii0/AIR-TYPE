@@ -9,25 +9,25 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::DefenseComponent::DefenseComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
-    if (value.type() == typeid(int)) {
-        _id = id;
+template<typename T>
+Engine::MobModule::Components::DefenseComponent<T>::DefenseComponent(int data) {
+    if (typeid(T) != typeid(int))
+        throw std::invalid_argument("T is not an int");
+    else {
         _component_name = "DefenseComponent";
-        _defense = std::any_cast<int>(value);
-    } else
-        throw std::runtime_error("DefenseComponent value is not int");
+        _data = data;
+    }
 }
 
-Engine::MobModule::Components::DefenseComponent::~DefenseComponent() = default;
+template<typename T>
+Engine::MobModule::Components::DefenseComponent<T>::~DefenseComponent() =
+    default;
 
-void Engine::MobModule::Components::DefenseComponent::execute() {}
+template<typename T>
+void Engine::MobModule::Components::DefenseComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::DefenseComponent::get() {
-    _ptr = _defense;
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::DefenseComponent::getName() const {
+template<typename T>
+std::string Engine::MobModule::Components::DefenseComponent<T>::getName()
+    const {
     return _component_name;
 }

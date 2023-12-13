@@ -7,8 +7,8 @@ echo "Current directory: $CURRENT_DIR"
 mkdir -p "$CURRENT_DIR/build"
 
 # Run CMake to generate build files
-cmake ./
-echo "building cmake"
+cmake "$CURRENT_DIR/CMakeLists.txt"
+echo "building cmake $CURRENT_DIR/CMakeLists"
 
 # Build the project
 make

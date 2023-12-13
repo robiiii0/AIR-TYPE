@@ -9,25 +9,23 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::StateComponent::StateComponent(
-    std::uint32_t id, std::string component_name, std::any value) {
-    if (value.type() == typeid(bool)) {
-        _id = id;
+template<typename T>
+Engine::MobModule::Components::StateComponent<T>::StateComponent(bool data) {
+    if (typeid(T) != typeid(bool))
+        throw std::invalid_argument("T is not a bool");
+    else {
         _component_name = "StateComponent";
-        _state = std::any_cast<bool>(value);
-    } else
-        throw std::runtime_error("StateComponent value is not bool");
+        _data = data;
+    }
 }
 
-Engine::MobModule::Components::StateComponent::~StateComponent() {}
+template<typename T>
+Engine::MobModule::Components::StateComponent<T>::~StateComponent() {}
 
-void Engine::MobModule::Components::StateComponent::execute() {}
+template<typename T>
+void Engine::MobModule::Components::StateComponent<T>::execute() {}
 
-std::any& Engine::MobModule::Components::StateComponent::get() {
-    _ptr = _state;
-    return _ptr;
-}
-
-std::string Engine::MobModule::Components::StateComponent::getName() const {
+template<typename T>
+std::string Engine::MobModule::Components::StateComponent<T>::getName() const {
     return _component_name;
 }
