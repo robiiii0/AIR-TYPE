@@ -7,28 +7,31 @@
 
 #include "AccelerationComponent.hpp"
 
-Engine::Physic::Components::AccelerationComponent::AccelerationComponent(
-    std::any value) {
-    if (value.type() == typeid(std::pair<float, float>)) {
+template<typename T>
+Engine::Physic::Components::AccelerationComponent<T>::AccelerationComponent(
+    T data) {
+    if (data.type() == typeid(T)) {
         _component_name = "AccelerationComponent";
-        _value = std::any_cast<std::pair<float, float>>(value);
+        this->data = data;
     }
 }
 
-Engine::Physic::Components::AccelerationComponent::~AccelerationComponent() {}
-
-void Engine::Physic::Components::AccelerationComponent::execute() {}
-
-std::any &Engine::Physic::Components::AccelerationComponent::get() {
-    return (_value);
+template<typename T>
+Engine::Physic::Components::AccelerationComponent<T>::~AccelerationComponent() {
 }
 
-std::string Engine::Physic::Components::AccelerationComponent::getName() const {
+template<typename T>
+void Engine::Physic::Components::AccelerationComponent<T>::execute() {}
+
+template<typename T>
+std::string Engine::Physic::Components::AccelerationComponent<T>::getName()
+    const {
     return (_component_name);
 }
 
-void Engine::Physic::Components::AccelerationComponent::setAcceleration(
+template<typename T>
+void Engine::Physic::Components::AccelerationComponent<T>::setAcceleration(
     std::pair<float, float> acceleration) {
     _acceleration = acceleration;
-    _value = _acceleration;
+    data = _acceleration;
 }
