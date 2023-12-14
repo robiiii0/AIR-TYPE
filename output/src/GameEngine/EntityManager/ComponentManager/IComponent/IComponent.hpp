@@ -13,6 +13,7 @@
 namespace Engine {
     namespace Entity {
         namespace Component {
+            template<typename T>
             class IComponent {
                 public:
                     virtual ~IComponent(){};

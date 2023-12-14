@@ -21,13 +21,13 @@ namespace Engine {
     namespace Entity {
         const std::uint32_t __max_entities = 10000;
         const std::uint8_t  __max_components = 255;
-
+        template<typename T>
         class EntityManager {
             public:
                 EntityManager();
                 std::uint32_t createEntity();
 
-                Entity& getEntity(std::uint32_t id) {
+                Entity<T>& getEntity(std::uint32_t id) {
                     for (std::uint32_t i = 0; i < _entities.size(); i++) {
                         if (_entities[i].id == id) {
                             return _entities[i];
@@ -38,28 +38,27 @@ namespace Engine {
 
                 void destroyEntity(const std::uint32_t& entity);
 
-                void addComponent(Entity&                entity,
-                                  Component::IComponent& component);
-                void removeComponent(Entity&     entity,
+                void addComponent(Entity<T>&                entity,
+                                  Component::IComponent<T>& component);
+                void removeComponent(Entity<T>&     entity,
                                      std::string component_name);
 
-                bool hasComponent(Entity& entity, std::string component_name) {
+                bool hasComponent(Entity<T>& entity, std::string component_name) {
                     return _componentManager.hasComponent(entity,
                                                           component_name);
                 }
-
-                void getAllComponents(Entity& entity) {
+                void getAllComponents(Entity<T>& entity) {
                     _componentManager.getAllComponents(entity);
                 }
 
-                template<typename T>
-                T& getComponentValue(Entity&     entity,
-                                     std::string component_name);
+                // template<typename T>
+                // T& getComponentValue(Entity&     entity,
+                //                      std::string component_name);
 
             private:
                 std::queue<std::uint32_t> _available_entities;
                 uint32_t _living_entity_count;
-                std::vector<Entity>         _entities;
+                std::vector<Entity<T>>         _entities;
                 Component::ComponentManager _componentManager;
         };
     }  // namespace Entity
