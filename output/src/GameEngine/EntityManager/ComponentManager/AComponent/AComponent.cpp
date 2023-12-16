@@ -7,10 +7,12 @@
 
 #include "AComponent.hpp"
 
-std::uint32_t Engine::Entity::Component::AComponent::getId() const {
+template<typename T>
+std::uint32_t Engine::Entity::Component::AComponent<T>::getId() const {
     return this->_id;
 }
 
-void Engine::Entity::Component::AComponent::setId(std::uint32_t id) {
+template<typename T>
+void Engine::Entity::Component::AComponent<T>::setId(std::uint32_t id) {
     this->_id = id;
 }

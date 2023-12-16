@@ -21,7 +21,7 @@ namespace Engine {
                 template<typename T>
                 class ULongComponent : public AComponent {
                     public:
-                        ULongComponent(ulong data);
+                        ULongComponent(unsigned long data);
                         ~ULongComponent();
 
                         void        execute() override;
