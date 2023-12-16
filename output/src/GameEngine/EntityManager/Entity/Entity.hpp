@@ -28,7 +28,7 @@ namespace Engine {
                     for (auto& component : components) {
                         if (component->getName() == component_name) {
                             if (auto derived =
-                                    std::dynamic_pointer_cast<Component<T>>(
+                                    std::dynamic_cast<Component<T>>(
                                         component))
                                 return derived->_data();
                         }
