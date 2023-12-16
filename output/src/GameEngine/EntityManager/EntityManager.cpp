@@ -33,7 +33,7 @@ std::uint32_t Engine::Entity::EntityManager<T>::createEntity() {
     _available_entities.pop();
     _living_entity_count++;
     std::cout << "Created entity " << id << std::endl;
-    Entity entity(id);
+    Entity<T> entity(id);
     _entities.push_back(entity);
     return id;
 }

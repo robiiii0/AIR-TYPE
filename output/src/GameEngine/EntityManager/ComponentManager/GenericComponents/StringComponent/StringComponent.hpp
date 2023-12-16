@@ -17,7 +17,7 @@ namespace Engine {
         namespace Component {
             namespace GenericComponents {
                 template<typename T>
-                class StringComponent : public AComponent {
+                class StringComponent : public AComponent<T> {
                     public:
                         StringComponent(std::string value);
                         ~StringComponent();
@@ -28,6 +28,7 @@ namespace Engine {
                     private:
                         std::string _component_name;
                         T           _data;
+                        T           _value;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

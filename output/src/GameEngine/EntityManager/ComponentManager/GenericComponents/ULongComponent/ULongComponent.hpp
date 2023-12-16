@@ -19,7 +19,7 @@ namespace Engine {
         namespace Component {
             namespace GenericComponents {
                 template<typename T>
-                class ULongComponent : public AComponent {
+                class ULongComponent : public AComponent<T> {
                     public:
                         ULongComponent(unsigned long data);
                         ~ULongComponent();
@@ -29,7 +29,7 @@ namespace Engine {
 
                     private:
                         std::string _component_name;
-                        T           _value;
+                        T           _value; //TODO: fix this
                 };
             }  // namespace GenericComponents
         }      // namespace Component

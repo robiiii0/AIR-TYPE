@@ -12,7 +12,7 @@ Engine::Entity::Component::GenericComponents::ULongComponent<T>::ULongComponent(
     unsigned long data) {
     if (value.type() == typeid(unsigned long)) {
         _component_name = "ULongComponent";
-        _value = std::any_cast<unsigned long>(value);
+        _value = std::any_cast<unsigned long>(value); //TODO: fix this
     } else
         throw std::runtime_error("ULongComponent value is not unsigned long");
 }

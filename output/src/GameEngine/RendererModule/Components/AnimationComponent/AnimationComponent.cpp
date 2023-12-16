@@ -6,37 +6,43 @@
 */
 
 #include "AnimationComponent.hpp"
-
-Engine::RendererModule::Components::AnimationComponent::AnimationComponent(
-    std::any value) {
+template<typename T>
+Engine::RendererModule::Components::AnimationComponent<T>::AnimationComponent(
+    T value) {
     _component_name = "AnimationComponent";
     if (value.type() != typeid(sf::IntRect))
         throw std::runtime_error("AnimationComponent: value is not a string");
     else {
-        _rect = std::any_cast<sf::IntRect>(value);
+        _rect = std::any_cast<sf::IntRect>(value);//TODO: fix this
         _ptr = value;
     }
 }
 
-Engine::RendererModule::Components::AnimationComponent::~AnimationComponent() {}
+template<typename T>
+Engine::RendererModule::Components::AnimationComponent<T>::~AnimationComponent() {}
 
-void Engine::RendererModule::Components::AnimationComponent::execute() {}
+template<typename T>
+void Engine::RendererModule::Components::AnimationComponent<T>::execute() {}
 
-std::any& Engine::RendererModule::Components::AnimationComponent::get() {
+template<typename T>
+T& Engine::RendererModule::Components::AnimationComponent<T>::get() {
     return (_ptr);
 }
 
-std::string Engine::RendererModule::Components::AnimationComponent::getName()
+template<typename T>
+std::string Engine::RendererModule::Components::AnimationComponent<T>::getName()
     const {
     return (_component_name);
 }
 
-sf::IntRect Engine::RendererModule::Components::AnimationComponent::getRect()
+template<typename T>
+sf::IntRect Engine::RendererModule::Components::AnimationComponent<T>::getRect()
     const {
     return (_rect);
 }
 
-void Engine::RendererModule::Components::AnimationComponent::update(
+template<typename T>
+void Engine::RendererModule::Components::AnimationComponent<T>::update(
     float deltaTime, int nbFrame, int rectBase) {
     _time += deltaTime;
     if (_time >= 0.1f) {

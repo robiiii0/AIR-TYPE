@@ -9,13 +9,14 @@
 
 #include <stdexcept>
 
-Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    std::any value) {
+template<typename T>
+Engine::RendererModule::Components::SpriteComponent<T>::SpriteComponent(
+    T value) {
     _component_name = "SpriteComponent";
     if (value.type() != typeid(std::string))
         throw std::runtime_error("SpriteComponent: value is not a string");
     else {
-        _path = std::any_cast<std::string>(value);
+        _path = std::any_cast<std::string>(value); //TODO: fix this
         if (!_texture.loadFromFile(_path))
             throw std::runtime_error("SpriteComponent: texture not found");
         _sprite.setTexture(_texture);
@@ -23,50 +24,61 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     }
 }
 
-Engine::RendererModule::Components::SpriteComponent::~SpriteComponent() {}
+template<typename T>
+Engine::RendererModule::Components::SpriteComponent<T>::~SpriteComponent() {}
 
-void Engine::RendererModule::Components::SpriteComponent::execute() {}
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::execute() {}
 
-std::any& Engine::RendererModule::Components::SpriteComponent::get() {
+template<typename T>
+T& Engine::RendererModule::Components::SpriteComponent<T>::get() {
     return (_ptr);
 }
 
-std::string Engine::RendererModule::Components::SpriteComponent::getName()
+template<typename T>
+std::string Engine::RendererModule::Components::SpriteComponent<T>::getName()
     const {
     return (_component_name);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setRotation(
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setRotation(
     float rotation) {
     _sprite.setRotation(rotation);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setScale(float x,
                                                                    float y) {
     _sprite.setScale(x, y);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setOrigin(float x,
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setOrigin(float x,
                                                                     float y) {
     _sprite.setOrigin(x, y);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setRepeated(
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setRepeated(
     bool repeated) {
     _texture.setRepeated(repeated);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setSmooth(
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setSmooth(
     bool smooth) {
     _texture.setSmooth(smooth);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setPosition(float x,
                                                                       float y) {
     _sprite.setPosition(x, y);
 }
 
-void Engine::RendererModule::Components::SpriteComponent::setTextureRect(
+template<typename T>
+void Engine::RendererModule::Components::SpriteComponent<T>::setTextureRect(
     const sf::IntRect& rect) {
     _sprite.setTextureRect(rect);
 }

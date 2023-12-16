@@ -8,8 +8,8 @@
 #include "../GameEngine/GameEngine.hpp"
 
 int main() {
-    Engine::GameEngine game;
-
-    game.run();
+//    Engine::GameEngine game;
+//
+//    game.run();
     return 0;
 }

@@ -15,7 +15,7 @@ public:
     Game();
     void run();
 private:
-    Engine::GameEngine _gameEngine;
+    Engine::GameEngine _gameEngine; //TODO: fix this
 //    GameState* currentState;
 //    void changeState();
 };

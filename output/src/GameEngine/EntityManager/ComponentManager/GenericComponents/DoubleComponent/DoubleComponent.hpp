@@ -18,7 +18,7 @@ namespace Engine {
         namespace Component {
             namespace GenericComponents {
                 template<typename T>
-                class DoubleComponent : public AComponent {
+                class DoubleComponent : public AComponent<T> {
                     public:
                         DoubleComponent(double data);
                         ~DoubleComponent();

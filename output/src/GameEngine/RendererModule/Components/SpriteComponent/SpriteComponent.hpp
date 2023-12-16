@@ -15,13 +15,14 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
+            template<typename T>
             class SpriteComponent :
-                public Engine::Entity::Component::AComponent {
+                public Engine::Entity::Component::AComponent<T> {
                 public:
-                    SpriteComponent(std::any value);
+                    SpriteComponent(T value);
                     ~SpriteComponent();
                     void        execute() override;
-                    std::any&   get() override;
+                    T&   get() override;
                     std::string getName() const override;
 
                     // Sprite
@@ -42,7 +43,7 @@ namespace Engine {
                     std::uint32_t _id;
                     std::string   _component_name;
                     std::string   _path;
-                    std::any      _ptr;
+                    T      _ptr;
             };
         };  // namespace Components
     };      // namespace RendererModule
