@@ -7,28 +7,13 @@
 
 #include "ULongComponent.hpp"
 
-template<typename T>
-Engine::Entity::Component::GenericComponents::ULongComponent<T>::ULongComponent(
+Engine::Entity::Component::GenericComponents::ULongComponent::ULongComponent(
     unsigned long data) {
-    if (value.type() == typeid(unsigned long)) {
-        _component_name = "ULongComponent";
-        _value = std::any_cast<unsigned long>(value); //TODO: fix this
-    } else
-        throw std::runtime_error("ULongComponent value is not unsigned long");
+    _value = data;
 }
 
-template<typename T>
-Engine::Entity::Component::GenericComponents::ULongComponent<
-    T>::~ULongComponent() {}
+Engine::Entity::Component::GenericComponents::ULongComponent::~ULongComponent() {}
 
-template<typename T>
-void Engine::Entity::Component::GenericComponents::ULongComponent<
-    T>::execute() {
+void Engine::Entity::Component::GenericComponents::ULongComponent::execute() {
     std::cout << "Executing ULongComponent" << std::endl;
-}
-
-template<typename T>
-std::string Engine::Entity::Component::GenericComponents::ULongComponent<
-    T>::getName() const {
-    return (this->_component_name);
 }

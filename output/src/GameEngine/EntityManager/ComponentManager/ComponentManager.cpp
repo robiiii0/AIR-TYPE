@@ -17,57 +17,49 @@ Engine::Entity::Component::ComponentManager::ComponentManager() {
 
 Engine::Entity::Component::ComponentManager::~ComponentManager() {}
 
-template <typename T>
 std::uint32_t Engine::Entity::Component::ComponentManager::addComponent(
-    Entity<T>& entity, IComponent<T>& component) {
-    std::cout << "Added component " << component.getName() << " to entity "
-              << entity.id << std::endl;
-    entity.components.push_back(&component);
+    Entity& entity, IComponent& component) {
+    entity._components.push_back(&component);
     return 0;
 }
 
-template <typename T>
+template<typename T>
 bool Engine::Entity::Component::ComponentManager::removeComponent(
-    Entity<T>& entity, std::string component_name) {
-    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
-        if (entity.components[i]->getName() == component_name) {
-            entity.components.erase(entity.components.begin() + i);
+    Entity& entity, T component) {
+    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
+        if (typeid(entity._components[i]) == typeid(T)) {
+            entity._components.erase(entity._components.begin() + i);
             return true;
         }
     }
     return false;
 }
 
-template <typename T>
 bool Engine::Entity::Component::ComponentManager::removeAllComponents(
-    Entity<T>& entity) {
-    _component_ids[entity.id] = 0;
-    entity.components.clear();
+    Entity& entity) {
+    _component_ids[entity._id] = 0;
+    entity._components.clear();
     return false;
 }
 
-template <typename T>
-Engine::Entity::Component::IComponent<T>&
+Engine::Entity::Component::IComponent&
     Engine::Entity::Component::ComponentManager::getComponent(
-        Entity<T>& entity, std::uint32_t component_id) {
+        Entity& entity, std::uint32_t component_id) {
     throw std::runtime_error("Component not found");
 }
 
-template <typename T>
-bool Engine::Entity::Component::ComponentManager::hasComponent(
-    Entity<T>& entity, std::string component_name) {
-    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
-        if (entity.components[i]->getName() == component_name) {
+template<typename T>
+bool Engine::Entity::Component::ComponentManager::hasComponent(Entity& entity,
+                                                               T component) {
+    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
+        if (typeid(entity._components[i]) == typeid(T)) {
             return true;
         }
     }
     return false;
 }
 
-template <typename T>
-void Engine::Entity::Component::ComponentManager::getAllComponents(
-    Entity<T>& entity) {
-    for (std::uint32_t i = 0; i < entity.components.size(); i++) {
-        std::cout << entity.components[i]->getName() << std::endl;
-    }
+std::vector<Engine::Entity::Component::IComponent*> Engine::Entity::Component::ComponentManager::getAllComponents(
+    Entity& entity) {
+    return entity._components;
 }

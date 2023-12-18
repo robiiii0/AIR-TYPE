@@ -8,20 +8,18 @@
 #ifndef ICOMPONENT_HPP_
 #define ICOMPONENT_HPP_
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 namespace Engine {
     namespace Entity {
         namespace Component {
-            template<typename T>
             class IComponent {
                 public:
                     virtual ~IComponent(){};
                     virtual void          execute() = 0;
                     virtual std::uint32_t getId() const = 0;
                     virtual void          setId(std::uint32_t id) = 0;
-                    virtual std::string   getName() const = 0;
             };
         };  // namespace Component
     };      // namespace Entity

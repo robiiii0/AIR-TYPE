@@ -13,8 +13,8 @@
  * This constructor initializes the availableEntities stack with entity IDs from
  * 0 to MAX_ENTITIES-1.
  */
-template<typename T>
-Engine::Entity::EntityManager<T>::EntityManager() {
+
+Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
         _available_entities.push(i);
@@ -27,13 +27,13 @@ Engine::Entity::EntityManager<T>::EntityManager() {
  * @return The ID of the created entity.
  */
 
-template<typename T>
-std::uint32_t Engine::Entity::EntityManager<T>::createEntity() {
+
+std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::uint32_t id = _available_entities.front();
     _available_entities.pop();
     _living_entity_count++;
     std::cout << "Created entity " << id << std::endl;
-    Entity<T> entity(id);
+    Entity entity(id);
     _entities.push_back(entity);
     return id;
 }
@@ -44,14 +44,14 @@ std::uint32_t Engine::Entity::EntityManager<T>::createEntity() {
  *
  * @param entity The ID of the entity to destroy.
  */
-template<typename T>
-void Engine::Entity::EntityManager<T>::destroyEntity(
+
+void Engine::Entity::EntityManager::destroyEntity(
     const std::uint32_t& entity_id) {
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
-        if (_entities[i].id == entity_id) {
+        if (_entities[i]._id == entity_id) {
             _entities.erase(_entities.begin() + i);
             break;
         }
@@ -65,9 +65,9 @@ void Engine::Entity::EntityManager<T>::destroyEntity(
  * @param entity The entity to add the component to.
  * @param component The component to add.
  */
-template<typename T>
-void Engine::Entity::EntityManager<T>::addComponent(
-    Entity<T>& entity, Component::IComponent<T>& component) {
+
+void Engine::Entity::EntityManager::addComponent(
+    Entity& entity, Component::IComponent& component) {
     _componentManager.addComponent(entity, component);
 }
 
@@ -81,9 +81,9 @@ void Engine::Entity::EntityManager<T>::addComponent(
  * @param entity The entity from which to remove the component.
  * @param component_name The name of the component to remove.
  */
-template<typename T>
-void Engine::Entity::EntityManager<T>::removeComponent(
-    Entity<T>& entity, std::string component_name) {
+
+void Engine::Entity::EntityManager::removeComponent(
+    Entity& entity, std::string component_name) {
     if (component_name == "all")
         _componentManager.removeAllComponents(entity);
     else if (hasComponent(entity, component_name))
@@ -101,8 +101,8 @@ void Engine::Entity::EntityManager<T>::removeComponent(
  * @param component_name The name of the component.
  * @return The value of the component.
  */
-// template<typename T>
+//
 // T& Engine::Entity::EntityManager::getComponentValue(
 //     Entity& entity, std::string component_name) {
-//     return entity.getComponentValue<T>(component_name);
+//     return entity.getComponentValue(component_name);
 // }

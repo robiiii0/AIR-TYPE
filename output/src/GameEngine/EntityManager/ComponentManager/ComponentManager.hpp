@@ -21,24 +21,20 @@ namespace Engine {
                     ComponentManager();
                     ~ComponentManager();
 
+                    std::uint32_t addComponent(Entity&     entity,
+                                               IComponent& component);
                     template<typename T>
-                    std::uint32_t addComponent(Entity<T>&     entity,
-                                               IComponent<T>& component);
+                    bool removeComponent(Entity& entity, T component);
 
-                    template<typename T>
-                    bool removeComponent(Entity<T>&  entity,
-                                         std::string component_name);
-                    template<typename T>
-                    bool removeAllComponents(Entity<T>& entity);
-                    template<typename T>
-                    IComponent<T>& getComponent(Entity<T>&    entity,
-                                                std::uint32_t component_id);
-                    template<typename T>
-                    bool hasComponent(Entity<T>&  entity,
-                                      std::string component_name);
+                    bool removeAllComponents(Entity& entity);
 
+                    IComponent& getComponent(Entity&       entity,
+                                             std::uint32_t component_id);
                     template<typename T>
-                    void getAllComponents(Entity<T>& entity);
+                    bool hasComponent(Entity& entity, T component);
+
+                    std::vector<Engine::Entity::Component::IComponent*>
+                        getAllComponents(Entity& entity);
 
                 protected:
                 private:

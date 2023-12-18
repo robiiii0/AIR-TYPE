@@ -15,8 +15,7 @@
 namespace Engine {
     namespace Entity {
         namespace Component {
-            template <typename T>
-            class AComponent : public IComponent<T> {
+            class AComponent : public IComponent {
                 public:
                     virtual ~AComponent(){};
                     std::uint32_t getId() const override;

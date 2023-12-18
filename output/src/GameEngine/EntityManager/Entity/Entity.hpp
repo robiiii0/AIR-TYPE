@@ -11,17 +11,18 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
 #include "../ComponentManager/IComponent/IComponent.hpp"
-#include <stdexcept>
+
 namespace Engine {
     namespace Entity {
-        template<typename T>
+
         class Entity {
             public:
-                Entity(std::uint32_t id) : id(id) {}
+                Entity(std::uint32_t id) : _id(id) {}
 
                 ~Entity() = default;
 
@@ -34,23 +35,20 @@ namespace Engine {
                  * otherwise.
                  * @throws std::runtime_error if the component is not found.
                  */
-                T* getComponentValue(std::string component_name) {
-                    for (auto& component : components) {
-                        if (component->getName() == component_name) {
-                            if (auto derived =
-                                    dynamic_cast<Component::IComponent<T>*>(
-                                        component)) {
-                                return derived->_data();
-                            }
+                template<typename T>
+                T* getComponentValue() {
+                    for (auto& component : _components) {
+                        if (typeid(T) == typeid(component)) {
+                            return component;
                         }
-                        throw std::runtime_error("Component not found");
                     }
+                    throw std::runtime_error("Component not found");
                 }
 
-                std::uint32_t                          id;
-                std::vector<Component::IComponent<T>*> components;
-            };
-        };  // namespace Entity
-    };      // namespace Engine
+                std::uint32_t                          _id;
+                std::vector<Component::IComponent*> _components;
+        };
+    };  // namespace Entity
+};      // namespace Engine
 
 #endif /* !ENTITY_HPP_ */

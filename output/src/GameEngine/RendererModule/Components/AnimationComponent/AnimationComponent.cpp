@@ -13,8 +13,8 @@ Engine::RendererModule::Components::AnimationComponent<T>::AnimationComponent(
     if (value.type() != typeid(sf::IntRect))
         throw std::runtime_error("AnimationComponent: value is not a string");
     else {
-        _rect = std::any_cast<sf::IntRect>(value);//TODO: fix this
-        _ptr = value;
+        _rect = value;
+        _ptr = &value;
     }
 }
 

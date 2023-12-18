@@ -18,7 +18,6 @@
 // #include "PhysicModule/PhysicModule.hpp"
 
 namespace Engine {
-    template<typename T>
     class GameEngine {
         public:
             GameEngine();
@@ -27,7 +26,7 @@ namespace Engine {
 
             void run();
 
-            Engine::Entity::EntityManager<T> *getEntityManager() const;
+            Engine::Entity::EntityManager *getEntityManager() const;
             RendererModule::RendererModule   *getRendererModule() const;
             //            Hmi::HmiModule                   *getHmiModule()
             //            const; LocalStorage::LocalStorageModule
@@ -36,7 +35,7 @@ namespace Engine {
             //            const;
 
         private:
-            Engine::Entity::EntityManager<T> *_entityManager;
+            Engine::Entity::EntityManager *_entityManager;
             RendererModule::RendererModule   *_rendererModule;
 
             //            Hmi::HmiModule                   *_hmiModule;
