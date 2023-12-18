@@ -6,8 +6,8 @@
 */
 
 #include "GameEngine.hpp"
-template<typename T>
-Engine::GameEngine<T>::GameEngine(bool client) {
+
+Engine::GameEngine::GameEngine(bool client) {
     _rendererModule = new RendererModule::RendererModule();
 //    _entityManager = new Entity::EntityManager();
 //    _hmiModule = new Hmi::HmiModule(_rendererModule->getWindow());
@@ -20,11 +20,11 @@ Engine::GameEngine<T>::GameEngine(bool client) {
 //            4242, Network::NetworkingTypeEnum::UDP);
 }
 
-template<typename T>
-Engine::GameEngine<T>::~GameEngine() {}
 
-template<typename T>
-void Engine::GameEngine<T>::run() {
+Engine::GameEngine::~GameEngine() {}
+
+
+void Engine::GameEngine::run() {
 //    _networkingModule->run();
     while (1) {
 //        _hmiModule->update();
@@ -33,8 +33,8 @@ void Engine::GameEngine<T>::run() {
     }
 }
 
-template<typename T>
-Engine::Entity::EntityManager<T> *Engine::GameEngine<T>::getEntityManager() const {
+
+Engine::Entity::EntityManager *Engine::GameEngine::getEntityManager() const {
     return _entityManager;
 }
 //
@@ -52,8 +52,8 @@ Engine::Entity::EntityManager<T> *Engine::GameEngine<T>::getEntityManager() cons
 //    return _networkingModule;
 //}
 
-template<typename T>
-Engine::RendererModule::RendererModule *Engine::GameEngine<T>::getRendererModule()
+
+Engine::RendererModule::RendererModule *Engine::GameEngine::getRendererModule()
     const {
     return _rendererModule;
 }

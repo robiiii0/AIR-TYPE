@@ -20,7 +20,6 @@
 namespace Engine {
     class GameEngine {
         public:
-            GameEngine();
             GameEngine(bool client = true);
             ~GameEngine();
 
