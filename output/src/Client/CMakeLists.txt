@@ -13,7 +13,7 @@ add_subdirectory(../GameEngine/EntityManager/ ./GameEngine/EntityManager/build)
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 add_executable(Game
-        main.cpp
+        src/main.cpp
         ../GameEngine/GameEngine.cpp
         ../GameEngine/RendererModule/RendererModule.cpp
         ../GameEngine/RendererModule/WindowManager/Window.cpp

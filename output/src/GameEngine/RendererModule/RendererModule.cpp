@@ -11,7 +11,9 @@ Engine::RendererModule::RendererModule::RendererModule() {}
 
 Engine::RendererModule::RendererModule::~RendererModule() {}
 
-void Engine::RendererModule::RendererModule::init(int width, int height, std::string title, int framerate) {
+void Engine::RendererModule::RendererModule::init(int width, int height,
+                                                  std::string title,
+                                                  int         framerate) {
     _window.create(sf::VideoMode(width, height), title);
     _window.setFramerateLimit(framerate);
 }
@@ -30,10 +32,10 @@ sf::RenderWindow& Engine::RendererModule::RendererModule::getWindow() {
 void Engine::RendererModule::RendererModule::render()  // draw la scene
 {
     _window.clear();
-//    for (auto& entity : _entities) {
-//        if (!entity->hasComponent<
-//                Engine::RendererModule::Components::SpriteComponent>())
-//            _window.draw(sprite.sprite);
-//    }
+    //    for (auto& entity : _entities) {
+    //        if (!entity->hasComponent<
+    //                Engine::RendererModule::Components::SpriteComponent>())
+    //            _window.draw(sprite.sprite);
+    //    }
     _window.display();
 }

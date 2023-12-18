@@ -14,6 +14,8 @@ class Game {
 public:
     Game();
     void run();
+
+    Engine::GameEngine &getGameEngine();
 private:
     Engine::GameEngine _gameEngine; //TODO: fix this
 //    GameState* currentState;

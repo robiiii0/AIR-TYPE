@@ -15,6 +15,9 @@ void Game::run() {
     }
 }
 
+Engine::GameEngine &Game::getGameEngine() {
+    return _gameEngine;
+}
 // void Game::changeState() {
 //
 // }
