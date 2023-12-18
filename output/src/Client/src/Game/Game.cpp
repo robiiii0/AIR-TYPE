@@ -11,7 +11,7 @@ Game::Game() {
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update();
-        _gameEngine.getRendererModule()->render();
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(), 0);
     }
 }
 

@@ -47,8 +47,8 @@ namespace Engine {
                     return _componentManager.hasComponent(entity, component);
                 }
 
-                void getAllComponents(Entity& entity) {
-                    _componentManager.getAllComponents(entity);
+                std::vector<Component::IComponent *> getAllComponents(Entity& entity) {
+                    return _componentManager.getAllComponents(entity);
                 }
 
                 // template<typename T>

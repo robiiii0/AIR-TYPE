@@ -29,7 +29,7 @@ void Engine::GameEngine::run() {
     while (1) {
 //        _hmiModule->update();
         _rendererModule->update();
-        _rendererModule->render();
+        _rendererModule->render(*_entityManager, 0);
     }
 }
 
