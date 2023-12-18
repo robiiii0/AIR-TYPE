@@ -6,48 +6,32 @@
 */
 
 #include "AnimationComponent.hpp"
-template<typename T>
-Engine::RendererModule::Components::AnimationComponent<T>::AnimationComponent(
-    T value) {
-    _component_name = "AnimationComponent";
-    if (value.type() != typeid(sf::IntRect))
-        throw std::runtime_error("AnimationComponent: value is not a string");
-    else {
-        _rect = value;
-        _ptr = &value;
-    }
+
+Engine::RendererModule::Components::AnimationComponent::AnimationComponent(
+    AnimationData value) {
+    _data = value;
 }
 
-template<typename T>
-Engine::RendererModule::Components::AnimationComponent<T>::~AnimationComponent() {}
+Engine::RendererModule::Components::AnimationComponent::~AnimationComponent() {}
 
-template<typename T>
-void Engine::RendererModule::Components::AnimationComponent<T>::execute() {}
+void Engine::RendererModule::Components::AnimationComponent::execute() {}
 
-template<typename T>
-T& Engine::RendererModule::Components::AnimationComponent<T>::get() {
-    return (_ptr);
+Engine::RendererModule::Components::AnimationData& Engine::RendererModule::Components::AnimationComponent::get() {
+    return (_data);
 }
 
-template<typename T>
-std::string Engine::RendererModule::Components::AnimationComponent<T>::getName()
+
+sf::IntRect Engine::RendererModule::Components::AnimationComponent::getRect()
     const {
-    return (_component_name);
+    return (_data.rect);
 }
 
-template<typename T>
-sf::IntRect Engine::RendererModule::Components::AnimationComponent<T>::getRect()
-    const {
-    return (_rect);
-}
-
-template<typename T>
-void Engine::RendererModule::Components::AnimationComponent<T>::update(
+void Engine::RendererModule::Components::AnimationComponent::update(
     float deltaTime, int nbFrame, int rectBase) {
     _time += deltaTime;
-    if (_time >= 0.1f) {
-        _rect.left += _rect.width;
-        if (_rect.left >= nbFrame * _rect.width) _rect.left = rectBase;
+    if (_time >= _data.time) {
+        _data.rect.left += _data.rect.width;
+        if (_data.rect.left >= nbFrame * _data.rect.width) _data.rect.left = rectBase;
         _time = 0;
     }
 }

@@ -15,15 +15,22 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
-            template<typename T>
+            struct AnimationData {
+                    float time;
+                    sf::IntRect rect;
+                    int height;
+                    int width;
+                    int pos_x;
+                    int pos_y;
+            };
+
             class AnimationComponent :
-                public Engine::Entity::Component::AComponent<T> {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    AnimationComponent(T value);
+                    AnimationComponent(AnimationData value);
                     ~AnimationComponent();
-                    void        execute() override;
-                    T&   get() override;
-                    std::string getName() const override;
+                    void         execute() override;
+                    AnimationData& get();
 
                     void update(float deltaTime, int nbFrame, int rectBase);
 
@@ -31,10 +38,8 @@ namespace Engine {
 
                 private:
                     std::uint32_t _id;
-                    std::string   _component_name;
-                    T      _ptr;
-                    sf::IntRect   _rect;
-                    float         _time;
+                    AnimationData _data;
+                    float _time;
             };
         };  // namespace Components
     };      // namespace RendererModule

@@ -15,15 +15,13 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
-            template<typename T>
             class SpriteComponent :
-                public Engine::Entity::Component::AComponent<T> {
+                public Engine::Entity::Component::AComponent {
                 public:
-                    SpriteComponent(T value);
+                    SpriteComponent(std::string value); //TODO changer le std::string pour le sprite c'est pas bien
                     ~SpriteComponent();
                     void        execute() override;
-                    T&   get() override;
-                    std::string getName() const override;
+                    std::string&   get();
 
                     // Sprite
                     void setRotation(float rotation);
@@ -41,9 +39,8 @@ namespace Engine {
                     sf::Texture   _texture;
                     sf::Sprite    _sprite;
                     std::uint32_t _id;
-                    std::string   _component_name;
                     std::string   _path;
-                    T      _ptr;
+                    std::string      _ptr;
             };
         };  // namespace Components
     };      // namespace RendererModule
