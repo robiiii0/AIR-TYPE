@@ -12,7 +12,7 @@ int main() {
     Game     game;
     uint32_t text1 = game.getGameEngine().getEntityManager()->createEntity();
     sf::Font font;
-    font.loadFromFile("./Game/Assets/Fonts/Roboto-Medium.ttf");
+    font.loadFromFile("../assets/Fonts/Roboto-Medium.ttf");
     Engine::RendererModule::Components::TextData textData1 = {
         "Hello World", font, sf::Color::White, {0, 0}, {1, 1}, 0};
     Engine::RendererModule::Components::TextComponent textComponent1(textData1);

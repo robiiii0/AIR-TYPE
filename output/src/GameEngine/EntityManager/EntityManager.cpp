@@ -18,6 +18,7 @@ Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
         _available_entities.push(i);
+//    _entities.clear();
 }
 
 /**
@@ -36,6 +37,7 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::cout << "Created entity " << id << std::endl;
     Entity entity(id);
     _entities.push_back(entity);
+    std::cout << "Entity count: " << _entities.size() << std::endl;
     return id;
 }
 
