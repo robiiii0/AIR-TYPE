@@ -26,7 +26,6 @@ namespace Engine {
                     HealthComponent(HealthComponentData data);
                     ~HealthComponent();
                     void        execute() override;
-                    std::string getName() const override;
 
                 protected:
                 private:

@@ -25,8 +25,3 @@ Engine::MobModule::Components::HealthComponent<T>::~HealthComponent() {}
 
 template<typename T>
 void Engine::MobModule::Components::HealthComponent<T>::execute() {}
-
-template<typename T>
-std::string Engine::MobModule::Components::HealthComponent<T>::getName() const {
-    return _component_name;
-}

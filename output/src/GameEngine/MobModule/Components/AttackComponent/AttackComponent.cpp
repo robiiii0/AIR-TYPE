@@ -23,8 +23,3 @@ Engine::MobModule::Components::AttackComponent<T>::~AttackComponent(){};
 
 template<typename T>
 void Engine::MobModule::Components::AttackComponent<T>::execute() {}
-
-template<typename T>
-std::string Engine::MobModule::Components::AttackComponent<T>::getName() const {
-    return _component_name;
-}

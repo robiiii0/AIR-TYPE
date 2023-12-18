@@ -20,7 +20,6 @@ namespace Engine {
                     AttackComponent(int data);
                     ~AttackComponent();
                     void        execute() override;
-                    std::string getName() const override;
 
                 protected:
                 private:
