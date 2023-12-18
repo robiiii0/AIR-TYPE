@@ -36,7 +36,7 @@ namespace Engine {
                  * @throws std::runtime_error if the component is not found.
                  */
                 template<typename T>
-                T* getComponentValue() {
+                T* getComponent() {
                     for (auto& component : _components) {
                         if (typeid(T) == typeid(component)) {
                             return component;

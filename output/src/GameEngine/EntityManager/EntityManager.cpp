@@ -27,7 +27,6 @@ Engine::Entity::EntityManager::EntityManager() {
  * @return The ID of the created entity.
  */
 
-
 std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::uint32_t id = _available_entities.front();
     _available_entities.pop();
@@ -66,8 +65,8 @@ void Engine::Entity::EntityManager::destroyEntity(
  * @param component The component to add.
  */
 
-void Engine::Entity::EntityManager::addComponent(
-    Entity& entity, Component::IComponent& component) {
+template<typename T>
+void Engine::Entity::EntityManager::addComponent(Entity& entity, T& component) {
     _componentManager.addComponent(entity, component);
 }
 
@@ -82,15 +81,10 @@ void Engine::Entity::EntityManager::addComponent(
  * @param component_name The name of the component to remove.
  */
 
-void Engine::Entity::EntityManager::removeComponent(
-    Entity& entity, std::string component_name) {
-    if (component_name == "all")
-        _componentManager.removeAllComponents(entity);
-    else if (hasComponent(entity, component_name))
-        _componentManager.removeComponent(entity, component_name);
-    else
-        std::cout << "Component " << component_name << " not found"
-                  << std::endl;
+template<typename T>
+void Engine::Entity::EntityManager::removeComponent(Entity& entity,
+                                                    T       component) {
+    _componentManager.removeComponent(entity, component);
 }
 
 /**
