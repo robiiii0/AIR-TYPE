@@ -37,8 +37,8 @@ namespace Engine {
                 }
 
                 void destroyEntity(const std::uint32_t& entity);
-                template<typename T>
-                void addComponent(Entity& entity, T& componentType);
+                void addComponent(Entity&                entity,
+                                  Component::IComponent& componentType);
                 template<typename T>
                 void removeComponent(Entity& entity, T component);
 
@@ -47,7 +47,8 @@ namespace Engine {
                     return _componentManager.hasComponent(entity, component);
                 }
 
-                std::vector<Component::IComponent *> getAllComponents(Entity& entity) {
+                std::vector<Component::IComponent*> getAllComponents(
+                    Entity& entity) {
                     return _componentManager.getAllComponents(entity);
                 }
 

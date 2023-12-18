@@ -65,8 +65,7 @@ void Engine::Entity::EntityManager::destroyEntity(
  * @param component The component to add.
  */
 
-template<typename T>
-void Engine::Entity::EntityManager::addComponent(Entity& entity, T& component) {
+void Engine::Entity::EntityManager::addComponent(Entity& entity, Engine::Entity::Component::IComponent& component) {
     _componentManager.addComponent(entity, component);
 }
 

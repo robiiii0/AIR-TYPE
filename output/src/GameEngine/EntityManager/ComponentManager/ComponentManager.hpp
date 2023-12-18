@@ -8,6 +8,8 @@
 #ifndef COMPONENTMANAGER_HPP_
 #define COMPONENTMANAGER_HPP_
 
+#include <array>
+
 #include "../Entity/Entity.hpp"
 #include "IComponent/IComponent.hpp"
 
