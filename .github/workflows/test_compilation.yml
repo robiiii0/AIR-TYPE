@@ -57,7 +57,7 @@ jobs:
                 os: ubuntu-latest,
                 target: macos-arm
             }
-    name: 'Test Compilation EPITECH Docker'
+    name: 'Test Compilation'
     needs: formatting_check
     runs-on: ${{ matrix.platform.os }}
     container:
@@ -66,4 +66,3 @@ jobs:
       - uses: 'actions/checkout@v3'
       - name: 'Check Compilation'
         run: './vcpkg_cross-build.sh ${{ matrix.platform.target }}'
-        timeout-minutes: 5

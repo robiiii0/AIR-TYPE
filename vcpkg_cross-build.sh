@@ -61,7 +61,7 @@ if [ $1 -eq "macos-arm" ]; then
     target_triplet="arm-osx"
 fi
 
-./vcpkg/vcpkg install sfml
+./vcpkg/vcpkg install sfml:$target_triplet
 ./vcpkg/vcpkg integrate install
 cmake -B build -S ./output/src/Client -DCMAKE_TOOLCHAIN_FILE=$toolchain_path -DVCPKG_TARGET_TRIPLET=$target_triplet
 cmake --build build --config Release
