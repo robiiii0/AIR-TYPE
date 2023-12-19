@@ -7,28 +7,36 @@ set(CMAKE_CXX_STANDARD 20)
 # Add any additional libraries here
 set(LIBS pthread)
 
-set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/GameEngine/NetworkingModule)
-set(CLIENT_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Client)
-set(SERVER_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Server)
-set(BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
+add_subdirectory(src/client)
+add_subdirectory(src/Server)
 
-# NetworkingModule library
-file(GLOB_RECURSE SRCS ${SRC_DIR}/*.cpp)
-add_library(engine_networking ${SRCS})
-target_include_directories(engine_networking PRIVATE ${SRC_DIR})
+# Call cmake in the src/client directory
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/client
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/client
+        RESULT_VARIABLE result
+        COMMAND cp r-type_client ${CMAKE_SOURCE_DIR}
+        COMMAND echo "done client"
 
-# Client executable
-file(GLOB_RECURSE CLIENT_SRCS ${CLIENT_SRC_DIR}/*.cpp)
-add_executable(r-type_client ${CLIENT_SRCS})
-target_link_libraries(r-type_client PRIVATE engine_networking ${LIBS})
-
-# Server executable
-file(GLOB_RECURSE SERVER_SRCS ${SERVER_SRC_DIR}/*.cpp)
-add_executable(r-type_server ${SERVER_SRCS})
-target_link_libraries(r-type_server PRIVATE engine_networking ${LIBS})
-
-# Copy the client executable to the current directory after building
-add_custom_command(
-        TARGET r-type_client POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:r-type_client> ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+if(result)
+    message(FATAL_ERROR "CMake step for src/client failed: ${result}")
+endif()
+
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/Server
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/Server
+        RESULT_VARIABLE result
+        COMMAND cp r-type_server ${CMAKE_SOURCE_DIR}
+        COMMAND echo "done serv"
+)
+
+if(result)
+    message(FATAL_ERROR "CMake step for src/server failed: ${result}")
+endif()
+
+
+
+
+# You can add additional targets or commands here if needed

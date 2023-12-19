@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Game)
+project(r-type_client)
 
 set(CMAKE_CXX_STANDARD 20)
 
 
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
-add_executable(Game
+add_executable(r-type_client
         src/main.cpp
         ../GameEngine/GameEngine.cpp
         ../GameEngine/RendererModule/RendererModule.cpp
@@ -30,5 +30,5 @@ add_executable(Game
 
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(Game PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
+target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
 
