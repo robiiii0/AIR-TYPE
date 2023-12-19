@@ -4,21 +4,6 @@ project(Game)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Include directories
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/../
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/build/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/RendererModule/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/RendererModule/build/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/build/
-)
-
-# Add subdirectories
-add_subdirectory(../GameEngine/RendererModule/ ${CMAKE_CURRENT_BINARY_DIR}/RendererModule)
-add_subdirectory(../GameEngine/EntityManager/ ${CMAKE_CURRENT_BINARY_DIR}/EntityManager)
 
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
@@ -45,5 +30,5 @@ add_executable(Game
 
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(Game PRIVATE RendererModule EntityManager sfml-graphics sfml-window sfml-system ${LIBS})
+target_link_libraries(Game PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
 
