@@ -47,6 +47,13 @@ void Engine::RendererModule::RendererModule::render(
                                  *>(component)
                     ->getDrawable());
         }
+        if (typeid(*component) ==
+            typeid(Engine::RendererModule::Components::SpriteComponent)) {
+            _window.draw(
+                dynamic_cast<Engine::RendererModule::Components::SpriteComponent
+                                 *>(component)
+                    ->getDrawable());
+        }
     }
     _window.display();
 }

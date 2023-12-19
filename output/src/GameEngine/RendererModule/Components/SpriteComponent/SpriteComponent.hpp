@@ -17,8 +17,8 @@ namespace Engine {
         namespace Components {
             struct SpriteData {
                     std::uint32_t _id;
-                    sf::Texture   &_texture;
-                    sf::Sprite    &_sprite;
+                    sf::Texture   _texture;
+                    sf::Sprite    _sprite;
                     std::string   _path;
                     std::string   _ptr;
             };
@@ -38,6 +38,7 @@ namespace Engine {
                     void setOrigin(float x, float y);
                     void setTextureRect(const sf::IntRect& rect);
                     void setPosition(float x, float y);
+                    sf::Drawable &getDrawable();
 
                     // Texture
                     void setRepeated(bool repeated);

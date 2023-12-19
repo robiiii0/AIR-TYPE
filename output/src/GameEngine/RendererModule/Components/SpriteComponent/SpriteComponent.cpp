@@ -18,6 +18,11 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     std::cout << "sprite created" << std::endl;
 }
 
+sf::Drawable &Engine::RendererModule::Components::SpriteComponent::getDrawable()
+{
+    return _data._sprite;
+}
+
 
 Engine::RendererModule::Components::SpriteComponent::~SpriteComponent() {}
 
