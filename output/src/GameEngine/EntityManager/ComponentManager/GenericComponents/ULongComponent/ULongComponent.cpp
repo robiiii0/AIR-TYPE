@@ -12,7 +12,8 @@ Engine::Entity::Component::GenericComponents::ULongComponent::ULongComponent(
     _value = data;
 }
 
-Engine::Entity::Component::GenericComponents::ULongComponent::~ULongComponent() {}
+Engine::Entity::Component::GenericComponents::ULongComponent::
+    ~ULongComponent() {}
 
 void Engine::Entity::Component::GenericComponents::ULongComponent::execute() {
     std::cout << "Executing ULongComponent" << std::endl;

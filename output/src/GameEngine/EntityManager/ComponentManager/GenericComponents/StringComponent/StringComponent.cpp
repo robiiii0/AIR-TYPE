@@ -7,7 +7,8 @@
 
 #include "StringComponent.hpp"
 
-Engine::Entity::Component::GenericComponents::StringComponent::StringComponent(std::string data) {
+Engine::Entity::Component::GenericComponents::StringComponent::StringComponent(
+    std::string data) {
     _value = data;
 }
 

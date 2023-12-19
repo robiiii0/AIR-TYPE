@@ -25,7 +25,7 @@ namespace Engine {
                         void execute() override;
 
                     private:
-                        double      _value;
+                        double _value;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

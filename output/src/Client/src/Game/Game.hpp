@@ -6,21 +6,21 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
-#include "../GameState/GameState.hpp"
-#include "../../../GameEngine/GameEngine.hpp"
 
+#include "../../../GameEngine/GameEngine.hpp"
+#include "../GameState/GameState.hpp"
 
 class Game {
-public:
-    Game();
-    void run();
+    public:
+        Game();
+        void run();
 
-    Engine::GameEngine &getGameEngine();
-private:
-    Engine::GameEngine _gameEngine; //TODO: fix this
-//    GameState* currentState;
-//    void changeState();
+        Engine::GameEngine &getGameEngine();
+
+    private:
+        Engine::GameEngine _gameEngine;  // TODO: fix this
+        //    GameState* currentState;
+        //    void changeState();
 };
 
-
-#endif //GAME_HPP
+#endif  // GAME_HPP

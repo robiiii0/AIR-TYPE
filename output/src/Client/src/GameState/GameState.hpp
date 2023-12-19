@@ -5,17 +5,15 @@
 #ifndef GAMESTATE_HPP
 #define GAMESTATE_HPP
 
-
 class GameState {
-public:
-    GameState();
-    void enter();
-    void exit();
-    void update();
-    void draw();
-private:
+    public:
+        GameState();
+        void enter();
+        void exit();
+        void update();
+        void draw();
 
-    };
+    private:
+};
 
-
-#endif //GAMESTATE_HPP
+#endif  // GAMESTATE_HPP

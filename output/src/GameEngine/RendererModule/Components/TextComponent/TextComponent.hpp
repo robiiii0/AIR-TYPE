@@ -37,7 +37,7 @@ namespace Engine {
                 protected:
                 private:
                     TextData &_data;
-                    sf::Text _text;
+                    sf::Text  _text;
             };
         }  // namespace Components
     }      // namespace RendererModule

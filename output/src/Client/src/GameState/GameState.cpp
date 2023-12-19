@@ -6,18 +6,10 @@
 
 GameState::GameState() = default;
 
-void GameState::enter() {
+void GameState::enter() {}
 
-}
+void GameState::exit() {}
 
-void GameState::exit() {
+void GameState::update() {}
 
-}
-
-void GameState::update() {
-
-}
-
-void GameState::draw() {
-
-}
+void GameState::draw() {}

@@ -23,7 +23,7 @@ namespace Engine {
                         ULongComponent(unsigned long data);
                         ~ULongComponent();
 
-                        void        execute() override;
+                        void execute() override;
 
                     private:
                         unsigned long _value;
