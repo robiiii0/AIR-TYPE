@@ -38,9 +38,9 @@ if [ "$1" = "windows-x86" ]; then
 fi
 
 if [ "$1" = "windows-arm" ]; then
-    export VCPKG_TARGET_TRIPLET=arm-windows
-    ./vcpkg/vcpkg integrate --triplet=arm-uwp
-    target_triplet="arm-windows"
+    export VCPKG_TARGET_TRIPLET=arm64-windows
+    ./vcpkg/vcpkg integrate --triplet=arm64-windows
+    target_triplet="arm64-windows"
 fi
 
 if [ "$1" = "macos-x64" ]; then
@@ -49,16 +49,10 @@ if [ "$1" = "macos-x64" ]; then
     target_triplet="x64-osx"
 fi
 
-if [ "$1" = "macos-x86" ]; then
-    export VCPKG_TARGET_TRIPLET=x86-osx
-    ./vcpkg/vcpkg integrate --triplet=x86-osx
-    target_triplet="x86-osx"
-fi
-
 if [ "$1" = "macos-arm" ]; then
-    export VCPKG_TARGET_TRIPLET=arm-osx
-    ./vcpkg/vcpkg integrate --triplet=arm-osx
-    target_triplet="arm-osx"
+    export VCPKG_TARGET_TRIPLET=arm64-osx-release
+    ./vcpkg/vcpkg integrate --triplet=arm64-osx-release
+    target_triplet="arm64-osx-release"
 fi
 
 ./vcpkg/vcpkg install sfml:$target_triplet

@@ -51,10 +51,6 @@ jobs:
             }
             - {
                 os: ubuntu-latest,
-                target: macos-x86
-            }
-            - {
-                os: ubuntu-latest,
                 target: macos-arm
             }
     name: 'Test Compilation'
