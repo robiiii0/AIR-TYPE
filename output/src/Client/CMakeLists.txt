@@ -43,8 +43,7 @@ add_executable(Game
         # ../GameEngine/PhysicModule/PhysicModule.cpp
         )
 
-# Link SFML libraries
-target_link_libraries(Game PRIVATE sfml-graphics sfml-window sfml-system)
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(Game PRIVATE RendererModule EntityManager)
+target_link_libraries(Game PRIVATE RendererModule EntityManager sfml-graphics sfml-window sfml-system ${LIBS})
+
