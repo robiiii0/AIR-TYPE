@@ -32,3 +32,9 @@ add_executable(r-type_client
 # Link the libraries from RendererModule and EntityManager
 target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
 
+add_custom_command(TARGET r-type_client POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:r-type_client>
+        ${CMAKE_SOURCE_DIR}
+        COMMENT "Moving r-type_client executable to ${CMAKE_SOURCE_DIR}"
+        )

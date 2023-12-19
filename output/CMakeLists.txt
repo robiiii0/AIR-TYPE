@@ -15,9 +15,6 @@ execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/Client
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/Client
         RESULT_VARIABLE result
-        COMMAND cp r-type_client ${CMAKE_SOURCE_DIR}
-        COMMAND echo "done client"
-
 )
 
 if(result)
@@ -28,15 +25,9 @@ execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/Server
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/Server
         RESULT_VARIABLE result
-        COMMAND cp r-type_server ${CMAKE_SOURCE_DIR}
-        COMMAND echo "done serv"
 )
 
 if(result)
     message(FATAL_ERROR "CMake step for src/server failed: ${result}")
 endif()
 
-
-
-
-# You can add additional targets or commands here if needed

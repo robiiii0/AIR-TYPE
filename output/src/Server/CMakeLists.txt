@@ -14,3 +14,10 @@ add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
 target_link_libraries(r-type_server ${LIBS})
+
+add_custom_command(TARGET r-type_server POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:r-type_server>
+        ${CMAKE_SOURCE_DIR}
+        COMMENT "Moving r-type_server executable to ${CMAKE_SOURCE_DIR}"
+        )
