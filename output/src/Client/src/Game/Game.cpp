@@ -5,7 +5,9 @@
 #include "Game.hpp"
 
 Game::Game() {
-    _gameEngine.getRendererModule()->init(1920, 1080, "Air-Type", 60);
+    _gameEngine.getRendererModule()->init(
+        int(sf::VideoMode::getDesktopMode().width),
+        int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
 }
 
 void Game::run() {
@@ -13,6 +15,8 @@ void Game::run() {
         _gameEngine.getRendererModule()->update();
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 0);
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                                1);
     }
 }
 

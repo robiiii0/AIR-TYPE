@@ -15,11 +15,18 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
+            struct SpritData {
+                    sf::Texture   _texture;
+                    sf::Sprite    _sprite;
+                    std::uint32_t _id;
+                    std::string   _path;
+                    std::string   _ptr;
+            };
             class SpriteComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
                     SpriteComponent(
-                        std::string value);  // TODO changer le std::string pour
+                        SpritData &value);  // TODO changer le std::string pour
                                              // le sprite c'est pas bien
                     ~SpriteComponent();
                     void         execute() override;
@@ -38,11 +45,7 @@ namespace Engine {
 
                 protected:
                 private:
-                    sf::Texture   _texture;
-                    sf::Sprite    _sprite;
-                    std::uint32_t _id;
-                    std::string   _path;
-                    std::string   _ptr;
+                    SpritData &_data;
             };
         };  // namespace Components
     };      // namespace RendererModule
