@@ -18,12 +18,13 @@ namespace Engine {
                 public:
                     MobTypeComponent(int data);
                     ~MobTypeComponent();
-                    void        execute() override;
-                     int &       getValue();
-                     void        setValue(int value);
+                    void execute() override;
+                    int &getValue();
+                    void setValue(int value);
+
                 protected:
                 private:
-                    int           _value;
+                    int _value;
             };
         }  // namespace Components
     }      // namespace MobModule

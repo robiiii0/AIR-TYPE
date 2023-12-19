@@ -18,8 +18,9 @@ namespace Engine {
                     IAComponent(int data);
                     ~IAComponent();
                     void execute() override;
-                     int &getValue();
-                     void setValue(int value);
+                    int &getValue();
+                    void setValue(int value);
+
                 protected:
                 private:
                     int _value;

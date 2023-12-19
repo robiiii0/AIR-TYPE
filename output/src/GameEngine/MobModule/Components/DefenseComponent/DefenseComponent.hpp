@@ -18,13 +18,13 @@ namespace Engine {
                 public:
                     DefenseComponent(int data);
                     ~DefenseComponent();
-                    void        execute() override;
-                    int &       getValue();
-                    void        setValue(int value);
+                    void execute() override;
+                    int &getValue();
+                    void setValue(int value);
 
                 protected:
                 private:
-                    int           _value;
+                    int _value;
             };
         };  // namespace Components
     };      // namespace MobModule

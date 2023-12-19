@@ -23,7 +23,6 @@ namespace Engine {
                     int &getValue();
                     void setValue(int value);
 
-
                 protected:
                 private:
                     int _value;

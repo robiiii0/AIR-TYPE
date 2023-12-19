@@ -11,17 +11,19 @@
 
 Engine::MobModule::Components::HealthComponent::HealthComponent(
     HealthComponentData data) {
-      _value = data;
+    _value = data;
 }
 
 Engine::MobModule::Components::HealthComponent::~HealthComponent() {}
 
 void Engine::MobModule::Components::HealthComponent::execute() {}
 
-Engine::MobModule::Components::HealthComponentData &Engine::MobModule::Components::HealthComponent::getValue() {
+Engine::MobModule::Components::HealthComponentData &
+    Engine::MobModule::Components::HealthComponent::getValue() {
     return (_value);
 }
 
-void Engine::MobModule::Components::HealthComponent::setValue(HealthComponentData value) {
+void Engine::MobModule::Components::HealthComponent::setValue(
+    HealthComponentData value) {
     _value = value;
 }

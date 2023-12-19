@@ -18,9 +18,9 @@ namespace Engine {
                 public:
                     VisionComponent(int data);
                     ~VisionComponent();
-                    void        execute() override;
-                     int &       getValue();
-                     void        setValue(int value);
+                    void execute() override;
+                    int &getValue();
+                    void setValue(int value);
 
                 protected:
                 private:

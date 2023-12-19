@@ -18,9 +18,9 @@ namespace Engine {
                 public:
                     StateComponent(bool data);
                     ~StateComponent();
-                    void        execute() override;
-                     bool &       getValue();
-                     void        setValue(bool value);
+                    void  execute() override;
+                    bool &getValue();
+                    void  setValue(bool value);
 
                 protected:
                 private:

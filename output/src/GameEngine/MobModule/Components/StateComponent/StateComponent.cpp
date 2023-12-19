@@ -10,7 +10,7 @@
 #include <stdexcept>
 
 Engine::MobModule::Components::StateComponent::StateComponent(bool data) {
-      _value = data;
+    _value = data;
 }
 
 Engine::MobModule::Components::StateComponent::~StateComponent() {}

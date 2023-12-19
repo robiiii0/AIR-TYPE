@@ -10,11 +10,10 @@
 #include <stdexcept>
 
 Engine::MobModule::Components::MobTypeComponent::MobTypeComponent(int data) {
-      _value = data;
+    _value = data;
 }
 
-Engine::MobModule::Components::MobTypeComponent::~MobTypeComponent() =
-    default;
+Engine::MobModule::Components::MobTypeComponent::~MobTypeComponent() = default;
 
 void Engine::MobModule::Components::MobTypeComponent::execute() {}
 

@@ -9,8 +9,7 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::VisionComponent::VisionComponent(int data) {
-}
+Engine::MobModule::Components::VisionComponent::VisionComponent(int data) {}
 
 Engine::MobModule::Components::VisionComponent::~VisionComponent() {}
 
