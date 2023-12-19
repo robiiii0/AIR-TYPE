@@ -19,8 +19,8 @@ class Game {
 
     private:
         Engine::GameEngine _gameEngine;  // TODO: fix this
-        //    GameState* currentState;
-        //    void changeState();
+                                         //    GameState* currentState;
+                                         //    void changeState();
 };
 
 #endif  // GAME_HPP
