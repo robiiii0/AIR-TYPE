@@ -9,25 +9,19 @@
 
 #include <stdexcept>
 
-template<typename T>
-Engine::MobModule::Components::MobTypeComponent<T>::MobTypeComponent(int data) {
-    if (typeid(T) != typeid(int))
-        throw std::invalid_argument("T is not an int");
-    else {
-        _component_name = "MobTypeComponent";
-        _data = data;
-    }
+Engine::MobModule::Components::MobTypeComponent::MobTypeComponent(int data) {
+      _value = data;
 }
 
-template<typename T>
-Engine::MobModule::Components::MobTypeComponent<T>::~MobTypeComponent() =
+Engine::MobModule::Components::MobTypeComponent::~MobTypeComponent() =
     default;
 
-template<typename T>
-void Engine::MobModule::Components::MobTypeComponent<T>::execute() {}
+void Engine::MobModule::Components::MobTypeComponent::execute() {}
 
-template<typename T>
-std::string Engine::MobModule::Components::MobTypeComponent<T>::getName()
-    const {
-    return _component_name;
+int &Engine::MobModule::Components::MobTypeComponent::getValue() {
+    return (_value);
+}
+
+void Engine::MobModule::Components::MobTypeComponent::setValue(int value) {
+    _value = value;
 }
