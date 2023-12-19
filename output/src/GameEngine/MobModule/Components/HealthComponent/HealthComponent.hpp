@@ -25,7 +25,7 @@ namespace Engine {
                 public:
                     HealthComponent(HealthComponentData data);
                     ~HealthComponent();
-                    void        execute() override;
+                    void execute() override;
 
                 protected:
                 private:

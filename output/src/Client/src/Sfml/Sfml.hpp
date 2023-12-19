@@ -5,10 +5,6 @@
 #ifndef SFML_HPP
 #define SFML_HPP
 
+class Sfml {};
 
-class Sfml {
-
-};
-
-
-#endif //SFML_HPP
+#endif  // SFML_HPP

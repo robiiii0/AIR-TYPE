@@ -16,12 +16,12 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct AnimationData {
-                    float time;
+                    float       time;
                     sf::IntRect rect;
-                    int height;
-                    int width;
-                    int pos_x;
-                    int pos_y;
+                    int         height;
+                    int         width;
+                    int         pos_x;
+                    int         pos_y;
             };
 
             class AnimationComponent :
@@ -29,7 +29,7 @@ namespace Engine {
                 public:
                     AnimationComponent(AnimationData value);
                     ~AnimationComponent();
-                    void         execute() override;
+                    void           execute() override;
                     AnimationData& get();
 
                     void update(float deltaTime, int nbFrame, int rectBase);
@@ -39,7 +39,7 @@ namespace Engine {
                 private:
                     std::uint32_t _id;
                     AnimationData _data;
-                    float _time;
+                    float         _time;
             };
         };  // namespace Components
     };      // namespace RendererModule

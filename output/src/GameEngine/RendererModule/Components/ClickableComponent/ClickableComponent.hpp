@@ -25,7 +25,7 @@ namespace Engine {
                 public:
                     ClickableComponent(ClickableData value);
                     ~ClickableComponent();
-                    void        execute() override;
+                    void execute() override;
 
                     void update();
                     bool isHovered() const;

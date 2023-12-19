@@ -25,8 +25,8 @@ namespace Engine {
 
             void run();
 
-            Engine::Entity::EntityManager *getEntityManager() const;
-            RendererModule::RendererModule   *getRendererModule() const;
+            Engine::Entity::EntityManager  *getEntityManager() const;
+            RendererModule::RendererModule *getRendererModule() const;
             //            Hmi::HmiModule                   *getHmiModule()
             //            const; LocalStorage::LocalStorageModule
             //            *getLocalStorageModule() const;
@@ -34,8 +34,8 @@ namespace Engine {
             //            const;
 
         private:
-            Engine::Entity::EntityManager *_entityManager;
-            RendererModule::RendererModule   *_rendererModule;
+            Engine::Entity::EntityManager  *_entityManager;
+            RendererModule::RendererModule *_rendererModule;
 
             //            Hmi::HmiModule                   *_hmiModule;
             //            LocalStorage::LocalStorageModule *_localStorageModule;

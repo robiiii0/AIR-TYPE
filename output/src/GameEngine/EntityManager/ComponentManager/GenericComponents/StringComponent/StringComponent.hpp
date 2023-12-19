@@ -21,10 +21,10 @@ namespace Engine {
                         StringComponent(std::string data);
                         ~StringComponent();
 
-                        void        execute() override;
+                        void execute() override;
 
                     private:
-                        std::string           _value;
+                        std::string _value;
                 };
             }  // namespace GenericComponents
         }      // namespace Component

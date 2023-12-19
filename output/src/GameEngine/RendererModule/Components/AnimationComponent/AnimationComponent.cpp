@@ -16,10 +16,10 @@ Engine::RendererModule::Components::AnimationComponent::~AnimationComponent() {}
 
 void Engine::RendererModule::Components::AnimationComponent::execute() {}
 
-Engine::RendererModule::Components::AnimationData& Engine::RendererModule::Components::AnimationComponent::get() {
+Engine::RendererModule::Components::AnimationData&
+    Engine::RendererModule::Components::AnimationComponent::get() {
     return (_data);
 }
-
 
 sf::IntRect Engine::RendererModule::Components::AnimationComponent::getRect()
     const {
@@ -31,7 +31,8 @@ void Engine::RendererModule::Components::AnimationComponent::update(
     _time += deltaTime;
     if (_time >= _data.time) {
         _data.rect.left += _data.rect.width;
-        if (_data.rect.left >= nbFrame * _data.rect.width) _data.rect.left = rectBase;
+        if (_data.rect.left >= nbFrame * _data.rect.width)
+            _data.rect.left = rectBase;
         _time = 0;
     }
 }

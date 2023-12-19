@@ -19,7 +19,7 @@ namespace Engine {
                 public:
                     AttackComponent(int data);
                     ~AttackComponent();
-                    void        execute() override;
+                    void execute() override;
 
                 protected:
                 private:
