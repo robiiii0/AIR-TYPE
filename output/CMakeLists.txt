@@ -9,6 +9,7 @@ set(LIBS pthread)
 
 add_subdirectory(src/Client)
 add_subdirectory(src/Server)
+add_subdirectory(src/GameEngine/NetworkingModule)
 
 # Call cmake in the src/client directory
 execute_process(
@@ -29,5 +30,15 @@ execute_process(
 
 if(result)
     message(FATAL_ERROR "CMake step for src/server failed: ${result}")
+endif()
+
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/GameEngine/NetworkingModule
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/GameEngine/NetworkingModule
+        RESULT_VARIABLE result
+)
+
+if(result)
+    message(FATAL_ERROR "CMake step for /src/GameEngine/NetworkingModule failed: ${result}")
 endif()
 
