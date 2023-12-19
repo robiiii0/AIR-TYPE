@@ -11,8 +11,8 @@
 #include <iostream>
 
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    SpritData &value) : _data(value) {
-    if (!_data._texture.loadFromFile(_data._path))
+    SpriteData &value) : _data(value) {
+    if (!_data._texture.loadFromFile(value._path))
         throw std::runtime_error("SpriteComponent: texture not found");
     _data._sprite.setTexture(_data._texture);
     std::cout << "sprite created" << std::endl;

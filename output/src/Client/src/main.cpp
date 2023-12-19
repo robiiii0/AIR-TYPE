@@ -16,13 +16,18 @@ Engine::RendererModule::Components::TextData createText(
     return textData1;
 }
 
-Engine::RendererModule::Components::SpritData createSprite(
-                    sf::Texture _texture, sf::Sprite _sprite, std::uint32_t _id, std::string   _path, std::string   _ptr) {
-                            Engine::RendererModule::Components::SpritData Sprite = {
-        _texture, _sprite, _id, _path, _ptr
+void test()
+{
+
+}
+
+Engine::RendererModule::Components::SpriteData createSprite(std::uint32_t _id, std::string   _path, std::string   _ptr, sf::Texture &_texture, sf::Sprite &_sprite)
+{
+    Engine::RendererModule::Components::SpriteData Sprite = {
+         _id, _texture, _sprite, _path, _ptr
     };
     return Sprite;
-                    }
+}
 
 
 
@@ -54,7 +59,7 @@ int main() {
 
     sf::Sprite sprite;
 
-    Engine::RendererModule::Components::SpritData spriteBackgroundData = createSprite(texture ,sprite,  BackgroundEntity, "src/Client/assets/Background/Layers/layer01_ground.png", "jsp");
+    Engine::RendererModule::Components::SpriteData spriteBackgroundData = createSprite(BackgroundEntity, "src/Client/assets/Background/Layers/layer01_ground.png", "jsp", texture ,sprite);
     Engine::RendererModule::Components::SpriteComponent BackgroundComponent(spriteBackgroundData);
 
     game.getGameEngine().getEntityManager()->addComponent(
