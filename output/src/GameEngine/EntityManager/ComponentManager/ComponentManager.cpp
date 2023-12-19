@@ -59,7 +59,8 @@ bool Engine::Entity::Component::ComponentManager::hasComponent(Entity& entity,
     return false;
 }
 
-std::vector<Engine::Entity::Component::IComponent*> Engine::Entity::Component::ComponentManager::getAllComponents(
-    Entity& entity) {
+std::vector<Engine::Entity::Component::IComponent*>
+    Engine::Entity::Component::ComponentManager::getAllComponents(
+        Entity& entity) {
     return entity._components;
 }

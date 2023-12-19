@@ -31,12 +31,10 @@ void Engine::RendererModule::Components::ClickableComponent::update() {
     // Update _data.isClicked
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isHovered()
-    const {
+bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
     return _data.isHovered;
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isClicked()
-    const {
+bool Engine::RendererModule::Components::ClickableComponent::isClicked() const {
     return _data.isClicked;
 }

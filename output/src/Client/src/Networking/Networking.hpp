@@ -5,10 +5,6 @@
 #ifndef NETWORKING_HPP
 #define NETWORKING_HPP
 
+class Networking {};
 
-class Networking {
-
-};
-
-
-#endif //NETWORKING_HPP
+#endif  // NETWORKING_HPP

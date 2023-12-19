@@ -18,7 +18,7 @@ Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
         _available_entities.push(i);
-//    _entities.clear();
+    //    _entities.clear();
 }
 
 /**
@@ -30,7 +30,7 @@ Engine::Entity::EntityManager::EntityManager() {
 
 std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::cout << "Available entities: " << std::endl;
-//    std::uint32_t id = _available_entities.front();
+    //    std::uint32_t id = _available_entities.front();
     std::uint32_t id = 0;
     _available_entities.pop();
     _living_entity_count++;
@@ -69,7 +69,8 @@ void Engine::Entity::EntityManager::destroyEntity(
  * @param component The component to add.
  */
 
-void Engine::Entity::EntityManager::addComponent(Entity& entity, Engine::Entity::Component::IComponent& component) {
+void Engine::Entity::EntityManager::addComponent(
+    Entity& entity, Engine::Entity::Component::IComponent& component) {
     _componentManager.addComponent(entity, component);
 }
 

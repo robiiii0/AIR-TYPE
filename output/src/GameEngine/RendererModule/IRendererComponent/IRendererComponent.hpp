@@ -9,6 +9,7 @@
 #define RENDERERCOMPONENT_HPP_
 
 #include <SFML/Graphics.hpp>
+
 #include "../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {

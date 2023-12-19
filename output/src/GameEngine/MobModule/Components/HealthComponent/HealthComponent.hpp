@@ -28,6 +28,7 @@ namespace Engine {
                      HealthComponentData &       getValue();
                      void        setValue(HealthComponentData value);
 
+
                 protected:
                 private:
                     HealthComponentData _value;

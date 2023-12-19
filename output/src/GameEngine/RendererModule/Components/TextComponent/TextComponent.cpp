@@ -8,7 +8,8 @@
 #include "TextComponent.hpp"
 
 Engine::RendererModule::Components::TextComponent::TextComponent(
-    Engine::RendererModule::Components::TextData &value) : _data(value) {
+    Engine::RendererModule::Components::TextData &value) :
+    _data(value) {
     _text.setString(_data.text);
     _text.setFont(_data.font);
     _text.setColor(_data.color);
