@@ -10,7 +10,8 @@ add_subdirectory(../GameEngine/RendererModule/ ./GameEngine/RendererModule/build
 add_subdirectory(../GameEngine/EntityManager/ ./GameEngine/EntityManager/build)
 
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+# find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 add_executable(Game
         src/main.cpp
@@ -33,4 +34,6 @@ add_executable(Game
 #        ../GameEngine/PhysicModule/PhysicModule.cpp
 )
 
-target_link_libraries(Game sfml-graphics sfml-window sfml-system)
+target_link_libraries(Game PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
+
+# target_link_libraries(Game sfml-graphics sfml-window sfml-system)

@@ -18,13 +18,52 @@ jobs:
             fallback-style: 'Mozilla'
 
   test_compilation:
+    strategy:
+      matrix:
+        platform:
+            - {
+                os: ubuntu-latest,
+                target: linux-x64
+            }
+            - {
+                os: ubuntu-latest,
+                target: linux-x86
+            }
+            - {
+                os: ubuntu-latest,
+                target: linux-arm
+            }
+            - {
+                os: ubuntu-latest,
+                target: windows-x64
+            }
+            - {
+                os: ubuntu-latest,
+                target: windows-x86
+            }
+            - {
+                os: ubuntu-latest,
+                target: windows-arm
+            }
+            - {
+                os: ubuntu-latest,
+                target: macos-x64
+            }
+            - {
+                os: ubuntu-latest,
+                target: macos-x86
+            }
+            - {
+                os: ubuntu-latest,
+                target: macos-arm
+            }
     name: 'Test Compilation EPITECH Docker'
     needs: formatting_check
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform.os }}
     container:
       image: epitechcontent/epitest-docker:latest
     steps:
       - uses: 'actions/checkout@v3'
       - name: 'Check Compilation'
-        run: 'cd output && bash compile.sh'
+        run: './vcpkg_cross-build.sh ${{ matrix.platform.target }}'
         timeout-minutes: 5
