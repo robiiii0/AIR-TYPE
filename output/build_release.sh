@@ -3,24 +3,14 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Current directory: $CURRENT_DIR"
 
-# Create a build directory if it doesn't exist
-mkdir -p "$CURRENT_DIR/build"
+mkdir -p "$CURRENT_DIR/release"
 
-# Run CMake to generate build files
-cmake "$CURRENT_DIR/CMakeLists.txt"
+cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"
 echo "building cmake $CURRENT_DIR/CMakeLists"
 
-# Build the project
 make
 
 not_compiled=0
-
-if [ ! -e "$CURRENT_DIR/libengine_networking.a" ]; then
-  echo "Networking library is missing"
-  not_compiled=1
-else
-  echo "Networking library is present"
-fi
 
 if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
   echo "Client binary is missing"
@@ -40,5 +30,8 @@ if [ $not_compiled -eq 1 ]; then
   echo "One or more compilation(s) failed"
   exit 1
 fi
+
+mv "$CURRENT_DIR/r-type_client" "$CURRENT_DIR/release/r-type_client"
+mv "$CURRENT_DIR/r-type_server" "$CURRENT_DIR/release/r-type_server"
 
 echo "Compilation succeeded"
