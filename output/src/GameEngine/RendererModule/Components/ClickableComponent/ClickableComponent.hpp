@@ -20,14 +20,12 @@ namespace Engine {
                     bool isClicked;
             };
 
-            template<typename T>
             class ClickableComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    ClickableComponent(T value);
+                    ClickableComponent(ClickableData value);
                     ~ClickableComponent();
-                    void        execute() override;
-                    std::string getName() const override;
+                    void execute() override;
 
                     void update();
                     bool isHovered() const;

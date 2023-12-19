@@ -9,23 +9,18 @@
 
 #include <stdexcept>
 
-template<typename T>
-Engine::MobModule::Components::StateComponent<T>::StateComponent(bool data) {
-    if (typeid(T) != typeid(bool))
-        throw std::invalid_argument("T is not a bool");
-    else {
-        _component_name = "StateComponent";
-        _data = data;
-    }
+Engine::MobModule::Components::StateComponent::StateComponent(bool data) {
+    _value = data;
 }
 
-template<typename T>
-Engine::MobModule::Components::StateComponent<T>::~StateComponent() {}
+Engine::MobModule::Components::StateComponent::~StateComponent() {}
 
-template<typename T>
-void Engine::MobModule::Components::StateComponent<T>::execute() {}
+void Engine::MobModule::Components::StateComponent::execute() {}
 
-template<typename T>
-std::string Engine::MobModule::Components::StateComponent<T>::getName() const {
-    return _component_name;
+bool &Engine::MobModule::Components::StateComponent::getValue() {
+    return (_value);
+}
+
+void Engine::MobModule::Components::StateComponent::setValue(bool value) {
+    _value = value;
 }

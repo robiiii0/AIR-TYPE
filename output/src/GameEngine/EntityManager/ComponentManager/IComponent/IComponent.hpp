@@ -8,6 +8,7 @@
 #ifndef ICOMPONENT_HPP_
 #define ICOMPONENT_HPP_
 
+#include <cstdint>
 #include <string>
 
 namespace Engine {
@@ -19,7 +20,6 @@ namespace Engine {
                     virtual void          execute() = 0;
                     virtual std::uint32_t getId() const = 0;
                     virtual void          setId(std::uint32_t id) = 0;
-                    virtual std::string   getName() const = 0;
             };
         };  // namespace Component
     };      // namespace Entity

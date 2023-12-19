@@ -11,15 +11,24 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "../EntityManager/EntityManager.hpp"
+#include "Components/AnimationComponent/AnimationComponent.hpp"
+#include "Components/ClickableComponent/ClickableComponent.hpp"
+#include "Components/SpriteComponent/SpriteComponent.hpp"
+#include "Components/TextComponent/TextComponent.hpp"
+
 namespace Engine {
     namespace RendererModule {
         class RendererModule {
             public:
                 RendererModule();
                 ~RendererModule();
-                void init();
+                void init(int width, int height, std::string title,
+                          int framerate);
                 void update();
-                void render();
+                void render(Engine::Entity::EntityManager &entityManager,
+                            uint32_t                       id);
+                sf::RenderWindow &getWindow();
 
             protected:
             private:

@@ -19,7 +19,7 @@
 
 namespace Engine {
     namespace Entity {
-        const std::uint32_t __max_entities = 100;
+        const std::uint32_t __max_entities = 10000;
         const std::uint8_t  __max_components = 255;
 
         class EntityManager {
@@ -29,7 +29,7 @@ namespace Engine {
 
                 Entity& getEntity(std::uint32_t id) {
                     for (std::uint32_t i = 0; i < _entities.size(); i++) {
-                        if (_entities[i].id == id) {
+                        if (_entities[i]._id == id) {
                             return _entities[i];
                         }
                     }
@@ -37,30 +37,28 @@ namespace Engine {
                 }
 
                 void destroyEntity(const std::uint32_t& entity);
-
                 void addComponent(Entity&                entity,
-                                  Component::IComponent& component);
-                void removeComponent(Entity&     entity,
-                                     std::string component_name);
-
-                bool hasComponent(Entity& entity, std::string component_name) {
-                    return _componentManager.hasComponent(entity,
-                                                          component_name);
-                }
-
-                void getAllComponents(Entity& entity) {
-                    _componentManager.getAllComponents(entity);
-                }
+                                  Component::IComponent& componentType);
+                template<typename T>
+                void removeComponent(Entity& entity, T component);
 
                 template<typename T>
-                T& getComponentValue(Entity&     entity,
-                                     std::string component_name);
+                bool hasComponent(Entity& entity, T component) {
+                    return _componentManager.hasComponent(entity, component);
+                }
+
+                std::vector<Component::IComponent*> getAllComponents(
+                    Entity& entity) {
+                    return _componentManager.getAllComponents(entity);
+                }
+
+                // template<typename T>
+                // T& getComponentValue(Entity&     entity,
+                //                      std::string component_name);
 
             private:
-                std::queue<std::uint32_t> _available_entities;
-
-                uint32_t _living_entity_count;
-
+                std::queue<std::uint32_t>   _available_entities;
+                uint32_t                    _living_entity_count;
                 std::vector<Entity>         _entities;
                 Component::ComponentManager _componentManager;
         };

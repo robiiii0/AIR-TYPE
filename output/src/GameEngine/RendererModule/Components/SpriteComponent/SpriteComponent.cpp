@@ -10,30 +10,20 @@
 #include <stdexcept>
 
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    std::any value) {
-    _component_name = "SpriteComponent";
-    if (value.type() != typeid(std::string))
-        throw std::runtime_error("SpriteComponent: value is not a string");
-    else {
-        _path = std::any_cast<std::string>(value);
-        if (!_texture.loadFromFile(_path))
-            throw std::runtime_error("SpriteComponent: texture not found");
-        _sprite.setTexture(_texture);
-        _ptr = value;
-    }
+    std::string value) {
+    _path = value;
+    if (!_texture.loadFromFile(_path))
+        throw std::runtime_error("SpriteComponent: texture not found");
+    _sprite.setTexture(_texture);
+    _ptr = value;
 }
 
 Engine::RendererModule::Components::SpriteComponent::~SpriteComponent() {}
 
 void Engine::RendererModule::Components::SpriteComponent::execute() {}
 
-std::any& Engine::RendererModule::Components::SpriteComponent::get() {
+std::string& Engine::RendererModule::Components::SpriteComponent::get() {
     return (_ptr);
-}
-
-std::string Engine::RendererModule::Components::SpriteComponent::getName()
-    const {
-    return (_component_name);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setRotation(

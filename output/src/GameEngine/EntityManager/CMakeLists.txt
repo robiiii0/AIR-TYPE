@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.10)
 
 project(EntityManager)
 
-set(CMAKE_CXX_STANDARD 20)
+# set(CMAKE_CXX_STANDARD 20)
+
+set(CMAKE_CXX_COMPILER g++)
 
 include_directories(./)
 
-add_executable(entity_manager
-    ../main.cpp
+add_library(entity_manager STATIC
     EntityManager.cpp
     ComponentManager/ComponentManager.cpp
     ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp

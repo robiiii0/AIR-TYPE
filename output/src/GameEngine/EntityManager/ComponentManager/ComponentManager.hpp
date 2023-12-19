@@ -8,6 +8,8 @@
 #ifndef COMPONENTMANAGER_HPP_
 #define COMPONENTMANAGER_HPP_
 
+#include <array>
+
 #include "../Entity/Entity.hpp"
 #include "IComponent/IComponent.hpp"
 
@@ -20,18 +22,21 @@ namespace Engine {
                 public:
                     ComponentManager();
                     ~ComponentManager();
+
                     std::uint32_t addComponent(Entity&     entity,
                                                IComponent& component);
+                    template<typename T>
+                    bool removeComponent(Entity& entity, T component);
 
-                    bool        removeComponent(Entity&     entity,
-                                                std::string component_name);
-                    bool        removeAllComponents(Entity& entity);
+                    bool removeAllComponents(Entity& entity);
+
                     IComponent& getComponent(Entity&       entity,
                                              std::uint32_t component_id);
-                    bool        hasComponent(Entity&     entity,
-                                             std::string component_name);
+                    template<typename T>
+                    bool hasComponent(Entity& entity, T component);
 
-                    void getAllComponents(Entity& entity);
+                    std::vector<Engine::Entity::Component::IComponent*>
+                        getAllComponents(Entity& entity);
 
                 protected:
                 private:

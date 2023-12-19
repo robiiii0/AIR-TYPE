@@ -11,9 +11,11 @@ Engine::RendererModule::RendererModule::RendererModule() {}
 
 Engine::RendererModule::RendererModule::~RendererModule() {}
 
-void Engine::RendererModule::RendererModule::init() {
-    _window.create(sf::VideoMode(1920, 1080), "R-Type");
-    _window.setFramerateLimit(60);
+void Engine::RendererModule::RendererModule::init(int width, int height,
+                                                  std::string title,
+                                                  int         framerate) {
+    _window.create(sf::VideoMode(width, height), title);
+    _window.setFramerateLimit(framerate);
 }
 
 void Engine::RendererModule::RendererModule::
@@ -23,13 +25,28 @@ void Engine::RendererModule::RendererModule::
     }
 }
 
-void Engine::RendererModule::RendererModule::render()  // draw la scene
+sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
+    return _window;
+}
+
+void Engine::RendererModule::RendererModule::render(
+    Engine::Entity::EntityManager &entityManager, uint32_t id)  // draw la scene
 {
     _window.clear();
-    for (auto& entity : _entities) {
-        if (!entity->hasComponent<
-                Engine::RendererModule::Components::SpriteComponent>())
-            _window.draw(sprite.sprite);
+    //        for (auto& entity : _entities) {
+    //            if (!entity->hasComponent<
+    //                    Engine::RendererModule::Components::SpriteComponent>())
+    //                _window.draw(sprite.sprite);
+    //        }
+    auto text = entityManager.getAllComponents(entityManager.getEntity(id));
+    for (auto &component : text) {
+        if (typeid(*component) ==
+            typeid(Engine::RendererModule::Components::TextComponent)) {
+            _window.draw(
+                dynamic_cast<Engine::RendererModule::Components::TextComponent
+                                 *>(component)
+                    ->getDrawable());
+        }
     }
     _window.display();
 }

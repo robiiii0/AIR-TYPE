@@ -18,17 +18,19 @@ namespace Engine {
             class SpriteComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    SpriteComponent(std::any value);
+                    SpriteComponent(
+                        std::string value);  // TODO changer le std::string pour
+                                             // le sprite c'est pas bien
                     ~SpriteComponent();
-                    void        execute() override;
-                    std::any&   get() override;
-                    std::string getName() const override;
+                    void         execute() override;
+                    std::string& get();
 
                     // Sprite
                     void setRotation(float rotation);
                     void setScale(float x, float y);
                     void setOrigin(float x, float y);
                     void setTextureRect(const sf::IntRect& rect);
+                    void setPosition(float x, float y);
 
                     // Texture
                     void setRepeated(bool repeated);
@@ -39,9 +41,8 @@ namespace Engine {
                     sf::Texture   _texture;
                     sf::Sprite    _sprite;
                     std::uint32_t _id;
-                    std::string   _component_name;
                     std::string   _path;
-                    std::any      _ptr;
+                    std::string   _ptr;
             };
         };  // namespace Components
     };      // namespace RendererModule
