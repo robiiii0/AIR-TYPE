@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "RendererModule",
+		"source" : "/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule"
+	}
+}

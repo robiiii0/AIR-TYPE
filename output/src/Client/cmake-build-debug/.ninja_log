@@ -1,0 +1,16 @@
+# ninja log v5
+1	468	1702992626325248328	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp.o	6afcd4bd18a7d8ec
+0	507	1702992626362731040	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp.o	51618aec5d1c4354
+521	875	1702992626732381737	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/ComponentManager/AComponent/AComponent.cpp.o	279b8ebdf298dd86
+0	521	1702992626377014474	CMakeFiles/Game.dir/src/main.cpp.o	758facb61aab3824
+507	1049	1702992626906605406	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/EntityManager.cpp.o	4701069389343148
+1	539	1702992626393979995	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule/RendererModule.cpp.o	a22e406feb2740a5
+1	457	1702992626310319644	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule/WindowManager/Window.cpp.o	3abbae7220442b91
+0	550	1702992626403853048	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/GameEngine.cpp.o	b1d45cd96cd8a71c
+459	993	1702992626846724958	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp.o	9c98eb96357782ba
+469	827	1702992626684114720	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp.o	fdfd08415a3ee25f
+550	998	1702992626855591219	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp.o	868f9e1fb82c29fb
+827	1143	1702992627000264519	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp.o	2bbade3745996b22
+875	1267	1702992627124470585	CMakeFiles/Game.dir/src/Game/Game.cpp.o	35acad75babe83fd
+1267	1303	1702992627163223091	Game	f11140729984116f
+539	994	1702992626850371463	CMakeFiles/Game.dir/Users/robin/dev/epitech/AIR-TYPE/output/src/GameEngine/EntityManager/ComponentManager/ComponentManager.cpp.o	381942ec74d348d5
