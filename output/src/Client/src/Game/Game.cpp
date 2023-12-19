@@ -11,13 +11,13 @@ Game::Game() {
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update();
-        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(), 0);
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                                0);
     }
 }
 
-Engine::GameEngine &Game::getGameEngine() {
-    return _gameEngine;
-}
+Engine::GameEngine &Game::getGameEngine() { return _gameEngine; }
+
 // void Game::changeState() {
 //
 // }
