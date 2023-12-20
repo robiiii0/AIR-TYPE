@@ -13,14 +13,10 @@ Game::Game() {
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update();
-        
-        // TODO: faire une boucle qui itere pour checker toutes les entitées
-        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                                _gameEngine.getEntityManager()->getNbEntites());
-        // _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-        //                                         2);
-        // _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-        //                                         1);
+
+        _gameEngine.getRendererModule()->render(
+            *_gameEngine.getEntityManager(),
+            _gameEngine.getEntityManager()->getNbEntites());
     }
 }
 

@@ -14,6 +14,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/WindowManager/Window.cpp
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
+        ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
         ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
         ../GameEngine/EntityManager/EntityManager.cpp
         ../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp

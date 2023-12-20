@@ -16,13 +16,14 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SpriteData {
-                    std::uint32_t _id;
-                    sf::Texture   _texture;
-                    sf::Sprite    _sprite;
-                    std::string   _path;
-                    std::string   _ptr;
+                    std::uint32_t           _id;
+                    sf::Texture             _texture;
+                    sf::Sprite              _sprite;
+                    std::string             _path;
+                    std::string             _ptr;
                     std::pair<float, float> _pos;
             };
+
             class SpriteComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
@@ -31,14 +32,14 @@ namespace Engine {
                                              // le sprite c'est pas bien
                     ~SpriteComponent();
                     void         execute() override;
-                    std::string& get();
+                    std::string &get();
 
                     // Sprite
-                    void setRotation(float rotation);
-                    void setScale(float x, float y);
-                    void setOrigin(float x, float y);
-                    void setTextureRect(const sf::IntRect& rect);
-                    void setPosition(float x, float y);
+                    void          setRotation(float rotation);
+                    void          setScale(float x, float y);
+                    void          setOrigin(float x, float y);
+                    void          setTextureRect(const sf::IntRect &rect);
+                    void          setPosition(float x, float y);
                     sf::Drawable &getDrawable();
 
                     // Texture

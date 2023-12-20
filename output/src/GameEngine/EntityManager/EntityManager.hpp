@@ -36,7 +36,7 @@ namespace Engine {
                     throw std::runtime_error("Entity not found");
                 }
 
-                uint32_t  getNbEntites();
+                uint32_t getNbEntites();
 
                 void destroyEntity(const std::uint32_t& entity);
                 void addComponent(Entity&                entity,

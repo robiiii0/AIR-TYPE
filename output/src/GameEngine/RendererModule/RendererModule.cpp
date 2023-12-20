@@ -30,25 +30,36 @@ sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
 }
 
 void Engine::RendererModule::RendererModule::render(
-    Engine::Entity::EntityManager &entityManager, uint32_t idmax)
-{
+    Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
     _window.clear();
     for (auto i = 0; i < idmax; i++) {
-    auto text = entityManager.getAllComponents(entityManager.getEntity(i));
-    for (auto &component : text) {
+        auto text = entityManager.getAllComponents(entityManager.getEntity(i));
+        for (auto &component : text) {
             if (typeid(*component) ==
                 typeid(Engine::RendererModule::Components::TextComponent)) {
                 _window.draw(
-                    dynamic_cast<Engine::RendererModule::Components::TextComponent
-                                    *>(component)
+                    dynamic_cast<
+                        Engine::RendererModule::Components::TextComponent *>(
+                        component)
                         ->getDrawable());
             }
             if (typeid(*component) ==
                 typeid(Engine::RendererModule::Components::SpriteComponent)) {
                 _window.draw(
-                    dynamic_cast<Engine::RendererModule::Components::SpriteComponent
-                                    *>(component)
+                    dynamic_cast<
+                        Engine::RendererModule::Components::SpriteComponent *>(
+                        component)
                         ->getDrawable());
+            }
+            if (typeid(*component) ==
+                typeid(Engine::RendererModule::Components::ClickableComponent)) {
+                    
+                _window.draw(
+                    dynamic_cast<
+                        Engine::RendererModule::Components::ClickableComponent *>(
+                        component)
+                        ->getDrawable());
+
             }
         }
     }
