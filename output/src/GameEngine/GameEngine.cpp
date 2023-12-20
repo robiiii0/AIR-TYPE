@@ -25,7 +25,7 @@ void Engine::GameEngine::run() {
     //    _networkingModule->run();
     while (1) {
         _rendererModule->update();
-        _rendererModule->render(*_entityManager, 0);
+        // _rendererModule->render(*_entityManager, 0);
     }
 }
 

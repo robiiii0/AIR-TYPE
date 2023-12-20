@@ -16,6 +16,7 @@
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/SpriteComponent/SpriteComponent.hpp"
 #include "Components/TextComponent/TextComponent.hpp"
+#include "IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -26,9 +27,10 @@ namespace Engine {
                 void init(int width, int height, std::string title,
                           int framerate);
                 void update();
-                void handleEvent();
+                void handleEvent(Engine::Entity::EntityManager &entityManager,
+                                 uint32_t                       idmax);
                 void render(Engine::Entity::EntityManager &entityManager,
-                            uint32_t                       id);
+                            std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();
 
             protected:

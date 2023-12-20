@@ -29,7 +29,6 @@ namespace Engine {
                     TextComponent(TextData &value);
                     ~TextComponent();
                     void          execute() override;
-                    bool          isDrawable() const override;
                     sf::Drawable &getDrawable() override;
                     void          setTextData(TextData &data);
                     TextData      getTextData() const;
