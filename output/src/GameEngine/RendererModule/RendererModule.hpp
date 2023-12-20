@@ -33,7 +33,7 @@ namespace Engine {
             protected:
             private:
                 sf::RenderWindow _window;
-                sf::Event        _event;  // a enlever si on a un event manager
+                sf::Event _event;
         };
     };  // namespace RendererModule
 };      // namespace Engine

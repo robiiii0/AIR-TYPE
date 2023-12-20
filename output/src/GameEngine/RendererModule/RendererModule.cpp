@@ -22,6 +22,9 @@ void Engine::RendererModule::RendererModule::
     update() {  // update les animations, la camera, etc
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
+        if (_event.type == sf::Event::KeyPressed &&
+            _event.key.code == sf::Keyboard::Escape)
+            _window.close();
     }
 }
 
@@ -40,24 +43,7 @@ void Engine::RendererModule::RendererModule::render(
             std::cout << "clicked" << std::endl;
             if (_event.mouseButton.button == sf::Mouse::Right) {
                 sf::Vector2i mousepos = sf::Mouse::getPosition();
-                // Parcourir tous les composants pour vérifier si un
-                // ClickableComponent est cliqué
-                for (auto i = 0; i < idmax; i++) {
-                    auto components = entityManager.getAllComponents(
-                        entityManager.getEntity(i));
-                    for (auto &component : components) {
-                        if (typeid(*component) ==
-                            typeid(Engine::RendererModule::Components::
-                                       ClickableComponent)) {
-                            if (dynamic_cast<
-                                    Engine::RendererModule::Components::
-                                        ClickableComponent *>(component)
-                                    ->isClicked({mousepos.x, mousepos.y})) {
-                                std::cout << "Clicked!" << std::endl;
-                            }
-                        }
-                    }
-                }
+
             }
         }
     }
