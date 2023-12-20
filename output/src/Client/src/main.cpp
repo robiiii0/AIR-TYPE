@@ -59,7 +59,9 @@ int main() {
         createText("Welcome on the R-Type game", font, sf::Color::White,
                    {float(WIDTH / 6), float(HEIGHT / 14)}, {1, 1}, 0);
 
-    Engine::RendererModule::Components::TextComponent titleComponent(Title);
+     std::shared_ptr<Engine::RendererModule::Components::TextComponent> titleComponent =
+    std::make_shared<Engine::RendererModule::Components::TextComponent>(Title);
+
 
     sf::Texture texture;
     sf::Sprite  sprite;
@@ -90,21 +92,19 @@ int main() {
     Engine::RendererModule::Components::ClickableComponent buttonComponent(
         buttonData);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(TitleEntity),
-        titleComponent);
+    game.getGameEngine().getEntityManager()->addComponent(TitleEntity, titleComponent);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(buttonPlayEntity),
-        buttonComponent);
+    // game.getGameEngine().getEntityManager()->addComponent(
+    //     game.getGameEngine().getEntityManager()->getEntity(buttonPlayEntity),
+    //     buttonComponent);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
-        BackgroundComponent);
+    // game.getGameEngine().getEntityManager()->addComponent(
+    //     game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
+    //     BackgroundComponent);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
-        CakeComponent);
+    // game.getGameEngine().getEntityManager()->addComponent(
+    //     game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
+    //     CakeComponent);
 
     game.run();
     return 0;

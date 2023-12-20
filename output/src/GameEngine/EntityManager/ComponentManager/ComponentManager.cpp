@@ -26,9 +26,9 @@ std::uint32_t Engine::Entity::Component::ComponentManager::addComponent(
 template<typename T>
 bool Engine::Entity::Component::ComponentManager::removeComponent(
     std::shared_ptr<Entity> entity, T component) {
-    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
-        if (typeid(entity._components[i]) == typeid(T)) {
-            entity._components.erase(entity._components.begin() + i);
+    for (std::uint32_t i = 0; i < entity->_components.size(); i++) {
+        if (typeid(entity->_components[i]) == typeid(T)) {
+            entity->_components.erase(entity->_components.begin() + i);
             return true;
         }
     }
@@ -51,8 +51,8 @@ std::shared_ptr<Engine::Entity::Component::IComponent>
 template<typename T>
 bool Engine::Entity::Component::ComponentManager::hasComponent(
     std::shared_ptr<Entity> entity, T component) {
-    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
-        if (typeid(entity._components[i]) == typeid(T)) {
+    for (std::uint32_t i = 0; i < entity->_components.size(); i++) {
+        if (typeid(entity->_components[i]) == typeid(T)) {
             return true;
         }
     }

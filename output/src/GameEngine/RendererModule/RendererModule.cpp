@@ -50,15 +50,13 @@ void Engine::RendererModule::RendererModule::render(
 
     // Dessiner les composants
     for (auto i = 0; i < idmax; i++) {
-        auto components =
-            entityManager.getAllComponents(entityManager.getEntity(i));
+        auto components = entityManager.getAllComponents(i);
         for (auto &component : components) {
             if (typeid(*component) ==
                 typeid(Engine::RendererModule::Components::TextComponent)) {
                 _window.draw(
-                    dynamic_cast<
-                        Engine::RendererModule::Components::TextComponent *>(
-                        component)
+                    dynamic_cast<Engine::RendererModule::Components::TextComponent *>(
+                        component.get())
                         ->getDrawable());
             } else if (typeid(*component) ==
                        typeid(Engine::RendererModule::Components::
@@ -66,13 +64,13 @@ void Engine::RendererModule::RendererModule::render(
                 _window.draw(
                     dynamic_cast<
                         Engine::RendererModule::Components::SpriteComponent *>(
-                        component)
+                        component.get())
                         ->getDrawable());
             } else if (typeid(*component) ==
                        typeid(Engine::RendererModule::Components::
                                   ClickableComponent)) {
                 _window.draw(dynamic_cast<Engine::RendererModule::Components::
-                                              ClickableComponent *>(component)
+                                              ClickableComponent *>(component.get())
                                  ->getDrawable());
             }
         }
