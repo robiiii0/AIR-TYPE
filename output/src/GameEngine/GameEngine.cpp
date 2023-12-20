@@ -33,7 +33,6 @@ Engine::Entity::EntityManager *Engine::GameEngine::getEntityManager() const {
     return _entityManager;
 }
 
-
 //
 // Engine::LocalStorage::LocalStorageModule *
 //    Engine::GameEngine::getLocalStorageModule() const {
