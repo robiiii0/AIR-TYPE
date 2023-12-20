@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -25,7 +25,7 @@ namespace Engine {
             };
 
             class SpriteComponent :
-                public Engine::Entity::Component::AComponent {
+                public Engine::RendererModule::IRendererComponent {
                 public:
                     SpriteComponent(
                         SpriteData &value);  // TODO changer le std::string pour
@@ -40,7 +40,7 @@ namespace Engine {
                     void          setOrigin(float x, float y);
                     void          setTextureRect(const sf::IntRect &rect);
                     void          setPosition(float x, float y);
-                    sf::Drawable &getDrawable();
+                    sf::Drawable &getDrawable() override;
 
                     // Texture
                     void setRepeated(bool repeated);
