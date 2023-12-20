@@ -21,9 +21,12 @@ class Game {
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
+        void displaySettings();
+
     private:
         Engine::GameEngine         _gameEngine;  // TODO: fix this
         std::vector<std::uint32_t> _entities;
+        sf::Font                  _font;
         //    GameState* currentState;
         //    void changeState();
 };
