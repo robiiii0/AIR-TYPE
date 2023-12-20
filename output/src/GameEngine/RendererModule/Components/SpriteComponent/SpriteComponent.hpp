@@ -21,6 +21,7 @@ namespace Engine {
                     sf::Sprite    _sprite;
                     std::string   _path;
                     std::string   _ptr;
+                    std::pair<float, float> _pos;
             };
             class SpriteComponent :
                 public Engine::Entity::Component::AComponent {
