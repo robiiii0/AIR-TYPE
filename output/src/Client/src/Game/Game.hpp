@@ -22,6 +22,7 @@ class Game {
         std::vector<std::uint32_t> &getEntities();
 
         void setLobby();
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;

@@ -41,8 +41,7 @@ Engine::RendererModule::Components::TextData createText(
 }
 
 void Game::setLobby() {
-    uint32_t TitleEntity =
-        _gameEngine.getEntityManager()->createEntity();
+    uint32_t TitleEntity = _gameEngine.getEntityManager()->createEntity();
 
     unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
     unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
@@ -60,7 +59,6 @@ void Game::setLobby() {
             std::make_shared<Engine::RendererModule::Components::TextComponent>(
                 Title);
 
-    _gameEngine.getEntityManager()->addComponent(TitleEntity,
-                                                          titleComponent);
+    _gameEngine.getEntityManager()->addComponent(TitleEntity, titleComponent);
     addEntity(TitleEntity);
 }
