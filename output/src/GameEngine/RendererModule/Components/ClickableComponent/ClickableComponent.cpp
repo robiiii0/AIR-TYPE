@@ -45,6 +45,7 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
     return _data.isHovered;
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isClicked() const {
+bool Engine::RendererModule::Components::ClickableComponent::isClicked(std::pair<float, float> mousePos) const {
+    std::cout << mousePos.first << " " << mousePos.second << std::endl;
     return _data.isClicked;
 }

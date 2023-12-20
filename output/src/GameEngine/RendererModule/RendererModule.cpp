@@ -32,37 +32,45 @@ sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
 void Engine::RendererModule::RendererModule::render(
     Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
     _window.clear();
-    for (auto i = 0; i < idmax; i++) {
-        auto text = entityManager.getAllComponents(entityManager.getEntity(i));
-        for (auto &component : text) {
-            if (typeid(*component) ==
-                typeid(Engine::RendererModule::Components::TextComponent)) {
-                _window.draw(
-                    dynamic_cast<
-                        Engine::RendererModule::Components::TextComponent *>(
-                        component)
-                        ->getDrawable());
-            }
-            if (typeid(*component) ==
-                typeid(Engine::RendererModule::Components::SpriteComponent)) {
-                _window.draw(
-                    dynamic_cast<
-                        Engine::RendererModule::Components::SpriteComponent *>(
-                        component)
-                        ->getDrawable());
-            }
-            if (typeid(*component) ==
-                typeid(Engine::RendererModule::Components::ClickableComponent)) {
-                    
-                _window.draw(
-                    dynamic_cast<
-                        Engine::RendererModule::Components::ClickableComponent *>(
-                        component)
-                        ->getDrawable());
 
+    // Vérifier les événements
+    while (_window.pollEvent(_event)) {
+        std::cout << "test" << std::endl;
+        if (_event.type == sf::Event::MouseButtonReleased) {
+            std::cout << "clicked" << std::endl;
+            if (_event.mouseButton.button == sf::Mouse::Right) {
+                sf::Vector2i mousepos = sf::Mouse::getPosition();
+                // Parcourir tous les composants pour vérifier si un ClickableComponent est cliqué
+                for (auto i = 0; i < idmax; i++) {
+                    auto components = entityManager.getAllComponents(entityManager.getEntity(i));
+                    for (auto &component : components) {
+                        if (typeid(*component) == typeid(Engine::RendererModule::Components::ClickableComponent)) {
+                            if (dynamic_cast<Engine::RendererModule::Components::ClickableComponent *>(component)->isClicked({ mousepos.x, mousepos.y })) {
+                                std::cout << "Clicked!" << std::endl;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Dessiner les composants
+    for (auto i = 0; i < idmax; i++) {
+        auto components = entityManager.getAllComponents(entityManager.getEntity(i));
+        for (auto &component : components) {
+            if (typeid(*component) == typeid(Engine::RendererModule::Components::TextComponent)) {
+                _window.draw(dynamic_cast<Engine::RendererModule::Components::TextComponent *>(component)->getDrawable());
+            }
+            else if (typeid(*component) == typeid(Engine::RendererModule::Components::SpriteComponent)) {
+                _window.draw(dynamic_cast<Engine::RendererModule::Components::SpriteComponent *>(component)->getDrawable());
+            }
+            else if (typeid(*component) == typeid(Engine::RendererModule::Components::ClickableComponent)) {
+                _window.draw(dynamic_cast<Engine::RendererModule::Components::ClickableComponent *>(component)->getDrawable());
             }
         }
     }
 
     _window.display();
 }
+
