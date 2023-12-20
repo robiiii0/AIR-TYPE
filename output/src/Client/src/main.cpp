@@ -25,35 +25,18 @@ Engine::RendererModule::Components::SpriteData createSprite(
 }
 
 Engine::RendererModule::Components::ClickableData createClickable(
-    bool isHovered,
-                    bool isClicked,
-                    sf::Texture             _texture,
-                    sf::Sprite              _sprite,
-                    std::string _name,
-                    std::string _path,
-                    std::string _ptr,
-                    std::pair<float, float> _pos,
-                    std::pair<float, float> _scale,
-                    std::uint32_t _id
-)
-{
+    bool isHovered, bool isClicked, sf::Texture _texture, sf::Sprite _sprite,
+    std::string _name, std::string _path, std::string _ptr,
+    std::pair<float, float> _pos, std::pair<float, float> _scale,
+    std::uint32_t _id) {
     Engine::RendererModule::Components::ClickableData Clickable = {
-            isHovered,
-                    isClicked,
-                    _texture,
-                                 _sprite,
-                    _name,
-                     _path,
-                     _ptr,
-                     _pos,
-                     _scale,
-                     _id
-    };
+        isHovered, isClicked, _texture, _sprite, _name,
+        _path,     _ptr,      _pos,     _scale,  _id};
     return Clickable;
 }
 
 int main() {
-    Game     game;
+    Game game;
 
     uint32_t buttonPlayEntity =
         game.getGameEngine().getEntityManager()->createEntity();
@@ -98,23 +81,14 @@ int main() {
     Engine::RendererModule::Components::SpriteComponent CakeComponent(
         spriteCakeData);
 
-    Engine::RendererModule::Components::ClickableData buttonData = createClickable(
-            false,
-            false,
-            texture,
-            sprite,
-            "Play",
-            "src/Client/assets/Buttons/start.png",
-            "jsp",
-            {float((WIDTH * 20) / 100) , float((HEIGHT * 8) / 100)},
-            {0.5, 0.5},
-            buttonPlayEntity
-    );
+    Engine::RendererModule::Components::ClickableData buttonData =
+        createClickable(false, false, texture, sprite, "Play",
+                        "src/Client/assets/Buttons/start.png", "jsp",
+                        {float((WIDTH * 20) / 100), float((HEIGHT * 8) / 100)},
+                        {0.5, 0.5}, buttonPlayEntity);
 
     Engine::RendererModule::Components::ClickableComponent buttonComponent(
-            buttonData);
-
-    
+        buttonData);
 
     game.getGameEngine().getEntityManager()->addComponent(
         game.getGameEngine().getEntityManager()->getEntity(TitleEntity),

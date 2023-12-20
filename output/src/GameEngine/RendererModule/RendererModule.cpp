@@ -40,12 +40,19 @@ void Engine::RendererModule::RendererModule::render(
             std::cout << "clicked" << std::endl;
             if (_event.mouseButton.button == sf::Mouse::Right) {
                 sf::Vector2i mousepos = sf::Mouse::getPosition();
-                // Parcourir tous les composants pour vérifier si un ClickableComponent est cliqué
+                // Parcourir tous les composants pour vérifier si un
+                // ClickableComponent est cliqué
                 for (auto i = 0; i < idmax; i++) {
-                    auto components = entityManager.getAllComponents(entityManager.getEntity(i));
+                    auto components = entityManager.getAllComponents(
+                        entityManager.getEntity(i));
                     for (auto &component : components) {
-                        if (typeid(*component) == typeid(Engine::RendererModule::Components::ClickableComponent)) {
-                            if (dynamic_cast<Engine::RendererModule::Components::ClickableComponent *>(component)->isClicked({ mousepos.x, mousepos.y })) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       ClickableComponent)) {
+                            if (dynamic_cast<
+                                    Engine::RendererModule::Components::
+                                        ClickableComponent *>(component)
+                                    ->isClicked({mousepos.x, mousepos.y})) {
                                 std::cout << "Clicked!" << std::endl;
                             }
                         }
@@ -57,20 +64,33 @@ void Engine::RendererModule::RendererModule::render(
 
     // Dessiner les composants
     for (auto i = 0; i < idmax; i++) {
-        auto components = entityManager.getAllComponents(entityManager.getEntity(i));
+        auto components =
+            entityManager.getAllComponents(entityManager.getEntity(i));
         for (auto &component : components) {
-            if (typeid(*component) == typeid(Engine::RendererModule::Components::TextComponent)) {
-                _window.draw(dynamic_cast<Engine::RendererModule::Components::TextComponent *>(component)->getDrawable());
-            }
-            else if (typeid(*component) == typeid(Engine::RendererModule::Components::SpriteComponent)) {
-                _window.draw(dynamic_cast<Engine::RendererModule::Components::SpriteComponent *>(component)->getDrawable());
-            }
-            else if (typeid(*component) == typeid(Engine::RendererModule::Components::ClickableComponent)) {
-                _window.draw(dynamic_cast<Engine::RendererModule::Components::ClickableComponent *>(component)->getDrawable());
+            if (typeid(*component) ==
+                typeid(Engine::RendererModule::Components::TextComponent)) {
+                _window.draw(
+                    dynamic_cast<
+                        Engine::RendererModule::Components::TextComponent *>(
+                        component)
+                        ->getDrawable());
+            } else if (typeid(*component) ==
+                       typeid(Engine::RendererModule::Components::
+                                  SpriteComponent)) {
+                _window.draw(
+                    dynamic_cast<
+                        Engine::RendererModule::Components::SpriteComponent *>(
+                        component)
+                        ->getDrawable());
+            } else if (typeid(*component) ==
+                       typeid(Engine::RendererModule::Components::
+                                  ClickableComponent)) {
+                _window.draw(dynamic_cast<Engine::RendererModule::Components::
+                                              ClickableComponent *>(component)
+                                 ->getDrawable());
             }
         }
     }
 
     _window.display();
 }
-

@@ -16,16 +16,16 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct ClickableData {
-                    bool isHovered;
-                    bool isClicked;
+                    bool                    isHovered;
+                    bool                    isClicked;
                     sf::Texture             _texture;
                     sf::Sprite              _sprite;
-                    std::string _name;
-                    std::string _path;
-                    std::string _ptr;
+                    std::string             _name;
+                    std::string             _path;
+                    std::string             _ptr;
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
-                    std::uint32_t _id;
+                    std::uint32_t           _id;
             };
 
             class ClickableComponent :
@@ -33,10 +33,10 @@ namespace Engine {
                 public:
                     ClickableComponent(ClickableData &value);
                     ~ClickableComponent();
-                    void execute() override;
+                    void          execute() override;
                     sf::Drawable &getDrawable();
-                    void update();
-                    bool isHovered() const;
+                    void          update();
+                    bool          isHovered() const;
                     bool isClicked(std::pair<float, float> mousePos) const;
 
                 protected:
