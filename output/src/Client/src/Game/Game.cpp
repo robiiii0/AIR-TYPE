@@ -32,6 +32,35 @@ void Game::removeEntity(std::uint32_t entity) {
 
 std::vector<std::uint32_t> &Game::getEntities() { return _entities; }
 
-// void Game::changeState() {
-//
-// }
+Engine::RendererModule::Components::TextData createText(
+    std::string text, sf::Font &font, sf::Color color, sf::Vector2f position,
+    sf::Vector2f scale, float rotation) {
+    Engine::RendererModule::Components::TextData textData1 = {
+        text, font, color, position, scale, rotation};
+    return textData1;
+}
+
+void Game::setLobby() {
+    uint32_t TitleEntity =
+        _gameEngine.getEntityManager()->createEntity();
+
+    unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
+    unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
+
+    if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
+        std::cout << "cant load this shit" << std::endl;
+    }
+
+    Engine::RendererModule::Components::TextData Title =
+        createText("Welcome on the R-Type game", _font, sf::Color::White,
+                   {float(WIDTH / 6), float(HEIGHT / 14)}, {1, 1}, 0);
+
+    std::shared_ptr<Engine::RendererModule::Components::TextComponent>
+        titleComponent =
+            std::make_shared<Engine::RendererModule::Components::TextComponent>(
+                Title);
+
+    _gameEngine.getEntityManager()->addComponent(TitleEntity,
+                                                          titleComponent);
+    addEntity(TitleEntity);
+}

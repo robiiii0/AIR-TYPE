@@ -21,11 +21,12 @@ class Game {
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
+        void setLobby();
     private:
-        Engine::GameEngine         _gameEngine;  // TODO: fix this
+        Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
-        //    GameState* currentState;
-        //    void changeState();
+
+        sf::Font _font;
 };
 
 #endif  // GAME_HPP
