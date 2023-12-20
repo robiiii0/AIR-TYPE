@@ -42,3 +42,8 @@ void Engine::RendererModule::Components::parallaxComponent::setPosition(
 void Engine::RendererModule::Components::parallaxComponent::setMovement(
         parallaxData _data, float x, float y) { _data._movement = std::make_pair(x, y); }
     
+// void Engine::RendererModule::Components::parallaxComponent::runParallax() {
+//     for (auto &i : _data) {
+//         i._sprite.move(i._movement.first, i._movement.second);
+//     }
+// }

@@ -40,6 +40,7 @@ namespace Engine {
                     void          setTextureRect(parallaxData _data, const sf::IntRect &rect);
                     void          setPosition(parallaxData _data, float x, float y);
                     void          setMovement(parallaxData _data, float x, float y);
+                    void runParallax();
 
                 protected:
                 private:
