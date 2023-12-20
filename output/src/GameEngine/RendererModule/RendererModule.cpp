@@ -30,30 +30,28 @@ sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
 }
 
 void Engine::RendererModule::RendererModule::render(
-    Engine::Entity::EntityManager &entityManager, uint32_t id)  // draw la scene
+    Engine::Entity::EntityManager &entityManager, uint32_t idmax)
 {
     _window.clear();
-    //        for (auto& entity : _entities) {
-    //            if (!entity->hasComponent<
-    //                    Engine::RendererModule::Components::SpriteComponent>())
-    //                _window.draw(sprite.sprite);
-    //        }
-    auto text = entityManager.getAllComponents(entityManager.getEntity(id));
+    for (auto i = 0; i < idmax; i++) {
+    auto text = entityManager.getAllComponents(entityManager.getEntity(i));
     for (auto &component : text) {
-        if (typeid(*component) ==
-            typeid(Engine::RendererModule::Components::TextComponent)) {
-            _window.draw(
-                dynamic_cast<Engine::RendererModule::Components::TextComponent
-                                 *>(component)
-                    ->getDrawable());
-        }
-        if (typeid(*component) ==
-            typeid(Engine::RendererModule::Components::SpriteComponent)) {
-            _window.draw(
-                dynamic_cast<Engine::RendererModule::Components::SpriteComponent
-                                 *>(component)
-                    ->getDrawable());
+            if (typeid(*component) ==
+                typeid(Engine::RendererModule::Components::TextComponent)) {
+                _window.draw(
+                    dynamic_cast<Engine::RendererModule::Components::TextComponent
+                                    *>(component)
+                        ->getDrawable());
+            }
+            if (typeid(*component) ==
+                typeid(Engine::RendererModule::Components::SpriteComponent)) {
+                _window.draw(
+                    dynamic_cast<Engine::RendererModule::Components::SpriteComponent
+                                    *>(component)
+                        ->getDrawable());
+            }
         }
     }
+
     _window.display();
 }
