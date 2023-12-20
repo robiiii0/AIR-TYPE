@@ -69,10 +69,12 @@ void Engine::RendererModule::RendererModule::render(
     // Dessiner les composants
 
     for (auto id : id_list) {
-        auto components = entityManager.getAllComponents(entityManager.getEntity(id));
+        auto components =
+            entityManager.getAllComponents(entityManager.getEntity(id));
         for (auto &component : components) {
             IRendererComponent *to_render;
-            if ((to_render = dynamic_cast<IRendererComponent *>(component)) != nullptr) {
+            if ((to_render = dynamic_cast<IRendererComponent *>(component)) !=
+                nullptr) {
                 _window.draw(to_render->getDrawable());
             }
         }
