@@ -7,15 +7,11 @@
 
 #include "ComponentAlreadyExists.hpp"
 
-Engine::EntityManager::ComponentAlreadyExists::ComponentAlreadyExists()
-{
-}
+Engine::EntityManager::ComponentAlreadyExists::ComponentAlreadyExists() {}
 
-Engine::EntityManager::ComponentAlreadyExists::~ComponentAlreadyExists()
-{
-}
+Engine::EntityManager::ComponentAlreadyExists::~ComponentAlreadyExists() {}
 
-const char *Engine::EntityManager::ComponentAlreadyExists::what() const noexcept
-{
+const char *Engine::EntityManager::ComponentAlreadyExists::what()
+    const noexcept {
     return "Component already exists";
 }

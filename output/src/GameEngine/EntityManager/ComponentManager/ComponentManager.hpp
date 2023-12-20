@@ -23,19 +23,24 @@ namespace Engine {
                     ComponentManager();
                     ~ComponentManager();
 
-                    std::uint32_t addComponent(std::shared_ptr<Entity>     entity,
-                                               std::shared_ptr<IComponent> component);
+                    std::uint32_t addComponent(
+                        std::shared_ptr<Entity>     entity,
+                        std::shared_ptr<IComponent> component);
                     template<typename T>
-                    bool removeComponent(std::shared_ptr<Entity> entity, T component);
+                    bool removeComponent(std::shared_ptr<Entity> entity,
+                                         T                       component);
 
                     bool removeAllComponents(std::shared_ptr<Entity> entity);
 
-                    std::shared_ptr<IComponent> getComponent(std::shared_ptr<Entity>       entity,
-                                             std::uint32_t component_id);
+                    std::shared_ptr<IComponent> getComponent(
+                        std::shared_ptr<Entity> entity,
+                        std::uint32_t           component_id);
                     template<typename T>
-                    bool hasComponent(std::shared_ptr<Entity> entity, T component);
+                    bool hasComponent(std::shared_ptr<Entity> entity,
+                                      T                       component);
 
-                    std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
+                    std::vector<
+                        std::shared_ptr<Engine::Entity::Component::IComponent>>
                         getAllComponents(std::shared_ptr<Entity> entity);
 
                 protected:
