@@ -33,10 +33,10 @@ namespace Engine {
                 public:
                     ClickableComponent(ClickableData &value);
                     ~ClickableComponent();
-                    void          execute() override;
-                    sf::Drawable &getDrawable();
-                    void          update();
-                    bool          isHovered() const;
+                    void                    execute() override;
+                    sf::Drawable           &getDrawable();
+                    void                    update();
+                    bool                    isHovered() const;
                     std::pair<float, float> getPos() const;
                     bool isClicked(std::pair<float, float> mousePos) const;
 

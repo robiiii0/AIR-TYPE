@@ -13,7 +13,9 @@ Game::Game() {
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update();
-        _gameEngine.getRendererModule()->handleEvent(*_gameEngine.getEntityManager(), _gameEngine.getEntityManager()->getNbEntites());
+        _gameEngine.getRendererModule()->handleEvent(
+            *_gameEngine.getEntityManager(),
+            _gameEngine.getEntityManager()->getNbEntites());
         _gameEngine.getRendererModule()->render(
             *_gameEngine.getEntityManager(),
             _gameEngine.getEntityManager()->getNbEntites());

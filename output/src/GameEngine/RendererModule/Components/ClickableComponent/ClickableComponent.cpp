@@ -21,7 +21,8 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     std::cout << "sprite button created" << std::endl;
 }
 
-std::pair<float, float> Engine::RendererModule::Components::ClickableComponent::getPos() const {
+std::pair<float, float>
+    Engine::RendererModule::Components::ClickableComponent::getPos() const {
     return _data._pos;
 }
 
@@ -52,16 +53,24 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) const {
+    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "mousePos: " << mousePos.first << ", " << mousePos.second
+              << std::endl;
+    std::cout << "pos: " << _data._pos.first << ", " << _data._pos.second
+              << std::endl;
+    std::cout << "getSpriteSize"
+              << _data._texture.getSize().x * _data._scale.first << ", "
+              << _data._texture.getSize().y * _data._scale.second << std::endl;
+    std::cout << "-------------------------------------" << std::endl;
 
-        std::cout << "-------------------------------------" << std::endl;
-        std::cout << "mousePos: " << mousePos.first << ", " << mousePos.second << std::endl;
-        std::cout << "pos: " << _data._pos.first << ", " << _data._pos.second << std::endl;
-        std:: cout << "getSpriteSize" << _data._texture.getSize().x * _data._scale.first << ", " << _data._texture.getSize().y * _data._scale.second << std::endl;
-        std::cout << "-------------------------------------" << std::endl;
-
-    if (mousePos.first >= _data._pos.first && mousePos.first <= _data._pos.first + (_data._texture.getSize().x * _data._scale.first) && mousePos.second >= _data._pos.second && mousePos.second <= _data._pos.second + (_data._texture.getSize().y * _data._scale.second))
+    if (mousePos.first >= _data._pos.first &&
+        mousePos.first <= _data._pos.first + (_data._texture.getSize().x *
+                                              _data._scale.first) &&
+        mousePos.second >= _data._pos.second &&
+        mousePos.second <= _data._pos.second + (_data._texture.getSize().y *
+                                                _data._scale.second))
         std::cout << "prout" << std::endl;
-    else 
+    else
         std::cout << "pas prout" << std::endl;
     return _data.isClicked;
 }
