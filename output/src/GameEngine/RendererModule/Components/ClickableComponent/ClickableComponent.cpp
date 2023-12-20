@@ -56,7 +56,6 @@ bool Engine::RendererModule::Components::ClickableComponent::isClicked(
         std::cout << "-------------------------------------" << std::endl;
         std::cout << "mousePos: " << mousePos.first << ", " << mousePos.second << std::endl;
         std::cout << "pos: " << _data._pos.first << ", " << _data._pos.second << std::endl;
-        std::cout << "pos + 100 " << _data._pos.first + 100 << ", " << _data._pos.second + 100 << std::endl;
         std:: cout << "getSpriteSize" << _data._texture.getSize().x * _data._scale.first << ", " << _data._texture.getSize().y * _data._scale.second << std::endl;
         std::cout << "-------------------------------------" << std::endl;
 
