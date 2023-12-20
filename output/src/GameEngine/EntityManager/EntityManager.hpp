@@ -27,7 +27,7 @@ namespace Engine {
                 EntityManager();
                 std::uint32_t createEntity();
 
-                std::shared_ptr<Entity> getEntity(const std::uint32_t id);
+                std::shared_ptr<Entity> getEntity(const std::uint32_t& id);
 
                 uint32_t getNbEntites();
 

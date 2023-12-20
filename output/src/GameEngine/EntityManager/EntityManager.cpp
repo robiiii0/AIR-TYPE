@@ -44,10 +44,10 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
 }
 
 std::shared_ptr<Engine::Entity::Entity>
-    Engine::Entity::EntityManager::getEntity(const std::uint32_t id) {
+    Engine::Entity::EntityManager::getEntity(const std::uint32_t& id) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == id) {
-            return std::make_shared<Entity>(_entities[i]);
+            return _entities[i];
         }
     }
     return nullptr;
@@ -70,7 +70,6 @@ void Engine::Entity::EntityManager::destroyEntity(
             break;
         }
     }
-    std::cout << "Destroyed entity " << entity_id << std::endl;
 }
 
 /**
@@ -120,8 +119,7 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
     Engine::Entity::EntityManager::getAllComponents(const std::uint32_t& id) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == id) {
-            return _componentManager.getAllComponents(
-                std::make_shared<Entity>(_entities[i]));
+            return _componentManager.getAllComponents(_entities[i]);
         }
     }
     return std::vector<
