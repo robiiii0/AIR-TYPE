@@ -8,14 +8,6 @@
 #include "../../GameEngine/GameEngine.hpp"
 #include "./Game/Game.hpp"
 
-Engine::RendererModule::Components::SpriteData createSprite(
-    std::uint32_t _id, std::string _path, std::string _ptr,
-    sf::Texture &_texture, sf::Sprite &_sprite, std::pair<float, float> pos) {
-    Engine::RendererModule::Components::SpriteData Sprite = {
-        _id, _texture, _sprite, _path, _ptr, pos};
-    return Sprite;
-}
-
 Engine::RendererModule::Components::ClickableData createClickable(
     bool isHovered, bool isClicked, sf::Texture _texture, sf::Sprite _sprite,
     std::string _name, std::string _path, std::string _ptr,
@@ -32,13 +24,11 @@ int main() {
 
     //    uint32_t buttonPlayEntity =
     //        game.getGameEngine().getEntityManager()->createEntity();
-    //    uint32_t CakeEntity =
-    //        game.getGameEngine().getEntityManager()->createEntity();
+
     //    uint32_t BackgroundEntity =
     //        game.getGameEngine().getEntityManager()->createEntity();
     //
-    //    sf::Texture texture;
-    //    sf::Sprite  sprite;
+
     //
     //    Engine::RendererModule::Components::SpriteData spriteBackgroundData =
     //        createSprite(
@@ -50,18 +40,7 @@ int main() {
     //    BackgroundComponent(
     //        spriteBackgroundData);
     //
-    //    Engine::RendererModule::Components::SpriteData spriteCakeData =
-    //        createSprite(
-    //            CakeEntity,
-    //            "src/Client/assets/Background/Layers/layer02_cake.png", "jsp",
-    //            texture, sprite, {float((WIDTH * 10) / 100) * -1,
-    //            float((HEIGHT * 10) / 100) * -1});
-    //    //
-    //    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-    //    // CakeComponent;
-    //    auto CakeComponent =
-    //        std::make_shared<Engine::RendererModule::Components::SpriteComponent>(
-    //            spriteCakeData);
+
     //
     //    Engine::RendererModule::Components::ClickableData buttonData =
     //        createClickable(false, false, texture, sprite, "Play",
@@ -72,9 +51,7 @@ int main() {
     //    Engine::RendererModule::Components::ClickableComponent
     //    buttonComponent(
     //        buttonData);
-    //
-    //
-    //
+
     //    // game.getGameEngine().getEntityManager()->addComponent(
     //    //
     //    game.getGameEngine().getEntityManager()->getEntity(buttonPlayEntity),
@@ -85,12 +62,10 @@ int main() {
     //    game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
     //    //     BackgroundComponent);
     //
-    //    game.getGameEngine().getEntityManager()->addComponent(CakeEntity,
-    //                                                          CakeComponent);
+
     //
     //    // game.addEntity(buttonPlayEntity);
     //    // game.addEntity(BackgroundEntity);
-    //    game.addEntity(CakeEntity);
 
     game.setLobby();
     game.run();

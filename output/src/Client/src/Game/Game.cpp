@@ -8,6 +8,12 @@ Game::Game() {
     _gameEngine.getRendererModule()->init(
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
+    if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
+        std::cout << "cant load this shit" << std::endl;
+    }
+    if (!_texture.loadFromFile("src/Client/assets/new_assets/asteroids/asteroid.png")) {
+        std::cout << "cant load" << std::endl;
+    }
 }
 
 void Game::run() {
@@ -40,25 +46,62 @@ Engine::RendererModule::Components::TextData createText(
     return textData1;
 }
 
-void Game::setLobby() {
-    uint32_t TitleEntity = _gameEngine.getEntityManager()->createEntity();
+void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
+                      sf::Vector2f scale, sf::Color color, float rotation) {
+    uint32_t textEntity = _gameEngine.getEntityManager()->createEntity();
 
-    unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
-    unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
-
-    if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
-        std::cout << "cant load this shit" << std::endl;
-    }
-
-    Engine::RendererModule::Components::TextData Title =
-        createText("Welcome on the R-Type game", _font, sf::Color::White,
-                   {float(WIDTH / 6), float(HEIGHT / 14)}, {1, 1}, 0);
+    Engine::RendererModule::Components::TextData text_temp = {
+        text, font, color, position, scale, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::TextComponent>
         titleComponent =
             std::make_shared<Engine::RendererModule::Components::TextComponent>(
-                Title);
+                text_temp);
 
-    _gameEngine.getEntityManager()->addComponent(TitleEntity, titleComponent);
-    addEntity(TitleEntity);
+    _gameEngine.getEntityManager()->addComponent(textEntity, titleComponent);
+    addEntity(textEntity);
+}
+
+void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
+                        sf::Vector2f position, sf::Vector2f scale,
+                        sf::Color color, float rotation) {
+    uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        sprite, position, scale, color, rotation};
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 texture);
+
+    _gameEngine.getEntityManager()->addComponent(spriteEntity, spriteComponent);
+    addEntity(spriteEntity);
+}
+
+void Game::setLobby() {
+    createText("Welcome on the R-Type game", _font, {200.0, 200.0});
+    createSprite(_sprite, _texture, {200.0, 200.0});
+    //    uint32_t CakeEntity =
+    //        game.getGameEngine().getEntityManager()->createEntity();
+
+    //    sf::Texture texture;
+    //    sf::Sprite  sprite;
+
+    //    Engine::RendererModule::Components::SpriteData spriteCakeData =
+    //        createSprite(
+    //            CakeEntity,
+    //            "src/Client/assets/Background/Layers/layer02_cake.png", "jsp",
+    //            texture, sprite, {float((WIDTH * 10) / 100) * -1,
+    //            float((HEIGHT * 10) / 100) * -1});
+    //
+    //    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+    //    // CakeComponent;
+    //    auto CakeComponent =
+    //        std::make_shared<Engine::RendererModule::Components::SpriteComponent>(
+    //            spriteCakeData);
+
+    //    game.getGameEngine().getEntityManager()->addComponent(CakeEntity,
+    //                                                          CakeComponent);
+    //    game.addEntity(CakeEntity);
 }
