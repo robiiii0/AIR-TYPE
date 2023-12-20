@@ -35,6 +35,8 @@ cmake_install.cmake
 compile_commands.json
 package-lock.json
 
+cmake-build-debug/
+src/Client/Game
 
 Makefile
 client_executable

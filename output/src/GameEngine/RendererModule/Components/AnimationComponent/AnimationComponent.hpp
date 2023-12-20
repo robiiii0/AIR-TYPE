@@ -10,19 +10,27 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
         namespace Components {
+            struct AnimationData {
+                    float       time;
+                    sf::IntRect rect;
+                    int         height;
+                    int         width;
+                    int         pos_x;
+                    int         pos_y;
+            };
+
             class AnimationComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AnimationComponent(std::any value);
+                    AnimationComponent(AnimationData value);
                     ~AnimationComponent();
-                    void        execute() override;
-                    std::any&   get() override;
-                    std::string getName() const override;
+                    void           execute() override;
+                    AnimationData& get();
 
                     void update(float deltaTime, int nbFrame, int rectBase);
 
@@ -30,9 +38,7 @@ namespace Engine {
 
                 private:
                     std::uint32_t _id;
-                    std::string   _component_name;
-                    std::any      _ptr;
-                    sf::IntRect   _rect;
+                    AnimationData _data;
                     float         _time;
             };
         };  // namespace Components

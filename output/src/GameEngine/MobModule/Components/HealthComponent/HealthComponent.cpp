@@ -9,24 +9,21 @@
 
 #include <stdexcept>
 
-template<typename T>
-Engine::MobModule::Components::HealthComponent<T>::HealthComponent(
+Engine::MobModule::Components::HealthComponent::HealthComponent(
     HealthComponentData data) {
-    if (typeid(T) != typeid(int))
-        throw std::invalid_argument("T is not an int");
-    else {
-        _component_name = "HealthComponent";
-        _data = data;
-    }
+    _value = data;
 }
 
-template<typename T>
-Engine::MobModule::Components::HealthComponent<T>::~HealthComponent() {}
+Engine::MobModule::Components::HealthComponent::~HealthComponent() {}
 
-template<typename T>
-void Engine::MobModule::Components::HealthComponent<T>::execute() {}
+void Engine::MobModule::Components::HealthComponent::execute() {}
 
-template<typename T>
-std::string Engine::MobModule::Components::HealthComponent<T>::getName() const {
-    return _component_name;
+Engine::MobModule::Components::HealthComponentData &
+    Engine::MobModule::Components::HealthComponent::getValue() {
+    return (_value);
+}
+
+void Engine::MobModule::Components::HealthComponent::setValue(
+    HealthComponentData value) {
+    _value = value;
 }

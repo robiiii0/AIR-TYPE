@@ -18,3 +18,11 @@ add_library(engine_networking
     exceptions/CouldNotSendException/CouldNotSendException.cpp
     exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
     Messaging/Messager.cpp)
+
+
+add_custom_command(TARGET engine_networking POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:engine_networking>
+        ${CMAKE_SOURCE_DIR}
+        COMMENT "Moving libengine_networking.a library to ${CMAKE_SOURCE_DIR}"
+        )

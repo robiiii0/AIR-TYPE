@@ -7,34 +7,30 @@
 
 #include "ClickableComponent.hpp"
 
+#include <iostream>
 #include <stdexcept>
 
-template<typename T>
-Engine::RendererModule::Components::ClickableComponent<T>::ClickableComponent(
-    T value) {
-    if (typeid(T) != = typeid(ClickableData))
-        throw std::invalid_argument("TextComponent: value is not a TextData");
-    else {
-        _data.isHovered = false;
-        _data.isClicked = false;
-    }
+Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
+    ClickableData &value) :
+    _data(value) {
+    if (!_data._texture.loadFromFile(value._path))
+        throw std::runtime_error("SpriteComponent: texture not found");
+    _data._sprite.setTexture(_data._texture);
+    _data._sprite.setPosition(_data._pos.first, _data._pos.second);
+    _data._sprite.setScale(_data._scale.first, _data._scale.second);
+    std::cout << "sprite button created" << std::endl;
 }
 
-template<typename T>
-Engine::RendererModule::Components::ClickableComponent<
-    T>::~ClickableComponent() {}
-
-template<typename T>
-void Engine::RendererModule::Components::ClickableComponent<T>::execute() {}
-
-template<typename T>
-std::string Engine::RendererModule::Components::ClickableComponent<T>::getName()
-    const {
-    return _component_name;
+sf::Drawable &
+    Engine::RendererModule::Components::ClickableComponent::getDrawable() {
+    return _data._sprite;
 }
 
-template<typename T>
-void Engine::RendererModule::Components::ClickableComponent<T>::update() {
+Engine::RendererModule::Components::ClickableComponent::~ClickableComponent() {}
+
+void Engine::RendererModule::Components::ClickableComponent::execute() {}
+
+void Engine::RendererModule::Components::ClickableComponent::update() {
     // TODO: MousePosition and Entity position in parameters ?
     // Get MousePosition
     // Get Entity Position
@@ -46,14 +42,12 @@ void Engine::RendererModule::Components::ClickableComponent<T>::update() {
     // Update _data.isClicked
 }
 
-template<typename T>
-bool Engine::RendererModule::Components::ClickableComponent<T>::isHovered()
-    const {
+bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
     return _data.isHovered;
 }
 
-template<typename T>
-bool Engine::RendererModule::Components::ClickableComponent<T>::isClicked()
-    const {
+bool Engine::RendererModule::Components::ClickableComponent::isClicked(
+    std::pair<float, float> mousePos) const {
+    std::cout << mousePos.first << " " << mousePos.second << std::endl;
     return _data.isClicked;
 }
