@@ -65,9 +65,7 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
     std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
         components;
     for (auto component : entity->_components) {
-        components.push_back(
-            std::make_shared<Engine::Entity::Component::IComponent>(
-                *component));
+        components.push_back(component);
     }
     return components;
 }
