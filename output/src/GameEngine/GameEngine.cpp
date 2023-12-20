@@ -38,7 +38,7 @@ Engine::Entity::EntityManager *Engine::GameEngine::getEntityManager() const {
 //
 // Engine::Hmi::HmiModule *Engine::GameEngine::getHmiModule() const {
 //    return _hmiModule;
-//}
+// }
 //
 // Engine::LocalStorage::LocalStorageModule *
 //    Engine::GameEngine::getLocalStorageModule() const {

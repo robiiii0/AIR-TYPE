@@ -18,14 +18,25 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
-void Engine::RendererModule::RendererModule::
-    update() {  // update les animations, la camera, etc
+void Engine::RendererModule::RendererModule::handleEvent() {
+    // here are input events
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
+        if (_event.type == sf::Event::KeyPressed) {
+            std::cout << "Keyboard state: " << _event.key.code << std::endl;
+        }
+            if (_event.type == sf::Event::MouseButtonPressed) {
+            std::cout << "mouse state: " << _event.key.code << std::endl;
+        }
     }
+}
+
+void Engine::RendererModule::RendererModule::
+    update() {  // update les animations, la camera, etc
+
 }
 
 sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
@@ -37,15 +48,6 @@ void Engine::RendererModule::RendererModule::render(
     _window.clear();
 
     // Vérifier les événements
-    while (_window.pollEvent(_event)) {
-        std::cout << "test" << std::endl;
-        if (_event.type == sf::Event::MouseButtonReleased) {
-            std::cout << "clicked" << std::endl;
-            if (_event.mouseButton.button == sf::Mouse::Right) {
-                sf::Vector2i mousepos = sf::Mouse::getPosition();
-            }
-        }
-    }
 
     // Dessiner les composants
     for (auto i = 0; i < idmax; i++) {

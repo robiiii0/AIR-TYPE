@@ -27,7 +27,7 @@ namespace Engine {
 
             Engine::Entity::EntityManager  *getEntityManager() const;
             RendererModule::RendererModule *getRendererModule() const;
-            //            Hmi::HmiModule                   *getHmiModule()
+            // Hmi::HmiModule                   *getHmiModule() const;
             //            const; LocalStorage::LocalStorageModule
             //            *getLocalStorageModule() const;
             //            Network::NetworkingModule *getNetworkingModule()
@@ -36,8 +36,8 @@ namespace Engine {
         private:
             Engine::Entity::EntityManager  *_entityManager;
             RendererModule::RendererModule *_rendererModule;
+            // Hmi::HmiModule                   *_hmiModule;
 
-            //            Hmi::HmiModule                   *_hmiModule;
             //            LocalStorage::LocalStorageModule *_localStorageModule;
             //            Network::NetworkingModule        *_networkingModule;
     };
