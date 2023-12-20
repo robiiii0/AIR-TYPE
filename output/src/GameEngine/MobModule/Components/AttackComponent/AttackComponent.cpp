@@ -9,17 +9,18 @@
 
 #include <stdexcept>
 
-template<typename T>
-Engine::MobModule::Components::AttackComponent<T>::AttackComponent(int data) {
-    if (typeid(T) != typeid(int))
-        throw std::invalid_argument("T is not an int");
-    else
-        _component_name = "AttackComponent";
-    _data = data;
+Engine::MobModule::Components::AttackComponent::AttackComponent(int data) {
+    _value = data;
 }
 
-template<typename T>
-Engine::MobModule::Components::AttackComponent<T>::~AttackComponent(){};
+Engine::MobModule::Components::AttackComponent::~AttackComponent(){};
 
-template<typename T>
-void Engine::MobModule::Components::AttackComponent<T>::execute() {}
+void Engine::MobModule::Components::AttackComponent::execute() {}
+
+int &Engine::MobModule::Components::AttackComponent::getValue() {
+    return (_value);
+}
+
+void Engine::MobModule::Components::AttackComponent::setValue(int value) {
+    _value = value;
+}

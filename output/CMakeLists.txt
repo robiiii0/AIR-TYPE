@@ -5,23 +5,40 @@ project(Networking)
 set(CMAKE_CXX_STANDARD 20)
 
 # Add any additional libraries here
-set(LIBS -lpthread)
+set(LIBS pthread)
 
-set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/GameEngine/NetworkingModule)
-set(CLIENT_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Client)
-set(SERVER_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/Server)
-set(BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
+add_subdirectory(src/Client)
+add_subdirectory(src/Server)
+add_subdirectory(src/GameEngine/NetworkingModule)
 
-# NetworkingModule library
-file(GLOB_RECURSE SRCS ${SRC_DIR}/*.cpp)
-add_library(engine_networking ${SRCS})
+# Call cmake in the src/client directory
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/Client
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/Client
+        RESULT_VARIABLE result
+)
 
-# Client executable
-file(GLOB_RECURSE CLIENT_SRCS ${CLIENT_SRC_DIR}/*.cpp)
-add_executable(r-type_client ${CLIENT_SRCS})
-target_link_libraries(r-type_client engine_networking ${LIBS})
+if(result)
+    message(FATAL_ERROR "CMake step for src/Client failed: ${result}")
+endif()
 
-# Server executable
-file(GLOB_RECURSE SERVER_SRCS ${SERVER_SRC_DIR}/*.cpp)
-add_executable(r-type_server ${SERVER_SRCS})
-target_link_libraries(r-type_server engine_networking ${LIBS})
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/Server
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/Server
+        RESULT_VARIABLE result
+)
+
+if(result)
+    message(FATAL_ERROR "CMake step for src/server failed: ${result}")
+endif()
+
+execute_process(
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}/src/GameEngine/NetworkingModule
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/src/GameEngine/NetworkingModule
+        RESULT_VARIABLE result
+)
+
+if(result)
+    message(FATAL_ERROR "CMake step for /src/GameEngine/NetworkingModule failed: ${result}")
+endif()
+

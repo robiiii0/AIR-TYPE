@@ -13,19 +13,18 @@
 namespace Engine {
     namespace MobModule {
         namespace Components {
-            template<typename T>
             class VisionComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
                     VisionComponent(int data);
                     ~VisionComponent();
-                    void        execute() override;
-                    std::string getName() const override;
+                    void execute() override;
+                    int &getValue();
+                    void setValue(int value);
 
                 protected:
                 private:
-                    std::string _component_name;
-                    T           _data;
+                    int _value;
             };
         }  // namespace Components
     }      // namespace MobModule

@@ -26,6 +26,7 @@ namespace Engine {
                 void init(int width, int height, std::string title,
                           int framerate);
                 void update();
+                void handleEvent();
                 void render(Engine::Entity::EntityManager &entityManager,
                             uint32_t                       id);
                 sf::RenderWindow &getWindow();
@@ -33,7 +34,7 @@ namespace Engine {
             protected:
             private:
                 sf::RenderWindow _window;
-                sf::Event        _event;  // a enlever si on a un event manager
+                sf::Event        _event;
         };
     };  // namespace RendererModule
 };      // namespace Engine

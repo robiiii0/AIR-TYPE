@@ -12,7 +12,6 @@
 // #include "../EntityManager/EntityManager.hpp"
 #include "./EntityManager/EntityManager.hpp"
 
-// #include "HmiModule/HmiModule.hpp"
 // #include "LocalStorageModule/LocalStorageModule.hpp"
 // #include "NetworkingModule/NetworkingModule.hpp"
 // #include "PhysicModule/PhysicModule.hpp"
@@ -27,7 +26,6 @@ namespace Engine {
 
             Engine::Entity::EntityManager  *getEntityManager() const;
             RendererModule::RendererModule *getRendererModule() const;
-            //            Hmi::HmiModule                   *getHmiModule()
             //            const; LocalStorage::LocalStorageModule
             //            *getLocalStorageModule() const;
             //            Network::NetworkingModule *getNetworkingModule()
@@ -37,7 +35,6 @@ namespace Engine {
             Engine::Entity::EntityManager  *_entityManager;
             RendererModule::RendererModule *_rendererModule;
 
-            //            Hmi::HmiModule                   *_hmiModule;
             //            LocalStorage::LocalStorageModule *_localStorageModule;
             //            Network::NetworkingModule        *_networkingModule;
     };

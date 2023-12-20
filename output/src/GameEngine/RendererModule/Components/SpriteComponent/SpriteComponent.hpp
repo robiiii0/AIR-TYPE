@@ -15,22 +15,32 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
+            struct SpriteData {
+                    std::uint32_t           _id;
+                    sf::Texture             _texture;
+                    sf::Sprite              _sprite;
+                    std::string             _path;
+                    std::string             _ptr;
+                    std::pair<float, float> _pos;
+            };
+
             class SpriteComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
                     SpriteComponent(
-                        std::string value);  // TODO changer le std::string pour
+                        SpriteData &value);  // TODO changer le std::string pour
                                              // le sprite c'est pas bien
                     ~SpriteComponent();
                     void         execute() override;
-                    std::string& get();
+                    std::string &get();
 
                     // Sprite
-                    void setRotation(float rotation);
-                    void setScale(float x, float y);
-                    void setOrigin(float x, float y);
-                    void setTextureRect(const sf::IntRect& rect);
-                    void setPosition(float x, float y);
+                    void          setRotation(float rotation);
+                    void          setScale(float x, float y);
+                    void          setOrigin(float x, float y);
+                    void          setTextureRect(const sf::IntRect &rect);
+                    void          setPosition(float x, float y);
+                    sf::Drawable &getDrawable();
 
                     // Texture
                     void setRepeated(bool repeated);
@@ -38,11 +48,7 @@ namespace Engine {
 
                 protected:
                 private:
-                    sf::Texture   _texture;
-                    sf::Sprite    _sprite;
-                    std::uint32_t _id;
-                    std::string   _path;
-                    std::string   _ptr;
+                    SpriteData &_data;
             };
         };  // namespace Components
     };      // namespace RendererModule

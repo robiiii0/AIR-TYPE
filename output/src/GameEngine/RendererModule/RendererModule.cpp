@@ -18,11 +18,24 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
-void Engine::RendererModule::RendererModule::
-    update() {  // update les animations, la camera, etc
+void Engine::RendererModule::RendererModule::handleEvent() {
+    // here are input events
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
+        if (_event.type == sf::Event::KeyPressed &&
+            _event.key.code == sf::Keyboard::Escape)
+            _window.close();
+        if (_event.type == sf::Event::KeyPressed) {
+            std::cout << "Keyboard state: " << _event.key.code << std::endl;
+        }
+        if (_event.type == sf::Event::MouseButtonPressed) {
+            std::cout << "mouse state: " << _event.key.code << std::endl;
+        }
     }
+}
+
+void Engine::RendererModule::RendererModule::
+    update() {  // update les animations, la camera, etc
 }
 
 sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
@@ -30,23 +43,40 @@ sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
 }
 
 void Engine::RendererModule::RendererModule::render(
-    Engine::Entity::EntityManager &entityManager, uint32_t id)  // draw la scene
-{
+    Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
     _window.clear();
-    //        for (auto& entity : _entities) {
-    //            if (!entity->hasComponent<
-    //                    Engine::RendererModule::Components::SpriteComponent>())
-    //                _window.draw(sprite.sprite);
-    //        }
-    auto text = entityManager.getAllComponents(entityManager.getEntity(id));
-    for (auto &component : text) {
-        if (typeid(*component) ==
-            typeid(Engine::RendererModule::Components::TextComponent)) {
-            _window.draw(
-                dynamic_cast<Engine::RendererModule::Components::TextComponent
-                                 *>(component)
-                    ->getDrawable());
+
+    // Vérifier les événements
+
+    // Dessiner les composants
+    for (auto i = 0; i < idmax; i++) {
+        auto components =
+            entityManager.getAllComponents(entityManager.getEntity(i));
+        for (auto &component : components) {
+            if (typeid(*component) ==
+                typeid(Engine::RendererModule::Components::TextComponent)) {
+                _window.draw(
+                    dynamic_cast<
+                        Engine::RendererModule::Components::TextComponent *>(
+                        component)
+                        ->getDrawable());
+            } else if (typeid(*component) ==
+                       typeid(Engine::RendererModule::Components::
+                                  SpriteComponent)) {
+                _window.draw(
+                    dynamic_cast<
+                        Engine::RendererModule::Components::SpriteComponent *>(
+                        component)
+                        ->getDrawable());
+            } else if (typeid(*component) ==
+                       typeid(Engine::RendererModule::Components::
+                                  ClickableComponent)) {
+                _window.draw(dynamic_cast<Engine::RendererModule::Components::
+                                              ClickableComponent *>(component)
+                                 ->getDrawable());
+            }
         }
     }
+
     _window.display();
 }

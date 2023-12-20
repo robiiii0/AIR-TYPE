@@ -9,23 +9,16 @@
 
 #include <stdexcept>
 
-template<typename T>
-Engine::MobModule::Components::VisionComponent<T>::VisionComponent(int data) {
-    if (typeid(T) != typeid(int))
-        throw std::invalid_argument("T is not an int");
-    else {
-        _component_name = "VisionComponent";
-        _data = data;
-    }
+Engine::MobModule::Components::VisionComponent::VisionComponent(int data) {}
+
+Engine::MobModule::Components::VisionComponent::~VisionComponent() {}
+
+void Engine::MobModule::Components::VisionComponent::execute() {}
+
+int &Engine::MobModule::Components::VisionComponent::getValue() {
+    return (_value);
 }
 
-template<typename T>
-Engine::MobModule::Components::VisionComponent<T>::~VisionComponent() {}
-
-template<typename T>
-void Engine::MobModule::Components::VisionComponent<T>::execute() {}
-
-template<typename T>
-std::string Engine::MobModule::Components::VisionComponent<T>::getName() const {
-    return _component_name;
+void Engine::MobModule::Components::VisionComponent::setValue(int value) {
+    _value = value;
 }

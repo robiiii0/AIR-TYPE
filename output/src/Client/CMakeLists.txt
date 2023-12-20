@@ -1,25 +1,21 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Game)
+project(r-type_client)
 
 set(CMAKE_CXX_STANDARD 20)
-
-include_directories(../)
-include_directories(../GameEngine/ ./GameEngine/build)
-add_subdirectory(../GameEngine/RendererModule/ ./GameEngine/RendererModule/build)
-add_subdirectory(../GameEngine/EntityManager/ ./GameEngine/EntityManager/build)
 
 
 # find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
-add_executable(Game
+add_executable(r-type_client
         src/main.cpp
         ../GameEngine/GameEngine.cpp
         ../GameEngine/RendererModule/RendererModule.cpp
         ../GameEngine/RendererModule/WindowManager/Window.cpp
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
+        ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
         ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
         ../GameEngine/EntityManager/EntityManager.cpp
         ../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp
@@ -28,12 +24,18 @@ add_executable(Game
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         src/Game/Game.cpp
-#        ../GameEngine/HmiModule/HmiModule.cpp
-#        ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
-#        ../GameEngine/NetworkingModule/NetworkingModule.cpp
-#        ../GameEngine/PhysicModule/PhysicModule.cpp
-)
+        # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
+        # ../GameEngine/NetworkingModule/NetworkingModule.cpp
+        # ../GameEngine/PhysicModule/PhysicModule.cpp
+        )
 
-target_link_libraries(Game PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
 
-# target_link_libraries(Game sfml-graphics sfml-window sfml-system)
+# Link the libraries from RendererModule and EntityManager
+target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
+
+add_custom_command(TARGET r-type_client POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:r-type_client>
+        ${CMAKE_SOURCE_DIR}
+        COMMENT "Moving r-type_client executable to ${CMAKE_SOURCE_DIR}"
+        )
