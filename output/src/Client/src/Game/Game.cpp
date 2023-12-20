@@ -11,9 +11,10 @@ Game::Game() {
     if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
         std::cout << "cant load this shit" << std::endl;
     }
-    if (!_texture.loadFromFile("src/Client/assets/new_assets/asteroids/asteroid.png")) {
+    if (!_texture.loadFromFile("src/Client/assets/Background/Layers/layer02_cake.png")) {
         std::cout << "cant load" << std::endl;
     }
+    _sprite.setTexture(_texture);
 }
 
 void Game::run() {
@@ -37,14 +38,6 @@ void Game::removeEntity(std::uint32_t entity) {
 }
 
 std::vector<std::uint32_t> &Game::getEntities() { return _entities; }
-
-Engine::RendererModule::Components::TextData createText(
-    std::string text, sf::Font &font, sf::Color color, sf::Vector2f position,
-    sf::Vector2f scale, float rotation) {
-    Engine::RendererModule::Components::TextData textData1 = {
-        text, font, color, position, scale, rotation};
-    return textData1;
-}
 
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
                       sf::Vector2f scale, sf::Color color, float rotation) {
@@ -71,7 +64,8 @@ void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
         sprite, position, scale, color, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-        spriteComponent = std::make_shared<
+        spriteComponent;
+    spriteComponent = std::make_shared<
             Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
                                                                  texture);
 
