@@ -16,11 +16,11 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SpriteData {
-                    sf::Sprite    _sprite;
-                    sf::Vector2f  pos;
-                    sf::Vector2f  scale;
-                    sf::Color     color;
-                    float         rotation;
+                    sf::Sprite   _sprite;
+                    sf::Vector2f pos;
+                    sf::Vector2f scale;
+                    sf::Color    color;
+                    float        rotation;
             };
 
             class SpriteComponent :
@@ -45,7 +45,7 @@ namespace Engine {
                 protected:
                 private:
                     SpriteData &_data;
-                    sf::Sprite _sprite;
+                    sf::Sprite  _sprite;
             };
         };  // namespace Components
     };      // namespace RendererModule

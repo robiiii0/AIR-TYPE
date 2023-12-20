@@ -26,9 +26,10 @@ class Game {
                         sf::Vector2f scale = {1, 1},
                         sf::Color color = sf::Color::White, float rotation = 0);
         void createSprite(sf::Sprite sprite, sf::Texture &texture,
-                        sf::Vector2f position = {0.0, 0.0},
-                        sf::Vector2f scale = {10, 10},
-                        sf::Color color = sf::Color::White, float rotation = 0);
+                          sf::Vector2f position = {0.0, 0.0},
+                          sf::Vector2f scale = {10, 10},
+                          sf::Color    color = sf::Color::White,
+                          float        rotation = 0);
         void setLobby();
 
     private:
@@ -38,8 +39,8 @@ class Game {
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
 
-        sf::Font _font;
-        sf::Sprite _sprite;
+        sf::Font    _font;
+        sf::Sprite  _sprite;
         sf::Texture _texture;
 };
 
