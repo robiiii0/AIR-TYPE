@@ -27,42 +27,29 @@ namespace Engine {
                 EntityManager();
                 std::uint32_t createEntity();
 
-                Entity& getEntity(std::uint32_t id) {
-                    for (std::uint32_t i = 0; i < _entities.size(); i++) {
-                        if (_entities[i]._id == id) {
-                            return _entities[i];
-                        }
-                    }
-                    throw std::runtime_error("Entity not found");
-                }
+                std::shared_ptr<Entity> getEntity(const std::uint32_t id);
 
                 uint32_t getNbEntites();
 
-                void destroyEntity(const std::uint32_t& entity);
-                void addComponent(Entity&                entity,
-                                  Component::IComponent& componentType);
+                void destroyEntity(const std::uint32_t& entity_id);
+                void addComponent(
+                    std::shared_ptr<Entity>                entity,
+                    std::shared_ptr<Component::IComponent> componentType);
                 template<typename T>
-                void removeComponent(Entity& entity, T component);
+                void removeComponent(const std::uint32_t& entity_id,
+                                     T                    component);
 
                 template<typename T>
-                bool hasComponent(Entity& entity, T component) {
-                    return _componentManager.hasComponent(entity, component);
-                }
+                bool hasComponent(const std::uint32_t& entity_id, T component);
 
-                std::vector<Component::IComponent*> getAllComponents(
-                    Entity& entity) {
-                    return _componentManager.getAllComponents(entity);
-                }
-
-                // template<typename T>
-                // T& getComponentValue(Entity&     entity,
-                //                      std::string component_name);
+                std::vector<std::shared_ptr<Component::IComponent>>
+                    getAllComponents(const std::uint32_t& entity_id);
 
             private:
-                std::queue<std::uint32_t>   _available_entities;
-                uint32_t                    _living_entity_count;
-                std::vector<Entity>         _entities;
-                Component::ComponentManager _componentManager;
+                std::queue<std::uint32_t>            _available_entities;
+                uint32_t                             _living_entity_count;
+                std::vector<std::shared_ptr<Entity>> _entities;
+                Component::ComponentManager          _componentManager;
         };
     }  // namespace Entity
 }  // namespace Engine
