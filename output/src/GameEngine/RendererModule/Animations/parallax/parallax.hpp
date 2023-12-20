@@ -27,19 +27,19 @@ namespace Engine {
                     std::uint32_t           _id;
             };
 
-            class parallaxComponent 
-                 :
+            class parallaxComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
                     parallaxComponent(std::vector<parallaxData> &value);
                     ~parallaxComponent();
                     sf::Drawable &getDrawable(parallaxData _data);
-                    void          setRotation(parallaxData _data, float rotation);
-                    void          setScale(parallaxData _data, float x, float y);
-                    void          setOrigin(parallaxData _data, float x, float y);
-                    void          setTextureRect(parallaxData _data, const sf::IntRect &rect);
-                    void          setPosition(parallaxData _data, float x, float y);
-                    void          setMovement(parallaxData _data, float x, float y);
+                    void setRotation(parallaxData _data, float rotation);
+                    void setScale(parallaxData _data, float x, float y);
+                    void setOrigin(parallaxData _data, float x, float y);
+                    void setTextureRect(parallaxData       _data,
+                                        const sf::IntRect &rect);
+                    void setPosition(parallaxData _data, float x, float y);
+                    void setMovement(parallaxData _data, float x, float y);
                     void runParallax();
 
                 protected:

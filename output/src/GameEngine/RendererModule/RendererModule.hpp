@@ -12,12 +12,12 @@
 #include <SFML/Window.hpp>
 
 #include "../EntityManager/EntityManager.hpp"
+#include "Animations/Parallax/Parallax.hpp"
 #include "Components/AnimationComponent/AnimationComponent.hpp"
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/SpriteComponent/SpriteComponent.hpp"
 #include "Components/TextComponent/TextComponent.hpp"
 #include "IRendererComponent/IRendererComponent.hpp"
-#include "Animations/Parallax/Parallax.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -29,7 +29,7 @@ namespace Engine {
                           int framerate);
                 void update();
                 void handleEvent(Engine::Entity::EntityManager &entityManager,
-                                 uint32_t                       idmax);
+                                 std::vector<uint32_t>          id_list);
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();

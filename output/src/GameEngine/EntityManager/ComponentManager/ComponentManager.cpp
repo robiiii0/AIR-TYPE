@@ -18,17 +18,17 @@ Engine::Entity::Component::ComponentManager::ComponentManager() {
 Engine::Entity::Component::ComponentManager::~ComponentManager() {}
 
 std::uint32_t Engine::Entity::Component::ComponentManager::addComponent(
-    Entity& entity, IComponent& component) {
-    entity._components.push_back(&component);
+    std::shared_ptr<Entity> entity, std::shared_ptr<IComponent> component) {
+    entity->_components.push_back(component);
     return 0;
 }
 
 template<typename T>
 bool Engine::Entity::Component::ComponentManager::removeComponent(
-    Entity& entity, T component) {
-    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
-        if (typeid(entity._components[i]) == typeid(T)) {
-            entity._components.erase(entity._components.begin() + i);
+    std::shared_ptr<Entity> entity, T component) {
+    for (std::uint32_t i = 0; i < entity->_components.size(); i++) {
+        if (typeid(entity->_components[i]) == typeid(T)) {
+            entity->_components.erase(entity->_components.begin() + i);
             return true;
         }
     }
@@ -36,31 +36,36 @@ bool Engine::Entity::Component::ComponentManager::removeComponent(
 }
 
 bool Engine::Entity::Component::ComponentManager::removeAllComponents(
-    Entity& entity) {
-    _component_ids[entity._id] = 0;
-    entity._components.clear();
+    std::shared_ptr<Entity> entity) {
+    _component_ids[entity->_id] = 0;
+    entity->_components.clear();
     return false;
 }
 
-Engine::Entity::Component::IComponent&
+std::shared_ptr<Engine::Entity::Component::IComponent>
     Engine::Entity::Component::ComponentManager::getComponent(
-        Entity& entity, std::uint32_t component_id) {
+        std::shared_ptr<Entity> entity, std::uint32_t component_id) {
     throw std::runtime_error("Component not found");
 }
 
 template<typename T>
-bool Engine::Entity::Component::ComponentManager::hasComponent(Entity& entity,
-                                                               T component) {
-    for (std::uint32_t i = 0; i < entity._components.size(); i++) {
-        if (typeid(entity._components[i]) == typeid(T)) {
+bool Engine::Entity::Component::ComponentManager::hasComponent(
+    std::shared_ptr<Entity> entity, T component) {
+    for (std::uint32_t i = 0; i < entity->_components.size(); i++) {
+        if (typeid(entity->_components[i]) == typeid(T)) {
             return true;
         }
     }
     return false;
 }
 
-std::vector<Engine::Entity::Component::IComponent*>
+std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
     Engine::Entity::Component::ComponentManager::getAllComponents(
-        Entity& entity) {
-    return entity._components;
+        std::shared_ptr<Entity> entity) {
+    std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
+        components;
+    for (auto component : entity->_components) {
+        components.push_back(component);
+    }
+    return components;
 }

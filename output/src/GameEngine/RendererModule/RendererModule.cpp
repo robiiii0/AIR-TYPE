@@ -19,7 +19,8 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
 }
 
 void Engine::RendererModule::RendererModule::handleEvent(
-    Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
+    Engine::Entity::EntityManager &entityManager,
+    std::vector<uint32_t>          id_list) {
     // here are input events
 
     while (_window.pollEvent(_event)) {
@@ -31,20 +32,24 @@ void Engine::RendererModule::RendererModule::handleEvent(
             std::cout << "Keyboard state: " << _event.key.code << std::endl;
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
-            for (auto i = 0; i < idmax; i++) {
-                auto components =
-                    entityManager.getAllComponents(entityManager.getEntity(i));
-                for (auto &component : components) {
-                    if (typeid(*component) ==
-                        typeid(Engine::RendererModule::Components::
-                                   ClickableComponent)) {
-                        auto isClicked =
-                            dynamic_cast<Engine::RendererModule::Components::
-                                             ClickableComponent *>(component)
-                                ->isClicked(
-                                    std::make_pair(_event.mouseButton.x,
-                                                   _event.mouseButton.y));
+            for (auto id : id_list) {
+                try {
+                    auto components = entityManager.getAllComponents(id);
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       ClickableComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        ClickableComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                        }
                     }
+                } catch (const Engine::EntityManager::NoComponent &e) {
+                    std::cerr << e.what() << '\n';
                 }
             }
         }
@@ -67,16 +72,23 @@ void Engine::RendererModule::RendererModule::render(
     // Vérifier les événements
 
     // Dessiner les composants
+    std::cout << "CACA2" << std::endl;
 
     for (auto id : id_list) {
-        auto components =
-            entityManager.getAllComponents(entityManager.getEntity(id));
-        for (auto &component : components) {
-            IRendererComponent *to_render;
-            if ((to_render = dynamic_cast<IRendererComponent *>(component)) !=
-                nullptr) {
-                _window.draw(to_render->getDrawable());
+        std::cout << "CACA3" << std::endl;
+        try {
+            auto components = entityManager.getAllComponents(id);
+            for (auto &component : components) {
+                std::shared_ptr<IRendererComponent> to_render =
+                    std::dynamic_pointer_cast<
+                        Engine::RendererModule::IRendererComponent>(component);
+                if (to_render != nullptr) {
+                    _window.draw(to_render->getDrawable());
+                }
+                std::cout << "caca boudin" << std::endl;
             }
+        } catch (const Engine::EntityManager::NoComponent &e) {
+            std::cerr << e.what() << '\n';
         }
     }
 

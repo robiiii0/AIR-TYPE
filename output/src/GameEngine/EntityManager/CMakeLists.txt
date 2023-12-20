@@ -18,4 +18,12 @@ add_library(entity_manager STATIC
     ../MobModule/Components/HealthComponent/HealthComponent.cpp
     ../MobModule/Components/AttackComponent/AttackComponent.cpp
     ../MobModule/MobManager/MobManager.cpp
+    exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
+    exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
+    exceptions/CouldNotAddEntity/CouldNotAddEntity.cpp
+    exceptions/CouldNotCreateEntity/CouldNotCreateEntity.cpp
+    exceptions/CouldNotFindComponent/CouldNotFindComponent.cpp
+    exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
+    exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
+    exceptions/NoComponent/NoComponent.cpp
 )
