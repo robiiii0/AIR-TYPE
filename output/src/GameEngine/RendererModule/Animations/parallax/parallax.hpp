@@ -23,6 +23,7 @@ namespace Engine {
                     std::string             _ptr;
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
+                    std::pair<float, float> _movement;
                     std::uint32_t           _id;
             };
 
@@ -33,6 +34,12 @@ namespace Engine {
                     ~parallaxComponent();
                     void          execute() override;
                     sf::Drawable &getDrawable(parallaxData _data);
+                    void          setRotation(parallaxData _data, float rotation);
+                    void          setScale(parallaxData _data, float x, float y);
+                    void          setOrigin(parallaxData _data, float x, float y);
+                    void          setTextureRect(parallaxData _data, const sf::IntRect &rect);
+                    void          setPosition(parallaxData _data, float x, float y);
+                    void          setMovement(parallaxData _data, float x, float y);
 
                 protected:
                 private:
