@@ -80,8 +80,8 @@ int main() {
             CakeEntity, "src/Client/assets/Background/Layers/layer02_cake.png",
             "jsp", texture, sprite,
             {float((WIDTH * 10) / 100) * -1, float((HEIGHT * 10) / 100) * -1});
-    Engine::RendererModule::Components::SpriteComponent CakeComponent(
-        spriteCakeData);
+    // std::shared_ptr<Engine::RendererModule::Components::SpriteComponent> CakeComponent;
+    auto CakeComponent = std::make_shared<Engine::RendererModule::Components::SpriteComponent>(spriteCakeData);
 
     Engine::RendererModule::Components::ClickableData buttonData =
         createClickable(false, false, texture, sprite, "Play",
@@ -102,12 +102,10 @@ int main() {
     //     game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
     //     BackgroundComponent);
 
-    // game.getGameEngine().getEntityManager()->addComponent(
-    //     game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
-    //     CakeComponent);
+    game.getGameEngine().getEntityManager()->addComponent(CakeEntity,CakeComponent);
 
-    game.addEntity(buttonPlayEntity);
-    game.addEntity(BackgroundEntity);
+    // game.addEntity(buttonPlayEntity);
+    // game.addEntity(BackgroundEntity);
     game.addEntity(CakeEntity);
     game.addEntity(TitleEntity);
 
