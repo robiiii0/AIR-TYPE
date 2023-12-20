@@ -17,6 +17,7 @@
 #include "Components/SpriteComponent/SpriteComponent.hpp"
 #include "Components/TextComponent/TextComponent.hpp"
 #include "IRendererComponent/IRendererComponent.hpp"
+#include "Animations/Parallax/Parallax.hpp"
 
 namespace Engine {
     namespace RendererModule {

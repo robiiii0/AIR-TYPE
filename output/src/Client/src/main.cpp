@@ -90,6 +90,44 @@ int main() {
     Engine::RendererModule::Components::ClickableComponent buttonComponent(
         buttonData);
 
+
+    // std::vector<Engine::RendererModule::Components::parallaxData> parallaxData {
+    //     {
+    //         texture,
+    //         sprite,
+    //         "Background",
+    //         "src/Client/assets/Background/Layers/layer01_ground.png",
+    //         "jsp",
+    //         {float((WIDTH * 10) / 100) * -1, float((HEIGHT * 10) / 100) * -1},
+    //         {1, 1},
+    //         {0.1, 0.1},
+    //         game.getGameEngine().getEntityManager()->createEntity()
+    //     },
+    //     {
+    //         texture,
+    //         sprite,
+    //         "Cake",
+    //         "src/Client/assets/Background/Layers/layer02_cake.png",
+    //         "jsp",
+    //         {float((WIDTH * 10) / 100) * -1, float((HEIGHT * 10) / 100) * -1},
+    //         {1, 1},
+    //         {0.2, 0.2},
+    //         game.getGameEngine().getEntityManager()->createEntity()
+    //     }, {
+    //         texture,
+    //         sprite,
+    //         "Cake",
+    //         "src/Client/assets/Background/Layers/layer02_cake.png",
+    //         "jsp",
+    //         {float((WIDTH * 10) / 100) * -1, float((HEIGHT * 10) / 100) * -1},
+    //         {1, 1},
+    //         {0.3, 0.3},
+    //         game.getGameEngine().getEntityManager()->createEntity()
+    //     }
+    // };
+
+    // Engine::RendererModule::Components::parallaxComponent parallaxComponent();
+
     game.getGameEngine().getEntityManager()->addComponent(
         game.getGameEngine().getEntityManager()->getEntity(TitleEntity),
         titleComponent);

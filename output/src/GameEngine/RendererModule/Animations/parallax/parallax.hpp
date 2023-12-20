@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -27,12 +27,12 @@ namespace Engine {
                     std::uint32_t           _id;
             };
 
-            class parallaxComponent :
-                public Engine::Entity::Component::AComponent {
+            class parallaxComponent 
+                 :
+                public Engine::RendererModule::IRendererComponent {
                 public:
                     parallaxComponent(std::vector<parallaxData> &value);
                     ~parallaxComponent();
-                    void          execute() override;
                     sf::Drawable &getDrawable(parallaxData _data);
                     void          setRotation(parallaxData _data, float rotation);
                     void          setScale(parallaxData _data, float x, float y);

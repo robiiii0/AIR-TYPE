@@ -5,15 +5,26 @@
 ** parallax
 */
 
-#include "parallax.hpp"
+#include "Parallax.hpp"
+#include <iostream>
+#include "../../../../Client/src/Game/Game.hpp"
 
 Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
-    std::vector<parallaxData> &value) :
-    _data(value) {}
+    std::vector<parallaxData> &value ) : _data(value) {
+        for (auto i: value) {
+            for (int x = 0; x<3; x++) {
+                if (!i._texture.loadFromFile(i._path))
+                    throw std::runtime_error("SpriteComponent: texture not found");
+                i._sprite.setTexture(i._texture);
+                i._sprite.setPosition(i._pos.first, i._pos.second);
+                i._sprite.setScale(i._scale.first, i._scale.second);
+            }
+        }
+
+    }
 
 Engine::RendererModule::Components::parallaxComponent::~parallaxComponent() {}
 
-void Engine::RendererModule::Components::parallaxComponent::execute() {}
 
 sf::Drawable &Engine::RendererModule::Components::parallaxComponent::getDrawable(
         parallaxData _data) { return _data._sprite; }
