@@ -106,6 +106,11 @@ int main() {
     //     game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
     //     CakeComponent);
 
+    game.addEntity(buttonPlayEntity);
+    game.addEntity(BackgroundEntity);
+    game.addEntity(CakeEntity);
+    game.addEntity(TitleEntity);
+
     game.run();
     return 0;
 }
