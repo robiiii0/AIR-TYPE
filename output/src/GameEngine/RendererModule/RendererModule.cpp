@@ -43,7 +43,6 @@ void Engine::RendererModule::RendererModule::render(
             std::cout << "clicked" << std::endl;
             if (_event.mouseButton.button == sf::Mouse::Right) {
                 sf::Vector2i mousepos = sf::Mouse::getPosition();
-
             }
         }
     }
