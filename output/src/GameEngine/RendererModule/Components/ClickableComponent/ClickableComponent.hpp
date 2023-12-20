@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
@@ -29,14 +29,15 @@ namespace Engine {
             };
 
             class ClickableComponent :
-                public Engine::Entity::Component::AComponent {
+                public Engine::RendererModule::IRendererComponent {
                 public:
                     ClickableComponent(ClickableData &value);
                     ~ClickableComponent();
-                    void          execute() override;
-                    sf::Drawable &getDrawable();
-                    void          update();
-                    bool          isHovered() const;
+                    void                    execute() override;
+                    sf::Drawable           &getDrawable() override;
+                    void                    update();
+                    bool                    isHovered() const;
+                    std::pair<float, float> getPos() const;
                     bool isClicked(std::pair<float, float> mousePos) const;
 
                 protected:

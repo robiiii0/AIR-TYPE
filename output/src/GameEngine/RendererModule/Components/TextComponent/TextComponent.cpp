@@ -22,10 +22,6 @@ Engine::RendererModule::Components::TextComponent::~TextComponent() {}
 
 void Engine::RendererModule::Components::TextComponent::execute() {}
 
-bool Engine::RendererModule::Components::TextComponent::isDrawable() const {
-    return true;
-}
-
 sf::Drawable &Engine::RendererModule::Components::TextComponent::getDrawable() {
     return _text;
 }
