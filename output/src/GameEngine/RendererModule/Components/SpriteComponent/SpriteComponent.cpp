@@ -24,7 +24,7 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
 
 sf::Drawable &
     Engine::RendererModule::Components::SpriteComponent::getDrawable() {
-    return _data._sprite;
+    return _sprite;
 }
 
 Engine::RendererModule::Components::SpriteComponent::~SpriteComponent() {}

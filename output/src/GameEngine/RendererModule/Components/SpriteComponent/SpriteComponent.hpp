@@ -45,6 +45,7 @@ namespace Engine {
                 protected:
                 private:
                     SpriteData &_data;
+                    sf::Sprite _sprite;
             };
         };  // namespace Components
     };      // namespace RendererModule

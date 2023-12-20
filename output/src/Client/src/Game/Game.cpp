@@ -11,7 +11,8 @@ Game::Game() {
     if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
         std::cout << "cant load this shit" << std::endl;
     }
-    if (!_texture.loadFromFile("src/Client/assets/Background/Layers/layer02_cake.png")) {
+    if (!_texture.loadFromFile(
+            "src/Client/assets/Background/Layers/layer02_cake.png")) {
         std::cout << "cant load" << std::endl;
     }
     _sprite.setTexture(_texture);
@@ -64,8 +65,7 @@ void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
         sprite, position, scale, color, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-        spriteComponent;
-    spriteComponent = std::make_shared<
+        spriteComponent = std::make_shared<
             Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
                                                                  texture);
 
