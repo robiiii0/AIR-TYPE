@@ -28,7 +28,7 @@ void Engine::RendererModule::RendererModule::handleEvent() {
         if (_event.type == sf::Event::KeyPressed) {
             std::cout << "Keyboard state: " << _event.key.code << std::endl;
         }
-            if (_event.type == sf::Event::MouseButtonPressed) {
+        if (_event.type == sf::Event::MouseButtonPressed) {
             std::cout << "mouse state: " << _event.key.code << std::endl;
         }
     }
@@ -36,7 +36,6 @@ void Engine::RendererModule::RendererModule::handleEvent() {
 
 void Engine::RendererModule::RendererModule::
     update() {  // update les animations, la camera, etc
-
 }
 
 sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
