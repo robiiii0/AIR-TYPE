@@ -78,34 +78,5 @@ void Engine::RendererModule::RendererModule::render(
         }
     }
 
-    // for (auto i = 0; i < idmax; i++) {
-    //     auto components =
-    //         entityManager.getAllComponents(entityManager.getEntity(i));
-    //     for (auto &component : components) {
-    //         if (typeid(*component) ==
-    //             typeid(Engine::RendererModule::Components::TextComponent)) {
-    //             _window.draw(
-    //                 dynamic_cast<
-    //                     Engine::RendererModule::Components::TextComponent *>(
-    //                     component)
-    //                     ->getDrawable());
-    //         } else if (typeid(*component) ==
-    //                    typeid(Engine::RendererModule::Components::
-    //                               SpriteComponent)) {
-    //             _window.draw(
-    //                 dynamic_cast<
-    //                     Engine::RendererModule::Components::SpriteComponent *>(
-    //                     component)
-    //                     ->getDrawable());
-    //         } else if (typeid(*component) ==
-    //                    typeid(Engine::RendererModule::Components::
-    //                               ClickableComponent)) {
-    //             _window.draw(dynamic_cast<Engine::RendererModule::Components::
-    //                                           ClickableComponent *>(component)
-    //                              ->getDrawable());
-    //         }
-    //     }
-    // }
-
     _window.display();
 }
