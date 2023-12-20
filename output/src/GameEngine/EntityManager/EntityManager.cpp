@@ -31,8 +31,10 @@ std::uint32_t Engine::Entity::EntityManager::getNbEntites() {
 }
 
 std::uint32_t Engine::Entity::EntityManager::createEntity() {
-    std::cout << "Available entities: " << std::endl;
-    //    std::uint32_t id = _available_entities.front();
+    if (_living_entity_count >= __max_entities) {
+        throw Engine::EntityManager::CouldNotCreateEntity();
+        return -1;
+    }
     std::uint32_t id = _entities.size();
     _available_entities.pop();
     _living_entity_count++;
@@ -50,6 +52,7 @@ std::shared_ptr<Engine::Entity::Entity>
             return _entities[i];
         }
     }
+    throw Engine::EntityManager::CouldNotFindEntity();
     return nullptr;
 }
 
@@ -70,6 +73,7 @@ void Engine::Entity::EntityManager::destroyEntity(
             break;
         }
     }
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 /**
@@ -80,9 +84,21 @@ void Engine::Entity::EntityManager::destroyEntity(
  */
 
 void Engine::Entity::EntityManager::addComponent(
-    std::shared_ptr<Entity>                                entity,
+    const std::uint32_t&                                   entity_id,
     std::shared_ptr<Engine::Entity::Component::IComponent> component) {
-    _componentManager.addComponent(entity, component);
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i]->_id == entity_id) {
+            for (std::uint32_t j = 0; j < _entities[i]->_components.size();
+                 j++) {
+                if (_entities[i]->_components[j] == component) {
+                    throw Engine::EntityManager::ComponentAlreadyExists();
+                }
+            }
+            _componentManager.addComponent(_entities[i], component);
+            return;
+        }
+    }
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 /**
@@ -99,10 +115,19 @@ template<typename T>
 void Engine::Entity::EntityManager::removeComponent(const std::uint32_t& id,
                                                     T component) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        // TODO: si le component n'existe pas, throw une exception
         if (_entities[i]->_id == id) {
-            _componentManager.removeComponent(_entities[i], component);
+            for (std::uint32_t j = 0; j < _entities[i]->_components.size();
+                 j++) {
+                if (_entities[i]->_components[j] == component) {
+                    _componentManager.removeComponent(_entities[i], component);
+                    return;
+                }
+            }
+            throw Engine::EntityManager::CouldNotFindComponent();
         }
     }
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 template<typename T>
@@ -119,9 +144,10 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
     Engine::Entity::EntityManager::getAllComponents(const std::uint32_t& id) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == id) {
+            if (_entities[i]->_components.size() == 0)
+                throw Engine::EntityManager::NoComponent();
             return _componentManager.getAllComponents(_entities[i]);
         }
     }
-    return std::vector<
-        std::shared_ptr<Engine::Entity::Component::IComponent>>();
+    throw Engine::EntityManager::CouldNotFindEntity();
 }

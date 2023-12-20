@@ -16,6 +16,14 @@
 
 #include "ComponentManager/ComponentManager.hpp"
 #include "Entity/Entity.hpp"
+#include "exceptions/CouldNotAddEntity/CouldNotAddEntity.hpp"
+#include "exceptions/CouldNotFindComponent/CouldNotFindComponent.hpp"
+#include "exceptions/CouldNotFindEntity/CouldNotFindEntity.hpp"
+#include "exceptions/CouldNotCreateEntity/CouldNotCreateEntity.hpp"
+#include "exceptions/CouldNotAddComponent/CouldNotAddComponent.hpp"
+#include "exceptions/NoComponent/NoComponent.hpp"
+#include "exceptions/ComponentAlreadyExists/ComponentAlreadyExists.hpp"
+
 
 namespace Engine {
     namespace Entity {
@@ -33,7 +41,7 @@ namespace Engine {
 
                 void destroyEntity(const std::uint32_t& entity_id);
                 void addComponent(
-                    std::shared_ptr<Entity>                entity,
+                    const std::uint32_t&                entity_id,
                     std::shared_ptr<Component::IComponent> componentType);
                 template<typename T>
                 void removeComponent(const std::uint32_t& entity_id,
