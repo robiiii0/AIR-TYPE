@@ -28,10 +28,14 @@ Engine::Entity::EntityManager::EntityManager() {
  * @return The ID of the created entity.
  */
 
+std::uint32_t Engine::Entity::EntityManager::getNbEntites() {
+    return _entities.size();
+}
+
 std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::cout << "Available entities: " << std::endl;
     //    std::uint32_t id = _available_entities.front();
-    std::uint32_t id = 0;
+    std::uint32_t id = _entities.size();
     _available_entities.pop();
     _living_entity_count++;
     std::cout << "Created entity " << id << std::endl;
