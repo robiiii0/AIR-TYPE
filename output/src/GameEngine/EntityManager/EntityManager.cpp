@@ -13,7 +13,6 @@
  * This constructor initializes the availableEntities stack with entity IDs from
  * 0 to MAX_ENTITIES-1.
  */
-
 Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
@@ -27,22 +26,34 @@ Engine::Entity::EntityManager::EntityManager() {
  *
  * @return The ID of the created entity.
  */
-
 std::uint32_t Engine::Entity::EntityManager::getNbEntites() {
     return _entities.size();
 }
 
 std::uint32_t Engine::Entity::EntityManager::createEntity() {
-    std::cout << "Available entities: " << std::endl;
-    //    std::uint32_t id = _available_entities.front();
+    if (_living_entity_count >= __max_entities) {
+        throw Engine::EntityManager::CouldNotCreateEntity();
+        return -1;
+    }
     std::uint32_t id = _entities.size();
     _available_entities.pop();
     _living_entity_count++;
     std::cout << "Created entity " << id << std::endl;
     Entity entity(id);
-    _entities.push_back(entity);
+    _entities.push_back(std::make_shared<Entity>(entity));
     std::cout << "Entity count: " << _entities.size() << std::endl;
     return id;
+}
+
+std::shared_ptr<Engine::Entity::Entity>
+    Engine::Entity::EntityManager::getEntity(const std::uint32_t& id) {
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i]->_id == id) {
+            return _entities[i];
+        }
+    }
+    throw Engine::EntityManager::CouldNotFindEntity();
+    return nullptr;
 }
 
 /**
@@ -51,19 +62,18 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
  *
  * @param entity The ID of the entity to destroy.
  */
-
 void Engine::Entity::EntityManager::destroyEntity(
     const std::uint32_t& entity_id) {
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
-        if (_entities[i]._id == entity_id) {
+        if (_entities[i]->_id == entity_id) {
             _entities.erase(_entities.begin() + i);
             break;
         }
     }
-    std::cout << "Destroyed entity " << entity_id << std::endl;
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 /**
@@ -74,8 +84,21 @@ void Engine::Entity::EntityManager::destroyEntity(
  */
 
 void Engine::Entity::EntityManager::addComponent(
-    Entity& entity, Engine::Entity::Component::IComponent& component) {
-    _componentManager.addComponent(entity, component);
+    const std::uint32_t&                                   entity_id,
+    std::shared_ptr<Engine::Entity::Component::IComponent> component) {
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i]->_id == entity_id) {
+            for (std::uint32_t j = 0; j < _entities[i]->_components.size();
+                 j++) {
+                if (_entities[i]->_components[j] == component) {
+                    throw Engine::EntityManager::ComponentAlreadyExists();
+                }
+            }
+            _componentManager.addComponent(_entities[i], component);
+            return;
+        }
+    }
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 /**
@@ -88,23 +111,43 @@ void Engine::Entity::EntityManager::addComponent(
  * @param entity The entity from which to remove the component.
  * @param component_name The name of the component to remove.
  */
-
 template<typename T>
-void Engine::Entity::EntityManager::removeComponent(Entity& entity,
-                                                    T       component) {
-    _componentManager.removeComponent(entity, component);
+void Engine::Entity::EntityManager::removeComponent(const std::uint32_t& id,
+                                                    T component) {
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        // TODO: si le component n'existe pas, throw une exception
+        if (_entities[i]->_id == id) {
+            for (std::uint32_t j = 0; j < _entities[i]->_components.size();
+                 j++) {
+                if (_entities[i]->_components[j] == component) {
+                    _componentManager.removeComponent(_entities[i], component);
+                    return;
+                }
+            }
+            throw Engine::EntityManager::CouldNotFindComponent();
+        }
+    }
+    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
-/**
- * Retrieves the value of a component from the specified entity.
- *
- * @tparam T The type of the component value to retrieve.
- * @param entity The entity from which to retrieve the component value.
- * @param component_name The name of the component.
- * @return The value of the component.
- */
-//
-// T& Engine::Entity::EntityManager::getComponentValue(
-//     Entity& entity, std::string component_name) {
-//     return entity.getComponentValue(component_name);
-// }
+template<typename T>
+bool Engine::Entity::EntityManager::hasComponent(const std::uint32_t& entity_id,
+                                                 T component) {
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i]->_id == entity_id) {
+            return _componentManager.hasComponent(_entities[i], component);
+        }
+    }
+}
+
+std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
+    Engine::Entity::EntityManager::getAllComponents(const std::uint32_t& id) {
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        if (_entities[i]->_id == id) {
+            if (_entities[i]->_components.size() == 0)
+                throw Engine::EntityManager::NoComponent();
+            return _componentManager.getAllComponents(_entities[i]);
+        }
+    }
+    throw Engine::EntityManager::CouldNotFindEntity();
+}

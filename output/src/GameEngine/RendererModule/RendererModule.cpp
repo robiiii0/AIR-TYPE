@@ -32,15 +32,15 @@ void Engine::RendererModule::RendererModule::handleEvent(
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
             for (auto i = 0; i < idmax; i++) {
-                auto components =
-                    entityManager.getAllComponents(entityManager.getEntity(i));
+                auto components = entityManager.getAllComponents(i);
                 for (auto &component : components) {
                     if (typeid(*component) ==
                         typeid(Engine::RendererModule::Components::
                                    ClickableComponent)) {
-                        auto isClicked =
-                            dynamic_cast<Engine::RendererModule::Components::
-                                             ClickableComponent *>(component)
+                        bool isClicked =
+                            std::dynamic_pointer_cast<
+                                Engine::RendererModule::Components::
+                                    ClickableComponent>(component)
                                 ->isClicked(
                                     std::make_pair(_event.mouseButton.x,
                                                    _event.mouseButton.y));
@@ -69,14 +69,18 @@ void Engine::RendererModule::RendererModule::render(
     // Dessiner les composants
 
     for (auto id : id_list) {
-        auto components =
-            entityManager.getAllComponents(entityManager.getEntity(id));
-        for (auto &component : components) {
-            IRendererComponent *to_render;
-            if ((to_render = dynamic_cast<IRendererComponent *>(component)) !=
-                nullptr) {
-                _window.draw(to_render->getDrawable());
+        try {
+            auto components = entityManager.getAllComponents(id);
+            for (auto &component : components) {
+                std::shared_ptr<IRendererComponent> to_render =
+                    std::dynamic_pointer_cast<
+                        Engine::RendererModule::IRendererComponent>(component);
+                if (to_render != nullptr) {
+                    _window.draw(to_render->getDrawable());
+                }
             }
+        } catch (const Engine::EntityManager::NoComponent &e) {
+            std::cerr << e.what() << '\n';
         }
     }
 
