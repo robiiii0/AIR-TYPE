@@ -9,13 +9,8 @@ Game::Game() {
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
-    loadFont("src/Client/src/Roboto-Bold.ttf");
-    loadFont("src/Client/assets/menu/nico.ttf");
-    if (!_texture.loadFromFile(
-            "src/Client/assets/Background/Layers/layer02_cake.png")) {
-        std::cout << "cant load" << std::endl;
-    }
-    _sprite.setTexture(_texture);
+    loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
+    loadTexture("src/Client/assets/Background/Layers/layer02_cake.png");
 }
 
 void Game::run() {
@@ -43,16 +38,19 @@ std::vector<std::uint32_t> &Game::getEntities() { return _entities; }
 void Game::loadFont(std::string path) {
     sf::Font font;
     if (!font.loadFromFile(path)) {
-        std::cout << "cant load this shit" << std::endl;
+        std::cout << "cant load: " << path << std::endl;
     }
     _fonts.push_back(font);
 }
 
 void Game::loadTexture(std::string path) {
-
+    sf::Texture texture;
+    if (!texture.loadFromFile(path)) {
+        std::cout << "cant load: " << path << std::endl;
+    }
+    texture.setSmooth(true);
+    _textures.push_back(texture);
 }
-
-
 
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
                       sf::Vector2f scale, sf::Color color, float rotation) {
@@ -70,13 +68,13 @@ void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
     addEntity(textEntity);
 }
 
-void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
-                        sf::Vector2f position, sf::Vector2f scale,
-                        sf::Color color, float rotation) {
+void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
+                        sf::Vector2f scale, sf::Color color, float rotation) {
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
+    sf::Sprite                                     sprite_temp_temp;
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        sprite, position, scale, color, rotation};
+        sprite_temp_temp, position, scale, color, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
@@ -88,28 +86,12 @@ void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
 }
 
 void Game::setLobby() {
-//    createText("Welcome on the R-Type game", _fonts[1], {200.0, 200.0});
-    createSprite(_sprite, _texture, {200.0, 200.0});
-    //    uint32_t CakeEntity =
-    //        game.getGameEngine().getEntityManager()->createEntity();
+    sf::Vector2u textureSize = _textures[0].getSize();
 
-    //    sf::Texture texture;
-    //    sf::Sprite  sprite;
-
-    //    Engine::RendererModule::Components::SpriteData spriteCakeData =
-    //        createSprite(
-    //            CakeEntity,
-    //            "src/Client/assets/Background/Layers/layer02_cake.png", "jsp",
-    //            texture, sprite, {float((WIDTH * 10) / 100) * -1,
-    //            float((HEIGHT * 10) / 100) * -1});
-    //
-    //    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-    //    // CakeComponent;
-    //    auto CakeComponent =
-    //        std::make_shared<Engine::RendererModule::Components::SpriteComponent>(
-    //            spriteCakeData);
-
-    //    game.getGameEngine().getEntityManager()->addComponent(CakeEntity,
-    //                                                          CakeComponent);
-    //    game.addEntity(CakeEntity);
+    float scale_x = static_cast<float>(_width) / textureSize.x;
+    float scale_y = static_cast<float>(_height) / textureSize.y;
+    float scale = std::min(scale_x, scale_y);
+    createSprite(_textures[0], {0.0, 0.0}, {scale, scale});
+    createSprite(_textures[1], {00.0, 400.0}, {0.5, 0.5});
+    createText("Welcome on the R-Type game", _fonts[TITLE], {200.0, 200.0});
 }

@@ -12,6 +12,9 @@
 
 enum {
     BACKGROUND,
+    PARALLAX1,
+    PARALLAX2,
+    PARALLAX3,
     PLAYER,
     ENEMY,
     BULLET,
@@ -30,27 +33,27 @@ class Game {
 
         Engine::GameEngine &getGameEngine();
 
-        //Manage Entities
+        // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        //Load Assets
+        // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
 
-        //Create Component
+        // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
                         sf::Vector2f scale = {1, 1},
                         sf::Color color = sf::Color::White, float rotation = 0);
-        void createSprite(sf::Sprite sprite, sf::Texture &texture,
+        void createSprite(sf::Texture &texture,
                           sf::Vector2f position = {0.0, 0.0},
-                          sf::Vector2f scale = {10, 10},
+                          sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
-        //Set Screen
+        // Set Screen
         void setLobby();
 
     private:
@@ -61,8 +64,8 @@ class Game {
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
 
         std::vector<sf::Font>    _fonts;
-        sf::Sprite  _sprite;
-        sf::Texture _texture;
+        sf::Sprite               _sprite;
+        std::vector<sf::Texture> _textures;
 };
 
 #endif  // GAME_HPP
