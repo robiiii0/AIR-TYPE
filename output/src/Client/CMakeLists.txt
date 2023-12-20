@@ -5,8 +5,7 @@ project(r-type_client)
 set(CMAKE_CXX_STANDARD 20)
 
 
-# find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 add_executable(r-type_client
         src/main.cpp
