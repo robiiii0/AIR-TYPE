@@ -18,8 +18,9 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
-void Engine::RendererModule::RendererModule::handleEvent() {
+void Engine::RendererModule::RendererModule::handleEvent(Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
     // here are input events
+
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
         if (_event.type == sf::Event::KeyPressed &&
@@ -29,7 +30,18 @@ void Engine::RendererModule::RendererModule::handleEvent() {
             std::cout << "Keyboard state: " << _event.key.code << std::endl;
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
-            std::cout << "mouse state: " << _event.key.code << std::endl;
+            for (auto i = 0; i < idmax; i++) {
+                auto components =
+                    entityManager.getAllComponents(entityManager.getEntity(i));
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::ClickableComponent)) {
+
+                            auto isClicked = dynamic_cast<Engine::RendererModule::Components::ClickableComponent *>(component)
+                                ->isClicked(std::make_pair(_event.mouseButton.x, _event.mouseButton.y));
+                        }
+                    }
+            }
         }
     }
 }

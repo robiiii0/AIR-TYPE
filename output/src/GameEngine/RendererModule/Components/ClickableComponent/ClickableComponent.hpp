@@ -37,6 +37,7 @@ namespace Engine {
                     sf::Drawable &getDrawable();
                     void          update();
                     bool          isHovered() const;
+                    std::pair<float, float> getPos() const;
                     bool isClicked(std::pair<float, float> mousePos) const;
 
                 protected:

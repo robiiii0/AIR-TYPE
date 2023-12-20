@@ -98,13 +98,13 @@ int main() {
         game.getGameEngine().getEntityManager()->getEntity(buttonPlayEntity),
         buttonComponent);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
-        BackgroundComponent);
+    // game.getGameEngine().getEntityManager()->addComponent(
+    //     game.getGameEngine().getEntityManager()->getEntity(BackgroundEntity),
+    //     BackgroundComponent);
 
-    game.getGameEngine().getEntityManager()->addComponent(
-        game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
-        CakeComponent);
+    // game.getGameEngine().getEntityManager()->addComponent(
+    //     game.getGameEngine().getEntityManager()->getEntity(CakeEntity),
+    //     CakeComponent);
 
     game.run();
     return 0;

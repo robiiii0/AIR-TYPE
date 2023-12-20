@@ -26,7 +26,7 @@ namespace Engine {
                 void init(int width, int height, std::string title,
                           int framerate);
                 void update();
-                void handleEvent();
+                void handleEvent(Engine::Entity::EntityManager &entityManager, uint32_t idmax);
                 void render(Engine::Entity::EntityManager &entityManager,
                             uint32_t                       id);
                 sf::RenderWindow &getWindow();
