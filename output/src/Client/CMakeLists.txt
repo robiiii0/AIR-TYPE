@@ -23,7 +23,6 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         src/Game/Game.cpp
-        # ../GameEngine/HmiModule/HmiModule.cpp
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp
         # ../GameEngine/PhysicModule/PhysicModule.cpp
