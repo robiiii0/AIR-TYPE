@@ -8,9 +8,9 @@ Game::Game() {
     _gameEngine.getRendererModule()->init(
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
-    if (!_font.loadFromFile("src/Client/src/Roboto-Bold.ttf")) {
-        std::cout << "cant load this shit" << std::endl;
-    }
+    loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
+    loadFont("src/Client/src/Roboto-Bold.ttf");
+    loadFont("src/Client/assets/menu/nico.ttf");
     if (!_texture.loadFromFile(
             "src/Client/assets/Background/Layers/layer02_cake.png")) {
         std::cout << "cant load" << std::endl;
@@ -39,6 +39,20 @@ void Game::removeEntity(std::uint32_t entity) {
 }
 
 std::vector<std::uint32_t> &Game::getEntities() { return _entities; }
+
+void Game::loadFont(std::string path) {
+    sf::Font font;
+    if (!font.loadFromFile(path)) {
+        std::cout << "cant load this shit" << std::endl;
+    }
+    _fonts.push_back(font);
+}
+
+void Game::loadTexture(std::string path) {
+
+}
+
+
 
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
                       sf::Vector2f scale, sf::Color color, float rotation) {
@@ -74,7 +88,7 @@ void Game::createSprite(sf::Sprite sprite, sf::Texture &texture,
 }
 
 void Game::setLobby() {
-    createText("Welcome on the R-Type game", _font, {200.0, 200.0});
+//    createText("Welcome on the R-Type game", _fonts[1], {200.0, 200.0});
     createSprite(_sprite, _texture, {200.0, 200.0});
     //    uint32_t CakeEntity =
     //        game.getGameEngine().getEntityManager()->createEntity();

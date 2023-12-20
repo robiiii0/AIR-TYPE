@@ -13,7 +13,7 @@
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     SpriteData &value, sf::Texture &texture) :
     _data(value) {
-    _data._sprite.setTexture(texture);
+    _sprite.setTexture(texture);
     _data.rotation = value.rotation;
     _data.scale = value.scale;
     _data.pos = value.pos;

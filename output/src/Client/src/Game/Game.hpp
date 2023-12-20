@@ -10,6 +10,19 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
 
+enum {
+    BACKGROUND,
+    PLAYER,
+    ENEMY,
+    BULLET,
+    TEXT,
+};
+
+enum {
+    TITLE,
+    SUBTITLE,
+};
+
 class Game {
     public:
         Game();
@@ -17,10 +30,16 @@ class Game {
 
         Engine::GameEngine &getGameEngine();
 
+        //Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
+        //Load Assets
+        void loadFont(std::string path);
+        void loadTexture(std::string path);
+
+        //Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
                         sf::Vector2f scale = {1, 1},
@@ -30,6 +49,8 @@ class Game {
                           sf::Vector2f scale = {10, 10},
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
+
+        //Set Screen
         void setLobby();
 
     private:
@@ -39,7 +60,7 @@ class Game {
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
 
-        sf::Font    _font;
+        std::vector<sf::Font>    _fonts;
         sf::Sprite  _sprite;
         sf::Texture _texture;
 };
