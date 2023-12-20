@@ -17,10 +17,15 @@ class Game {
 
         Engine::GameEngine &getGameEngine();
 
+        void                        addEntity(std::uint32_t entity);
+        void                        removeEntity(std::uint32_t entity);
+        std::vector<std::uint32_t> &getEntities();
+
     private:
-        Engine::GameEngine _gameEngine;  // TODO: fix this
-                                         //    GameState* currentState;
-                                         //    void changeState();
+        Engine::GameEngine         _gameEngine;  // TODO: fix this
+        std::vector<std::uint32_t> _entities;
+        //    GameState* currentState;
+        //    void changeState();
 };
 
 #endif  // GAME_HPP
