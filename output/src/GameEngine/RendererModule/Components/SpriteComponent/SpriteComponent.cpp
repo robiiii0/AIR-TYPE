@@ -11,27 +11,29 @@
 #include <stdexcept>
 
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    SpriteData &value) :
+    SpriteData &value, sf::Texture &texture) :
     _data(value) {
-    if (!_data._texture.loadFromFile(value._path))
-        throw std::runtime_error("SpriteComponent: texture not found");
-    _data._sprite.setTexture(_data._texture);
-    _data._sprite.setPosition(_data._pos.first, _data._pos.second);
+    _data.rotation = value.rotation;
+    _data.scale = value.scale;
+    _data.pos = value.pos;
+    _data._sprite.setPosition(_data.pos);
+    _data.color = value.color;
+    _sprite.setTexture(texture);
+    _sprite.setPosition(_data.pos);
+    _sprite.setScale(_data.scale);
+    _sprite.setColor(_data.color);
+    _sprite.setRotation(_data.rotation);
     std::cout << "sprite created" << std::endl;
 }
 
 sf::Drawable &
     Engine::RendererModule::Components::SpriteComponent::getDrawable() {
-    return _data._sprite;
+    return _sprite;
 }
 
 Engine::RendererModule::Components::SpriteComponent::~SpriteComponent() {}
 
 void Engine::RendererModule::Components::SpriteComponent::execute() {}
-
-std::string &Engine::RendererModule::Components::SpriteComponent::get() {
-    return (_data._ptr);
-}
 
 void Engine::RendererModule::Components::SpriteComponent::setRotation(
     float rotation) {
@@ -46,16 +48,6 @@ void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
 void Engine::RendererModule::Components::SpriteComponent::setOrigin(float x,
                                                                     float y) {
     _data._sprite.setOrigin(x, y);
-}
-
-void Engine::RendererModule::Components::SpriteComponent::setRepeated(
-    bool repeated) {
-    _data._texture.setRepeated(repeated);
-}
-
-void Engine::RendererModule::Components::SpriteComponent::setSmooth(
-    bool smooth) {
-    _data._texture.setSmooth(smooth);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
