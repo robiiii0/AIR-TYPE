@@ -58,6 +58,7 @@ void Game::loadMusic(std::string path) {
         std::cout << "cant load: " << path << std::endl;
     }
     _music.setLoop(true);
+    _music.setVolume(50);
     _music.play();
     std::cout << "sound loaded" << std::endl;
 }
@@ -101,5 +102,6 @@ void Game::setSettings() {
 
     // TODO: Get sound value.
 
-    createText("100", _fonts[TITLE], {static_cast<float>((WIDTH / 2) - 25), static_cast<float>(HEIGHT / 4)});
+    createText(std::to_string(_music.getVolume()), _fonts[TITLE], {static_cast<float>((WIDTH / 2) - 25), static_cast<float>(HEIGHT / 4)});
 }
+
