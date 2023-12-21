@@ -37,3 +37,8 @@ Engine::Physic::Components::TransformData &
     Engine::Physic::Components::TransformComponent::getTransform() {
     return _data;
 }
+
+Engine::Physic::Vector2f
+    Engine::Physic::Components::TransformComponent::getPos() const {
+    return _data.pos;
+}

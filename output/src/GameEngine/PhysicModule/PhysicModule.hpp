@@ -11,6 +11,8 @@
 #include "../EntityManager/Entity/Entity.hpp"
 #include "../EntityManager/EntityManager.hpp"
 #include "Components/BoundingBoxComponent/BoundingBoxComponent.hpp"
+#include "Components/MovementComponent/MovementComponent.hpp"
+#include "Components/TransformComponent/TransformComponent.hpp"
 
 namespace Engine {
     namespace Physic {

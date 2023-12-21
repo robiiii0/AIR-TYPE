@@ -33,6 +33,7 @@ namespace Engine {
                     void           setScale(Vector2f scale);
                     void           setRotation(float rotation);
                     TransformData &getTransform();
+                    Vector2f       getPos() const;
 
                 protected:
                 private:

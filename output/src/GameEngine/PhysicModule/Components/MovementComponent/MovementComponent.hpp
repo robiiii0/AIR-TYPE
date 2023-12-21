@@ -19,11 +19,11 @@ namespace Engine {
                     Vector2f velocity;
             };
 
-            class AccelerationComponent :
+            class MovementComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AccelerationComponent(MovementData &data);
-                    ~AccelerationComponent();
+                    MovementComponent(MovementData &data);
+                    ~MovementComponent();
                     void     execute() override;
                     void     updateVelocity();
                     void     setAcceleration(Vector2f &acceleration);
