@@ -5,6 +5,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "../../../GameEngine/GameEngine.hpp"
@@ -42,6 +43,7 @@ class Game {
         void loadFont(std::string path);
         void loadTexture(std::string path);
 
+
         // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
@@ -55,6 +57,7 @@ class Game {
 
         // Set Screen
         void setLobby();
+        void setSettings();
 
     private:
         Engine::GameEngine         _gameEngine;
@@ -64,8 +67,9 @@ class Game {
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
 
         std::vector<sf::Font>    _fonts;
-        sf::Sprite               _sprite;
         std::vector<sf::Texture> _textures;
+        sf::Music                _music;
+        sf::Sprite               _sprite;
 };
 
 #endif  // GAME_HPP
