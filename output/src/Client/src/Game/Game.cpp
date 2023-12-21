@@ -218,10 +218,10 @@ void Game::setLobby() {
                {2, 2});
 
     // server choice
-    createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 9 - 350),
-                  static_cast<float>(_height / 4)},
-                 {1, 0.8});
+    createButton(
+        "Choose your Room", _textures[BUTTON], _fonts[TITLE],
+        {static_cast<float>(_width / 9 - 350), static_cast<float>(_height / 4)},
+        {1, 0.8});
 
     createSprite(_textures[BUTTON],
                  {static_cast<float>(_width / 9 - 350),
