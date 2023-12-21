@@ -46,3 +46,7 @@ Engine::RendererModule::Components::TextData
     Engine::RendererModule::Components::TextComponent::getTextData() const {
     return _data;
 }
+
+sf::Text Engine::RendererModule::Components::TextComponent::getText() const {
+    return _text;
+}

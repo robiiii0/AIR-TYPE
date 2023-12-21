@@ -12,7 +12,10 @@
 #include "../GameState/GameState.hpp"
 
 enum {
-    BACKGROUND,
+    BACKGROUND = 0,
+    BUTTON,
+    PARAMETER_BUTTON,
+    QUIT_BUTTON,
     PARALLAX1,
     PARALLAX2,
     PARALLAX3,
@@ -44,7 +47,6 @@ class Game {
         void loadTexture(std::string path);
         void loadMusic(std::string path);
 
-
         // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
@@ -56,7 +58,20 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createClickable(sf::Texture &texture,
+                             sf::Vector2f position = {0.0, 0.0},
+                             sf::Vector2f scale = {1, 1},
+                             sf::Color    color = sf::Color::White,
+                             float        rotation = 0);
+
+        void createButton(std::string text, sf::Texture &texture,
+                          sf::Font &font, sf::Vector2f position = {0.0, 0.0},
+                          sf::Vector2f scale = {1, 1},
+                          sf::Color    color = sf::Color::White,
+                          float        rotation = 0);
+
         // Set Screen
+        void setMenu();
         void setLobby();
         void setSettings();
 
