@@ -10,6 +10,8 @@
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
+#include <string>
+#include <vector>
 
 enum {
     BACKGROUND = 0,
@@ -47,6 +49,8 @@ class Game {
         void loadTexture(std::string path);
         void loadMusic(std::string path);
 
+        
+
         // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
@@ -64,6 +68,9 @@ class Game {
                              sf::Color    color = sf::Color::White,
                              float        rotation = 0);
 
+
+        void createParallax(std::vector<std::tuple<sf::Texture, sf::Sprite, std::string, std::string, std::string, std::pair<float, float>, std::pair<float, float>, std::pair<float, float>>>& parallaxData);
+
         void createButton(std::string text, sf::Texture &texture,
                           sf::Font &font, sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
@@ -72,7 +79,7 @@ class Game {
 
         // Set Screen
         void setMenu();
-
+        void setParalax();
         void setLobby();
         void setSettings();
 

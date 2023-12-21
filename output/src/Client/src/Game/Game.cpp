@@ -117,6 +117,19 @@ void Game::createClickable(sf::Texture &texture, sf::Vector2f position,
     addEntity(clickable_entity);
 }
 
+void Game::createParallax(std::vector<std::tuple<sf::Texture, sf::Sprite, std::string, std::string, std::string, std::pair<float, float>, std::pair<float, float>, std::pair<float, float>>>& parallaxData)
+{
+    uint32_t parallax_entity = _gameEngine.getEntityManager()->createEntity();
+
+    std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
+        parallaxComponent = std::make_shared<
+            Engine::RendererModule::Components::parallaxComponent>(parallaxData, parallax_entity);
+
+    _gameEngine.getEntityManager()->addComponent(parallax_entity,
+                                                 parallaxComponent);
+    addEntity(parallax_entity);
+}
+
 void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
                         sf::Vector2f position, sf::Vector2f scale,
                         sf::Color color, float rotation) {
@@ -200,6 +213,25 @@ void Game::setMenu() {
                  {static_cast<float>(_width / 1.13 - 350),
                   static_cast<float>(_height / 2 + 400)},
                  {0.15, 0.15});
+}
+
+void Game::setParalax()
+{
+    std::vector<std::tuple<sf::Texture, sf::Sprite, std::string, std::string, std::string, std::pair<float, float>, std::pair<float, float>, std::pair<float, float>>> parallaxData;
+    sf::Texture texture;
+    sf::Sprite sprite;
+
+    parallaxData.push_back(std::make_tuple(texture, sprite, "background", "src/Client/assets/new_assets/background/bg-preview-big.png", "src/Client/assets/new_assets/background/bg-preview-big.png", std::make_pair(0, 0), std::make_pair(1, 1), std::make_pair(0, 0)));
+
+
+    sf::Sprite sprite2;
+    sf::Texture texture2;
+    parallaxData.push_back(std::make_tuple(texture2, sprite2, "background", "src/Client/assets/new_assets/player/sprites/player1_red.png","src/Client/assets/new_assets/player/sprites/player1_red.png" , std::make_pair(0, 0), std::make_pair(1, 1), std::make_pair(0, 0)));
+
+    sf::Sprite sprite3;
+    sf::Texture texture3;
+    parallaxData.push_back(std::make_tuple(texture3, sprite3, "background", "src/Client/assets/new_assets/menu/menu_settings.png", "src/Client/assets/new_assets/menu/menu_settings.png", std::make_pair(0, 0), std::make_pair(1, 1), std::make_pair(0, 0)));
+    createParallax(parallaxData);
 }
 
 void Game::setLobby() {

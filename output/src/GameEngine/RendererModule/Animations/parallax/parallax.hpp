@@ -24,15 +24,18 @@ namespace Engine {
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
                     std::pair<float, float> _movement;
-                    std::uint32_t           _id;
+                    
             };
 
             class parallaxComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    parallaxComponent(std::vector<parallaxData> &value);
+                    parallaxComponent(std::vector<parallaxData> &value, std::uint32_t           id);
                     ~parallaxComponent();
+
+                    std::vector<parallaxData> getData();
                     sf::Drawable &getDrawable(parallaxData _data);
+                    void execute() override;
                     void setRotation(parallaxData _data, float rotation);
                     void setScale(parallaxData _data, float x, float y);
                     void setOrigin(parallaxData _data, float x, float y);
@@ -44,6 +47,7 @@ namespace Engine {
 
                 protected:
                 private:
+                    std::uint32_t           _id;
                     std::vector<parallaxData> &_data;
             };
         };  // namespace Components

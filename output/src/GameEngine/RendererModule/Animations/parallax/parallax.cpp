@@ -12,16 +12,13 @@
 #include "../../../../Client/src/Game/Game.hpp"
 
 Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
-    std::vector<parallaxData> &value) :
-    _data(value) {
-    for (auto i : value) {
-        for (int x = 0; x < 3; x++) {
-            if (!i._texture.loadFromFile(i._path))
-                throw std::runtime_error("SpriteComponent: texture not found");
-            i._sprite.setTexture(i._texture);
-            i._sprite.setPosition(i._pos.first, i._pos.second);
-            i._sprite.setScale(i._scale.first, i._scale.second);
-        }
+    std::vector<parallaxData> &value, std::uint32_t           id) : _id(id), _data(value) 
+    {
+    for (auto &i : _data) {
+        i._texture.loadFromFile(i._path);
+        i._sprite.setTexture(i._texture);
+        i._sprite.setPosition(i._pos.first, i._pos.second);
+        i._sprite.setScale(i._scale.first, i._scale.second);
     }
 }
 
@@ -31,6 +28,13 @@ sf::Drawable &
     Engine::RendererModule::Components::parallaxComponent::getDrawable(
         parallaxData _data) {
     return _data._sprite;
+}
+
+
+
+std::vector<Engine::RendererModule::Components::parallaxData>
+    Engine::RendererModule::Components::parallaxComponent::getData() {
+    return _data;
 }
 
 void Engine::RendererModule::Components::parallaxComponent::setRotation(
