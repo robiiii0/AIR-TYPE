@@ -32,7 +32,7 @@ namespace Engine {
                     sf::Drawable &getDrawable() override;
                     void          setTextData(TextData &data);
                     TextData      getTextData() const;
-                    sf::Text     getText() const;
+                    sf::Text      getText() const;
 
                 protected:
                 private:

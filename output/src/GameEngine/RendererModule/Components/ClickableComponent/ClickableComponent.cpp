@@ -13,12 +13,6 @@
 Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     ClickableData &value, sf::Texture &texture) :
     _data(value) {
-//    if (!_data._texture.loadFromFile(value._path))
-//        throw std::runtime_error("SpriteComponent: texture not found");
-//    _data._sprite.setTexture(_data._texture);
-//    _data._sprite.setPosition(_data._pos.first, _data._pos.second);
-//    _data._sprite.setScale(_data._scale.first, _data._scale.second);
-//    std::cout << "sprite button created" << std::endl;
     _isHovered = false;
     _isClicked = false;
     _sprite.setTexture(texture);
@@ -30,8 +24,8 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     std::cout << "ClickableCompoent created" << std::endl;
 }
 
-sf::Vector2f
-    Engine::RendererModule::Components::ClickableComponent::getPos() const {
+sf::Vector2f Engine::RendererModule::Components::ClickableComponent::getPos()
+    const {
     return _data.pos;
 }
 
@@ -65,11 +59,11 @@ bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::cout << "-------------------------------------" << std::endl;
     std::cout << "mousePos: " << mousePos.first << ", " << mousePos.second
               << std::endl;
-    std::cout << "pos: " << _data.pos.x << ", " << _data.pos.y
-              << std::endl;
-//    std::cout << "getSpriteSize"
-//              << _data._texture.getSize().x * _data._scale.first << ", "
-//              << _data._texture.getSize().y * _data._scale.second << std::endl;
+    std::cout << "pos: " << _data.pos.x << ", " << _data.pos.y << std::endl;
+    //    std::cout << "getSpriteSize"
+    //              << _data._texture.getSize().x * _data._scale.first << ", "
+    //              << _data._texture.getSize().y * _data._scale.second <<
+    //              std::endl;
     std::cout << "-------------------------------------" << std::endl;
 
     sf::FloatRect bounds = _sprite.getGlobalBounds();
@@ -77,19 +71,18 @@ bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     if (bounds.contains(mousePos.first, mousePos.second)) {
         std::cout << "prout" << std::endl;
         return true;
-    }
-    else {
+    } else {
         std::cout << "pas prout" << std::endl;
         return false;
     }
-//    if (mousePos.first >= _data.pos.x &&
-//        mousePos.first <= _data.pos.x + (_sprite.getSize().x *
-//                                              _data._scale.first) &&
-//        mousePos.second >= _data.pos.y &&
-//        mousePos.second <= _data.pos.y + (_data._texture.getSize().y *
-//                                                _data._scale.second))
-//        std::cout << "prout" << std::endl;
-//    else
-//        std::cout << "pas prout" << std::endl;
+    //    if (mousePos.first >= _data.pos.x &&
+    //        mousePos.first <= _data.pos.x + (_sprite.getSize().x *
+    //                                              _data._scale.first) &&
+    //        mousePos.second >= _data.pos.y &&
+    //        mousePos.second <= _data.pos.y + (_data._texture.getSize().y *
+    //                                                _data._scale.second))
+    //        std::cout << "prout" << std::endl;
+    //    else
+    //        std::cout << "pas prout" << std::endl;
     return _isClicked;
 }

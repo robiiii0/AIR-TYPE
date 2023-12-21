@@ -11,8 +11,8 @@
 int main() {
     Game game;
 
-        game.setMenu();
-//    game.setLobby();
+    game.setMenu();
+    //    game.setLobby();
     //    game.setSettings();
     game.run();
     return 0;
