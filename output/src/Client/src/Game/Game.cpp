@@ -11,6 +11,7 @@ Game::Game() {
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Background/Layers/layer02_cake.png");
+    loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
@@ -52,6 +53,15 @@ void Game::loadTexture(std::string path) {
     _textures.push_back(texture);
 }
 
+void Game::loadMusic(std::string path) {
+    if (!_music.openFromFile(path)) {
+        std::cout << "cant load: " << path << std::endl;
+    }
+    _music.setLoop(true);
+    _music.play();
+    std::cout << "sound loaded" << std::endl;
+}
+
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
                       sf::Vector2f scale, sf::Color color, float rotation) {
     uint32_t textEntity = _gameEngine.getEntityManager()->createEntity();
@@ -86,5 +96,10 @@ void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
 }
 
 void Game::setSettings() {
-    createText("100", _fonts[TITLE], {200.0, 200.0});
+    unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
+    unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
+
+    // TODO: Get sound value.
+
+    createText("100", _fonts[TITLE], {static_cast<float>((WIDTH / 2) - 25), static_cast<float>(HEIGHT / 4)});
 }
