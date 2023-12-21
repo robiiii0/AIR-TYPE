@@ -39,7 +39,7 @@ add_executable(r-type_client
 
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
+target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
