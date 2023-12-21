@@ -68,7 +68,7 @@ int main() {
     //    // game.addEntity(BackgroundEntity);
 
     game.setLobby();
-    game.setSettings();
+//    game.setSettings();
     game.run();
     return 0;
 }
