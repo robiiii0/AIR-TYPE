@@ -13,21 +13,31 @@
 namespace Engine {
     namespace Physic {
         namespace Components {
-            template<typename T>
+            struct Vector2f {
+                    float x;
+                    float y;
+            };
+
+            struct MovementData {
+                    Vector2f acceleration;
+                    Vector2f velocity;
+            };
+
             class AccelerationComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    AccelerationComponent(T data);
+                    AccelerationComponent(MovementData &data);
                     ~AccelerationComponent();
-                    void        execute() override;
-                    std::string getName() const override;
-                    void setAcceleration(std::pair<float, float> acceleration);
+                    void     execute() override;
+                    void     updateVelocity();
+                    void     setAcceleration(Vector2f &acceleration);
+                    void     setVelocity(Vector2f &velocity);
+                    Vector2f getAcceleration() const;
+                    Vector2f getVelocity() const;
 
                 protected:
                 private:
-                    std::pair<float, float> _acceleration;
-                    std::string             _component_name;
-                    T                       data;
+                    MovementData &_data;
             };
         };  // namespace Components
     };      // namespace Physic
