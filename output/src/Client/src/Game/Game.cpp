@@ -11,6 +11,7 @@ Game::Game() {
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Background/Layers/layer02_cake.png");
+    loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
@@ -52,6 +53,16 @@ void Game::loadTexture(std::string path) {
     _textures.push_back(texture);
 }
 
+void Game::loadMusic(std::string path) {
+    if (!_music.openFromFile(path)) {
+        std::cout << "cant load: " << path << std::endl;
+    }
+    _music.setLoop(true);
+    _music.setVolume(50);
+    _music.play();
+    std::cout << "sound loaded" << std::endl;
+}
+
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
                       sf::Vector2f scale, sf::Color color, float rotation) {
     uint32_t textEntity = _gameEngine.getEntityManager()->createEntity();
@@ -85,13 +96,32 @@ void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
     addEntity(spriteEntity);
 }
 
-void Game::setLobby() {
+void Game::setSettings() {
+    unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
+    unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
+
     sf::Vector2u textureSize = _textures[0].getSize();
 
     float scale_x = static_cast<float>(_width) / textureSize.x;
     float scale_y = static_cast<float>(_height) / textureSize.y;
     float scale = std::min(scale_x, scale_y);
-    createSprite(_textures[0], {0.0, 0.0}, {scale, scale});
-    createSprite(_textures[1], {00.0, 400.0}, {0.5, 0.5});
-    createText("Welcome on the R-Type game", _fonts[TITLE], {200.0, 200.0});
+
+    createSprite(_textures[0], {0, 0}, {scale, scale});
+
+    // SOUND SECTION.
+    // Text sound.
+    createText(std::to_string(static_cast<int>(_music.getVolume())),
+               _fonts[TITLE], {925, 100});
+    // Button volume -.
+    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
+    // Button volume +.
+    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
+
+    // WINDOW_SIZE SECTION.
+    // Window 500x500.
+    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
+    // Window 800x600.
+    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
+    // Window fullscreen.
+    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
 }

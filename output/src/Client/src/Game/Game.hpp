@@ -42,6 +42,7 @@ class Game {
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
+        void loadMusic(std::string path);
 
 
         // Create Component
