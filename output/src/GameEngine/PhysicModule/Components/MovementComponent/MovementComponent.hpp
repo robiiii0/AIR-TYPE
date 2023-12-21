@@ -9,15 +9,11 @@
 #define ACCELERATIONCOMPONENT_HPP_
 
 #include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../Vector2f/Vector2f.hpp"
 
 namespace Engine {
     namespace Physic {
         namespace Components {
-            struct Vector2f {
-                    float x;
-                    float y;
-            };
-
             struct MovementData {
                     Vector2f acceleration;
                     Vector2f velocity;

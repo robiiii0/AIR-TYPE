@@ -13,7 +13,6 @@
 
 namespace Engine {
     namespace Physic {
-        template<typename T>
         class PhysicModule {
             public:
                 PhysicModule();
