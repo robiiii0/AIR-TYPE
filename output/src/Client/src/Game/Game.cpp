@@ -100,8 +100,23 @@ void Game::setSettings() {
     unsigned int WIDTH = sf::VideoMode::getDesktopMode().width;
     unsigned int HEIGHT = sf::VideoMode::getDesktopMode().height;
 
-    // TODO: Get sound value.
+    sf::Vector2u textureSize = _textures[0].getSize();
 
-    createText(std::to_string(_music.getVolume()), _fonts[TITLE], {static_cast<float>((WIDTH / 2) - 25), static_cast<float>(HEIGHT / 4)});
+    float scale_x = static_cast<float>(_width) / textureSize.x;
+    float scale_y = static_cast<float>(_height) / textureSize.y;
+    float scale = std::min(scale_x, scale_y);
+
+    createSprite(_textures[0], {0, 0}, {scale, scale});
+
+    // SOUND SECTION.
+    // Text sound.
+    createText(std::to_string(static_cast<int>(_music.getVolume())), _fonts[TITLE], {925, 100});
+    // Button volume -.
+    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
+    // Button volume +.
+    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
+
+
+    // WINDOW_SIZE SECTION.
 }
 
