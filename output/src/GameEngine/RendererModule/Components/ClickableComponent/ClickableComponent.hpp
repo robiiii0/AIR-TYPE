@@ -16,33 +16,32 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct ClickableData {
-                    bool                    isHovered;
-                    bool                    isClicked;
-                    sf::Texture             _texture;
-                    sf::Sprite              _sprite;
-                    std::string             _name;
-                    std::string             _path;
-                    std::string             _ptr;
-                    std::pair<float, float> _pos;
-                    std::pair<float, float> _scale;
-                    std::uint32_t           _id;
+                    sf::Sprite   _sprite;
+                    sf::Vector2f pos;
+                    sf::Vector2f scale;
+                    sf::Color    color;
+                    float        rotation;
             };
 
             class ClickableComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    ClickableComponent(ClickableData &value);
+                    ClickableComponent(ClickableData &value,
+                                       sf::Texture   &texture);
                     ~ClickableComponent();
-                    void                    execute() override;
-                    sf::Drawable           &getDrawable() override;
-                    void                    update();
-                    bool                    isHovered() const;
-                    std::pair<float, float> getPos() const;
+                    void          execute() override;
+                    sf::Drawable &getDrawable() override;
+                    void          update();
+                    sf::Vector2f  getPos() const;
+                    bool          isHovered() const;
                     bool isClicked(std::pair<float, float> mousePos) const;
 
                 protected:
                 private:
                     ClickableData &_data;
+                    sf::Sprite     _sprite;
+                    bool           _isHovered;
+                    bool           _isClicked;
             };
         };  // namespace Components
     };      // namespace RendererModule
