@@ -110,7 +110,8 @@ void Game::setSettings() {
 
     // SOUND SECTION.
     // Text sound.
-    createText(std::to_string(static_cast<int>(_music.getVolume())), _fonts[TITLE], {925, 100});
+    createText(std::to_string(static_cast<int>(_music.getVolume())),
+               _fonts[TITLE], {925, 100});
     // Button volume -.
     createSprite(_textures[1], {700, 100}, {0.1, 0.1});
     // Button volume +.
@@ -124,4 +125,3 @@ void Game::setSettings() {
     // Window fullscreen.
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
 }
-
