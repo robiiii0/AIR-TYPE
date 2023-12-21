@@ -10,6 +10,7 @@
 
 #include "../EntityManager/Entity/Entity.hpp"
 #include "../EntityManager/EntityManager.hpp"
+#include "Components/BoundingBoxComponent/BoundingBoxComponent.hpp"
 
 namespace Engine {
     namespace Physic {
@@ -17,7 +18,8 @@ namespace Engine {
             public:
                 PhysicModule();
                 ~PhysicModule();
-                void update();
+                void update(Engine::Entity::EntityManager &entityManager,
+                            std::vector<uint32_t>          id_list);
                 bool isColliding(Entity::Entity &entity1,
                                  Entity::Entity &entity2);
 
