@@ -54,7 +54,7 @@ class Game {
                           float        rotation = 0);
 
         // Set Screen
-        void setLobby();
+        void setSettings();
 
     private:
         Engine::GameEngine         _gameEngine;

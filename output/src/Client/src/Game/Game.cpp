@@ -85,13 +85,6 @@ void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
     addEntity(spriteEntity);
 }
 
-void Game::setLobby() {
-    sf::Vector2u textureSize = _textures[0].getSize();
-
-    float scale_x = static_cast<float>(_width) / textureSize.x;
-    float scale_y = static_cast<float>(_height) / textureSize.y;
-    float scale = std::min(scale_x, scale_y);
-    createSprite(_textures[0], {0.0, 0.0}, {scale, scale});
-    createSprite(_textures[1], {00.0, 400.0}, {0.5, 0.5});
-    createText("Welcome on the R-Type game", _fonts[TITLE], {200.0, 200.0});
+void Game::setSettings() {
+    createText("100", _fonts[TITLE], {200.0, 200.0});
 }

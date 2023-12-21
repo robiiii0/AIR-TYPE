@@ -67,7 +67,7 @@ int main() {
     //    // game.addEntity(buttonPlayEntity);
     //    // game.addEntity(BackgroundEntity);
 
-    game.setLobby();
+    game.setSettings();
     game.run();
     return 0;
 }
