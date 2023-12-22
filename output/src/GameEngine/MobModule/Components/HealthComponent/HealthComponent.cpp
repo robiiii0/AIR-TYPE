@@ -27,3 +27,20 @@ void Engine::MobModule::Components::HealthComponent::setValue(
     HealthComponentData value) {
     _value = value;
 }
+
+void Engine::MobModule::Components::HealthComponent::setHealth(int value) {
+    _value.health = value;
+}
+
+void Engine::MobModule::Components::HealthComponent::setMaxHealth(int value) {
+    _value.maxHealth = value;
+}
+
+int Engine::MobModule::Components::HealthComponent::getHealth() const {
+    return (_value.health);
+}
+
+int Engine::MobModule::Components::HealthComponent::getMaxHealth() const {
+    return (_value.maxHealth);
+}
+
