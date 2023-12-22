@@ -43,3 +43,12 @@ void Engine::Physic::Components::MovementComponent::updateVelocity() {
         this->_data.acceleration.y;  // TODO : multiply by delta time
     this->_data.velocity.x += this->_data.acceleration.x;
 }
+
+void Engine::Physic::Components::MovementComponent::normalize() {
+    float length = sqrt(_data.acceleration.x * _data.acceleration.x + _data.acceleration.y * _data.acceleration.y);
+
+    if (length != 0) {
+        _data.acceleration.x = _data.acceleration.x / length;
+        _data.acceleration.y = _data.acceleration.y / length;
+    }
+}

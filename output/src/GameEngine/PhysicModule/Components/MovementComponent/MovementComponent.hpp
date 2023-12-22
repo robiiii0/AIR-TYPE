@@ -10,6 +10,7 @@
 
 #include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
 #include "../../Vector2f/Vector2f.hpp"
+#include "math.h"
 
 namespace Engine {
     namespace Physic {
@@ -30,6 +31,7 @@ namespace Engine {
                     void     setVelocity(Vector2f &velocity);
                     Vector2f getAcceleration() const;
                     Vector2f getVelocity() const;
+                    void     normalize();
 
                 protected:
                 private:
