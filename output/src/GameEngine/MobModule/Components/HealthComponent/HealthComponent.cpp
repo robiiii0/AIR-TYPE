@@ -43,4 +43,3 @@ int Engine::MobModule::Components::HealthComponent::getHealth() const {
 int Engine::MobModule::Components::HealthComponent::getMaxHealth() const {
     return (_value.maxHealth);
 }
-

@@ -14,10 +14,10 @@ namespace Engine {
     namespace MobModule {
         namespace Components {
             struct AttackComponentData {
-                int Damage;
-                float Range;
-                float AttackSpeed;
-                int AttackType;
+                    int   Damage;
+                    float Range;
+                    float AttackSpeed;
+                    int   AttackType;
             };
 
             class AttackComponent :
@@ -25,17 +25,18 @@ namespace Engine {
                 public:
                     AttackComponent(AttackComponentData data);
                     ~AttackComponent();
-                    void execute() override;
+                    void                 execute() override;
                     AttackComponentData &getValue();
-                    void setValue(AttackComponentData value);
-                    void setDamage(int value);
-                    void setRange(float value);
-                    void setAttackSpeed(float value);
-                    void setAttackType(int value);
-                    int getDamage() const;
-                    float getRange() const;
-                    float getAttackSpeed() const;
-                    int getAttackType() const;
+                    void                 setValue(AttackComponentData value);
+                    void                 setDamage(int value);
+                    void                 setRange(float value);
+                    void                 setAttackSpeed(float value);
+                    void                 setAttackType(int value);
+                    int                  getDamage() const;
+                    float                getRange() const;
+                    float                getAttackSpeed() const;
+                    int                  getAttackType() const;
+
                 protected:
                 private:
                     AttackComponentData _value;

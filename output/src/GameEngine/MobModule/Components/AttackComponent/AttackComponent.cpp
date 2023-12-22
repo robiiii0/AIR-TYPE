@@ -9,7 +9,8 @@
 
 #include <stdexcept>
 
-Engine::MobModule::Components::AttackComponent::AttackComponent(AttackComponentData data) {
+Engine::MobModule::Components::AttackComponent::AttackComponent(
+    AttackComponentData data) {
     _value = data;
 }
 
@@ -17,11 +18,13 @@ Engine::MobModule::Components::AttackComponent::~AttackComponent(){};
 
 void Engine::MobModule::Components::AttackComponent::execute() {}
 
-Engine::MobModule::Components::AttackComponentData &Engine::MobModule::Components::AttackComponent::getValue() {
+Engine::MobModule::Components::AttackComponentData &
+    Engine::MobModule::Components::AttackComponent::getValue() {
     return (_value);
 }
 
-void Engine::MobModule::Components::AttackComponent::setValue(AttackComponentData value) {
+void Engine::MobModule::Components::AttackComponent::setValue(
+    AttackComponentData value) {
     _value = value;
 }
 
@@ -33,7 +36,8 @@ void Engine::MobModule::Components::AttackComponent::setRange(float value) {
     _value.Range = value;
 }
 
-void Engine::MobModule::Components::AttackComponent::setAttackSpeed(float value) {
+void Engine::MobModule::Components::AttackComponent::setAttackSpeed(
+    float value) {
     _value.AttackSpeed = value;
 }
 
