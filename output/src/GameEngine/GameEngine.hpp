@@ -11,6 +11,8 @@
 #include "RendererModule/RendererModule.hpp"
 // #include "../EntityManager/EntityManager.hpp"
 #include "./EntityManager/EntityManager.hpp"
+#include <chrono>
+#include <thread>
 
 // #include "LocalStorageModule/LocalStorageModule.hpp"
 // #include "NetworkingModule/NetworkingModule.hpp"
