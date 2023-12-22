@@ -158,16 +158,16 @@ void Game::setMenu() {
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
     float scale = std::max(scale_x, scale_y);
 
-    createSprite(_textures[BACKGROUND], {0, 0}, {scale, scale});
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
 
     //        title
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
                 static_cast<float>(_height_drawable / 6)},
                {1, 1});
-
-    //    text.setPosition(static_cast<float>(_width / 2) - (textWidth / 2),
-    //    text.getPosition().y);
 
     // server choice
     createButton("Server Info", _textures[BUTTON], _fonts[TITLE],
@@ -249,8 +249,10 @@ void Game::setSettings() {
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
     float scale = std::max(scale_x, scale_y);
 
-    createSprite(_textures[0], {0, 0}, {scale, scale});
-
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
     // SOUND SECTION.
     // Text sound.
     createText(std::to_string(static_cast<int>(_music.getVolume())),
