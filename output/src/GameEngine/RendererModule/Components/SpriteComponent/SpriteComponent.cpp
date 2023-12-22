@@ -14,8 +14,10 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     SpriteData &value, sf::Texture &texture) :
     _data(value) {
     _sprite.setTexture(texture);
-    _sprite.setPosition(_data.pos);
     _sprite.setScale(_data.scale);
+    sf::FloatRect text_bounds = _sprite.getGlobalBounds();
+    _sprite.setPosition({_data.pos.x - text_bounds.width / 2,
+                         _data.pos.y - text_bounds.height / 2});
     _sprite.setColor(_data.color);
     _sprite.setRotation(_data.rotation);
     std::cout << "sprite created" << std::endl;

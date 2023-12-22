@@ -82,6 +82,9 @@ class Game {
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
 
+        unsigned int _width_drawable;
+        unsigned int _height_drawable;
+
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
         sf::Music                _music;
