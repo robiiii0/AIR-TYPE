@@ -31,6 +31,12 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
         ../GameEngine/EntityManager/exceptions/NoComponent/NoComponent.cpp
+
+        ../GameEngine/PhysicModule/PhysicModule.cpp
+        ../GameEngine/PhysicModule/Components/BoundingBoxComponent/BoundingBoxComponent.cpp
+        ../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.cpp
+        ../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.cpp
+
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp
         # ../GameEngine/PhysicModule/PhysicModule.cpp

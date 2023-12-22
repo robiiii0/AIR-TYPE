@@ -10,6 +10,9 @@
 
 #include "RendererModule/RendererModule.hpp"
 // #include "../EntityManager/EntityManager.hpp"
+#include <chrono>
+#include <thread>
+
 #include "./EntityManager/EntityManager.hpp"
 
 // #include "LocalStorageModule/LocalStorageModule.hpp"
