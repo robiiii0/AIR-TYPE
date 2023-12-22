@@ -14,7 +14,7 @@ Engine::Physic::Components::MovementComponent::MovementComponent(
 Engine::Physic::Components::MovementComponent::~MovementComponent() {}
 
 void Engine::Physic::Components::MovementComponent::execute() {
-   //  this->updateVelocity();
+    //  this->updateVelocity();
 }
 
 void Engine::Physic::Components::MovementComponent::setAcceleration(
