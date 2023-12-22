@@ -203,50 +203,53 @@ void Game::setMenu() {
 }
 
 void Game::setLobby() {
-    //    sf::Vector2u textureSize = _textures[0].getSize();
-    //
-    //    float scale_x = static_cast<float>(_width) / textureSize.x;
-    //    float scale_y = static_cast<float>(_height) / textureSize.y;
-    //    float scale = std::min(scale_x, scale_y);
-    //
-    //    createSprite(_textures[BACKGROUND], {0, 0}, {scale, scale});
+    sf::Vector2u textureSize = _textures[0].getSize();
+
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float scale = std::max(scale_x, scale_y);
+
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
 
     //        title
     createText("Air-Type", _fonts[TITLE],
-               {static_cast<float>(_width / 2 - 350),
-                static_cast<float>(_height / 2 - 1000)},
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 5)},
                {2, 2});
 
     // server choice
-    createButton(
-        "Choose your Room", _textures[BUTTON], _fonts[TITLE],
-        {static_cast<float>(_width / 9 - 350), static_cast<float>(_height / 4)},
-        {1, 0.8});
+    createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
+                 {static_cast<float>(_width_drawable / 9),
+                  static_cast<float>(_height_drawable / 4)},
+                 {1, 0.8});
 
     createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width / 9 - 350),
-                  static_cast<float>(_height / 4 + 200)},
+                 {static_cast<float>(_width_drawable / 9),
+                  static_cast<float>(_height_drawable / 2)},
                  {1, 3});
-    //    settings
+    //    //    settings
     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.2 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
-    //    quit
+                 {static_cast<float>(_width_drawable / 1.12),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
+    //    //    quit
     createButton("", _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.13 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
+                 {static_cast<float>(_width_drawable / 1.05),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
 }
 
 void Game::setSettings() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float scale_x = static_cast<float>(_width) / textureSize.x;
-    float scale_y = static_cast<float>(_height) / textureSize.y;
-    float scale = std::min(scale_x, scale_y);
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float scale = std::max(scale_x, scale_y);
 
-    //    createSprite(_textures[0], {0, 0}, {scale, scale});
+    createSprite(_textures[0], {0, 0}, {scale, scale});
 
     // SOUND SECTION.
     // Text sound.
