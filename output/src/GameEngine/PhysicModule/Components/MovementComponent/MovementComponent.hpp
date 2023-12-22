@@ -26,7 +26,7 @@ namespace Engine {
                     MovementComponent(MovementData &data);
                     ~MovementComponent();
                     void     execute() override;
-                    void     updateVelocity();
+                    void     updateVelocity(float dt);
                     void     setAcceleration(Vector2f &acceleration);
                     void     setVelocity(Vector2f &velocity);
                     Vector2f getAcceleration() const;

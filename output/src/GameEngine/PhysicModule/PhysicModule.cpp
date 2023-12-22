@@ -15,7 +15,7 @@ Engine::Physic::PhysicModule::~PhysicModule() {}
 
 void Engine::Physic::PhysicModule::update(
     Engine::Entity::EntityManager &entityManager,
-    std::vector<uint32_t>          id_list) {
+    std::vector<uint32_t>          id_list, float dt) {
     for (auto &id : id_list) {
         auto components = entityManager.getAllComponents(id);
         for (auto &component : components) {
@@ -58,9 +58,9 @@ void Engine::Physic::PhysicModule::update(
                     auto transform = std::dynamic_pointer_cast<
                         Engine::Physic::Components::TransformComponent>(
                         component);
-                    movement->updateVelocity();
+                    movement->updateVelocity(dt);
                     transform->setPos(
-                        (transform->getPos() + movement->getVelocity()));
+                        (transform->getPos() + movement->getVelocity())); // TODO: Add the dt (velocity * dt)
                 }
             }
         }

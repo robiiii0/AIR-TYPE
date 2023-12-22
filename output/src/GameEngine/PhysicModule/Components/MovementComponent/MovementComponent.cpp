@@ -14,7 +14,7 @@ Engine::Physic::Components::MovementComponent::MovementComponent(
 Engine::Physic::Components::MovementComponent::~MovementComponent() {}
 
 void Engine::Physic::Components::MovementComponent::execute() {
-    this->updateVelocity();
+   //  this->updateVelocity();
 }
 
 void Engine::Physic::Components::MovementComponent::setAcceleration(
@@ -37,15 +37,14 @@ Engine::Physic::Vector2f
     return (this->_data.velocity);
 }
 
-// TODO : calculate Velocity: velocity += acceleration * time
-void Engine::Physic::Components::MovementComponent::updateVelocity() {
-    this->_data.velocity.y +=
-        this->_data.acceleration.y;  // TODO : multiply by delta time
-    this->_data.velocity.x += this->_data.acceleration.x;
+void Engine::Physic::Components::MovementComponent::updateVelocity(float dt) {
+    this->_data.velocity.y += this->_data.acceleration.y * dt;
+    this->_data.velocity.x += this->_data.acceleration.x * dt;
 }
 
 void Engine::Physic::Components::MovementComponent::normalize() {
-    float length = sqrt(_data.acceleration.x * _data.acceleration.x + _data.acceleration.y * _data.acceleration.y);
+    float length = sqrt(_data.acceleration.x * _data.acceleration.x +
+                        _data.acceleration.y * _data.acceleration.y);
 
     if (length != 0) {
         _data.acceleration.x = _data.acceleration.x / length;
