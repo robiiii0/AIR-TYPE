@@ -7,8 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(./)
 
 add_library(physicModule
-   Components/AccelerationComponent/AccelerationComponent.cpp
+   Components/MovementComponent/MovementComponent.cpp
    Components/BoundingBoxComponent/BoundingBoxComponent.cpp
    Components/MassComponent/MassComponent.cpp
-   Components/PositionComponent/PositionComponent.cpp
-   Components/VelocityComponent/VelocityComponent.cpp)
+   Components/TransformComponent/TransformComponent.cpp

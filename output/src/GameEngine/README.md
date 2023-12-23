@@ -24,8 +24,6 @@ Feel free to delve into the networking module's source code and contribute to it
 
 - **EntityManager**: Directory containing source code and resources related to the Entity Manager module.
 
-- **HmiModule**: Directory with source code and resources for the Human-Machine Interface (HMI) module.
-
 - **LocalStorageModule**: Directory encompassing the source code and resources for the Local Storage module.
 
 - **MobModule**: Directory housing the source code and resources for the Mob module.

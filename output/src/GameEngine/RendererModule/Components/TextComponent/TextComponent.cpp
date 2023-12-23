@@ -13,18 +13,16 @@ Engine::RendererModule::Components::TextComponent::TextComponent(
     _text.setString(_data.text);
     _text.setFont(_data.font);
     _text.setColor(_data.color);
-    _text.setPosition(_data.position);
     _text.setScale(_data.scale);
+    sf::FloatRect text_bounds = _text.getGlobalBounds();
+    _text.setPosition({_data.position.x - text_bounds.width / 2,
+                       _data.position.y - text_bounds.height / 2});
     _text.setRotation(_data.rotation);
 }
 
 Engine::RendererModule::Components::TextComponent::~TextComponent() {}
 
 void Engine::RendererModule::Components::TextComponent::execute() {}
-
-bool Engine::RendererModule::Components::TextComponent::isDrawable() const {
-    return true;
-}
 
 sf::Drawable &Engine::RendererModule::Components::TextComponent::getDrawable() {
     return _text;
@@ -49,4 +47,8 @@ void Engine::RendererModule::Components::TextComponent::setTextData(
 Engine::RendererModule::Components::TextData
     Engine::RendererModule::Components::TextComponent::getTextData() const {
     return _data;
+}
+
+sf::Text Engine::RendererModule::Components::TextComponent::getText() const {
+    return _text;
 }

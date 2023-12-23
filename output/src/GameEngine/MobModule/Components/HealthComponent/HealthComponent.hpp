@@ -27,6 +27,10 @@ namespace Engine {
                     void                 execute() override;
                     HealthComponentData &getValue();
                     void                 setValue(HealthComponentData value);
+                    void                 setHealth(int value);
+                    void                 setMaxHealth(int value);
+                    int                  getHealth() const;
+                    int                  getMaxHealth() const;
 
                 protected:
                 private:

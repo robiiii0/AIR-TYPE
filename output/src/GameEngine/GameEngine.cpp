@@ -10,7 +10,6 @@
 Engine::GameEngine::GameEngine(bool client) {
     _rendererModule = new RendererModule::RendererModule();
     _entityManager = new Entity::EntityManager();
-    //    _hmiModule = new Hmi::HmiModule(_rendererModule->getWindow());
     //    _localStorageModule = new LocalStorage::LocalStorageModule();
     //    if (client)
     //        _networkingModule = new Network::NetworkingModule(
@@ -23,11 +22,28 @@ Engine::GameEngine::GameEngine(bool client) {
 Engine::GameEngine::~GameEngine() {}
 
 void Engine::GameEngine::run() {
-    //    _networkingModule->run();
+    const float targetFrameTime = 1.0f / 60.0f;
+    auto        lastTime = std::chrono::high_resolution_clock::now();
+
     while (1) {
-        //        _hmiModule->update();
-        _rendererModule->update();
-        _rendererModule->render(*_entityManager, 0);
+        auto  currentTime = std::chrono::high_resolution_clock::now();
+        float dt = std::chrono::duration<float, std::chrono::seconds::period>(
+                       currentTime - lastTime)
+                       .count();
+
+        while (dt < targetFrameTime) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(
+                static_cast<int>((targetFrameTime - dt) * 1000)));
+            currentTime = std::chrono::high_resolution_clock::now();
+            dt = std::chrono::duration<float, std::chrono::seconds::period>(
+                     currentTime - lastTime)
+                     .count();
+        }
+
+        lastTime = currentTime;
+
+        // _rendererModule->update();
+        // _rendererModule->render(*_entityManager, 0);
     }
 }
 
@@ -35,10 +51,6 @@ Engine::Entity::EntityManager *Engine::GameEngine::getEntityManager() const {
     return _entityManager;
 }
 
-//
-// Engine::Hmi::HmiModule *Engine::GameEngine::getHmiModule() const {
-//    return _hmiModule;
-//}
 //
 // Engine::LocalStorage::LocalStorageModule *
 //    Engine::GameEngine::getLocalStorageModule() const {

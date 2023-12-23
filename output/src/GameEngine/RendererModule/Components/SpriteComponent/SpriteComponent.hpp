@@ -10,26 +10,26 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SpriteData {
-                    std::uint32_t           _id;
-                    sf::Texture             _texture;
-                    sf::Sprite              _sprite;
-                    std::string             _path;
-                    std::string             _ptr;
-                    std::pair<float, float> _pos;
+                    sf::Sprite   _sprite;
+                    sf::Vector2f pos;
+                    sf::Vector2f scale;
+                    sf::Color    color;
+                    float        rotation;
             };
 
             class SpriteComponent :
-                public Engine::Entity::Component::AComponent {
+                public Engine::RendererModule::IRendererComponent {
                 public:
                     SpriteComponent(
-                        SpriteData &value);  // TODO changer le std::string pour
-                                             // le sprite c'est pas bien
+                        SpriteData  &value,
+                        sf::Texture &texture);  // TODO changer le std::string
+                                                // pour le sprite c'est pas bien
                     ~SpriteComponent();
                     void         execute() override;
                     std::string &get();
@@ -40,15 +40,12 @@ namespace Engine {
                     void          setOrigin(float x, float y);
                     void          setTextureRect(const sf::IntRect &rect);
                     void          setPosition(float x, float y);
-                    sf::Drawable &getDrawable();
-
-                    // Texture
-                    void setRepeated(bool repeated);
-                    void setSmooth(bool smooth);
+                    sf::Drawable &getDrawable() override;
 
                 protected:
                 private:
                     SpriteData &_data;
+                    sf::Sprite  _sprite;
             };
         };  // namespace Components
     };      // namespace RendererModule

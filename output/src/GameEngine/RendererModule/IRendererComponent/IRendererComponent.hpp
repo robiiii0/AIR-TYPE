@@ -16,7 +16,7 @@ namespace Engine {
     namespace RendererModule {
         class IRendererComponent :
             public Engine::Entity::Component::AComponent {
-                virtual bool          isDrawable() const = 0;
+            public:
                 virtual sf::Drawable &getDrawable() = 0;
         };
     }  // namespace RendererModule

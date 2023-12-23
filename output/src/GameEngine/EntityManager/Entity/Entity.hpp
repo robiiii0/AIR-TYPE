@@ -45,8 +45,8 @@ namespace Engine {
                     throw std::runtime_error("Component not found");
                 }
 
-                std::uint32_t                       _id;
-                std::vector<Component::IComponent*> _components;
+                std::uint32_t                                       _id;
+                std::vector<std::shared_ptr<Component::IComponent>> _components;
         };
     };  // namespace Entity
 };      // namespace Engine

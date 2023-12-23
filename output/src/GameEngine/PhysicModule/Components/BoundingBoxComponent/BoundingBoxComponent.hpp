@@ -9,29 +9,29 @@
 #define BOUNDINGBOXCOMPONENT_HPP_
 
 #include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../Vector2f/Vector2f.hpp"
 
 namespace Engine {
     namespace Physic {
         namespace Components {
-            struct Data {
-                    std::pair<float, float> _pos;
-                    std::pair<float, float> _size;
+            struct HitboxData {
+                    Vector2f pos;
+                    Vector2f size;
             };
 
-            template<typename T>
             class BoundingBoxComponent :
                 public Engine::Entity::Component::AComponent {
                 public:
-                    BoundingBoxComponent(Data data);
+                    BoundingBoxComponent(HitboxData &data);
                     ~BoundingBoxComponent();
                     void        execute() override;
-                    std::string getName() const override;
-                    void        setBoundingBox(Data data);
+                    void        setBoundingBox(HitboxData &data);
+                    HitboxData &getBoundingBox();
+                    bool operator==(const BoundingBoxComponent &other) const;
 
                 protected:
                 private:
-                    T           data;
-                    std::string _component_name;
+                    HitboxData &_data;
             };
         };  // namespace Components
     };      // namespace Physic

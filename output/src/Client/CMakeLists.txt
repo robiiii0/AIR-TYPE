@@ -15,6 +15,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
+        ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
         ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
         ../GameEngine/EntityManager/EntityManager.cpp
         ../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp
@@ -23,7 +24,20 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         src/Game/Game.cpp
-        # ../GameEngine/HmiModule/HmiModule.cpp
+        ../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotAddEntity/CouldNotAddEntity.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotCreateEntity/CouldNotCreateEntity.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotFindComponent/CouldNotFindComponent.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
+        ../GameEngine/EntityManager/exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
+        ../GameEngine/EntityManager/exceptions/NoComponent/NoComponent.cpp
+
+        ../GameEngine/PhysicModule/PhysicModule.cpp
+        ../GameEngine/PhysicModule/Components/BoundingBoxComponent/BoundingBoxComponent.cpp
+        ../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.cpp
+        ../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.cpp
+
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp
         # ../GameEngine/PhysicModule/PhysicModule.cpp
@@ -31,7 +45,7 @@ add_executable(r-type_client
 
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system ${LIBS})
+target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

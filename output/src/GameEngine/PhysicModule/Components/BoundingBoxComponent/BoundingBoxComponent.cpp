@@ -7,29 +7,35 @@
 
 #include "BoundingBoxComponent.hpp"
 
-template<typename T>
-Engine::Physic::Components::BoundingBoxComponent<T>::BoundingBoxComponent(
-    Data data) {
-    if (data.type() == typeid(Data)) {
-        _component_name = "BoundingBoxComponent";
-        this->data = data;
+Engine::Physic::Components::BoundingBoxComponent::BoundingBoxComponent(
+    HitboxData &data) :
+    _data(data) {}
+
+Engine::Physic::Components::BoundingBoxComponent::~BoundingBoxComponent() {}
+
+void Engine::Physic::Components::BoundingBoxComponent::execute() {}
+
+void Engine::Physic::Components::BoundingBoxComponent::setBoundingBox(
+    HitboxData &data) {
+    _data = data;
+}
+
+Engine::Physic::Components::HitboxData &
+    Engine::Physic::Components::BoundingBoxComponent::getBoundingBox() {
+    return _data;
+}
+
+bool Engine::Physic::Components::BoundingBoxComponent::operator==(
+    const BoundingBoxComponent &other) const {
+    if (this->_data.pos
+            .x<other._data.pos.x + other._data.size.x &&this->_data.pos.x +
+               this->_data.size.x>
+                other._data.pos.x &&
+        this->_data.pos
+            .y<other._data.pos.y + other._data.size.y &&this->_data.pos.y +
+               this->_data.size.y>
+                other._data.pos.y) {
+        return true;
     }
-}
-
-template<typename T>
-Engine::Physic::Components::BoundingBoxComponent<T>::~BoundingBoxComponent() {}
-
-template<typename T>
-void Engine::Physic::Components::BoundingBoxComponent<T>::execute() {}
-
-template<typename T>
-std::string Engine::Physic::Components::BoundingBoxComponent<T>::getName()
-    const {
-    return (_component_name);
-}
-
-template<typename T>
-void Engine::Physic::Components::BoundingBoxComponent<T>::setBoundingBox(
-    Data data) {
-    this->data = data;
+    return false;
 }
