@@ -246,20 +246,20 @@ void Game::setParalax() {
 
     createSpriteParallax(_textures[PARALLAX1], "Background",
                          {static_cast<float>(_width_drawable),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-6.0), static_cast<float>(0.0)});
 
 
     createSpriteParallax(_textures[PARALLAX1], "Background",
                     {static_cast<float>(_width_drawable * 2),
-                    static_cast<float>(_height_drawable)},
+                    static_cast<float>(0.0)},
                     {scale, scale},
                     {static_cast<float>(-6.0), static_cast<float>(0.0)});
 
     createSpriteParallax(_textures[PARALLAX1], "Background",
                     {static_cast<float>(_width_drawable * 3),
-                    static_cast<float>(_height_drawable)},
+                    static_cast<float>(0.0)},
                     {scale, scale},
                     {static_cast<float>(-6.0), static_cast<float>(0.0)});
 
@@ -268,35 +268,35 @@ void Game::setParalax() {
 
     createSpriteParallax(_textures[PARALLAX2], "Background",
                          {static_cast<float>(_width_drawable),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-8.0), static_cast<float>(0.0)});
         createSpriteParallax(_textures[PARALLAX2], "Background",
                          {static_cast<float>(_width_drawable * 2),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-8.0), static_cast<float>(0.0)});
     createSpriteParallax(_textures[PARALLAX2], "Background",
                          {static_cast<float>(_width_drawable * 3),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-8.0), static_cast<float>(0.0)});
 
     // cloud texture
     createSpriteParallax(_textures[PARALLAX3], "Background",
                          {static_cast<float>(_width_drawable),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-10.0), static_cast<float>(0.0)});
 
     createSpriteParallax(_textures[PARALLAX3], "Background",
                          {static_cast<float>(_width_drawable * 2),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-10.0), static_cast<float>(0.0)});
     createSpriteParallax(_textures[PARALLAX3], "Background",
                          {static_cast<float>(_width_drawable * 3),
-                          static_cast<float>(_height_drawable)},
+                          static_cast<float>(0.0)},
                          {scale, scale},
                          {static_cast<float>(-10.0), static_cast<float>(0.0)});
 
