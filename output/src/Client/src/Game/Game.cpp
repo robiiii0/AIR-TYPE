@@ -110,7 +110,7 @@ void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
     sf::Sprite sprite_temp;
 
     Engine::RendererModule::Components::parallaxData parallaxData = {
-        sprite_temp, _name, _pos, _scale, _movement, isAnimated, rect};
+        sprite_temp, _name, _pos, _scale, _movement, isAnimated, rect, sf::Clock()};
 
     std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
         parallaxComponent = std::make_shared<
@@ -256,17 +256,17 @@ void Game::setParalax() {
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
     createSpriteParallax(
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable * 2),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
     createSpriteParallax(
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable * 3),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
 
     createSpriteParallax(_textures[EARTH], "Background",
                          {static_cast<float>(_width_drawable),
@@ -288,26 +288,26 @@ void Game::setParalax() {
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-7.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-    createSpriteParallax(_textures[ASTEROID], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 3)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
-                         true, sf::IntRect(0, 0, 1000, 1000));
-    createSpriteParallax(_textures[BLACKHOLE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 5)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(-3.0)},
-                         true, sf::IntRect(0, 0, 2000, 2000));
-    createSpriteParallax(_textures[GAZ], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 7)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(2.0)},
-                         true, sf::IntRect(0, 0, 1000, 1000));
+//    createSpriteParallax(_textures[ASTEROID], "Background",
+//                         {static_cast<float>(_width_drawable + (500 * 3)),
+//                          static_cast<float>(_height_drawable / 2)},
+//                         {0.3, 0.3},
+//                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+//                         true, sf::IntRect(0, 0, 1000, 1000));
+//    createSpriteParallax(_textures[BLACKHOLE], "Background",
+//                         {static_cast<float>(_width_drawable + (500 * 3)),
+//                          static_cast<float>(_height_drawable / 2)},
+//                         {0.3, 0.3},
+//                         {static_cast<float>(-6.0), static_cast<float>(-3.0)},
+//                         true, sf::IntRect(0, 0, 2000, 2000));
+//    createSpriteParallax(_textures[GAZ], "Background",
+//                         {static_cast<float>(_width_drawable + (500 * 7)),
+//                          static_cast<float>(_height_drawable / 2)},
+//                         {0.3, 0.3},
+//                         {static_cast<float>(-6.0), static_cast<float>(2.0)},
+//                         true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[ICE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 9)),
+                         {static_cast<float>(_width_drawable + (500 * 3)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},

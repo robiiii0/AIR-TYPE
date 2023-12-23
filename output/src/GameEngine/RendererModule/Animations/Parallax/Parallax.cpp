@@ -17,9 +17,11 @@ void Engine::RendererModule::Components::parallaxComponent::execute() {}
 Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     parallaxData &value, sf::Texture &texture) :
     _data(value) {
+
     _data._sprite = value._sprite;
     _data._sprite.setTexture(texture);
-    if (value.isAnimated == true) {
+    if (!value.isAnimated) {}
+    else {
         _data.isAnimated = true;
         _data.rect.width = value.rect.width;
         _data.rect.height = value.rect.height;
@@ -106,7 +108,13 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
         }
     }
     if (_data.isAnimated == true) {
-        Animation();
+        sf::Time elapsed1 = _data._clock.getElapsedTime();
+        std::cout << elapsed1.asSeconds() << std::endl;
+        if (elapsed1.asSeconds() > 0.05) {
+            Animation();
+            _data._clock.restart();
+        }
+
     }
 
     if ((_data._sprite.getPosition().y > text_bounds.height) ||
