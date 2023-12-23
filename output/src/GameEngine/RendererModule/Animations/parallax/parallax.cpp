@@ -66,9 +66,9 @@ void Engine::RendererModule::Components::parallaxComponent::setMovement(
 void Engine::RendererModule::Components::parallaxComponent::runParallax() {
 
     //the problem is the sf::VideoMode::getDesktopMode().width) 
-    
+
     std::cout << "value of sprite " <<  _data._sprite.getPosition().x << " and what i want to have " << (sf::VideoMode::getDesktopMode().width) * -1 << std::endl;
-    if (_data._sprite.getPosition().x > (sf::VideoMode::getDesktopMode().width) * -1) {
+    if (_data._sprite.getPosition().x < -1920) {
         setPosition((sf::VideoMode::getDesktopMode().width) * 2, _data._pos.second);    
     }
     _data._sprite.move({_data._movement.first, _data._movement.second});
