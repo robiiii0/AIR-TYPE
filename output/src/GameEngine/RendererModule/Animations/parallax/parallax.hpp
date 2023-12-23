@@ -29,8 +29,7 @@ namespace Engine {
                     parallaxComponent(parallaxData &value, sf::Texture &texture);
                     ~parallaxComponent();
 
-                    parallaxData getData();
-                    sf::Drawable &getDrawable(parallaxData _data);
+                    sf::Drawable &getDrawable() override;
                     void execute() override;
                     void setRotation(parallaxData _data, float rotation);
                     void setScale(parallaxData _data, float x, float y);

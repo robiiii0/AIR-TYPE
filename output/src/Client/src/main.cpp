@@ -12,7 +12,7 @@ int main() {
     Game game;
 
     // game.setMenu();
-    game.setParalax();
+    // game.setParalax();
         // game.setLobby();
     //    game.setSettings();
     game.run();

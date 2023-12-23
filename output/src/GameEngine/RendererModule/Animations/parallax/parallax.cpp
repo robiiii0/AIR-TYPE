@@ -11,6 +11,14 @@
 
 #include "../../../../Client/src/Game/Game.hpp"
 
+
+void Engine::RendererModule::Components::parallaxComponent::execute() {
+
+}
+
+Engine::RendererModule::Components::parallaxComponent::~parallaxComponent()  {}
+
+
 Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     parallaxData &value, sf::Texture &texture) : _data(value)
     {
@@ -27,20 +35,11 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
         std::cout << "sprite for paralax created" << std::endl;
 }
 
-Engine::RendererModule::Components::parallaxComponent::~parallaxComponent() {}
 
-sf::Drawable &
-    Engine::RendererModule::Components::parallaxComponent::getDrawable(
-        parallaxData _data) {
+sf::Drawable &Engine::RendererModule::Components::parallaxComponent::getDrawable() {
     return _data._sprite;
 }
 
-
-
-Engine::RendererModule::Components::parallaxData
-    Engine::RendererModule::Components::parallaxComponent::getData() {
-    return _data;
-}
 
 void Engine::RendererModule::Components::parallaxComponent::setRotation(
     parallaxData _data, float rotation) {
