@@ -27,6 +27,7 @@ namespace Engine {
                     void        execute() override;
                     void        setBoundingBox(HitboxData &data);
                     HitboxData &getBoundingBox();
+                    bool operator==(const BoundingBoxComponent &other) const;
 
                 protected:
                 private:
