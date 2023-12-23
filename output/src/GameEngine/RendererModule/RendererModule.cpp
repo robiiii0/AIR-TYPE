@@ -72,7 +72,6 @@ void Engine::RendererModule::RendererModule::render(
 
     // Dessiner les composants
 
-    std::cout <<"lolo" << id_list.size() << std::endl;
 
     for (auto id : id_list) {
         try {
@@ -82,6 +81,7 @@ void Engine::RendererModule::RendererModule::render(
                     std::dynamic_pointer_cast<
                         Engine::RendererModule::IRendererComponent>(component);
                 if (to_render != nullptr) {
+                    std::cout << to_render->getId() << std::endl;
                     _window.draw(to_render->getDrawable());
                 }
             }
