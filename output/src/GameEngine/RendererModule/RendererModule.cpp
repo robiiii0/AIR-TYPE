@@ -29,7 +29,6 @@ void Engine::RendererModule::RendererModule::handleEvent(
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
         if (_event.type == sf::Event::KeyPressed) {
-            std::cout << "Keyboard state: " << _event.key.code << std::endl;
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
             for (auto id : id_list) {
@@ -72,10 +71,10 @@ void Engine::RendererModule::RendererModule::render(
     // Vérifier les événements
 
     // Dessiner les composants
-    std::cout << "CACA2" << std::endl;
+
+    std::cout <<"lolo" << id_list.size() << std::endl;
 
     for (auto id : id_list) {
-        std::cout << "CACA3" << std::endl;
         try {
             auto components = entityManager.getAllComponents(id);
             for (auto &component : components) {
@@ -85,7 +84,6 @@ void Engine::RendererModule::RendererModule::render(
                 if (to_render != nullptr) {
                     _window.draw(to_render->getDrawable());
                 }
-                std::cout << "caca boudin" << std::endl;
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
             std::cerr << e.what() << '\n';

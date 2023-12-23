@@ -11,17 +11,16 @@ Game::Game() {
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
-    // loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
-    // loadTexture("src/Client/assets/Buttons/Button.png");
-    // loadTexture("src/Client/assets/Buttons/Parameter.png");
-    // loadTexture("src/Client/assets/Buttons/Quit.png");
-    //    loadMusic("src/Client/assets/Sound/music.wav");
+    loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
+    loadTexture("src/Client/assets/Buttons/Button.png");
+    loadTexture("src/Client/assets/Buttons/Parameter.png");
+    loadTexture("src/Client/assets/Buttons/Quit.png");
+       loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update();
-        std::cout << "CACA" << std::endl;
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
@@ -231,15 +230,19 @@ void Game::setParalax()
     const float myRef = static_cast<float>(1.0);
 
 
+
     createText("Air-Type", _fonts[TITLE],
         {static_cast<float>(_width_drawable / 2),
             static_cast<float>(_height_drawable / 5)},
         {2, 2});
 
+
     createSpriteParallax(_textures[BACKGROUND], "Background", 
     {static_cast<float>(_width_drawable / 2),
                   static_cast<float>(_height_drawable / 2)}, {scale, scale}, 
                   {myRef, myRef});
+
+
 }
 
 void Game::setLobby() {
