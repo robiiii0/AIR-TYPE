@@ -288,40 +288,12 @@ void Game::setParalax() {
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-7.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-//    createSpriteParallax(_textures[ASTEROID], "Background",
-//                         {static_cast<float>(_width_drawable + (500 * 3)),
-//                          static_cast<float>(_height_drawable / 2)},
-//                         {0.3, 0.3},
-//                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
-//                         true, sf::IntRect(0, 0, 1000, 1000));
-//    createSpriteParallax(_textures[BLACKHOLE], "Background",
-//                         {static_cast<float>(_width_drawable + (500 * 3)),
-//                          static_cast<float>(_height_drawable / 2)},
-//                         {0.3, 0.3},
-//                         {static_cast<float>(-6.0), static_cast<float>(-3.0)},
-//                         true, sf::IntRect(0, 0, 2000, 2000));
-//    createSpriteParallax(_textures[GAZ], "Background",
-//                         {static_cast<float>(_width_drawable + (500 * 7)),
-//                          static_cast<float>(_height_drawable / 2)},
-//                         {0.3, 0.3},
-//                         {static_cast<float>(-6.0), static_cast<float>(2.0)},
-//                         true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[ICE], "Background",
                          {static_cast<float>(_width_drawable + (500 * 3)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-
-    // createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
-    //         {static_cast<float>(_width_drawable / 2),
-    //         static_cast<float>(_height_drawable / 2)},
-    //         {1, 0.8});
-
-    //     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-    //         {static_cast<float>(_width_drawable / 2),
-    //         static_cast<float>(_height_drawable / 1.5 )},
-    //         {0.2, 0.2});
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
