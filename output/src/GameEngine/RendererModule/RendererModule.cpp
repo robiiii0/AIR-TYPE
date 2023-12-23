@@ -72,7 +72,6 @@ void Engine::RendererModule::RendererModule::render(
 
     // Dessiner les composants
 
-
     for (auto id : id_list) {
         try {
             auto components = entityManager.getAllComponents(id);

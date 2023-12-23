@@ -22,23 +22,26 @@ namespace Engine {
                     std::pair<float, float> _scale;
                     std::pair<float, float> _movement;
             };
-            class parallaxComponent : public Engine::RendererModule::IRendererComponent {
-            public:
-                parallaxComponent(parallaxData &value, sf::Texture &texture);
-                ~parallaxComponent();
 
-                sf::Drawable &getDrawable() override;
-                void execute() override;
-                void setRotation(float rotation);
-                void setScale(float x, float y);
-                void setOrigin(float x, float y);
-                void setTextureRect(const sf::IntRect &rect);
-                void setPosition(float x, float y);
-                void setMovement(float x, float y);
-                void runParallax();
+            class parallaxComponent :
+                public Engine::RendererModule::IRendererComponent {
+                public:
+                    parallaxComponent(parallaxData &value,
+                                      sf::Texture  &texture);
+                    ~parallaxComponent();
 
-            private:
-                parallaxData _data;
+                    sf::Drawable &getDrawable() override;
+                    void          execute() override;
+                    void          setRotation(float rotation);
+                    void          setScale(float x, float y);
+                    void          setOrigin(float x, float y);
+                    void          setTextureRect(const sf::IntRect &rect);
+                    void          setPosition(float x, float y);
+                    void          setMovement(float x, float y);
+                    void          runParallax();
+
+                private:
+                    parallaxData _data;
             };
         };  // namespace Components
     };      // namespace RendererModule

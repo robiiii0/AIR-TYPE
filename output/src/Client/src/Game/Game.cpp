@@ -15,7 +15,7 @@ Game::Game() {
     loadTexture("src/Client/assets/Buttons/Button.png");
     loadTexture("src/Client/assets/Buttons/Parameter.png");
     loadTexture("src/Client/assets/Buttons/Quit.png");
-       loadMusic("src/Client/assets/Sound/music.wav");
+    loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
@@ -82,24 +82,25 @@ void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
     addEntity(textEntity);
 }
 
-void Game::createSpriteParallax(            sf::Texture             &_texture,
-                    std::string             _name,
-                    std::pair<float, float> _pos,
-                    std::pair<float, float> _scale,
-                    std::pair<float, float> _movement)
-                    {
-                        uint32_t spriteParallaxEntity = _gameEngine.getEntityManager()->createEntity();
-                        sf::Sprite sprite_temp;
+void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
+                                std::pair<float, float> _pos,
+                                std::pair<float, float> _scale,
+                                std::pair<float, float> _movement) {
+    uint32_t spriteParallaxEntity =
+        _gameEngine.getEntityManager()->createEntity();
+    sf::Sprite sprite_temp;
 
-                        Engine::RendererModule::Components::parallaxData parallaxData = {
-                            sprite_temp, _name, _pos, _scale, _movement
-                        };
+    Engine::RendererModule::Components::parallaxData parallaxData = {
+        sprite_temp, _name, _pos, _scale, _movement};
 
-                        std::shared_ptr<Engine::RendererModule::Components::parallaxComponent> parallaxComponent =  
-                        std::make_shared <Engine::RendererModule::Components::parallaxComponent>(parallaxData, _texture);
-                        _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity, parallaxComponent);
-                        addEntity(spriteParallaxEntity);
-                    }
+    std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
+        parallaxComponent = std::make_shared<
+            Engine::RendererModule::Components::parallaxComponent>(parallaxData,
+                                                                   _texture);
+    _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
+                                                 parallaxComponent);
+    addEntity(spriteParallaxEntity);
+}
 
 void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
                         sf::Vector2f scale, sf::Color color, float rotation) {
@@ -220,29 +221,23 @@ void Game::setMenu() {
                  {0.10, 0.10});
 }
 
-void Game::setParalax()
-{
+void Game::setParalax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    float scale = std::max(scale_x, scale_y);
+    float       scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float       scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float       scale = std::max(scale_x, scale_y);
     const float myRef = static_cast<float>(1.0);
 
-
-
     createText("Air-Type", _fonts[TITLE],
-        {static_cast<float>(_width_drawable / 2),
-            static_cast<float>(_height_drawable / 5)},
-        {2, 2});
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 5)},
+               {2, 2});
 
-
-    createSpriteParallax(_textures[BACKGROUND], "Background", 
-    {static_cast<float>(_width_drawable / 2),
-                  static_cast<float>(_height_drawable / 2)}, {scale, scale}, 
-                  {myRef, myRef});
-
-
+    createSpriteParallax(_textures[BACKGROUND], "Background",
+                         {static_cast<float>(_width_drawable / 2),
+                          static_cast<float>(_height_drawable / 2)},
+                         {scale, scale}, {myRef, myRef});
 }
 
 void Game::setLobby() {
@@ -251,7 +246,6 @@ void Game::setLobby() {
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
     float scale = std::max(scale_x, scale_y);
-
 
     createSprite(_textures[BACKGROUND],
                  {static_cast<float>(_width_drawable / 2),
@@ -314,5 +308,3 @@ void Game::setSettings() {
     // Window fullscreen.
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
 }
-
-

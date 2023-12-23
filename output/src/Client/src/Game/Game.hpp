@@ -7,11 +7,11 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
-#include <string>
-#include <vector>
 
 enum {
     BACKGROUND = 0,
@@ -43,13 +43,11 @@ class Game {
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
-    
+
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
         void loadMusic(std::string path);
-
-        
 
         // Create Component
         void createText(std::string text, sf::Font &font,
@@ -62,21 +60,17 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
-        void createSpriteParallax(
-            sf::Texture             &_texture,
-                    std::string             _name = "parallaxSprite",
-                    std::pair<float, float> _pos = {0, 0},
-                    std::pair<float, float> _scale = {1, 1},
-                    std::pair<float, float> _movement = {1, 1}
-        );
+        void createSpriteParallax(sf::Texture &_texture,
+                                  std::string  _name = "parallaxSprite",
+                                  std::pair<float, float> _pos = {0, 0},
+                                  std::pair<float, float> _scale = {1, 1},
+                                  std::pair<float, float> _movement = {1, 1});
 
         void createClickable(sf::Texture &texture,
                              sf::Vector2f position = {0.0, 0.0},
                              sf::Vector2f scale = {1, 1},
                              sf::Color    color = sf::Color::White,
                              float        rotation = 0);
-
-
 
         void createButton(std::string text, sf::Texture &texture,
                           sf::Font &font, sf::Vector2f position = {0.0, 0.0},
