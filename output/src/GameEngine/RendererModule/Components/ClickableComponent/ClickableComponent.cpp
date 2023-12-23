@@ -22,6 +22,8 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
                          _data.pos.y - text_bounds.height / 2});
     _sprite.setColor(_data.color);
     _sprite.setRotation(_data.rotation);
+    _data.pos.x = value.pos.x;
+    _data.pos.y = value.pos.y;
     std::cout << "ClickableCompoent created" << std::endl;
 }
 
@@ -51,39 +53,28 @@ void Engine::RendererModule::Components::ClickableComponent::update() {
     // Update _data.isClicked
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
-    return _isHovered;
+bool Engine::RendererModule::Components::ClickableComponent::isHovered(
+    std::pair<float, float> mousePos) const {
+    sf::FloatRect bounds = _sprite.getGlobalBounds();
+
+    if (bounds.contains(mousePos.first, mousePos.second)) {
+        _data._sprite.setColor(sf::Color::Red);
+        return true;
+    } else {
+        _data._sprite.setColor(sf::Color::White);
+        return false;
+    }
+    return _isClicked;
 }
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) const {
-    std::cout << "-------------------------------------" << std::endl;
-    std::cout << "mousePos: " << mousePos.first << ", " << mousePos.second
-              << std::endl;
-    std::cout << "pos: " << _data.pos.x << ", " << _data.pos.y << std::endl;
-    //    std::cout << "getSpriteSize"
-    //              << _data._texture.getSize().x * _data._scale.first << ", "
-    //              << _data._texture.getSize().y * _data._scale.second <<
-    //              std::endl;
-    std::cout << "-------------------------------------" << std::endl;
-
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
-        std::cout << "prout" << std::endl;
         return true;
     } else {
-        std::cout << "pas prout" << std::endl;
         return false;
     }
-    //    if (mousePos.first >= _data.pos.x &&
-    //        mousePos.first <= _data.pos.x + (_sprite.getSize().x *
-    //                                              _data._scale.first) &&
-    //        mousePos.second >= _data.pos.y &&
-    //        mousePos.second <= _data.pos.y + (_data._texture.getSize().y *
-    //                                                _data._scale.second))
-    //        std::cout << "prout" << std::endl;
-    //    else
-    //        std::cout << "pas prout" << std::endl;
     return _isClicked;
 }

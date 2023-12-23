@@ -7,6 +7,8 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
@@ -16,9 +18,17 @@ enum {
     BUTTON,
     PARAMETER_BUTTON,
     QUIT_BUTTON,
-    PARALLAX1,
-    PARALLAX2,
-    PARALLAX3,
+    STARS,
+    EARTH,
+    Galaxy,
+    NOMANSLAND,
+    ASTEROID,
+    BLACKHOLE,
+    GAZ,
+    ICE,
+    LAVA,
+    MOON,
+    NOATMOSPHERE,
     PLAYER,
     ENEMY,
     BULLET,
@@ -58,6 +68,14 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createSpriteParallax(sf::Texture &_texture,
+                                  std::string  _name = "parallaxSprite",
+                                  std::pair<float, float> _pos = {0, 0},
+                                  std::pair<float, float> _scale = {1, 1},
+                                  std::pair<float, float> _movement = {1, 1},
+                                  bool                    isAnimated = false,
+                                  sf::IntRect rect = {0, 0, 1920, 1080});
+
         void createClickable(sf::Texture &texture,
                              sf::Vector2f position = {0.0, 0.0},
                              sf::Vector2f scale = {1, 1},
@@ -72,6 +90,7 @@ class Game {
 
         // Set Screen
         void setMenu();
+        void setParalax();
         void setLobby();
         void setSettings();
 

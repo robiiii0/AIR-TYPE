@@ -13,17 +13,34 @@ Game::Game() {
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
-    loadTexture("src/Client/assets/Buttons/Parameter.png");
+    loadTexture("src/Client/assets/Buttons/SettingWhite.png");
     loadTexture("src/Client/assets/Buttons/Quit.png");
-    //    loadMusic("src/Client/assets/Sound/music.wav");
+
+    loadTexture("src/Client/assets/new_assets/background/layered/bg-stars.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/earth.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/Galaxy.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/nomansland.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/asteroid.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/blackhole.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/gaz.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/ice.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/lava.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/moon.png");
+    loadTexture(
+        "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
+
+    // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
+    // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
+
+    loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-        _gameEngine.getRendererModule()->update();
+        _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+                                                getEntities());
         _gameEngine.getRendererModule()->handleEvent(
-            *_gameEngine.getEntityManager(),
-            _gameEngine.getEntityManager()->getNbEntites());
+            *_gameEngine.getEntityManager(), getEntities());
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
@@ -81,6 +98,27 @@ void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
 
     _gameEngine.getEntityManager()->addComponent(textEntity, titleComponent);
     addEntity(textEntity);
+}
+
+void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
+                                std::pair<float, float> _pos,
+                                std::pair<float, float> _scale,
+                                std::pair<float, float> _movement,
+                                bool isAnimated, sf::IntRect rect) {
+    uint32_t spriteParallaxEntity =
+        _gameEngine.getEntityManager()->createEntity();
+    sf::Sprite sprite_temp;
+
+    Engine::RendererModule::Components::parallaxData parallaxData = {
+        sprite_temp, _name, _pos, _scale, _movement, isAnimated, rect};
+
+    std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
+        parallaxComponent = std::make_shared<
+            Engine::RendererModule::Components::parallaxComponent>(parallaxData,
+                                                                   _texture);
+    _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
+                                                 parallaxComponent);
+    addEntity(spriteParallaxEntity);
 }
 
 void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
@@ -200,6 +238,95 @@ void Game::setMenu() {
                  {static_cast<float>(_width_drawable / 1.05),
                   static_cast<float>(_height_drawable / 1.05)},
                  {0.10, 0.10});
+}
+
+void Game::setParalax() {
+    sf::Vector2u textureSize = _textures[0].getSize();
+
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+
+    float scale = std::max(scale_x, scale_y);
+    std::cout << scale << std::endl;
+    const float myRef = {static_cast<float>(1.0)};
+
+    // Background texture
+
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable * 2),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable * 3),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+
+    createSpriteParallax(_textures[EARTH], "Background",
+                         {static_cast<float>(_width_drawable),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(0.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+    createSpriteParallax(_textures[Galaxy], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 1)),
+                          static_cast<float>(_height_drawable / 3)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(3.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+    createSpriteParallax(_textures[NOMANSLAND], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 2)),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-7.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[ASTEROID], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 3)),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[BLACKHOLE], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 5)),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-3.0)},
+                         true, sf::IntRect(0, 0, 2000, 2000));
+    createSpriteParallax(_textures[GAZ], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 7)),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(2.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[ICE], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 9)),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(4.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+    // createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
+    //         {static_cast<float>(_width_drawable / 2),
+    //         static_cast<float>(_height_drawable / 2)},
+    //         {1, 0.8});
+
+    //     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
+    //         {static_cast<float>(_width_drawable / 2),
+    //         static_cast<float>(_height_drawable / 1.5 )},
+    //         {0.2, 0.2});
+
+    createText("Air-Type", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 5)},
+               {2, 2});
 }
 
 void Game::setLobby() {

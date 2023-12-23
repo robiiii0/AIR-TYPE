@@ -144,8 +144,9 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
     Engine::Entity::EntityManager::getAllComponents(const std::uint32_t& id) {
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == id) {
-            if (_entities[i]->_components.size() == 0)
+            if (_entities[i]->_components.size() == 0) {
                 throw Engine::EntityManager::NoComponent();
+            }
             return _componentManager.getAllComponents(_entities[i]);
         }
     }

@@ -19,7 +19,8 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
 }
 
 void Engine::RendererModule::RendererModule::handleEvent(
-    Engine::Entity::EntityManager &entityManager, uint32_t idmax) {
+    Engine::Entity::EntityManager &entityManager,
+    std::vector<uint32_t>          id_list) {
     // here are input events
 
     while (_window.pollEvent(_event)) {
@@ -28,31 +29,59 @@ void Engine::RendererModule::RendererModule::handleEvent(
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
         if (_event.type == sf::Event::KeyPressed) {
-            std::cout << "Keyboard state: " << _event.key.code << std::endl;
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
-            for (auto i = 0; i < idmax; i++) {
-                auto components = entityManager.getAllComponents(i);
-                for (auto &component : components) {
-                    if (typeid(*component) ==
-                        typeid(Engine::RendererModule::Components::
-                                   ClickableComponent)) {
-                        bool isClicked =
-                            std::dynamic_pointer_cast<
-                                Engine::RendererModule::Components::
-                                    ClickableComponent>(component)
-                                ->isClicked(
-                                    std::make_pair(_event.mouseButton.x,
-                                                   _event.mouseButton.y));
+            for (auto id : id_list) {
+                try {
+                    auto components = entityManager.getAllComponents(id);
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       ClickableComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        ClickableComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                        }
                     }
+                } catch (const Engine::EntityManager::NoComponent &e) {
+                    std::cerr << e.what() << '\n';
                 }
             }
         }
     }
 }
 
-void Engine::RendererModule::RendererModule::
-    update() {  // update les animations, la camera, etc
+void Engine::RendererModule::RendererModule::update(
+    Engine::Entity::EntityManager &entityManager,
+    std::vector<uint32_t>          id_list) {
+    for (auto id : id_list) {
+        try {
+            auto components = entityManager.getAllComponents(id);
+            for (auto &component : components) {
+                // Check if the component is of type parallaxComponent
+                if (auto parallaxComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::parallaxComponent>(
+                        component)) {
+                    // If it is, update the component
+                    parallaxComp->runParallax();
+                }
+                if (auto clickableComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::ClickableComponent>(
+                        component)) {
+                    // If it is, update the component
+                    clickableComp->isHovered(
+                        {sf::Mouse::getPosition(_window).x,
+                         sf::Mouse::getPosition(_window).y});
+                }
+            }
+        } catch (const Engine::EntityManager::NoComponent &e) {
+            std::cerr << e.what() << '\n';
+        }
+    }
 }
 
 sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
