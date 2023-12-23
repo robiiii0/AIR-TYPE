@@ -62,6 +62,14 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createSpriteParallax(
+            sf::Texture             &_texture,
+                    std::string             _name = "parallaxSprite",
+                    std::pair<float, float> _pos = {0, 0},
+                    std::pair<float, float> _scale = {1, 1},
+                    std::pair<float, float> _movement = {1, 1}
+        );
+
         void createClickable(sf::Texture &texture,
                              sf::Vector2f position = {0.0, 0.0},
                              sf::Vector2f scale = {1, 1},
@@ -69,7 +77,6 @@ class Game {
                              float        rotation = 0);
 
 
-        void createParallax(std::vector<std::tuple<sf::Texture, sf::Sprite, std::string, std::string, std::string, std::pair<float, float>, std::pair<float, float>, std::pair<float, float>>>& parallaxData);
 
         void createButton(std::string text, sf::Texture &texture,
                           sf::Font &font, sf::Vector2f position = {0.0, 0.0},

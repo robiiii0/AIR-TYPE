@@ -12,14 +12,19 @@
 #include "../../../../Client/src/Game/Game.hpp"
 
 Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
-    std::vector<parallaxData> &value, std::uint32_t           id) : _id(id), _data(value) 
+    parallaxData &value, sf::Texture &texture) : _data(value)
     {
-    for (auto &i : _data) {
-        i._texture.loadFromFile(i._path);
-        i._sprite.setTexture(i._texture);
-        i._sprite.setPosition(i._pos.first, i._pos.second);
-        i._sprite.setScale(i._scale.first, i._scale.second);
-    }
+
+        _data._sprite = value._sprite;
+        _data._sprite.setTexture(texture);
+        _data._sprite.setScale(value._scale.first, value._scale.second);
+        sf::FloatRect text_bounds = _data._sprite.getGlobalBounds();
+        _data._sprite.setPosition({value._pos.first - text_bounds.width / 2,
+                            value._pos.second - text_bounds.height / 2});
+
+        _data._name = value._name;
+        _data._movement = value._movement;
+        std::cout << "sprite for paralax created" << std::endl;
 }
 
 Engine::RendererModule::Components::parallaxComponent::~parallaxComponent() {}
@@ -32,7 +37,7 @@ sf::Drawable &
 
 
 
-std::vector<Engine::RendererModule::Components::parallaxData>
+Engine::RendererModule::Components::parallaxData
     Engine::RendererModule::Components::parallaxComponent::getData() {
     return _data;
 }
@@ -66,9 +71,3 @@ void Engine::RendererModule::Components::parallaxComponent::setMovement(
     parallaxData _data, float x, float y) {
     _data._movement = std::make_pair(x, y);
 }
-
-// void Engine::RendererModule::Components::parallaxComponent::runParallax() {
-//     for (auto &i : _data) {
-//         i._sprite.move(i._movement.first, i._movement.second);
-//     }
-// }

@@ -16,24 +16,20 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct parallaxData {
-                    sf::Texture             _texture;
                     sf::Sprite              _sprite;
                     std::string             _name;
-                    std::string             _path;
-                    std::string             _ptr;
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
                     std::pair<float, float> _movement;
-                    
             };
 
             class parallaxComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    parallaxComponent(std::vector<parallaxData> &value, std::uint32_t           id);
+                    parallaxComponent(parallaxData &value, sf::Texture &texture);
                     ~parallaxComponent();
 
-                    std::vector<parallaxData> getData();
+                    parallaxData getData();
                     sf::Drawable &getDrawable(parallaxData _data);
                     void execute() override;
                     void setRotation(parallaxData _data, float rotation);
@@ -47,8 +43,7 @@ namespace Engine {
 
                 protected:
                 private:
-                    std::uint32_t           _id;
-                    std::vector<parallaxData> &_data;
+                    parallaxData &_data;
             };
         };  // namespace Components
     };      // namespace RendererModule
