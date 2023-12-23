@@ -64,6 +64,10 @@ void Engine::RendererModule::Components::parallaxComponent::setMovement(
 }
 
 void Engine::RendererModule::Components::parallaxComponent::runParallax() {
+
+    if (_data._sprite.getPosition().x > (sf::VideoMode::getDesktopMode().width) * -1) {
+        setPosition((sf::VideoMode::getDesktopMode().width) * 2, _data._pos.second);    
+    }
     _data._sprite.move({_data._movement.first, _data._movement.second});
 }
 
