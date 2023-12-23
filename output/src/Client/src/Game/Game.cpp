@@ -15,6 +15,11 @@ Game::Game() {
     loadTexture("src/Client/assets/Buttons/Button.png");
     loadTexture("src/Client/assets/Buttons/Parameter.png");
     loadTexture("src/Client/assets/Buttons/Quit.png");
+
+    loadTexture("src/Client/assets/new_assets/background/parallax/1.png");
+    loadTexture("src/Client/assets/new_assets/background/parallax/2.png");
+    loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
+    loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
     loadMusic("src/Client/assets/Sound/music.wav");
 }
 
@@ -235,10 +240,27 @@ void Game::setParalax() {
                 static_cast<float>(_height_drawable / 5)},
                {2, 2});
 
-    createSpriteParallax(_textures[BACKGROUND], "Background",
+    createSpriteParallax(_textures[PARALLAX1], "Background",
                          {static_cast<float>(_width_drawable / 2),
                           static_cast<float>(_height_drawable / 2)},
-                         {scale, scale}, {static_cast<float>(1.0), static_cast<float>(0.0)});
+                         {scale, scale},
+                         {static_cast<float>(-1.0), static_cast<float>(0.0)});
+
+    createSpriteParallax(_textures[PARALLAX2], "Background",
+                         {static_cast<float>(_width_drawable / 2),
+                          static_cast<float>(_height_drawable / 2)},
+                         {scale, scale},
+                         {static_cast<float>(-1.0), static_cast<float>(0.0)});
+    createSpriteParallax(_textures[PARALLAX3], "Background",
+                         {static_cast<float>(_width_drawable / 2),
+                          static_cast<float>(_height_drawable / 2)},
+                         {scale, scale},
+                         {static_cast<float>(-1.0), static_cast<float>(0.0)});
+    createSpriteParallax(_textures[PARALLAX4], "Background",
+                         {static_cast<float>(_width_drawable / 2),
+                          static_cast<float>(_height_drawable / 2)},
+                         {scale, scale},
+                         {static_cast<float>(-1.0), static_cast<float>(0.0)});
 }
 
 void Game::setLobby() {

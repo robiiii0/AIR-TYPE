@@ -21,6 +21,7 @@ enum {
     PARALLAX1,
     PARALLAX2,
     PARALLAX3,
+    PARALLAX4,
     PLAYER,
     ENEMY,
     BULLET,

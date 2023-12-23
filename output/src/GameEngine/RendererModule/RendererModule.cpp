@@ -55,14 +55,17 @@ void Engine::RendererModule::RendererModule::handleEvent(
     }
 }
 
-void Engine::RendererModule::RendererModule::update(Engine::Entity::EntityManager &entityManager,
-    std::vector<uint32_t> id_list) {
+void Engine::RendererModule::RendererModule::update(
+    Engine::Entity::EntityManager &entityManager,
+    std::vector<uint32_t>          id_list) {
     for (auto id : id_list) {
         try {
             auto components = entityManager.getAllComponents(id);
             for (auto &component : components) {
                 // Check if the component is of type parallaxComponent
-                if (auto parallaxComp = std::dynamic_pointer_cast<Engine::RendererModule::Components::parallaxComponent>(component)) {
+                if (auto parallaxComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::parallaxComponent>(
+                        component)) {
                     // If it is, update the component
                     parallaxComp->runParallax();
                 }
@@ -72,8 +75,6 @@ void Engine::RendererModule::RendererModule::update(Engine::Entity::EntityManage
         }
     }
 }
-
-
 
 sf::RenderWindow &Engine::RendererModule::RendererModule::getWindow() {
     return _window;
