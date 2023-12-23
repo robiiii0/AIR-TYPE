@@ -252,13 +252,13 @@ void Game::setParalax() {
 
 
     createSpriteParallax(_textures[PARALLAX1], "Background",
-                    {static_cast<float>(_width_drawable),
+                    {static_cast<float>(_width_drawable * 2),
                     static_cast<float>(_height_drawable)},
                     {scale, scale},
                     {static_cast<float>(-6.0), static_cast<float>(0.0)});
 
     createSpriteParallax(_textures[PARALLAX1], "Background",
-                    {static_cast<float>(_width_drawable),
+                    {static_cast<float>(_width_drawable * 3),
                     static_cast<float>(_height_drawable)},
                     {scale, scale},
                     {static_cast<float>(-6.0), static_cast<float>(0.0)});
