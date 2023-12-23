@@ -96,8 +96,10 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
 
             int random_number = distribution(generator);
             std::cout << _data._pos.first << std::endl;
-            setPosition((text_bounds.width + _data.rect.width + (_data._pos.first / 2)),
+            setPosition((text_bounds.width + _data.rect.width + (50 * random_number)),
                         (100 * random_number));
+
+            _data._movement.second = random_number;
         } else {
             setPosition((text_bounds.width + _data.rect.width), 0);
         }
