@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(LIBS -lpthread)
 
 # Specify the source file
-set(SERVER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+set(SERVER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 
 # Create the executable for the server with only main.cpp
 add_executable(r-type_server ${SERVER_SRC})
