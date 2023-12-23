@@ -53,8 +53,17 @@ void Engine::RendererModule::Components::ClickableComponent::update() {
     // Update _data.isClicked
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isHovered() const {
-    return _isHovered;
+bool Engine::RendererModule::Components::ClickableComponent::isHovered(std::pair<float, float> mousePos) const {
+        sf::FloatRect bounds = _sprite.getGlobalBounds();
+
+    if (bounds.contains(mousePos.first, mousePos.second)) {
+        _data._sprite.setColor(sf::Color::Red);
+        return true;
+    } else {
+        _data._sprite.setColor(sf::Color::White);
+        return false;
+    }
+    return _isClicked;
 }
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
@@ -63,10 +72,8 @@ bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
-        std::cout << "prout" << std::endl;
         return true;
     } else {
-        std::cout << "pas prout" << std::endl;
         return false;
     }
     return _isClicked;

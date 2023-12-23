@@ -92,12 +92,12 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
 
             std::default_random_engine generator(rd());
 
-            std::uniform_int_distribution<int> distribution(-3, 4);
+            std::uniform_int_distribution<int> distribution(5, 8);
 
             int random_number = distribution(generator);
             std::cout << _data._pos.first << std::endl;
             setPosition((text_bounds.width + _data.rect.width + (50 * random_number)),
-                        (100 * random_number));
+                        (0));
 
             _data._movement.second = random_number;
         } else {
@@ -107,6 +107,11 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
     if (_data.isAnimated == true) {
         Animation();
     }
+
+    if ((_data._sprite.getPosition().y > text_bounds.height) || (_data._sprite.getPosition().y < 0 )) {
+        _data._movement.second = _data._movement.second * -1;
+    }
+
     _data._sprite.move({_data._movement.first, _data._movement.second});
 }
 

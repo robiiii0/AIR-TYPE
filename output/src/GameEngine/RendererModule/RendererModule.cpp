@@ -69,6 +69,13 @@ void Engine::RendererModule::RendererModule::update(
                     // If it is, update the component
                     parallaxComp->runParallax();
                 }
+                if (auto clickableComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::ClickableComponent>(
+                        component)) {
+                    // If it is, update the component
+                    clickableComp->isHovered({sf::Mouse::getPosition(_window).x,
+                                              sf::Mouse::getPosition(_window).y});
+                }
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
             std::cerr << e.what() << '\n';
