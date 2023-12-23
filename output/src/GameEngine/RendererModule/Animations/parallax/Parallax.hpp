@@ -15,6 +15,7 @@
 namespace Engine {
     namespace RendererModule {
         namespace Components {
+            
             struct parallaxData {
                     sf::Sprite              _sprite;
                     std::string             _name;
