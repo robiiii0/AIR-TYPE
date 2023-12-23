@@ -53,8 +53,9 @@ void Engine::RendererModule::Components::ClickableComponent::update() {
     // Update _data.isClicked
 }
 
-bool Engine::RendererModule::Components::ClickableComponent::isHovered(std::pair<float, float> mousePos) const {
-        sf::FloatRect bounds = _sprite.getGlobalBounds();
+bool Engine::RendererModule::Components::ClickableComponent::isHovered(
+    std::pair<float, float> mousePos) const {
+    sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
         _data._sprite.setColor(sf::Color::Red);
@@ -68,7 +69,6 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(std::pair
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) const {
-
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {

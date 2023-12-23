@@ -26,7 +26,8 @@ Game::Game() {
     loadTexture("src/Client/assets/new_assets/background/Menu/ice.png");
     loadTexture("src/Client/assets/new_assets/background/Menu/lava.png");
     loadTexture("src/Client/assets/new_assets/background/Menu/moon.png");
-    loadTexture("src/Client/assets/new_assets/background/Menu/noatmosphere.png");
+    loadTexture(
+        "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
 
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
@@ -275,43 +276,42 @@ void Game::setParalax() {
                          true, sf::IntRect(0, 0, 1000, 1000));
 
     createSpriteParallax(_textures[Galaxy], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 1) ),
+                         {static_cast<float>(_width_drawable + (500 * 1)),
                           static_cast<float>(_height_drawable / 3)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(3.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
 
     createSpriteParallax(_textures[NOMANSLAND], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 2) ),
+                         {static_cast<float>(_width_drawable + (500 * 2)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-7.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[ASTEROID], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 3) ),
+                         {static_cast<float>(_width_drawable + (500 * 3)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-1.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[BLACKHOLE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 5) ),
+                         {static_cast<float>(_width_drawable + (500 * 5)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-3.0)},
                          true, sf::IntRect(0, 0, 2000, 2000));
     createSpriteParallax(_textures[GAZ], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 7) ),
+                         {static_cast<float>(_width_drawable + (500 * 7)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(2.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[ICE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 9) ),
+                         {static_cast<float>(_width_drawable + (500 * 9)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-
 
     // createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
     //         {static_cast<float>(_width_drawable / 2),

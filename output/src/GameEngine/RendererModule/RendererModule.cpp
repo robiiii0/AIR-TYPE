@@ -73,8 +73,9 @@ void Engine::RendererModule::RendererModule::update(
                         Engine::RendererModule::Components::ClickableComponent>(
                         component)) {
                     // If it is, update the component
-                    clickableComp->isHovered({sf::Mouse::getPosition(_window).x,
-                                              sf::Mouse::getPosition(_window).y});
+                    clickableComp->isHovered(
+                        {sf::Mouse::getPosition(_window).x,
+                         sf::Mouse::getPosition(_window).y});
                 }
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
