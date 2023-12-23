@@ -10,15 +10,18 @@
 
 #include "../EntityManager/Entity/Entity.hpp"
 #include "../EntityManager/EntityManager.hpp"
+#include "Components/BoundingBoxComponent/BoundingBoxComponent.hpp"
+#include "Components/MovementComponent/MovementComponent.hpp"
+#include "Components/TransformComponent/TransformComponent.hpp"
 
 namespace Engine {
     namespace Physic {
-        template<typename T>
         class PhysicModule {
             public:
                 PhysicModule();
                 ~PhysicModule();
-                void update();
+                void update(Engine::Entity::EntityManager &entityManager,
+                            std::vector<uint32_t> id_list, float dt);
                 bool isColliding(Entity::Entity &entity1,
                                  Entity::Entity &entity2);
 

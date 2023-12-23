@@ -8,6 +8,8 @@ Game::Game() {
     _gameEngine.getRendererModule()->init(
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
+    _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
+    _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -139,17 +141,8 @@ void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
     Engine::RendererModule::Components::ClickableData clickable_temp = {
         sprite_temp_temp, position, scale, color, rotation};
 
-    // calc pos for text
-    sf::Vector2f center =
-        sf::Vector2f(position.x + (texture.getSize().x * scale.x) / 2,
-                     position.y + (texture.getSize().y * scale.y) / 2);
-
-    sf::Vector2f text_pos =
-        sf::Vector2f(center.x - (text.size() * 20 * scale.x) / 2,
-                     center.y - (20 * scale.y) / 2);
-
     Engine::RendererModule::Components::TextData text_temp = {
-        text, font, color, text_pos, scale, rotation};
+        text, font, color, position, scale, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::ClickableComponent>
         spriteComponent = std::make_shared<
@@ -170,49 +163,56 @@ void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
 void Game::setMenu() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float scale_x = static_cast<float>(_width) / textureSize.x;
-    float scale_y = static_cast<float>(_height) / textureSize.y;
-    float scale = std::min(scale_x, scale_y);
+    std::cout << "width: " << _width << std::endl;
+    std::cout << "height: " << _height << std::endl;
+    std::cout << "texture width: " << textureSize.x << std::endl;
+    std::cout << "texture height: " << textureSize.y << std::endl;
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float scale = std::max(scale_x, scale_y);
 
-    createSprite(_textures[BACKGROUND], {0, 0}, {scale, scale});
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
 
     //        title
     createText("Air-Type", _fonts[TITLE],
-               {static_cast<float>(_width / 2 - 350),
-                static_cast<float>(_height / 2 - 1000)},
-               {2, 2});
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 6)},
+               {1, 1});
 
     // server choice
     createButton("Server Info", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 9 - 350),
-                  static_cast<float>(_height / 2 - 500)},
-                 {1, 0.8});
+                 {static_cast<float>(_width_drawable / 6),
+                  static_cast<float>(_height_drawable / 3)},
+                 {0.6, 0.5});
     //    server ip
 
     createButton("Server IP", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 8 - 350),
-                  static_cast<float>(_height / 2 - 300)},
-                 {1.2, 0.7});
-    //    server port
+                 {static_cast<float>(_width_drawable / 5),
+                  static_cast<float>(_height_drawable / 2.2)},
+                 {0.8, 0.5});
+    //    //    server port
     createButton("Server Ports", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 8 - 350),
-                  static_cast<float>(_height / 2 - 100)},
-                 {1.2, 0.7});
-    //    go to lobby
+                 {static_cast<float>(_width_drawable / 5),
+                  static_cast<float>(_height_drawable / 1.8)},
+                 {0.8, 0.5});
+    //    //    go to lobby
     createButton("Go To lobby", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 9 - 350),
-                  static_cast<float>(_height / 2 + 100)},
-                 {1, 0.8});
-    //    settings
+                 {static_cast<float>(_width_drawable / 6),
+                  static_cast<float>(_height_drawable / 1.5)},
+                 {0.6, 0.5});
+    //    //    settings
     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.2 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
-    //    quit
+                 {static_cast<float>(_width_drawable / 1.12),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
+    //    //    quit
     createButton("", _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.13 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
+                 {static_cast<float>(_width_drawable / 1.05),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
 }
 
 void Game::setParalax()
@@ -237,49 +237,54 @@ void Game::setParalax()
 void Game::setLobby() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float scale_x = static_cast<float>(_width) / textureSize.x;
-    float scale_y = static_cast<float>(_height) / textureSize.y;
-    float scale = std::min(scale_x, scale_y);
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float scale = std::max(scale_x, scale_y);
 
-    createSprite(_textures[BACKGROUND], {0, 0}, {scale, scale});
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
 
     //        title
     createText("Air-Type", _fonts[TITLE],
-               {static_cast<float>(_width / 2 - 350),
-                static_cast<float>(_height / 2 - 1000)},
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 5)},
                {2, 2});
 
     // server choice
-    createButton(
-        "Choose your Room", _textures[BUTTON], _fonts[TITLE],
-        {static_cast<float>(_width / 9 - 350), static_cast<float>(_height / 4)},
-        {1, 0.8});
+    createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
+                 {static_cast<float>(_width_drawable / 9),
+                  static_cast<float>(_height_drawable / 4)},
+                 {1, 0.8});
 
     createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width / 9 - 350),
-                  static_cast<float>(_height / 4 + 200)},
+                 {static_cast<float>(_width_drawable / 9),
+                  static_cast<float>(_height_drawable / 2)},
                  {1, 3});
-    //    settings
+    //    //    settings
     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.2 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
-    //    quit
+                 {static_cast<float>(_width_drawable / 1.12),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
+    //    //    quit
     createButton("", _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width / 1.13 - 350),
-                  static_cast<float>(_height / 2 + 400)},
-                 {0.15, 0.15});
+                 {static_cast<float>(_width_drawable / 1.05),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
 }
 
 void Game::setSettings() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float scale_x = static_cast<float>(_width) / textureSize.x;
-    float scale_y = static_cast<float>(_height) / textureSize.y;
-    float scale = std::min(scale_x, scale_y);
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    float scale = std::max(scale_x, scale_y);
 
-    createSprite(_textures[0], {0, 0}, {scale, scale});
-
+    createSprite(_textures[BACKGROUND],
+                 {static_cast<float>(_width_drawable / 2),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale});
     // SOUND SECTION.
     // Text sound.
     createText(std::to_string(static_cast<int>(_music.getVolume())),
