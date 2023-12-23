@@ -24,8 +24,6 @@ void Engine::Physic::PhysicModule::update(
                 auto hitbox = std::dynamic_pointer_cast<
                     Engine::Physic::Components::BoundingBoxComponent>(
                     component);
-                std::cout << "Hitbox: " << hitbox->getBoundingBox().pos.x
-                          << hitbox->getBoundingBox().pos.y << std::endl;
                 for (auto &id2 : id_list) {
                     if (id2 != id) {
                         auto components2 = entityManager.getAllComponents(id2);
@@ -36,14 +34,7 @@ void Engine::Physic::PhysicModule::update(
                                 auto hitbox2 = std::dynamic_pointer_cast<
                                     Engine::Physic::Components::
                                         BoundingBoxComponent>(component2);
-                                std::cout << "Hitbox2: "
-                                          << hitbox2->getBoundingBox().pos.x
-                                          << hitbox2->getBoundingBox().pos.y
-                                          << std::endl;
-                                if (hitbox->getBoundingBox().pos.x ==
-                                        hitbox2->getBoundingBox().pos.x &&
-                                    hitbox->getBoundingBox().pos.y ==
-                                        hitbox2->getBoundingBox().pos.y) {
+                                if (*hitbox == *hitbox2) {
                                     std::cout << "COLLISION" << std::endl;
                                 }
                             }
