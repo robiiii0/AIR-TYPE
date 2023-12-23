@@ -8,6 +8,7 @@
 #include "Parallax.hpp"
 
 #include <iostream>
+#include <random>
 
 #include "../../../../Client/src/Game/Game.hpp"
 
@@ -18,6 +19,14 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     _data(value) {
     _data._sprite = value._sprite;
     _data._sprite.setTexture(texture);
+    if (value.isAnimated == true) {
+        _data.isAnimated = true;
+        _data.rect.width = value.rect.width;
+        _data.rect.height = value.rect.height;
+        _data.rect.left = value.rect.left;
+        _data.rect.top = value.rect.top;
+        _data._sprite.setTextureRect(_data.rect);
+    }
     _data._sprite.setScale(value._scale.first, value._scale.second);
     sf::FloatRect text_bounds = _data._sprite.getGlobalBounds();
     _data._sprite.setPosition({value._pos.first - text_bounds.width / 2,
@@ -55,7 +64,9 @@ void Engine::RendererModule::Components::parallaxComponent::setTextureRect(
 
 void Engine::RendererModule::Components::parallaxComponent::setPosition(
     float x, float y) {
-    _data._sprite.setPosition(x, y);
+    sf::FloatRect text_bounds = _data._sprite.getGlobalBounds();
+
+    _data._sprite.setPosition({x, y});
 }
 
 void Engine::RendererModule::Components::parallaxComponent::setMovement(
@@ -63,15 +74,36 @@ void Engine::RendererModule::Components::parallaxComponent::setMovement(
     _data._movement = std::make_pair(x, y);
 }
 
-void Engine::RendererModule::Components::parallaxComponent::runParallax() {
-    // the problem is the sf::VideoMode::getDesktopMode().width)
+void Engine::RendererModule::Components::parallaxComponent::Animation() {
+    if (_data.rect.left >= 15000) {
+        _data.rect.left = 0;
+    } else {
+        _data.rect.left += _data.rect.width;
+    }
+    _data._sprite.setTextureRect(_data.rect);
+}
 
-    std::cout << "value of sprite " << _data._sprite.getPosition().x
-              << " and what i want to have "
-              << (sf::VideoMode::getDesktopMode().width) * -1 << std::endl;
-    if (_data._sprite.getPosition().x < -1920) {
-        setPosition((sf::VideoMode::getDesktopMode().width) * 2,
-                    _data._pos.second);
+void Engine::RendererModule::Components::parallaxComponent::runParallax() {
+    sf::FloatRect text_bounds = _data._sprite.getGlobalBounds();
+
+    if (_data._sprite.getPosition().x < -text_bounds.width) {
+        if (_data.isAnimated == true) {
+            std::random_device rd;
+
+            std::default_random_engine generator(rd());
+
+            std::uniform_int_distribution<int> distribution(-3, 4);
+
+            int random_number = distribution(generator);
+            std::cout << _data._pos.first << std::endl;
+            setPosition((text_bounds.width + _data.rect.width + (_data._pos.first / 2)),
+                        (100 * random_number));
+        } else {
+            setPosition((text_bounds.width + _data.rect.width), 0);
+        }
+    }
+    if (_data.isAnimated == true) {
+        Animation();
     }
     _data._sprite.move({_data._movement.first, _data._movement.second});
 }

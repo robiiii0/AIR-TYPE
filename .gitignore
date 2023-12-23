@@ -6,6 +6,11 @@
 *.a
 *.so
 
+.DS_Store
+output/.DS_Store
+output/src/.DS_Store
+output/src/Client/.DS_Store
+
 # Fichiers de débogage
 *.dSYM/
 *.su

@@ -21,6 +21,8 @@ namespace Engine {
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
                     std::pair<float, float> _movement;
+                    bool                    isAnimated;
+                    sf::IntRect             rect;
             };
 
             class parallaxComponent :
@@ -39,6 +41,7 @@ namespace Engine {
                     void          setPosition(float x, float y);
                     void          setMovement(float x, float y);
                     void          runParallax();
+                    void          Animation();
 
                 private:
                     parallaxData _data;

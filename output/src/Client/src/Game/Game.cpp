@@ -13,13 +13,24 @@ Game::Game() {
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
-    loadTexture("src/Client/assets/Buttons/Parameter.png");
+    loadTexture("src/Client/assets/Buttons/SettingWhite.png");
     loadTexture("src/Client/assets/Buttons/Quit.png");
 
-    loadTexture("src/Client/assets/new_assets/background/parallax/1.png");
-    loadTexture("src/Client/assets/new_assets/background/parallax/2.png");
-    loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
-    loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
+    loadTexture("src/Client/assets/new_assets/background/layered/bg-stars.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/earth.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/Galaxy.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/nomansland.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/asteroid.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/blackhole.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/gaz.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/ice.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/lava.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/moon.png");
+    loadTexture("src/Client/assets/new_assets/background/Menu/noatmosphere.png");
+
+    // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
+    // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
+
     loadMusic("src/Client/assets/Sound/music.wav");
 }
 
@@ -91,13 +102,14 @@ void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
 void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
                                 std::pair<float, float> _pos,
                                 std::pair<float, float> _scale,
-                                std::pair<float, float> _movement) {
+                                std::pair<float, float> _movement,
+                                bool isAnimated, sf::IntRect rect) {
     uint32_t spriteParallaxEntity =
         _gameEngine.getEntityManager()->createEntity();
     sf::Sprite sprite_temp;
 
     Engine::RendererModule::Components::parallaxData parallaxData = {
-        sprite_temp, _name, _pos, _scale, _movement};
+        sprite_temp, _name, _pos, _scale, _movement, isAnimated, rect};
 
     std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
         parallaxComponent = std::make_shared<
@@ -230,62 +242,91 @@ void Game::setMenu() {
 void Game::setParalax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
-    float       scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    float       scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    float       scale = std::max(scale_x, scale_y);
+    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+
+    float scale = std::max(scale_x, scale_y);
+    std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
+
+    // Background texture
+
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable * 2),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+    createSpriteParallax(
+        _textures[STARS], "Background",
+        {static_cast<float>(_width_drawable * 3),
+         static_cast<float>(_height_drawable / 2)},
+        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+
+    createSpriteParallax(_textures[EARTH], "Background",
+                         {static_cast<float>(_width_drawable),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(0.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+    createSpriteParallax(_textures[Galaxy], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 1) ),
+                          static_cast<float>(_height_drawable / 3)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(3.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+    createSpriteParallax(_textures[NOMANSLAND], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 2) ),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[ASTEROID], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 3) ),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[BLACKHOLE], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 4) ),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 2000, 2000));
+    createSpriteParallax(_textures[GAZ], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 5) ),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+    createSpriteParallax(_textures[ICE], "Background",
+                         {static_cast<float>(_width_drawable + (500 * 6) ),
+                          static_cast<float>(_height_drawable / 2)},
+                         {0.3, 0.3},
+                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
+                         true, sf::IntRect(0, 0, 1000, 1000));
+
+
+    createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
+            {static_cast<float>(_width_drawable / 2),
+            static_cast<float>(_height_drawable / 2)},
+            {1, 0.8});
+
+        createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
+            {static_cast<float>(_width_drawable / 2),
+            static_cast<float>(_height_drawable / 1.5 )},
+            {0.2, 0.2});
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
                 static_cast<float>(_height_drawable / 5)},
                {2, 2});
-
-    // Background texture
-
-    createSpriteParallax(
-        _textures[PARALLAX1], "Background",
-        {static_cast<float>(_width_drawable), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-6.0), static_cast<float>(0.0)});
-
-    createSpriteParallax(
-        _textures[PARALLAX1], "Background",
-        {static_cast<float>(_width_drawable * 2), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-6.0), static_cast<float>(0.0)});
-
-    createSpriteParallax(
-        _textures[PARALLAX1], "Background",
-        {static_cast<float>(_width_drawable * 3), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-6.0), static_cast<float>(0.0)});
-
-    // fog texture
-
-    createSpriteParallax(
-        _textures[PARALLAX2], "Background",
-        {static_cast<float>(_width_drawable), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-8.0), static_cast<float>(0.0)});
-    createSpriteParallax(
-        _textures[PARALLAX2], "Background",
-        {static_cast<float>(_width_drawable * 2), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-8.0), static_cast<float>(0.0)});
-    createSpriteParallax(
-        _textures[PARALLAX2], "Background",
-        {static_cast<float>(_width_drawable * 3), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-8.0), static_cast<float>(0.0)});
-
-    // cloud texture
-    createSpriteParallax(
-        _textures[PARALLAX3], "Background",
-        {static_cast<float>(_width_drawable), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-10.0), static_cast<float>(0.0)});
-
-    createSpriteParallax(
-        _textures[PARALLAX3], "Background",
-        {static_cast<float>(_width_drawable * 2), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-10.0), static_cast<float>(0.0)});
-    createSpriteParallax(
-        _textures[PARALLAX3], "Background",
-        {static_cast<float>(_width_drawable * 3), static_cast<float>(0.0)},
-        {scale, scale}, {static_cast<float>(-10.0), static_cast<float>(0.0)});
 }
 
 void Game::setLobby() {
