@@ -27,7 +27,8 @@ namespace Engine {
                 ~RendererModule();
                 void init(int width, int height, std::string title,
                           int framerate);
-                void update();
+                void update(Engine::Entity::EntityManager &entityManager,
+    std::vector<uint32_t> id_list);
                 void handleEvent(Engine::Entity::EntityManager &entityManager,
                                  std::vector<uint32_t>          id_list);
                 void render(Engine::Entity::EntityManager &entityManager,

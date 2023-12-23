@@ -20,7 +20,8 @@ Game::Game() {
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-        _gameEngine.getRendererModule()->update();
+        _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+                                                getEntities());
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
@@ -227,7 +228,7 @@ void Game::setParalax() {
     float       scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float       scale_y = static_cast<float>(_height_drawable) / textureSize.y;
     float       scale = std::max(scale_x, scale_y);
-    const float myRef = static_cast<float>(1.0);
+    const float myRef = {static_cast<float>(1.0)};
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
@@ -237,7 +238,7 @@ void Game::setParalax() {
     createSpriteParallax(_textures[BACKGROUND], "Background",
                          {static_cast<float>(_width_drawable / 2),
                           static_cast<float>(_height_drawable / 2)},
-                         {scale, scale}, {myRef, myRef});
+                         {scale, scale}, {static_cast<float>(1.0), static_cast<float>(0.0)});
 }
 
 void Game::setLobby() {

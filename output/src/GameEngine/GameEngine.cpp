@@ -42,7 +42,7 @@ void Engine::GameEngine::run() {
 
         lastTime = currentTime;
 
-        _rendererModule->update();
+        // _rendererModule->update();
         // _rendererModule->render(*_entityManager, 0);
     }
 }
