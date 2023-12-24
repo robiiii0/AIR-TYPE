@@ -17,10 +17,7 @@ namespace Engine {
             struct RoundedClickableData {
                 std::pair<float, float> _pos;
                 std::pair<float, float> _size;
-                const std::string& buttonText;
-                sf::RectangleShape buttonShape;
-                sf::Text buttonTextObj;
-                sf::Font font;
+                sf::Color _color;
             };
 
             class RoundedClickableComponent : public Engine::RendererModule::IRendererComponent {
@@ -32,14 +29,14 @@ namespace Engine {
                 sf::Drawable &getDrawable() override;
                 void update();
                 sf::Vector2f getPos() const;
-                bool isHovered(std::pair<float, float> mousePos) const;
-                bool isClicked(std::pair<float, float> mousePos) const;
+                bool isHovered(std::pair<float, float> mousePos);
+                bool isClicked(std::pair<float, float> mousePos);
 
 
             protected:
             private:
                 RoundedClickableData &_data;
-                sf::Sprite _sprite;
+                sf::RectangleShape buttonShape;
                 bool _isHovered;
                 bool _isClicked;
             };

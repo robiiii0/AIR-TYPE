@@ -240,6 +240,39 @@ void Game::setMenu() {
                  {0.10, 0.10});
 }
 
+
+void Game::createRoundedButton(
+    std::string text,
+                          sf::Font &font, sf::Vector2f position,
+                          sf::Vector2f scale,
+                          sf::Color    colorButton,
+                            sf::Color    colorText
+)
+{
+    uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::RoundedClickableData clickable_temp = {
+        {position.x, position.y}, {scale.x, scale.y}, colorButton};
+
+    Engine::RendererModule::Components::TextData text_temp = {
+        text, font, colorText, {position.x + (scale.x / 2), position.y + (scale.y / 3)}, {1,1}};
+
+    std::shared_ptr<Engine::RendererModule::Components::RoundedClickableComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::RoundedClickableComponent>(
+            clickable_temp);
+
+    std::shared_ptr<Engine::RendererModule::Components::TextComponent>
+        titleComponent =
+            std::make_shared<Engine::RendererModule::Components::TextComponent>(
+                text_temp);
+
+    _gameEngine.getEntityManager()->addComponent(button_entity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(button_entity, titleComponent);
+    addEntity(button_entity);
+}
+
 void Game::setParalax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
@@ -294,6 +327,11 @@ void Game::setParalax() {
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
+
+    createRoundedButton("caca",
+                          _fonts[TITLE],{static_cast<float>(_width_drawable / 2 - 100), static_cast<float>(_height_drawable / 2)},
+                          {200, 100},
+                          sf::Color::Red, sf::Color::White);
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
