@@ -9,7 +9,18 @@
 
 Engine::Physic::Components::MovementComponent::MovementComponent(
     Engine::Physic::Components::MovementData &data) :
-    _data(data) {}
+    _data(data) {
+    _maxVelocity = data.maxVelocity;
+    _velocity = data.velocity;
+    _acceleration = data.acceleration;
+}
+
+// Engine::Physic::Components::MovementComponent::MovementComponent(
+//     Vector2f acceleration, Vector2f velocity, float maxVelocity) :
+//     _acceleration(acceleration),
+//     _velocity(velocity),
+//     _maxVelocity(maxVelocity),
+//     _data({acceleration, velocity, maxVelocity}) {}
 
 Engine::Physic::Components::MovementComponent::~MovementComponent() {}
 
@@ -19,35 +30,46 @@ void Engine::Physic::Components::MovementComponent::execute() {
 
 void Engine::Physic::Components::MovementComponent::setAcceleration(
     Vector2f &acceleration) {
-    this->_data.acceleration = acceleration;
+    _acceleration = acceleration;
 }
 
 void Engine::Physic::Components::MovementComponent::setVelocity(
     Vector2f &velocity) {
-    this->_data.velocity = velocity;
+    _velocity = velocity;
+}
+
+void Engine::Physic::Components::MovementComponent::setMaxVelocity(
+    float maxVelocity) {
+    _maxVelocity = maxVelocity;
 }
 
 Engine::Physic::Vector2f
     Engine::Physic::Components::MovementComponent::getAcceleration() const {
-    return (this->_data.acceleration);
+    return _acceleration;
 }
 
 Engine::Physic::Vector2f
     Engine::Physic::Components::MovementComponent::getVelocity() const {
-    return (this->_data.velocity);
+    return _velocity;
+}
+
+float Engine::Physic::Components::MovementComponent::getMaxVelocity() const {
+    return _maxVelocity;
 }
 
 void Engine::Physic::Components::MovementComponent::updateVelocity(float dt) {
-    this->_data.velocity.y += this->_data.acceleration.y * dt;
-    this->_data.velocity.x += this->_data.acceleration.x * dt;
+    if (_velocity.x < _maxVelocity || _velocity.y < _maxVelocity) {
+        _velocity.y += _acceleration.y * dt;
+        _velocity.x += _acceleration.x * dt;
+    }
 }
 
 void Engine::Physic::Components::MovementComponent::normalize() {
-    float length = sqrt(_data.acceleration.x * _data.acceleration.x +
-                        _data.acceleration.y * _data.acceleration.y);
+    float length = sqrt(_acceleration.x * _acceleration.x +
+                        _acceleration.y * _acceleration.y);
 
     if (length != 0) {
-        _data.acceleration.x = _data.acceleration.x / length;
-        _data.acceleration.y = _data.acceleration.y / length;
+        _acceleration.x = _acceleration.x / length;
+        _acceleration.y = _acceleration.y / length;
     }
 }
