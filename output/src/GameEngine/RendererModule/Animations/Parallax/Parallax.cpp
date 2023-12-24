@@ -109,7 +109,6 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
     }
     if (_data.isAnimated == true) {
         sf::Time elapsed1 = _data._clock.getElapsedTime();
-        std::cout << elapsed1.asSeconds() << std::endl;
         if (elapsed1.asSeconds() > 0.05) {
             Animation();
             _data._clock.restart();

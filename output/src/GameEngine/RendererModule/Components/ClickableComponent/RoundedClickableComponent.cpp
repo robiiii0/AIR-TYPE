@@ -5,16 +5,14 @@
 #include "RoundedClickableComponent.hpp"
 
 
-Engine::RendererModule::Components::RoundedClickableComponent::RoundedClickableComponent(RoundedClickableData &value) : _data(value), _isHovered(false), _isClicked(false) {
-                
+Engine::RendererModule::Components::RoundedClickableComponent::RoundedClickableComponent(RoundedClickableData &value, std::function<void()> func) : _data(value), _isHovered(false), _isClicked(false), _func(func) {
                 sf::RectangleShape shape(sf::Vector2f(value._size.first, value._size.second));
-                buttonShape = shape;
-                // Initialiser les paramètres du bouton avec des bords arrondis et un fond blanc
-                buttonShape.setPosition(_data._pos.first, _data._pos.second);
-                buttonShape.setSize(sf::Vector2f(_data._size.first, _data._size.second));
-                buttonShape.setFillColor(_data._color);  // Fond blanc
-                buttonShape.setOutlineColor(sf::Color::Black);  // Couleur de la bordure
-                buttonShape.setOutlineThickness(2.0f);  // Épaisseur de la bordure
+                _buttonShape = shape;
+                _buttonShape.setPosition(_data._pos.first, _data._pos.second);
+                _buttonShape.setSize(sf::Vector2f(_data._size.first, _data._size.second));
+                _buttonShape.setFillColor(_data._color);
+                _buttonShape.setOutlineColor(sf::Color::Black);
+                _buttonShape.setOutlineThickness(2.0f);
                 std::cout << "ClickableComponent created" << std::endl;
 }
 
@@ -23,7 +21,7 @@ Engine::RendererModule::Components::RoundedClickableComponent::~RoundedClickable
 void Engine::RendererModule::Components::RoundedClickableComponent::execute() {}
 
 sf::Drawable &Engine::RendererModule::Components::RoundedClickableComponent::getDrawable() {
-    return buttonShape;
+    return _buttonShape;
 }
 
 void Engine::RendererModule::Components::RoundedClickableComponent::update() {
@@ -35,13 +33,13 @@ sf::Vector2f Engine::RendererModule::Components::RoundedClickableComponent::getP
 
 bool Engine::RendererModule::Components::RoundedClickableComponent::isHovered(
     std::pair<float, float> mousePos) {
-    sf::FloatRect bounds = buttonShape.getGlobalBounds();
+    sf::FloatRect bounds = _buttonShape.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
-        buttonShape.setFillColor(sf::Color::Red);
+        _buttonShape.setFillColor(sf::Color::Red);
         return true;
     } else {
-        buttonShape.setFillColor(_data._color);
+        _buttonShape.setFillColor(_data._color);
         return false;
     }
     return _isClicked;
@@ -49,9 +47,10 @@ bool Engine::RendererModule::Components::RoundedClickableComponent::isHovered(
 
 bool Engine::RendererModule::Components::RoundedClickableComponent::isClicked(
     std::pair<float, float> mousePos) {
-    sf::FloatRect bounds = buttonShape.getGlobalBounds();
+    sf::FloatRect bounds = _buttonShape.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
+        _func();
         return true;
     } else {
         return false;

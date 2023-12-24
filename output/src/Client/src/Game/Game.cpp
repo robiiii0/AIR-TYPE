@@ -246,7 +246,7 @@ void Game::createRoundedButton(
                           sf::Font &font, sf::Vector2f position,
                           sf::Vector2f scale,
                           sf::Color    colorButton,
-                            sf::Color    colorText
+                            sf::Color    colorText, std::function<void()> _func
 )
 {
     uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
@@ -260,7 +260,7 @@ void Game::createRoundedButton(
     std::shared_ptr<Engine::RendererModule::Components::RoundedClickableComponent>
         spriteComponent = std::make_shared<
             Engine::RendererModule::Components::RoundedClickableComponent>(
-            clickable_temp);
+            clickable_temp, _func);
 
     std::shared_ptr<Engine::RendererModule::Components::TextComponent>
         titleComponent =
@@ -328,15 +328,22 @@ void Game::setParalax() {
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
 
-    createRoundedButton("caca",
+    createRoundedButton("Play",
                           _fonts[TITLE],{static_cast<float>(_width_drawable / 2 - 100), static_cast<float>(_height_drawable / 2)},
                           {200, 100},
-                          sf::Color::Red, sf::Color::White);
+                          sf::Color::Red, sf::Color::White,  std::bind(&Game::GameStart, this));
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
                 static_cast<float>(_height_drawable / 5)},
                {2, 2});
+}
+
+
+void Game::GameStart()
+{
+    std::cout << "le jeu se lance" << std::endl;
+    // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 
 void Game::setLobby() {

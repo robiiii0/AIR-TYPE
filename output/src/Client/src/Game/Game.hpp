@@ -93,7 +93,8 @@ class Game {
                           sf::Font &font, sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    colorButton = sf::Color::White,
-                          sf::Color    colorText = sf::Color::White
+                          sf::Color    colorText = sf::Color::White,
+                          std::function<void()> _func = []() {}
                           );
         // Set Screen
         void setMenu();
@@ -101,6 +102,8 @@ class Game {
         void setLobby();
         void setSettings();
 
+        void GameStart();
+        // void Setting();
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;

@@ -22,7 +22,8 @@ namespace Engine {
 
             class RoundedClickableComponent : public Engine::RendererModule::IRendererComponent {
             public:
-                RoundedClickableComponent(RoundedClickableData &value);
+                RoundedClickableComponent(RoundedClickableData &value, std::function<void()> func = [](){});
+
                 ~RoundedClickableComponent();
 
                 void execute() override;
@@ -36,7 +37,8 @@ namespace Engine {
             protected:
             private:
                 RoundedClickableData &_data;
-                sf::RectangleShape buttonShape;
+                sf::RectangleShape _buttonShape;
+                std::function<void()> _func = []() {};
                 bool _isHovered;
                 bool _isClicked;
             };

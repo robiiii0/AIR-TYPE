@@ -37,11 +37,24 @@ void Engine::RendererModule::RendererModule::handleEvent(
                     for (auto &component : components) {
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
-                                       ClickableComponent)) {
+                                       ClickableComponent
+                                       )) {
                             bool isClicked =
                                 std::dynamic_pointer_cast<
                                     Engine::RendererModule::Components::
                                         ClickableComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                        }
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       RoundedClickableComponent
+                                       )) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        RoundedClickableComponent>(component)
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
