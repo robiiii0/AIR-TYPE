@@ -37,8 +37,7 @@ void Engine::RendererModule::RendererModule::handleEvent(
                     for (auto &component : components) {
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
-                                       ClickableComponent
-                                       )) {
+                                       ClickableComponent)) {
                             bool isClicked =
                                 std::dynamic_pointer_cast<
                                     Engine::RendererModule::Components::
@@ -49,8 +48,7 @@ void Engine::RendererModule::RendererModule::handleEvent(
                         }
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
-                                       RoundedClickableComponent
-                                       )) {
+                                       RoundedClickableComponent)) {
                             bool isClicked =
                                 std::dynamic_pointer_cast<
                                     Engine::RendererModule::Components::
@@ -91,8 +89,8 @@ void Engine::RendererModule::RendererModule::update(
                          sf::Mouse::getPosition(_window).y});
                 }
                 if (auto clickableComp = std::dynamic_pointer_cast<
-                        Engine::RendererModule::Components::RoundedClickableComponent>(
-                        component)) {
+                        Engine::RendererModule::Components::
+                            RoundedClickableComponent>(component)) {
                     // If it is, update the component
                     clickableComp->isHovered(
                         {sf::Mouse::getPosition(_window).x,

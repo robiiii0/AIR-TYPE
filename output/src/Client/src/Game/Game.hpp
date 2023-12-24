@@ -88,14 +88,12 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
-
-        void createRoundedButton(std::string text,
-                          sf::Font &font, sf::Vector2f position = {0.0, 0.0},
-                          sf::Vector2f scale = {1, 1},
-                          sf::Color    colorButton = sf::Color::White,
-                          sf::Color    colorText = sf::Color::White,
-                          std::function<void()> _func = []() {}
-                          );
+        void createRoundedButton(
+            std::string text, sf::Font &font,
+            sf::Vector2f position = {0.0, 0.0}, sf::Vector2f scale = {1, 1},
+            sf::Color             colorButton = sf::Color::White,
+            sf::Color             colorText = sf::Color::White,
+            std::function<void()> _func = []() {});
         // Set Screen
         void setMenu();
         void setParalax();

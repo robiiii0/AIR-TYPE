@@ -15,35 +15,37 @@ namespace Engine {
         namespace Components {
 
             struct RoundedClickableData {
-                std::pair<float, float> _pos;
-                std::pair<float, float> _size;
-                sf::Color _color;
+                    std::pair<float, float> _pos;
+                    std::pair<float, float> _size;
+                    sf::Color               _color;
             };
 
-            class RoundedClickableComponent : public Engine::RendererModule::IRendererComponent {
-            public:
-                RoundedClickableComponent(RoundedClickableData &value, std::function<void()> func = [](){});
+            class RoundedClickableComponent :
+                public Engine::RendererModule::IRendererComponent {
+                public:
+                    RoundedClickableComponent(
+                        RoundedClickableData &value,
+                        std::function<void()> func = []() {});
 
-                ~RoundedClickableComponent();
+                    ~RoundedClickableComponent();
 
-                void execute() override;
-                sf::Drawable &getDrawable() override;
-                void update();
-                sf::Vector2f getPos() const;
-                bool isHovered(std::pair<float, float> mousePos);
-                bool isClicked(std::pair<float, float> mousePos);
+                    void          execute() override;
+                    sf::Drawable &getDrawable() override;
+                    void          update();
+                    sf::Vector2f  getPos() const;
+                    bool          isHovered(std::pair<float, float> mousePos);
+                    bool          isClicked(std::pair<float, float> mousePos);
 
-
-            protected:
-            private:
-                RoundedClickableData &_data;
-                sf::RectangleShape _buttonShape;
-                std::function<void()> _func = []() {};
-                bool _isHovered;
-                bool _isClicked;
+                protected:
+                private:
+                    RoundedClickableData &_data;
+                    sf::RectangleShape    _buttonShape;
+                    std::function<void()> _func = []() {};
+                    bool                  _isHovered;
+                    bool                  _isClicked;
             };
         };  // namespace Components
     };      // namespace RendererModule
-};          // namespace Engi
+};          // namespace Engine
 
-#endif //AIR_TYPE_ROUNDEDCLICKABLECOMPONENT_H
+#endif  // AIR_TYPE_ROUNDEDCLICKABLECOMPONENT_H
