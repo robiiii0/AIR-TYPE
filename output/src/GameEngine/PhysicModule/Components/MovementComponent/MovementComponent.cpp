@@ -16,11 +16,12 @@ Engine::Physic::Components::MovementComponent::MovementComponent(
 }
 
 // Engine::Physic::Components::MovementComponent::MovementComponent(
-//     Vector2f acceleration, Vector2f velocity, float maxVelocity) :
-//     _acceleration(acceleration),
-//     _velocity(velocity),
-//     _maxVelocity(maxVelocity),
-//     _data({acceleration, velocity, maxVelocity}) {}
+//    Vector2f acceleration, Vector2f velocity, float maxVelocity) :
+//    _acceleration(acceleration),
+//    _velocity(velocity),
+//    _maxVelocity(maxVelocity),
+//    _data{acceleration, velocity, maxVelocity} {
+// }
 
 Engine::Physic::Components::MovementComponent::~MovementComponent() {}
 

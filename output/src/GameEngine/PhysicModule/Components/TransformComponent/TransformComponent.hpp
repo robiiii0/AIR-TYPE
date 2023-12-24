@@ -34,10 +34,15 @@ namespace Engine {
                     void           setRotation(float rotation);
                     TransformData &getTransform();
                     Vector2f       getPos() const;
+                    Vector2f       getScale() const;
+                    float          getRotation() const;
 
                 protected:
                 private:
                     TransformData &_data;
+                    Vector2f       _pos;
+                    Vector2f       _scale;
+                    float          _rotation;
             };
         };  // namespace Components
     };      // namespace Physic

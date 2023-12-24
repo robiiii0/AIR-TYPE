@@ -21,16 +21,16 @@ void Engine::Physic::Components::TransformComponent::setTransform(
 }
 
 void Engine::Physic::Components::TransformComponent::setPos(Vector2f pos) {
-    _data.pos = pos;
+    _pos = pos;
 }
 
 void Engine::Physic::Components::TransformComponent::setScale(Vector2f scale) {
-    _data.scale = scale;
+    _scale = scale;
 }
 
 void Engine::Physic::Components::TransformComponent::setRotation(
     float rotation) {
-    _data.rotation = rotation;
+    _rotation = rotation;
 }
 
 Engine::Physic::Components::TransformData &
@@ -40,5 +40,14 @@ Engine::Physic::Components::TransformData &
 
 Engine::Physic::Vector2f
     Engine::Physic::Components::TransformComponent::getPos() const {
-    return _data.pos;
+    return _pos;
+}
+
+Engine::Physic::Vector2f
+    Engine::Physic::Components::TransformComponent::getScale() const {
+    return _scale;
+}
+
+float Engine::Physic::Components::TransformComponent::getRotation() const {
+    return _rotation;
 }
