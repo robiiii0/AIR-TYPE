@@ -342,6 +342,8 @@ void Game::setParalax() {
 
 void Game::GameStart()
 {
+
+    // TODO: reset all entities and instance new game entities
     std::cout << "le jeu se lance" << std::endl;
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }

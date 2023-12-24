@@ -10,7 +10,7 @@ Engine::RendererModule::Components::RoundedClickableComponent::RoundedClickableC
                 _buttonShape = shape;
                 _buttonShape.setPosition(_data._pos.first, _data._pos.second);
                 _buttonShape.setSize(sf::Vector2f(_data._size.first, _data._size.second));
-                _buttonShape.setFillColor(_data._color);
+                _buttonShape.setFillColor(sf::Color::White);
                 _buttonShape.setOutlineColor(sf::Color::Black);
                 _buttonShape.setOutlineThickness(2.0f);
                 std::cout << "ClickableComponent created" << std::endl;
@@ -36,10 +36,10 @@ bool Engine::RendererModule::Components::RoundedClickableComponent::isHovered(
     sf::FloatRect bounds = _buttonShape.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
-        _buttonShape.setFillColor(sf::Color::Red);
+        _buttonShape.setFillColor(sf::Color::Green);
         return true;
     } else {
-        _buttonShape.setFillColor(_data._color);
+        _buttonShape.setFillColor(sf::Color::White);
         return false;
     }
     return _isClicked;
