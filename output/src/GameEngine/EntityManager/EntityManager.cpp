@@ -62,24 +62,29 @@ std::shared_ptr<Engine::Entity::Entity>
  *
  * @param entity The ID of the entity to destroy.
  */
-void Engine::Entity::EntityManager::destroyEntity(
+std::vector<std::uint32_t> Engine::Entity::EntityManager::destroyEntity(
     const std::uint32_t& entity_id) {
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;
 
+    std::vector<std::uint32_t> newList;
 
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         std::cout << "existing entity: " << _entities[i]->_id << std::endl;
+        newList.push_back(_entities[i]->_id);
     }
 
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == entity_id) {
             std::cout << "yep " << std::endl;
             _entities.erase(_entities.begin() + i);
-            break;
+            newList.erase(newList.begin() + i);
+            return newList;
+            ;
         }
     }
+
 }
 
 /**

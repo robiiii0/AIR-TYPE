@@ -38,7 +38,7 @@ namespace Engine {
 
                 uint32_t getNbEntites();
 
-                void destroyEntity(const std::uint32_t& entity_id);
+                std::vector<std::uint32_t> destroyEntity(const std::uint32_t& entity_id);
                 void addComponent(
                     const std::uint32_t&                   entity_id,
                     std::shared_ptr<Component::IComponent> componentType);
