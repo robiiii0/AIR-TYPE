@@ -47,7 +47,7 @@ void Game::run() {
             *_gameEngine.getEntityManager(), getEntities());
         std::cout << "working" << std::endl;
 
-        std::__1::vector<uint32_t> result = getEntities();
+        std::vector<uint32_t> result = getEntities();
         std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
@@ -373,11 +373,11 @@ void Game::InitGame() {
 }
 
 void Game::GameStart() {
-    std::__1::vector<uint32_t> getAllEntites = getEntities();
-    std::cout << getAllEntites.size() << std::endl;
-    for (uint32_t i = 0; i < getAllEntites.size(); i++) {
+    std::vector<uint32_t> AllEntities = getEntities();
+    std::cout << AllEntities.size() << std::endl;
+    for (uint32_t i = 0; i < AllEntities.size(); i++) {
         _entities =
-            _gameEngine.getEntityManager()->destroyEntity(getAllEntites[i]);
+            _gameEngine.getEntityManager()->destroyEntity(AllEntities[i]);
         std::cout << "destruction de l'entitée " << i << std::endl;
     }
     std::cout << _entities.size() << std::endl;
