@@ -43,19 +43,30 @@ void Engine::Physic::PhysicModule::update(
                     }
                 }
             }
-            std::cout << typeid(*component).name() << std::endl;
+            // std::cout << typeid(*component).name() << std::endl;
                 if (typeid(*component) ==
                     typeid(Engine::Physic::Components::MovementComponent)) {
                     auto movement = std::dynamic_pointer_cast<
                         Engine::Physic::Components::MovementComponent>(
                         component);
-                    auto transform = std::dynamic_pointer_cast<
-                        Engine::Physic::Components::TransformComponent>(
-                        component);
-                    std::cout << movement << std::endl;
-                    movement->updateVelocity(dt);
-                    transform->setPos(500.0, 10.0);
-                    // std::cout << transform->getPos().x << std::endl;
+
+                    for (auto TransCompo : components) {
+                        if (typeid(*TransCompo) ==
+                            typeid(Engine::Physic::Components::
+                                       TransformComponent)) {
+                            auto transform = std::dynamic_pointer_cast<
+                                Engine::Physic::Components::TransformComponent>(
+                                TransCompo);
+                            std::cout << transform << std::endl;
+                            movement->updateVelocity(dt);
+                            transform->setPos(transform->getPos() + movement->getVelocity());
+                            std::cout << transform->getPos().x << std::endl;
+                        }
+                    }
+
+                    // auto transform = std::dynamic_pointer_cast<
+                    //     Engine::Physic::Components::TransformComponent>(
+                    //     component);
                 }
         }
     }
