@@ -19,3 +19,9 @@ rm -rf src/Server/Makefile
 rm -rf src/Server/cmake_install.cmake
 rm -rf src/Server/r-type_server
 
+
+rm -rf src/GameEngine/NetworkingModule/CMakeCache.txt
+rm -rf src/GameEngine/NetworkingModule/CMakeFiles
+rm -rf src/GameEngine/NetworkingModule/Makefile
+rm -rf src/GameEngine/NetworkingModule/cmake_install.cmake
+

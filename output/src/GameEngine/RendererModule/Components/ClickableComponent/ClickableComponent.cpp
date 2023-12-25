@@ -61,7 +61,7 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
         _data._sprite.setColor(sf::Color::Red);
         return true;
     } else {
-        _data._sprite.setColor(sf::Color::White);
+        _data._sprite.setColor(_data.color);
         return false;
     }
     return _isClicked;
