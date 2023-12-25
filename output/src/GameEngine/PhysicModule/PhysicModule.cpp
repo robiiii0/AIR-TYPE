@@ -16,6 +16,7 @@ Engine::Physic::PhysicModule::~PhysicModule() {}
 void Engine::Physic::PhysicModule::update(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
     float dt) {
+        std::cout << "UPDATE" << std::endl;
     for (auto &id : id_list) {
         auto components = entityManager.getAllComponents(id);
         for (auto &component : components) {
@@ -41,6 +42,8 @@ void Engine::Physic::PhysicModule::update(
                         }
                     }
                 }
+            }
+            std::cout << typeid(*component).name() << std::endl;
                 if (typeid(*component) ==
                     typeid(Engine::Physic::Components::MovementComponent)) {
                     auto movement = std::dynamic_pointer_cast<
@@ -51,10 +54,9 @@ void Engine::Physic::PhysicModule::update(
                         component);
                     std::cout << movement << std::endl;
                     movement->updateVelocity(dt);
-                    transform->setPos(
-                        (transform->getPos() + movement->getVelocity()));
+                    transform->setPos(500.0, 10.0);
+                    // std::cout << transform->getPos().x << std::endl;
                 }
-            }
         }
     }
 }

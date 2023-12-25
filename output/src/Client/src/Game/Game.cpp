@@ -37,6 +37,8 @@ Game::Game() {
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
+                                              getEntities(), 1.0f / 60.0f);
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         _gameEngine.getRendererModule()->handleEvent(
@@ -396,4 +398,42 @@ void Game::setSettings() {
     createSprite(_textures[1], {925, 500}, {0.1, 0.1});
     // Window fullscreen.
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+}
+
+void Game::createTest() {
+    uint32_t player_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Physic::Components::MovementData player_data = {{1, 1}, {1, 1}};
+
+    sf::Color                                      color = sf::Color::White;
+    sf::Sprite                                     sprite_temp_temp;
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        sprite_temp_temp, {500, 500}, {1, 1}, color, 0};
+
+    Engine::Physic::Components::TransformData transformData = {
+        {500, 500}, {1, 1}, 0.0};
+
+    std::shared_ptr<Engine::Physic::Components::TransformComponent>
+        transformComponent =
+            std::make_shared<Engine::Physic::Components::TransformComponent>(
+                transformData);
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 _textures[1]);
+
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(player_entity, transformComponent);
+
+    std::shared_ptr<Engine::Physic::Components::MovementComponent>
+        movementComponent =
+            std::make_shared<Engine::Physic::Components::MovementComponent>(
+                player_data);
+
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 movementComponent);
+    addEntity(player_entity);
+    // transformComponent->printTransformData();
 }

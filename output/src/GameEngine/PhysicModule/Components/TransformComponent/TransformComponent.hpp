@@ -30,6 +30,7 @@ namespace Engine {
                     void           execute() override;
                     void           setTransform(TransformData &data);
                     void           setPos(Vector2f pos);
+                    void           setPos(float x, float y);
                     void           setScale(Vector2f scale);
                     void           setRotation(float rotation);
                     TransformData &getTransform();
@@ -43,6 +44,8 @@ namespace Engine {
                     Vector2f       _pos;
                     Vector2f       _scale;
                     float          _rotation;
+                    float _x;
+                    float _y;
             };
         };  // namespace Components
     };      // namespace Physic

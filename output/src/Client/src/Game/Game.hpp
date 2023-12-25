@@ -12,6 +12,8 @@
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
+#include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
+#include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 
 enum {
     BACKGROUND = 0,
@@ -93,6 +95,7 @@ class Game {
         void setParalax();
         void setLobby();
         void setSettings();
+        void createTest();
 
     private:
         Engine::GameEngine         _gameEngine;
