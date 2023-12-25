@@ -67,13 +67,19 @@ void Engine::Entity::EntityManager::destroyEntity(
     // signatures[entity] = 0;
     _available_entities.push(entity_id);
     _living_entity_count--;
+
+
+    for (std::uint32_t i = 0; i < _entities.size(); i++) {
+        std::cout << "existing entity: " << _entities[i]->_id << std::endl;
+    }
+
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == entity_id) {
+            std::cout << "yep " << std::endl;
             _entities.erase(_entities.begin() + i);
             break;
         }
     }
-    throw Engine::EntityManager::CouldNotFindEntity();
 }
 
 /**

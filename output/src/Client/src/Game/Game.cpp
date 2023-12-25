@@ -37,10 +37,14 @@ Game::Game() {
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+
+        std::cout << "working" << std::endl;
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
+        std::cout << "working" << std::endl;
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
+        std::cout << "working" << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
@@ -343,6 +347,13 @@ void Game::setParalax() {
 
 void Game::GameStart() {
     // TODO: reset all entities and instance new game entities
+
+    std::__1::vector<uint32_t> getAllEntites = getEntities();
+    std::cout << getAllEntites.size() << std::endl;
+    for (uint32_t i = 0; i < getAllEntites.size(); i++) {
+        _gameEngine.getEntityManager()->destroyEntity(getAllEntites[i]);
+        std::cout << "destruction de l'entitée " << i << std::endl;
+    }
     std::cout << "le jeu se lance" << std::endl;
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
