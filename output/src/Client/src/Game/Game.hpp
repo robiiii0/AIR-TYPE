@@ -7,6 +7,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -68,7 +69,7 @@ class Game {
                           sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
-                          float        rotation = 0);
+                          float rotation = 0, bool playable = false);
 
         void createSpriteParallax(sf::Texture &_texture,
                                   std::string  _name = "parallaxSprite",
@@ -90,13 +91,22 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createRoundedButton(
+            std::string text, sf::Font &font,
+            sf::Vector2f position = {0.0, 0.0}, sf::Vector2f scale = {1, 1},
+            sf::Color             colorButton = sf::Color::White,
+            sf::Color             colorText = sf::Color::White,
+            std::function<void()> _func = []() {});
         // Set Screen
         void setMenu();
         void setParalax();
         void setLobby();
         void setSettings();
         void createTest();
+        void InitGame();
 
+        void GameStart();
+        // void Setting();
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;

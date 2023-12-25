@@ -46,6 +46,20 @@ void Engine::RendererModule::RendererModule::handleEvent(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
                         }
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       RoundedClickableComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        RoundedClickableComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                            if (isClicked) {
+                                return;
+                            }
+                        }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {
                     std::cerr << e.what() << '\n';
@@ -72,6 +86,14 @@ void Engine::RendererModule::RendererModule::update(
                 if (auto clickableComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::ClickableComponent>(
                         component)) {
+                    // If it is, update the component
+                    clickableComp->isHovered(
+                        {sf::Mouse::getPosition(_window).x,
+                         sf::Mouse::getPosition(_window).y});
+                }
+                if (auto clickableComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::
+                            RoundedClickableComponent>(component)) {
                     // If it is, update the component
                     clickableComp->isHovered(
                         {sf::Mouse::getPosition(_window).x,
