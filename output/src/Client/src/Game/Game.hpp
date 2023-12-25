@@ -55,7 +55,6 @@ class Game {
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
-        void loadMusic(std::string path);
 
         // Create Component
         void createText(std::string text, sf::Font &font,
@@ -88,6 +87,8 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createSound(std::string path, bool loop = false, float volume = 50);
+
         // Set Screen
         void setMenu();
         void setParalax();
@@ -106,7 +107,6 @@ class Game {
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
-        sf::Music                _music;
         sf::Sprite               _sprite;
 };
 
