@@ -19,7 +19,7 @@ namespace Engine {
             struct TransformData {
                     Engine::Physic::Vector2f pos;
                     Engine::Physic::Vector2f scale;
-                    float    rotation;
+                    float                    rotation;
             };
 
             class TransformComponent :
@@ -34,16 +34,16 @@ namespace Engine {
                     void           setScale(Engine::Physic::Vector2f scale);
                     void           setRotation(float rotation);
                     TransformData &getTransform();
-                    Engine::Physic::Vector2f       getPos() const;
-                    Engine::Physic::Vector2f       getScale() const;
-                    float          getRotation() const;
+                    Engine::Physic::Vector2f getPos() const;
+                    Engine::Physic::Vector2f getScale() const;
+                    float                    getRotation() const;
 
                 protected:
                 private:
-                    TransformData &_data;
-                    Engine::Physic::Vector2f       _pos;
-                    Engine::Physic::Vector2f       _scale;
-                    float          _rotation;
+                    TransformData           &_data;
+                    Engine::Physic::Vector2f _pos;
+                    Engine::Physic::Vector2f _scale;
+                    float                    _rotation;
             };
         };  // namespace Components
     };      // namespace Physic

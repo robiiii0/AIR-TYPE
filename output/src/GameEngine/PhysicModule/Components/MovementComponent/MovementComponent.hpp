@@ -27,9 +27,9 @@ namespace Engine {
                 public Engine::Entity::Component::AComponent {
                 public:
                     MovementComponent(MovementData &data);
-                     //  MovementComponent(Vector2f acceleration, Vector2f
-                     //  velocity,
-                     //                    float maxVelocity);
+                    //  MovementComponent(Vector2f acceleration, Vector2f
+                    //  velocity,
+                    //                    float maxVelocity);
                     ~MovementComponent();
                     void     execute() override;
                     void     updateVelocity(float dt);

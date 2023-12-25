@@ -11,9 +11,9 @@
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
-#include "../GameState/GameState.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../GameState/GameState.hpp"
 
 enum {
     BACKGROUND = 0,

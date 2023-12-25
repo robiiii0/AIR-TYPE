@@ -425,7 +425,8 @@ void Game::createTest() {
 
     _gameEngine.getEntityManager()->addComponent(player_entity,
                                                  spriteComponent);
-    _gameEngine.getEntityManager()->addComponent(player_entity, transformComponent);
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 transformComponent);
 
     std::shared_ptr<Engine::Physic::Components::MovementComponent>
         movementComponent =

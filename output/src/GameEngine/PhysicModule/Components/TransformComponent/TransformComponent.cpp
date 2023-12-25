@@ -6,6 +6,7 @@
 */
 
 #include "TransformComponent.hpp"
+
 #include <iostream>
 
 Engine::Physic::Components::TransformComponent::TransformComponent(
@@ -21,7 +22,8 @@ void Engine::Physic::Components::TransformComponent::setTransform(
     _data = data;
 }
 
-void Engine::Physic::Components::TransformComponent::setPos(Engine::Physic::Vector2f pos) {
+void Engine::Physic::Components::TransformComponent::setPos(
+    Engine::Physic::Vector2f pos) {
     _pos = pos;
 }
 
@@ -31,7 +33,8 @@ void Engine::Physic::Components::TransformComponent::setPos(float x, float y) {
     _pos.y = y;
 }
 
-void Engine::Physic::Components::TransformComponent::setScale(Engine::Physic::Vector2f scale) {
+void Engine::Physic::Components::TransformComponent::setScale(
+    Engine::Physic::Vector2f scale) {
     _scale = scale;
 }
 

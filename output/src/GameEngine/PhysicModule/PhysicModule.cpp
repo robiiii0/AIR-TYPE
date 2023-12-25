@@ -16,7 +16,7 @@ Engine::Physic::PhysicModule::~PhysicModule() {}
 void Engine::Physic::PhysicModule::update(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
     float dt) {
-        std::cout << "UPDATE" << std::endl;
+    std::cout << "UPDATE" << std::endl;
     for (auto &id : id_list) {
         auto components = entityManager.getAllComponents(id);
         for (auto &component : components) {
@@ -44,30 +44,30 @@ void Engine::Physic::PhysicModule::update(
                 }
             }
             // std::cout << typeid(*component).name() << std::endl;
-                if (typeid(*component) ==
-                    typeid(Engine::Physic::Components::MovementComponent)) {
-                    auto movement = std::dynamic_pointer_cast<
-                        Engine::Physic::Components::MovementComponent>(
-                        component);
+            if (typeid(*component) ==
+                typeid(Engine::Physic::Components::MovementComponent)) {
+                auto movement = std::dynamic_pointer_cast<
+                    Engine::Physic::Components::MovementComponent>(component);
 
-                    for (auto TransCompo : components) {
-                        if (typeid(*TransCompo) ==
-                            typeid(Engine::Physic::Components::
-                                       TransformComponent)) {
-                            auto transform = std::dynamic_pointer_cast<
-                                Engine::Physic::Components::TransformComponent>(
-                                TransCompo);
-                            std::cout << transform << std::endl;
-                            movement->updateVelocity(dt);
-                            transform->setPos(transform->getPos() + movement->getVelocity());
-                            std::cout << transform->getPos().x << std::endl;
-                        }
+                for (auto TransCompo : components) {
+                    if (typeid(*TransCompo) ==
+                        typeid(
+                            Engine::Physic::Components::TransformComponent)) {
+                        auto transform = std::dynamic_pointer_cast<
+                            Engine::Physic::Components::TransformComponent>(
+                            TransCompo);
+                        std::cout << transform << std::endl;
+                        movement->updateVelocity(dt);
+                        transform->setPos(transform->getPos() +
+                                          movement->getVelocity());
+                        std::cout << transform->getPos().x << std::endl;
                     }
-
-                    // auto transform = std::dynamic_pointer_cast<
-                    //     Engine::Physic::Components::TransformComponent>(
-                    //     component);
                 }
+
+                // auto transform = std::dynamic_pointer_cast<
+                //     Engine::Physic::Components::TransformComponent>(
+                //     component);
+            }
         }
     }
 }
