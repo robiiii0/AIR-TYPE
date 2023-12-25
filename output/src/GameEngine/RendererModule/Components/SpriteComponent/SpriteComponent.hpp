@@ -21,7 +21,7 @@ namespace Engine {
                     sf::Vector2f scale;
                     sf::Color    color;
                     float        rotation;
-                    bool Playable;
+                    bool         Playable;
             };
 
             class SpriteComponent :

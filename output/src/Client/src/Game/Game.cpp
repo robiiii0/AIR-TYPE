@@ -28,7 +28,8 @@ Game::Game() {
     loadTexture("src/Client/assets/new_assets/background/Menu/moon.png");
     loadTexture(
         "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
-    loadTexture("src/Client/assets/new_assets/player/sprites/player1_yellow.png");
+    loadTexture(
+        "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
 
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
@@ -130,7 +131,8 @@ void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
 }
 
 void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
-                        sf::Vector2f scale, sf::Color color, float rotation, bool playable) {
+                        sf::Vector2f scale, sf::Color color, float rotation,
+                        bool playable) {
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
     sf::Sprite                                     sprite_temp_temp;
@@ -343,10 +345,10 @@ void Game::setParalax() {
                         std::bind(&Game::GameStart, this));
 
     createRoundedButton("Setting", _fonts[TITLE],
-                    {static_cast<float>(_width_drawable / 2 - 100),
-                    static_cast<float>(_height_drawable / 1.5)},
-                    {200, 100}, sf::Color::Red, sf::Color::White,
-                    std::bind(&Game::setSettings, this));
+                        {static_cast<float>(_width_drawable / 2 - 100),
+                         static_cast<float>(_height_drawable / 1.5)},
+                        {200, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::setSettings, this));
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
@@ -364,11 +366,10 @@ void Game::InitGame() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-
     createSprite(_textures[PLAYER],
-            {static_cast<float>(0 + _width_drawable / 8),
-            static_cast<float>(_height_drawable / 2)},
-            {scale, scale}, sf::Color::White, 0, true);
+                 {static_cast<float>(0 + _width_drawable / 8),
+                  static_cast<float>(_height_drawable / 2)},
+                 {scale, scale}, sf::Color::White, 0, true);
 }
 
 void Game::GameStart() {

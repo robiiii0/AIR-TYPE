@@ -84,7 +84,6 @@ std::vector<std::uint32_t> Engine::Entity::EntityManager::destroyEntity(
             ;
         }
     }
-
 }
 
 /**
