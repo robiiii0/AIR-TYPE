@@ -12,6 +12,8 @@
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
+#include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
+#include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 #include "../GameState/GameState.hpp"
 
 enum {
@@ -100,6 +102,7 @@ class Game {
         void setParalax();
         void setLobby();
         void setSettings();
+        void createTest();
         void InitGame();
 
         void GameStart();

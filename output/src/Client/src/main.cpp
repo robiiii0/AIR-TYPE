@@ -12,7 +12,8 @@ int main() {
     Game game;
 
     // game.setMenu();
-    game.setParalax();
+    // game.setParalax();
+    game.createTest();
     // game.setLobby();
     //    game.setSettings();
     game.run();
