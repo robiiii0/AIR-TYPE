@@ -56,6 +56,9 @@ void Engine::RendererModule::RendererModule::handleEvent(
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
+                            if (isClicked) {
+                                return;
+                            }
                         }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {

@@ -67,7 +67,7 @@ class Game {
                           sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
-                          float        rotation = 0);
+                          float rotation = 0, bool playable = false);
 
         void createSpriteParallax(sf::Texture &_texture,
                                   std::string  _name = "parallaxSprite",
@@ -100,6 +100,7 @@ class Game {
         void setParalax();
         void setLobby();
         void setSettings();
+        void InitGame();
 
         void GameStart();
         // void Setting();
