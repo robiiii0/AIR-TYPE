@@ -6,8 +6,8 @@
 #define AIR_TYPE_ROUNDEDCLICKABLECOMPONENT_H
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <functional>
+#include <iostream>
 
 #include "../../IRendererComponent/IRendererComponent.hpp"
 

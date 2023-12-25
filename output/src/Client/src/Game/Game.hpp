@@ -7,9 +7,9 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <functional>
 #include <string>
 #include <vector>
-#include <functional>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../GameState/GameState.hpp"
