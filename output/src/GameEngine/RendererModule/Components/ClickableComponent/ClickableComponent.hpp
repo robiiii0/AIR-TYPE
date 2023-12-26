@@ -9,6 +9,7 @@
 #define CLICKABLECOMPONENT_HPP_
 
 #include <SFML/Graphics.hpp>
+#include <functional>
 
 #include "../../IRendererComponent/IRendererComponent.hpp"
 
