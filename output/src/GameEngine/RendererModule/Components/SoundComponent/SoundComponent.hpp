@@ -17,9 +17,9 @@ namespace Engine {
         namespace Components {
             struct SoundData {
                     std::string path;
-                    bool        loop;
-                    bool        play;
-                    float       volume;
+                    bool        loop = false;
+                    bool        play = false;
+                    float       volume = 50;
             };
 
             class SoundComponent :
@@ -33,17 +33,15 @@ namespace Engine {
                     void       pause();
                     void       stop();
 
-                    //                // Sound
-                    //                void setVolume(float volume);
-                    //                void setLoop(bool loop);
-                    //                void play();
-                    //                void pause();
-                    //                void stop();
+                    void setLoop(bool loop);
+
+                    void setVolume(float volume);
+                    float getVolume() const;
 
                 protected:
                 private:
                     std::uint32_t _id;
-                    SoundData    &_data;
+                    SoundData    _data;
                     sf::Music     _sound;
             };
         };  // namespace Components

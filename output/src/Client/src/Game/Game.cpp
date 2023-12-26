@@ -34,6 +34,9 @@ Game::Game() {
         "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
+
+    // Main music loop.
+    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
 void Game::run() {
@@ -298,8 +301,6 @@ void Game::setParalax() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
-
     // Background texture
 
     createSpriteParallax(
@@ -401,13 +402,11 @@ void Game::GameStart() {
 }
 
 void Game::SoundUp() {
-    //    _music.setVolume(_music.getVolume() + 10);
-    std::cout << "sound up" << std::endl;
+    _sounds[0]->setVolume(_sounds[0]->getVolume() + 1);
 }
 
 void Game::SoundLess() {
-    //    _music.setVolume(_music.getVolume() - 10);
-    std::cout << "sound less" << std::endl;
+    _sounds[0]->setVolume(_sounds[0]->getVolume() - 1);
 }
 
 void Game::WindowSize500() {
@@ -423,21 +422,13 @@ void Game::WindowSizeFullscreen() {
 }
 
 void Game::setSettings() {
-    //    sf::Vector2u textureSize = _textures[0].getSize();
-    //
-    //    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    //    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    //    float scale = std::max(scale_x, scale_y);
-    //
-    //    createSprite(_textures[BACKGROUND],
-    //                 {static_cast<float>(_width_drawable / 2),
-    //                  static_cast<float>(_height_drawable / 2)},
-    //                 {scale, scale});
     // SOUND SECTION.
-    //    TODO: Get sound component to retrieve volume.
     // Text sound.
-    // createText(std::to_string(static_cast<int>(_music.getVolume())),
-    //            _fonts[TITLE], {925, 100});
+    // TODO: Find a way to retrieve the component with his id to change the value of volume.
+     createText(std::to_string(static_cast<int>(_sounds[0]->getVolume())),
+                _fonts[TITLE], {static_cast<float>(_width_drawable / 2),
+                                static_cast<float>(_height_drawable / 2 - 200) + 40},
+                {1, 1});
     // Button volume -.
     createRoundedButton("-", _fonts[TITLE],
                         {static_cast<float>(_width_drawable / 2 - 150),
