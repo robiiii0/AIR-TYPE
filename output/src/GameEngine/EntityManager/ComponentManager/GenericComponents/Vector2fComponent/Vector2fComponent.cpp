@@ -10,9 +10,6 @@ Engine::Entity::Component::GenericComponents::Vector2fComponent::
     _value.y = data.y;
 }
 
-Engine::Entity::Component::GenericComponents::Vector2fComponent::
-    ~Vector2fComponent() {}
-
 void Engine::Entity::Component::GenericComponents::Vector2fComponent::setValue(
     Vector2f &value) {
     _value.x = value.x;

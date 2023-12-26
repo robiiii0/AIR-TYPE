@@ -19,7 +19,7 @@ namespace Engine {
                 class Vector2fComponent : public AComponent {
                     public:
                         Vector2fComponent(Vector2f &data);
-                        ~Vector2fComponent();
+                        ~Vector2fComponent() override = default;
 
                         void     setValue(Vector2f &value);
                         Vector2f getValue() const;

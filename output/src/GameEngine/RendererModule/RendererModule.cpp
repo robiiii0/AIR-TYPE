@@ -99,6 +99,18 @@ void Engine::RendererModule::RendererModule::update(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});
                 }
+                if (auto spriteComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::SpriteComponent>(
+                        component)) {
+                    for (auto &component2 : components) {
+                        if (auto posComp = std::dynamic_pointer_cast<
+                                Engine::Entity::Component::GenericComponents::
+                                    PositionComponent>(component2)) {
+                            spriteComp->setPosition(posComp->getValue().x,
+                                                    posComp->getValue().y);
+                        }
+                    }
+                }
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
             std::cerr << e.what() << '\n';
