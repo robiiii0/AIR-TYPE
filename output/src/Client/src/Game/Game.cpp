@@ -5,6 +5,7 @@
 #include "Game.hpp"
 
 Game::Game() {
+    _sounds.clear();
     _gameEngine.getRendererModule()->init(
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
@@ -84,7 +85,7 @@ void Game::createSound(std::string path, float volume, bool loop, bool play) {
     uint32_t soundEntity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::RendererModule::Components::SoundData sound_temp = {path, loop,
-                                                                true, volume};
+                                                                play, volume};
 
     std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
         soundComponent = std::make_shared<
@@ -92,7 +93,7 @@ void Game::createSound(std::string path, float volume, bool loop, bool play) {
 
     _gameEngine.getEntityManager()->addComponent(soundEntity, soundComponent);
     addEntity(soundEntity);
-
+    _sounds.push_back(soundComponent);
     std::cout << "SOUND CREATED!" << std::endl;
 }
 

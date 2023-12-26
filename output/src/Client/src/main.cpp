@@ -13,9 +13,9 @@ int main() {
 
     // game.setMenu();
     // game.setParalax();
-    game.createTest();
+//    game.createTest();
     // game.setLobby();
-    //    game.setSettings();
+        game.setSettings();
     game.run();
     return 0;
 }
