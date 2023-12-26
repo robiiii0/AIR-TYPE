@@ -16,19 +16,22 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SoundData {
-                    bool      loop;
-                    float     volume;
-                    std::string path;
+                std::string path;
+                bool      loop;
+                bool     play;
+                float     volume;
             };
 
             class SoundComponent :
-                public Engine::RendererModule::IRendererComponent {
+                public Engine::Entity::Component::AComponent {
                 public:
                     SoundComponent(SoundData &value);
                     ~SoundComponent();
-
                     void execute() override;
-                    sf::Drawable &getDrawable() override;
+                    SoundData& get();
+                    void play();
+                    void pause();
+                    void stop();
 
                     //                // Sound
                     //                void setVolume(float volume);
@@ -39,6 +42,7 @@ namespace Engine {
 
                 protected:
                 private:
+                    std::uint32_t _id;
                     SoundData &_data;
                     sf::Music _sound;
             };

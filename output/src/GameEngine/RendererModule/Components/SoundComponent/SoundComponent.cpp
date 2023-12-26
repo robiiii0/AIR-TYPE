@@ -17,7 +17,8 @@ Engine::RendererModule::Components::SoundComponent::SoundComponent(
         std::cout << "cant load: " << _data.path << std::endl;
     _sound.setLoop(_data.loop);
     _sound.setVolume(_data.volume);
-    _sound.play();
+    if (_data.play)
+        _sound.play();
     std::cout << "sound created" << std::endl;
 }
 
@@ -26,10 +27,19 @@ Engine::RendererModule::Components::SoundComponent::~SoundComponent() {
 }
 
 void Engine::RendererModule::Components::SoundComponent::execute() {
+}
+
+Engine::RendererModule::Components::SoundData& Engine::RendererModule::Components::SoundComponent::get() {
+    return _data;
+}
+void Engine::RendererModule::Components::SoundComponent::play() {
     _sound.play();
 }
 
-sf::Drawable &Engine::RendererModule::Components::SoundComponent::getDrawable() {
-    sf::Sprite drawable_text;
-    return drawable_text;
+void Engine::RendererModule::Components::SoundComponent::pause() {
+    _sound.pause();
+}
+
+void Engine::RendererModule::Components::SoundComponent::stop() {
+    _sound.stop();
 }

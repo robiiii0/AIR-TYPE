@@ -71,11 +71,11 @@ void Game::loadTexture(std::string path) {
     _textures.push_back(texture);
 }
 
-void Game::createSound(std::string path, bool loop, float volume) {
+void Game::createSound(std::string path, float volume, bool loop, bool play) {
     uint32_t soundEntity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::RendererModule::Components::SoundData sound_temp = {
-        loop, volume, path};
+        path, loop, true, volume};
 
     std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
             soundComponent =
@@ -83,11 +83,9 @@ void Game::createSound(std::string path, bool loop, float volume) {
                     sound_temp);
 
     _gameEngine.getEntityManager()->addComponent(soundEntity, soundComponent);
-
-    // TODO: Fix addEntity() segfault.
     addEntity(soundEntity);
 
-    std::cout << "SOUND CREATION !" << std::endl;
+    std::cout << "SOUND CREATED!" << std::endl;
 }
 
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
@@ -256,7 +254,8 @@ void Game::setParalax() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    createSound("src/Client/assets/Sound/music.wav", true, 50);
+    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
+
 
     // Background texture
 
