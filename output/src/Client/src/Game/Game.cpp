@@ -204,21 +204,33 @@ void Game::setMenu() {
                {1, 1});
 
     //    // server choice
-    //    createButton("Server Info", _textures[BUTTON], _fonts[TITLE],
-    //                 {static_cast<float>(_width_drawable / 6),
-    //                  static_cast<float>(_height_drawable / 3)},
-    //                 {0.6, 0.5});
+    createSprite(_textures[BUTTON],
+                 {static_cast<float>(_width_drawable / 6),
+                  static_cast<float>(_height_drawable / 3)},
+                 {0.6, 0.5});
+    createText("Server choice", _fonts[TITLE],
+                 {static_cast<float>(_width_drawable / 6),
+                  static_cast<float>(_height_drawable / 3)},
+                 {0.6, 0.5});
     //    //    server ip
     //
-    //    createButton("Server IP", _textures[BUTTON], _fonts[TITLE],
-    //                 {static_cast<float>(_width_drawable / 5),
-    //                  static_cast<float>(_height_drawable / 2.2)},
-    //                 {0.8, 0.5});
+    createSprite(_textures[BUTTON],
+                 {static_cast<float>(_width_drawable / 5),
+                  static_cast<float>(_height_drawable / 2.2)},
+                 {0.8, 0.5});
+    createText("Server ip", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 5),
+                static_cast<float>(_height_drawable / 2.2)},
+               {0.8, 0.5});
     //    //    //    server port
-    //    createButton("Server Ports", _textures[BUTTON], _fonts[TITLE],
-    //                 {static_cast<float>(_width_drawable / 5),
-    //                  static_cast<float>(_height_drawable / 1.8)},
-    //                 {0.8, 0.5});
+    createSprite(_textures[BUTTON],
+                 {static_cast<float>(_width_drawable / 5),
+                  static_cast<float>(_height_drawable / 1.8)},
+                 {0.8, 0.5});
+    createText("Server Port", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 5),
+                static_cast<float>(_height_drawable / 1.8)},
+               {0.8, 0.5});
     //    //    go to lobby
     createButton(std::bind(&Game::changeState, this, LOBBY), "Go To lobby",
                  _textures[BUTTON], _fonts[TITLE],
@@ -398,17 +410,17 @@ void Game::setSettings() {
     createText(std::to_string(static_cast<int>(_music.getVolume())),
                _fonts[TITLE], {925, 100});
     // Button volume -.
-    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
-    // Button volume +.
-    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
-
-    // WINDOW_SIZE SECTION.
-    // Window 500x500.
-    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
-    // Window 800x600.
-    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
-    // Window fullscreen.
-    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+//    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
+//    // Button volume +.
+//    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
+//
+//    // WINDOW_SIZE SECTION.
+//    // Window 500x500.
+//    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
+//    // Window 800x600.
+//    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
+//    // Window fullscreen.
+//    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
 }
 
 void Game::changeState(int state) {
@@ -424,10 +436,6 @@ void Game::clearCurrentState() {
             _gameEngine.getEntityManager()->destroyEntity(entity);
         }
     }
-//    _entities.erase(std::remove_if(_entities.begin(), _entities.end(),
-//                                   [](uint32_t id) { return id >= 7; }),
-//                    _entities.end());
-//    _entities.clear();
 }
 
 void Game::setupState() {
@@ -436,7 +444,7 @@ void Game::setupState() {
             setMenu();
             break;
         case LOBBY:
-            InitGame();
+            //            setLobby();
             break;
         case SETTINGS:
             setSettings();
