@@ -32,7 +32,7 @@ sf::Drawable &Engine::RendererModule::Components::RoundedClickableComponent::
 void Engine::RendererModule::Components::RoundedClickableComponent::update() {}
 
 sf::Vector2f
-    Engine::RendererModule::Components::RoundedClickableComponent::getPos()
+    Engine::RendererModule::Components::RoundedClickableComponent::getPosition()
         const {}
 
 bool Engine::RendererModule::Components::RoundedClickableComponent::isHovered(

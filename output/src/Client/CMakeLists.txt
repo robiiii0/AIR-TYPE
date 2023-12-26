@@ -24,6 +24,7 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
+        ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
         src/Game/Game.cpp
         ../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
@@ -42,7 +43,7 @@ add_executable(r-type_client
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp
         # ../GameEngine/PhysicModule/PhysicModule.cpp
-        )
+)
 
 
 # Link the libraries from RendererModule and EntityManager
@@ -53,4 +54,4 @@ add_custom_command(TARGET r-type_client POST_BUILD
         $<TARGET_FILE:r-type_client>
         ${CMAKE_SOURCE_DIR}
         COMMENT "Moving r-type_client executable to ${CMAKE_SOURCE_DIR}"
-        )
+)
