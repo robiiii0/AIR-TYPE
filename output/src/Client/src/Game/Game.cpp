@@ -410,17 +410,18 @@ void Game::setSettings() {
     createText(std::to_string(static_cast<int>(_music.getVolume())),
                _fonts[TITLE], {925, 100});
     // Button volume -.
-    //    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
-    //    // Button volume +.
-    //    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
-    //
-    //    // WINDOW_SIZE SECTION.
-    //    // Window 500x500.
-    //    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
-    //    // Window 800x600.
-    //    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
-    //    // Window fullscreen.
-    //    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
+    // Button volume +.
+    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
+
+    // WINDOW_SIZE SECTION.
+    // Window 500x500.
+    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
+    // Window 800x600.
+    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
+    // Window fullscreen.
+    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+
 }
 
 void Game::changeState(int state) {
