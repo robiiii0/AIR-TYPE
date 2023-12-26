@@ -47,6 +47,7 @@ namespace Engine {
                     sf::Vector2f          _scale;
                     bool                  _isHovered;
                     bool                  _isClicked;
+                    sf::Vector2f          getPosition() const;
             };
         };  // namespace Components
     };      // namespace RendererModule
