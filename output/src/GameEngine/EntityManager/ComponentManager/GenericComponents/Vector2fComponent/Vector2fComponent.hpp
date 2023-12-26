@@ -32,8 +32,8 @@ namespace Engine {
 
                 typedef Vector2fComponent PositionComponent;
             }  // namespace GenericComponents
-        }  // namespace Component
-    }  // namespace Entity
-};     // namespace Engine
+        }      // namespace Component
+    }          // namespace Entity
+};             // namespace Engine
 
 #endif  // NETWORKING_VECTOR2FCOMPONENT_HPP

@@ -44,7 +44,7 @@ namespace Engine {
                         _relative_pos;
             };
         }  // namespace Components
-    }  // namespace RendererModule
+    }      // namespace RendererModule
 }  // namespace Engine
 
 #endif /* !TEXTCOMPONENT_HPP_ */
