@@ -16,7 +16,7 @@ Engine::Physic::PhysicModule::~PhysicModule() {}
 void Engine::Physic::PhysicModule::update(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
     float dt) {
-    std::cout << "UPDATE" << std::endl;
+    //    std::cout << "UPDATE" << std::endl;
     for (auto &id : id_list) {
         auto components = entityManager.getAllComponents(id);
         for (auto &component : components) {
