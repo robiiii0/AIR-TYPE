@@ -27,8 +27,9 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     std::cout << "ClickableCompoent created" << std::endl;
 }
 
-sf::Vector2f Engine::RendererModule::Components::ClickableComponent::getPos()
-    const {
+sf::Vector2f
+    Engine::RendererModule::Components::ClickableComponent::getPosition()
+        const {
     return _data.pos;
 }
 

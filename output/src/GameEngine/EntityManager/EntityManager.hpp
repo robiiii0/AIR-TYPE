@@ -15,6 +15,10 @@
 #include <queue>
 
 #include "ComponentManager/ComponentManager.hpp"
+#include "ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.hpp"
+#include "ComponentManager/GenericComponents/StringComponent/StringComponent.hpp"
+#include "ComponentManager/GenericComponents/ULongComponent/ULongComponent.hpp"
+#include "ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.hpp"
 #include "Entity/Entity.hpp"
 #include "exceptions/ComponentAlreadyExists/ComponentAlreadyExists.hpp"
 #include "exceptions/CouldNotAddComponent/CouldNotAddComponent.hpp"

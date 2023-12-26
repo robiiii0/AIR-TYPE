@@ -33,7 +33,7 @@ namespace Engine {
                     void          execute() override;
                     sf::Drawable &getDrawable() override;
                     void          update();
-                    sf::Vector2f  getPos() const;
+                    sf::Vector2f  getPosition() const;
                     bool          isHovered(std::pair<float, float> mousePos);
                     bool          isClicked(std::pair<float, float> mousePos);
 
