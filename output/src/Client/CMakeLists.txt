@@ -39,6 +39,8 @@ add_executable(r-type_client
         ../GameEngine/PhysicModule/Components/BoundingBoxComponent/BoundingBoxComponent.cpp
         ../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.cpp
         ../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.cpp
+        ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.hpp
+        ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp

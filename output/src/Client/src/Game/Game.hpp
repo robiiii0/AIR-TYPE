@@ -66,7 +66,6 @@ class Game {
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
-        void loadMusic(std::string path);
 
         // Create Component
         void createText(std::string text, sf::Font &font,
@@ -100,12 +99,16 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
+        void createSound(std::string path, float volume = 50, bool loop = false,
+                         bool play = false);
+
         void createRoundedButton(
             std::string text, sf::Font &font,
             sf::Vector2f position = {0.0, 0.0}, sf::Vector2f scale = {1, 1},
             sf::Color             colorButton = sf::Color::White,
             sf::Color             colorText = sf::Color::White,
             std::function<void()> _func = []() {});
+
         // Set Screen
         void setMenu();
         void setParalax();
@@ -133,8 +136,10 @@ class Game {
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
-        sf::Music                _music;
-        sf::Sprite               _sprite;
+        std::vector<
+            std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
+                   _sounds;
+        sf::Sprite _sprite;
 };
 
 #endif  // GAME_HPP

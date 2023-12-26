@@ -5,6 +5,7 @@
 #include "Game.hpp"
 
 Game::Game() {
+    _sounds.clear();
     _gameEngine.getRendererModule()->init(
         int(sf::VideoMode::getDesktopMode().width),
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
@@ -31,11 +32,8 @@ Game::Game() {
         "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
     loadTexture(
         "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
-
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
-
-    loadMusic("src/Client/assets/Sound/music.wav");
 }
 
 void Game::run() {
@@ -82,14 +80,20 @@ void Game::loadTexture(std::string path) {
     _textures.push_back(texture);
 }
 
-void Game::loadMusic(std::string path) {
-    if (!_music.openFromFile(path)) {
-        std::cout << "cant load: " << path << std::endl;
-    }
-    _music.setLoop(true);
-    _music.setVolume(20);
-    _music.play();
-    std::cout << "sound loaded" << std::endl;
+void Game::createSound(std::string path, float volume, bool loop, bool play) {
+    uint32_t soundEntity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::SoundData sound_temp = {path, loop,
+                                                                play, volume};
+
+    std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
+        soundComponent = std::make_shared<
+            Engine::RendererModule::Components::SoundComponent>(sound_temp);
+
+    _gameEngine.getEntityManager()->addComponent(soundEntity, soundComponent);
+    addEntity(soundEntity);
+    _sounds.push_back(soundComponent);
+    std::cout << "SOUND CREATED!" << std::endl;
 }
 
 void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
@@ -294,6 +298,8 @@ void Game::setParalax() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
+    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
+
     // Background texture
 
     createSpriteParallax(
@@ -407,8 +413,8 @@ void Game::setSettings() {
     //                 {scale, scale});
     // SOUND SECTION.
     // Text sound.
-    createText(std::to_string(static_cast<int>(_music.getVolume())),
-               _fonts[TITLE], {925, 100});
+    // createText(std::to_string(static_cast<int>(_music.getVolume())),
+    //            _fonts[TITLE], {925, 100});
     // Button volume -.
     createSprite(_textures[1], {700, 100}, {0.1, 0.1});
     // Button volume +.
