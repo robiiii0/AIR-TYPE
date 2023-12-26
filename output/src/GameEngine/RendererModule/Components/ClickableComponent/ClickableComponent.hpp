@@ -26,22 +26,25 @@ namespace Engine {
             class ClickableComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    ClickableComponent(ClickableData &value,
-                                       sf::Texture   &texture);
+                    ClickableComponent(
+                        ClickableData &value, sf::Texture &texture,
+                        std::function<void()> func = []() {});
                     ~ClickableComponent();
                     void          execute() override;
                     sf::Drawable &getDrawable() override;
                     void          update();
                     sf::Vector2f  getPos() const;
-                    bool isHovered(std::pair<float, float> mousePos) const;
-                    bool isClicked(std::pair<float, float> mousePos) const;
+                    bool          isHovered(std::pair<float, float> mousePos);
+                    bool          isClicked(std::pair<float, float> mousePos);
 
                 protected:
                 private:
-                    ClickableData &_data;
-                    sf::Sprite     _sprite;
-                    bool           _isHovered;
-                    bool           _isClicked;
+                    ClickableData        &_data;
+                    std::function<void()> _func = []() {};
+                    sf::Sprite            _sprite;
+                    sf::Vector2f          _scale;
+                    bool                  _isHovered;
+                    bool                  _isClicked;
             };
         };  // namespace Components
     };      // namespace RendererModule
