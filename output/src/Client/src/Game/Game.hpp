@@ -122,9 +122,10 @@ class Game {
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
-        std::vector<std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
-            _sounds;
-        sf::Sprite               _sprite;
+        std::vector<
+            std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
+                   _sounds;
+        sf::Sprite _sprite;
 };
 
 #endif  // GAME_HPP
