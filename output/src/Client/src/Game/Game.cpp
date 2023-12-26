@@ -421,7 +421,6 @@ void Game::setSettings() {
     createSprite(_textures[1], {925, 500}, {0.1, 0.1});
     // Window fullscreen.
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
-
 }
 
 void Game::changeState(int state) {
