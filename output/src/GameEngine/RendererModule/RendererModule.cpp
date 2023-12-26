@@ -47,6 +47,10 @@ void Engine::RendererModule::RendererModule::handleEvent(
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
+                            if (isClicked) {
+                                std::cout << "CLICKED" << std::endl;
+                                return;
+                            }
                         }
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::

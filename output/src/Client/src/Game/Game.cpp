@@ -10,6 +10,7 @@ Game::Game() {
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
+    _gameState = MENU;
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -43,13 +44,11 @@ void Game::run() {
                                               getEntities(), 1.0f / 60.0f);
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-        std::cout << "working" << std::endl;
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
-        std::cout << "working" << std::endl;
 
         std::vector<uint32_t> result = getEntities();
-        std::cout << result.size() << std::endl;
+        //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
@@ -168,7 +167,8 @@ void Game::createClickable(sf::Texture &texture, sf::Vector2f position,
     addEntity(clickable_entity);
 }
 
-void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
+void Game::createButton(std::function<void()> func, std::string text,
+                        sf::Texture &texture, sf::Font &font,
                         sf::Vector2f position, sf::Vector2f scale,
                         sf::Color color, float rotation) {
     uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
@@ -183,7 +183,7 @@ void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
     std::shared_ptr<Engine::RendererModule::Components::ClickableComponent>
         spriteComponent = std::make_shared<
             Engine::RendererModule::Components::ClickableComponent>(
-            clickable_temp, texture);
+            clickable_temp, texture, func);
 
     std::shared_ptr<Engine::RendererModule::Components::TextComponent>
         titleComponent =
@@ -197,55 +197,55 @@ void Game::createButton(std::string text, sf::Texture &texture, sf::Font &font,
 }
 
 void Game::setMenu() {
-    sf::Vector2u textureSize = _textures[0].getSize();
-
-    std::cout << "width: " << _width << std::endl;
-    std::cout << "height: " << _height << std::endl;
-    std::cout << "texture width: " << textureSize.x << std::endl;
-    std::cout << "texture height: " << textureSize.y << std::endl;
-    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    float scale = std::max(scale_x, scale_y);
-
-    createSprite(_textures[BACKGROUND],
-                 {static_cast<float>(_width_drawable / 2),
-                  static_cast<float>(_height_drawable / 2)},
-                 {scale, scale});
-
     //        title
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
                 static_cast<float>(_height_drawable / 6)},
                {1, 1});
 
-    // server choice
-    createButton("Server Info", _textures[BUTTON], _fonts[TITLE],
+    //    // server choice
+    createSprite(_textures[BUTTON],
                  {static_cast<float>(_width_drawable / 6),
                   static_cast<float>(_height_drawable / 3)},
                  {0.6, 0.5});
-    //    server ip
-
-    createButton("Server IP", _textures[BUTTON], _fonts[TITLE],
+    createText("Server choice", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 6),
+                static_cast<float>(_height_drawable / 3)},
+               {0.6, 0.5});
+    //    //    server ip
+    //
+    createSprite(_textures[BUTTON],
                  {static_cast<float>(_width_drawable / 5),
                   static_cast<float>(_height_drawable / 2.2)},
                  {0.8, 0.5});
-    //    //    server port
-    createButton("Server Ports", _textures[BUTTON], _fonts[TITLE],
+    createText("Server ip", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 5),
+                static_cast<float>(_height_drawable / 2.2)},
+               {0.8, 0.5});
+    //    //    //    server port
+    createSprite(_textures[BUTTON],
                  {static_cast<float>(_width_drawable / 5),
                   static_cast<float>(_height_drawable / 1.8)},
                  {0.8, 0.5});
+    createText("Server Port", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 5),
+                static_cast<float>(_height_drawable / 1.8)},
+               {0.8, 0.5});
     //    //    go to lobby
-    createButton("Go To lobby", _textures[BUTTON], _fonts[TITLE],
+    createButton(std::bind(&Game::changeState, this, LOBBY), "Go To lobby",
+                 _textures[BUTTON], _fonts[TITLE],
                  {static_cast<float>(_width_drawable / 6),
                   static_cast<float>(_height_drawable / 1.5)},
                  {0.6, 0.5});
     //    //    settings
-    createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
+    createButton(std::bind(&Game::changeState, this, SETTINGS), "",
+                 _textures[PARAMETER_BUTTON], _fonts[TITLE],
                  {static_cast<float>(_width_drawable / 1.12),
                   static_cast<float>(_height_drawable / 1.05)},
                  {0.10, 0.10});
     //    //    quit
-    createButton("", _textures[QUIT_BUTTON], _fonts[TITLE],
+    createButton(std::bind(&Game::changeState, this, MENU), "",
+                 _textures[QUIT_BUTTON], _fonts[TITLE],
                  {static_cast<float>(_width_drawable / 1.05),
                   static_cast<float>(_height_drawable / 1.05)},
                  {0.10, 0.10});
@@ -339,22 +339,22 @@ void Game::setParalax() {
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
 
-    createRoundedButton("Play", _fonts[TITLE],
-                        {static_cast<float>(_width_drawable / 2 - 100),
-                         static_cast<float>(_height_drawable / 2)},
-                        {200, 100}, sf::Color::Red, sf::Color::White,
-                        std::bind(&Game::GameStart, this));
+    //    createRoundedButton("Play", _fonts[TITLE],
+    //                        {static_cast<float>(_width_drawable / 2 - 100),
+    //                         static_cast<float>(_height_drawable / 2)},
+    //                        {200, 100}, sf::Color::Red, sf::Color::White,
+    //                        std::bind(&Game::GameStart, this));
+    //
+    //    createRoundedButton("Setting", _fonts[TITLE],
+    //                        {static_cast<float>(_width_drawable / 2 - 100),
+    //                         static_cast<float>(_height_drawable / 1.5)},
+    //                        {200, 100}, sf::Color::Red, sf::Color::White,
+    //                        std::bind(&Game::changeState, this, SETTINGS));
 
-    createRoundedButton("Setting", _fonts[TITLE],
-                        {static_cast<float>(_width_drawable / 2 - 100),
-                         static_cast<float>(_height_drawable / 1.5)},
-                        {200, 100}, sf::Color::Red, sf::Color::White,
-                        std::bind(&Game::setSettings, this));
-
-    createText("Air-Type", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 2),
-                static_cast<float>(_height_drawable / 5)},
-               {2, 2});
+    //    createText("Air-Type", _fonts[TITLE],
+    //               {static_cast<float>(_width_drawable / 2),
+    //                static_cast<float>(_height_drawable / 5)},
+    //               {2, 2});
 }
 
 void Game::InitGame() {
@@ -371,6 +371,12 @@ void Game::InitGame() {
                  {static_cast<float>(0 + _width_drawable / 8),
                   static_cast<float>(_height_drawable / 2)},
                  {scale, scale}, sf::Color::White, 0, true);
+
+    createButton(std::bind(&Game::changeState, this, MENU), "",
+                 _textures[QUIT_BUTTON], _fonts[TITLE],
+                 {static_cast<float>(_width_drawable / 1.05),
+                  static_cast<float>(_height_drawable / 1.05)},
+                 {0.10, 0.10});
 }
 
 void Game::GameStart() {
@@ -389,16 +395,16 @@ void Game::GameStart() {
 }
 
 void Game::setSettings() {
-    sf::Vector2u textureSize = _textures[0].getSize();
-
-    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    float scale = std::max(scale_x, scale_y);
-
-    createSprite(_textures[BACKGROUND],
-                 {static_cast<float>(_width_drawable / 2),
-                  static_cast<float>(_height_drawable / 2)},
-                 {scale, scale});
+    //    sf::Vector2u textureSize = _textures[0].getSize();
+    //
+    //    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
+    //    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+    //    float scale = std::max(scale_x, scale_y);
+    //
+    //    createSprite(_textures[BACKGROUND],
+    //                 {static_cast<float>(_width_drawable / 2),
+    //                  static_cast<float>(_height_drawable / 2)},
+    //                 {scale, scale});
     // SOUND SECTION.
     // Text sound.
     createText(std::to_string(static_cast<int>(_music.getVolume())),
@@ -417,41 +423,37 @@ void Game::setSettings() {
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
 }
 
-void Game::createTest() {
-    uint32_t player_entity = _gameEngine.getEntityManager()->createEntity();
+void Game::changeState(int state) {
+    clearCurrentState();
+    _gameState = state;
+    setupState();
+}
 
-    Engine::Physic::Components::MovementData player_data = {{1, 1}, {1, 1}};
+void Game::clearCurrentState() {
+    for (auto entity : _entities) {
+        if (entity >= 7 || _gameState == GAME) {
+            std::cout << "destruction de l'entitée " << entity << std::endl;
+            _gameEngine.getEntityManager()->destroyEntity(entity);
+        }
+    }
+    _entities.erase(_entities.begin() + 7, _entities.end());
+}
 
-    sf::Color                                      color = sf::Color::White;
-    sf::Sprite                                     sprite_temp_temp;
-    Engine::RendererModule::Components::SpriteData sprite_temp = {
-        sprite_temp_temp, {500, 500}, {1, 1}, color, 0};
-
-    Engine::Physic::Components::TransformData transformData = {
-        {500, 500}, {1, 1}, 0.0};
-
-    std::shared_ptr<Engine::Physic::Components::TransformComponent>
-        transformComponent =
-            std::make_shared<Engine::Physic::Components::TransformComponent>(
-                transformData);
-
-    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-        spriteComponent = std::make_shared<
-            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
-                                                                 _textures[1]);
-
-    _gameEngine.getEntityManager()->addComponent(player_entity,
-                                                 spriteComponent);
-    _gameEngine.getEntityManager()->addComponent(player_entity,
-                                                 transformComponent);
-
-    std::shared_ptr<Engine::Physic::Components::MovementComponent>
-        movementComponent =
-            std::make_shared<Engine::Physic::Components::MovementComponent>(
-                player_data);
-
-    _gameEngine.getEntityManager()->addComponent(player_entity,
-                                                 movementComponent);
-    addEntity(player_entity);
-    // transformComponent->printTransformData();
+void Game::setupState() {
+    switch (_gameState) {
+        case MENU:
+            setMenu();
+            break;
+        case LOBBY:
+            //            setLobby();
+            break;
+        case SETTINGS:
+            setSettings();
+            break;
+        case GAME:
+            InitGame();
+            break;
+        default:
+            break;
+    }
 }

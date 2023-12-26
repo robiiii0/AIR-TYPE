@@ -14,7 +14,8 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
-#include "../GameState/GameState.hpp"
+
+// #include "../GameState/GameState.hpp"
 
 enum {
     BACKGROUND = 0,
@@ -36,6 +37,13 @@ enum {
     ENEMY,
     BULLET,
     TEXT,
+};
+
+enum {
+    MENU = 0,
+    SETTINGS,
+    LOBBY,
+    GAME
 };
 
 enum {
@@ -85,8 +93,9 @@ class Game {
                              sf::Color    color = sf::Color::White,
                              float        rotation = 0);
 
-        void createButton(std::string text, sf::Texture &texture,
-                          sf::Font &font, sf::Vector2f position = {0.0, 0.0},
+        void createButton(std::function<void()> func, std::string text,
+                          sf::Texture &texture, sf::Font &font,
+                          sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
@@ -102,14 +111,19 @@ class Game {
         void setParalax();
         void setLobby();
         void setSettings();
-        void createTest();
         void InitGame();
 
         void GameStart();
         // void Setting();
+
+        void changeState(int state);
+        void clearCurrentState();
+        void setupState();
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
+        int                        _gameState;
 
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
