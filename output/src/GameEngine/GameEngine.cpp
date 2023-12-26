@@ -66,3 +66,7 @@ Engine::RendererModule::RendererModule *Engine::GameEngine::getRendererModule()
     const {
     return _rendererModule;
 }
+
+Engine::Physic::PhysicModule *Engine::GameEngine::getPhysicModule() const {
+    return _physicModule;
+}

@@ -28,16 +28,25 @@ Game::Game() {
     loadTexture("src/Client/assets/new_assets/background/Menu/moon.png");
     loadTexture(
         "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
+    loadTexture(
+        "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
 }
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
+                                              getEntities(), 1.0f / 60.0f);
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
+        std::cout << "working" << std::endl;
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
+        std::cout << "working" << std::endl;
+
+        std::vector<uint32_t> result = getEntities();
+        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
@@ -113,7 +122,8 @@ void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
     sf::Sprite sprite_temp;
 
     Engine::RendererModule::Components::parallaxData parallaxData = {
-        sprite_temp, _name, _pos, _scale, _movement, isAnimated, rect};
+        sprite_temp, _name,      _pos, _scale,
+        _movement,   isAnimated, rect, sf::Clock()};
 
     std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
         parallaxComponent = std::make_shared<
@@ -125,12 +135,13 @@ void Game::createSpriteParallax(sf::Texture &_texture, std::string _name,
 }
 
 void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
-                        sf::Vector2f scale, sf::Color color, float rotation) {
+                        sf::Vector2f scale, sf::Color color, float rotation,
+                        bool playable) {
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
     sf::Sprite                                     sprite_temp_temp;
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        sprite_temp_temp, position, scale, color, rotation};
+        sprite_temp_temp, position, scale, color, rotation, playable};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
@@ -243,6 +254,39 @@ void Game::setMenu() {
                  {0.10, 0.10});
 }
 
+void Game::createRoundedButton(std::string text, sf::Font &font,
+                               sf::Vector2f position, sf::Vector2f scale,
+                               sf::Color colorButton, sf::Color colorText,
+                               std::function<void()> _func) {
+    uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::RoundedClickableData clickable_temp = {
+        {position.x, position.y}, {scale.x, scale.y}, colorButton};
+
+    Engine::RendererModule::Components::TextData text_temp = {
+        text,
+        font,
+        colorText,
+        {position.x + (scale.x / 2), position.y + (scale.y / 3)},
+        {1, 1}};
+
+    std::shared_ptr<
+        Engine::RendererModule::Components::RoundedClickableComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::RoundedClickableComponent>(
+            clickable_temp, _func);
+
+    std::shared_ptr<Engine::RendererModule::Components::TextComponent>
+        titleComponent =
+            std::make_shared<Engine::RendererModule::Components::TextComponent>(
+                text_temp);
+
+    _gameEngine.getEntityManager()->addComponent(button_entity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(button_entity, titleComponent);
+    addEntity(button_entity);
+}
+
 void Game::setParalax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
@@ -261,17 +305,17 @@ void Game::setParalax() {
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
     createSpriteParallax(
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable * 2),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
     createSpriteParallax(
         _textures[STARS], "Background",
         {static_cast<float>(_width_drawable * 3),
          static_cast<float>(_height_drawable / 2)},
-        {5, 5}, {static_cast<float>(-8.0), static_cast<float>(0.0)}, false);
+        {5, 5}, {static_cast<float>(-3.0), static_cast<float>(0.0)}, false);
 
     createSpriteParallax(_textures[EARTH], "Background",
                          {static_cast<float>(_width_drawable),
@@ -293,40 +337,24 @@ void Game::setParalax() {
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(-7.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-    createSpriteParallax(_textures[ASTEROID], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 3)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(-1.0)},
-                         true, sf::IntRect(0, 0, 1000, 1000));
-    createSpriteParallax(_textures[BLACKHOLE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 5)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(-3.0)},
-                         true, sf::IntRect(0, 0, 2000, 2000));
-    createSpriteParallax(_textures[GAZ], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 7)),
-                          static_cast<float>(_height_drawable / 2)},
-                         {0.3, 0.3},
-                         {static_cast<float>(-6.0), static_cast<float>(2.0)},
-                         true, sf::IntRect(0, 0, 1000, 1000));
     createSpriteParallax(_textures[ICE], "Background",
-                         {static_cast<float>(_width_drawable + (500 * 9)),
+                         {static_cast<float>(_width_drawable + (500 * 3)),
                           static_cast<float>(_height_drawable / 2)},
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
 
-    // createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
-    //         {static_cast<float>(_width_drawable / 2),
-    //         static_cast<float>(_height_drawable / 2)},
-    //         {1, 0.8});
+    createRoundedButton("Play", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 - 100),
+                         static_cast<float>(_height_drawable / 2)},
+                        {200, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::GameStart, this));
 
-    //     createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-    //         {static_cast<float>(_width_drawable / 2),
-    //         static_cast<float>(_height_drawable / 1.5 )},
-    //         {0.2, 0.2});
+    createRoundedButton("Setting", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 - 100),
+                         static_cast<float>(_height_drawable / 1.5)},
+                        {200, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::setSettings, this));
 
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
@@ -334,44 +362,35 @@ void Game::setParalax() {
                {2, 2});
 }
 
-void Game::setLobby() {
+void Game::InitGame() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
+
     float scale = std::max(scale_x, scale_y);
+    std::cout << scale << std::endl;
+    const float myRef = {static_cast<float>(1.0)};
 
-    createSprite(_textures[BACKGROUND],
-                 {static_cast<float>(_width_drawable / 2),
+    createSprite(_textures[PLAYER],
+                 {static_cast<float>(0 + _width_drawable / 8),
                   static_cast<float>(_height_drawable / 2)},
-                 {scale, scale});
+                 {scale, scale}, sf::Color::White, 0, true);
+}
 
-    //        title
-    createText("Air-Type", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 2),
-                static_cast<float>(_height_drawable / 5)},
-               {2, 2});
-
-    // server choice
-    createButton("Choose your Room", _textures[BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width_drawable / 9),
-                  static_cast<float>(_height_drawable / 4)},
-                 {1, 0.8});
-
-    createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width_drawable / 9),
-                  static_cast<float>(_height_drawable / 2)},
-                 {1, 3});
-    //    //    settings
-    createButton("", _textures[PARAMETER_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width_drawable / 1.12),
-                  static_cast<float>(_height_drawable / 1.05)},
-                 {0.10, 0.10});
-    //    //    quit
-    createButton("", _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width_drawable / 1.05),
-                  static_cast<float>(_height_drawable / 1.05)},
-                 {0.10, 0.10});
+void Game::GameStart() {
+    std::vector<uint32_t> AllEntities = getEntities();
+    std::cout << AllEntities.size() << std::endl;
+    for (uint32_t i = 0; i < AllEntities.size(); i++) {
+        _entities =
+            _gameEngine.getEntityManager()->destroyEntity(AllEntities[i]);
+        std::cout << "destruction de l'entitée " << i << std::endl;
+    }
+    std::cout << _entities.size() << std::endl;
+    std::cout << "init the game" << std::endl;
+    InitGame();
+    std::cout << "le jeu se lance" << std::endl;
+    // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 
 void Game::setSettings() {
@@ -401,4 +420,43 @@ void Game::setSettings() {
     createSprite(_textures[1], {925, 500}, {0.1, 0.1});
     // Window fullscreen.
     createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+}
+
+void Game::createTest() {
+    uint32_t player_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Physic::Components::MovementData player_data = {{1, 1}, {1, 1}};
+
+    sf::Color                                      color = sf::Color::White;
+    sf::Sprite                                     sprite_temp_temp;
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        sprite_temp_temp, {500, 500}, {1, 1}, color, 0};
+
+    Engine::Physic::Components::TransformData transformData = {
+        {500, 500}, {1, 1}, 0.0};
+
+    std::shared_ptr<Engine::Physic::Components::TransformComponent>
+        transformComponent =
+            std::make_shared<Engine::Physic::Components::TransformComponent>(
+                transformData);
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 _textures[1]);
+
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 transformComponent);
+
+    std::shared_ptr<Engine::Physic::Components::MovementComponent>
+        movementComponent =
+            std::make_shared<Engine::Physic::Components::MovementComponent>(
+                player_data);
+
+    _gameEngine.getEntityManager()->addComponent(player_entity,
+                                                 movementComponent);
+    addEntity(player_entity);
+    // transformComponent->printTransformData();
 }

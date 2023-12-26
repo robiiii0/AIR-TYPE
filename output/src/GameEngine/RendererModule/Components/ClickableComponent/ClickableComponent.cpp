@@ -27,8 +27,9 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     std::cout << "ClickableCompoent created" << std::endl;
 }
 
-sf::Vector2f Engine::RendererModule::Components::ClickableComponent::getPos()
-    const {
+sf::Vector2f
+    Engine::RendererModule::Components::ClickableComponent::getPosition()
+        const {
     return _data.pos;
 }
 
@@ -61,7 +62,7 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
         _data._sprite.setColor(sf::Color::Red);
         return true;
     } else {
-        _data._sprite.setColor(sf::Color::White);
+        _data._sprite.setColor(_data.color);
         return false;
     }
     return _isClicked;
