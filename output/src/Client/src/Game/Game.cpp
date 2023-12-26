@@ -410,14 +410,17 @@ void Game::SoundLess() {
 }
 
 void Game::WindowSize500() {
+    _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
     std::cout << "window size 500" << std::endl;
 }
 
 void Game::WindowSize800() {
+    _gameEngine.getRendererModule()->getWindow().setSize({800, 600});
     std::cout << "window size 800" << std::endl;
 }
 
 void Game::WindowSizeFullscreen() {
+    // TODO: Get screen size to set window size with it.
     std::cout << "window size fullscreen" << std::endl;
 }
 
@@ -443,6 +446,7 @@ void Game::setSettings() {
                         std::bind(&Game::SoundUp, this));
 
     // WINDOW_SIZE SECTION.
+    // TODO: Fix mouse position if window size changes.
     // Window 500x500.
     createRoundedButton("500x500", _fonts[TITLE],
                         {static_cast<float>(_width_drawable / 2 - 375),
