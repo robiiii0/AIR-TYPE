@@ -87,7 +87,8 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
-        void createSound(std::string path, float volume = 50, bool loop = false, bool play = false);
+        void createSound(std::string path, float volume = 50, bool loop = false,
+                         bool play = false);
 
         // Set Screen
         void setMenu();

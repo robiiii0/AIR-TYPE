@@ -74,13 +74,12 @@ void Game::loadTexture(std::string path) {
 void Game::createSound(std::string path, float volume, bool loop, bool play) {
     uint32_t soundEntity = _gameEngine.getEntityManager()->createEntity();
 
-    Engine::RendererModule::Components::SoundData sound_temp = {
-        path, loop, true, volume};
+    Engine::RendererModule::Components::SoundData sound_temp = {path, loop,
+                                                                true, volume};
 
     std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
-            soundComponent =
-                std::make_shared<Engine::RendererModule::Components::SoundComponent>(
-                    sound_temp);
+        soundComponent = std::make_shared<
+            Engine::RendererModule::Components::SoundComponent>(sound_temp);
 
     _gameEngine.getEntityManager()->addComponent(soundEntity, soundComponent);
     addEntity(soundEntity);
@@ -255,7 +254,6 @@ void Game::setParalax() {
     const float myRef = {static_cast<float>(1.0)};
 
     createSound("src/Client/assets/Sound/music.wav", 50, true, true);
-
 
     // Background texture
 
