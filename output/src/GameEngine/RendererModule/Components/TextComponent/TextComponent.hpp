@@ -9,6 +9,7 @@
 #define TEXTCOMPONENT_HPP_
 
 #include "../../../EntityManager/ComponentManager/AComponent/AComponent.hpp"
+#include "../../../EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.hpp"
 #include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
@@ -31,6 +32,7 @@ namespace Engine {
                     void          execute() override;
                     sf::Drawable &getDrawable() override;
                     void          setTextData(TextData &data);
+                    void          setPosition(float x, float y);
                     TextData      getTextData() const;
                     sf::Text      getText() const;
 
@@ -38,9 +40,11 @@ namespace Engine {
                 private:
                     TextData &_data;
                     sf::Text  _text;
+                    Engine::Entity::Component::GenericComponents::Vector2f
+                        _relative_pos;
             };
         }  // namespace Components
-    }      // namespace RendererModule
+    }  // namespace RendererModule
 }  // namespace Engine
 
 #endif /* !TEXTCOMPONENT_HPP_ */

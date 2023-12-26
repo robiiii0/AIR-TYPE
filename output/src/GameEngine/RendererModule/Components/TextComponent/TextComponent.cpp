@@ -12,12 +12,16 @@ Engine::RendererModule::Components::TextComponent::TextComponent(
     _data(value) {
     _text.setString(_data.text);
     _text.setFont(_data.font);
-    _text.setColor(_data.color);
+    _text.setFillColor(_data.color);
     _text.setScale(_data.scale);
     sf::FloatRect text_bounds = _text.getGlobalBounds();
     _text.setPosition({_data.position.x - text_bounds.width / 2,
                        _data.position.y - text_bounds.height / 2});
     _text.setRotation(_data.rotation);
+    _relative_pos.x =
+        _data.position.x -
+        text_bounds.width / 2;  // ? Same question as in SpriteComponent.cpp
+    _relative_pos.y = _data.position.y - text_bounds.height / 2;
 }
 
 Engine::RendererModule::Components::TextComponent::~TextComponent() {}
@@ -38,10 +42,15 @@ void Engine::RendererModule::Components::TextComponent::setTextData(
     _data.rotation = data.rotation;
     _text.setString(_data.text);
     _text.setFont(_data.font);
-    _text.setColor(_data.color);
+    _text.setFillColor(_data.color);
     _text.setPosition(_data.position);
     _text.setScale(_data.scale);
     _text.setRotation(_data.rotation);
+}
+
+void Engine::RendererModule::Components::TextComponent::setPosition(float x,
+                                                                    float y) {
+    _text.setPosition(x + _relative_pos.x, y + _relative_pos.y);
 }
 
 Engine::RendererModule::Components::TextData
