@@ -14,8 +14,8 @@ Engine::RendererModule::Components::InputComponent::InputComponent(
     _text.setFont(font);
     _text.setScale(_data.scale);
     sf::FloatRect bounds = _text.getLocalBounds();
-    _text.setPosition({_data.pos.x - bounds.width / 2,
-                       _data.pos.y - bounds.height / 2});
+    _text.setPosition(
+        {_data.pos.x - bounds.width / 2, _data.pos.y - bounds.height / 2});
     _text.setFillColor(sf::Color::White);
     _text.setCharacterSize(30);
     _isClicked = false;
@@ -41,6 +41,25 @@ sf::Vector2f Engine::RendererModule::Components::InputComponent::getPos()
 
 bool Engine::RendererModule::Components::InputComponent::getClicked() {
     return _isClicked;
+}
+
+void Engine::RendererModule::Components::InputComponent::handleEvent(
+    sf::Event event) {
+    if (event.type == sf::Event::TextEntered) {
+        if (event.text.unicode < 128) {
+            _str += static_cast<char>(event.text.unicode);
+            _text.setString(_str);
+        }
+    } else if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::BackSpace) {
+            if (!_str.empty()) {
+                std::cout << "Backspace" << std::endl;
+                std::cout << _str << std::endl;
+                _str = _str[_str.size() - 1];
+                _text.setString(_str);
+            }
+        }
+    }
 }
 
 bool Engine::RendererModule::Components::InputComponent::isHovered(
