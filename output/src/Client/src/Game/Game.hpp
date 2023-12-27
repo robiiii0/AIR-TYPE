@@ -14,6 +14,7 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 
 // #include "../GameState/GameState.hpp"
 
@@ -98,6 +99,11 @@ class Game {
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
+
+        void createInput(sf::Font &font, sf::Vector2f position = {0.0, 0.0},
+                         sf::Vector2f scale = {1, 1},
+                         sf::Color    color = sf::Color::White,
+                         float        rotation = 0);
 
         void createSound(std::string path, float volume = 50, bool loop = false,
                          bool play = false);

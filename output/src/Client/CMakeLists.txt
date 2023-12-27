@@ -41,6 +41,8 @@ add_executable(r-type_client
         ../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.cpp
         ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.hpp
         ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
+        ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
+        ../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp

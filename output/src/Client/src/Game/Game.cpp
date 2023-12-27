@@ -200,7 +200,24 @@ void Game::createButton(std::function<void()> func, std::string text,
     addEntity(button_entity);
 }
 
-void Game::setMenu() {
+void Game::createInput(sf::Font &font, sf::Vector2f position,
+                       sf::Vector2f scale, sf::Color color, float rotation) {
+    uint32_t input_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::InputData input_temp = {
+        position, scale, color, rotation};
+
+    std::shared_ptr<Engine::RendererModule::Components::InputComponent>
+        inputComponent = std::make_shared<
+            Engine::RendererModule::Components::InputComponent>(
+            input_temp, font);
+
+    _gameEngine.getEntityManager()->addComponent(input_entity,
+                                                 inputComponent);
+    addEntity(input_entity);
+}
+
+    void Game::setMenu() {
     //        title
     createText("Air-Type", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 2),
@@ -212,10 +229,13 @@ void Game::setMenu() {
                  {static_cast<float>(_width_drawable / 6),
                   static_cast<float>(_height_drawable / 3)},
                  {0.6, 0.5});
-    createText("Server choice", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 6),
+//    createText("Server choice", _fonts[TITLE],
+//               {static_cast<float>(_width_drawable / 6),
+//                static_cast<float>(_height_drawable / 3)},
+//               {0.6, 0.5});
+    createInput(_fonts[TITLE], {static_cast<float>(_width_drawable / 6),
                 static_cast<float>(_height_drawable / 3)},
-               {0.6, 0.5});
+                {0.6, 0.5});
     //    //    server ip
     //
     createSprite(_textures[BUTTON],
