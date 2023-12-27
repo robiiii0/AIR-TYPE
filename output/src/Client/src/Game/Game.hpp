@@ -100,7 +100,8 @@ class Game {
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
 
-        void createInput(sf::Font &font, sf::Vector2f position = {0.0, 0.0},
+        void createInput(sf::Font &font, sf::Texture &texture,
+                         sf::Vector2f position = {0.0, 0.0},
                          sf::Vector2f scale = {1, 1},
                          sf::Color    color = sf::Color::White,
                          float        rotation = 0);

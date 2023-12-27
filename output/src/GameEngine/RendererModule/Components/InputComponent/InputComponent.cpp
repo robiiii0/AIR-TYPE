@@ -46,18 +46,15 @@ bool Engine::RendererModule::Components::InputComponent::getClicked() {
 void Engine::RendererModule::Components::InputComponent::handleEvent(
     sf::Event event) {
     if (event.type == sf::Event::TextEntered) {
-        if (event.text.unicode < 128) {
+        if (event.text.unicode < 128 && _str.size() < 20) {
             _str += static_cast<char>(event.text.unicode);
             _text.setString(_str);
         }
-    } else if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::BackSpace) {
-            if (!_str.empty()) {
-                std::cout << "Backspace" << std::endl;
-                std::cout << _str << std::endl;
-                _str = _str[_str.size() - 1];
-                _text.setString(_str);
-            }
+    } else if (event.type == sf::Event::KeyPressed &&
+               event.key.code == sf::Keyboard::BackSpace) {
+        if (!_str.empty()) {
+            _str.pop_back();
+            _text.setString(_str);
         }
     }
 }
@@ -67,9 +64,14 @@ bool Engine::RendererModule::Components::InputComponent::isHovered(
 
 bool Engine::RendererModule::Components::InputComponent::isClicked(
     std::pair<float, float> mousePos) {
-    sf::FloatRect bounds = _text.getGlobalBounds();
+    sf::FloatRect Bounds = _text.getGlobalBounds();
 
-    if (bounds.contains(mousePos.first, mousePos.second)) {
+    Bounds.left -= 100.0f;
+    Bounds.top -= 100.0f;
+    Bounds.width += 100.0f;
+    Bounds.height += 100.0f;
+
+    if (Bounds.contains(mousePos.first, mousePos.second)) {
         _isClicked = true;
         std::cout << "Clicked" << std::endl;
         return true;

@@ -32,7 +32,7 @@ namespace Engine {
                     sf::Drawable &getDrawable() override;
                     void          update();
 
-                    bool        getClicked();
+                    bool getClicked();
 
                     void handleEvent(sf::Event event);
 
@@ -42,11 +42,11 @@ namespace Engine {
 
                 protected:
                 private:
-                    InputData &_data;
-                    sf::Text            _text;
-                    std::string         _str;
-                    bool                _isHovered;
-                    bool                _isClicked;
+                    InputData  &_data;
+                    sf::Text    _text;
+                    std::string _str;
+                    bool        _isHovered;
+                    bool        _isClicked;
             };
         }  // namespace Components
     }      // namespace RendererModule

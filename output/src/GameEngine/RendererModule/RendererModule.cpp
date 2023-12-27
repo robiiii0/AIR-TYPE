@@ -50,7 +50,6 @@ void Engine::RendererModule::RendererModule::handleEvent(
                                     Engine::RendererModule::Components::
                                         InputComponent>(component)
                                     ->handleEvent(_event);
-                                std::cout << _event.key.code << std::endl;
                                 return;
                             }
                         }
@@ -172,6 +171,7 @@ void Engine::RendererModule::RendererModule::update(
                         }
                     }
                 }
+
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
             std::cerr << e.what() << '\n';
