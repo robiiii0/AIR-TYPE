@@ -9,6 +9,8 @@
 #define SERVER_HPP_
 
 #include <cstdint>
+#include <map>
+#include <queue>
 
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
@@ -29,6 +31,8 @@ class Server {
         bool                                               _running;
         std::uint32_t                                      _nb_clients;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::queue<std::string>                            _globalMessages;
+        std::map<std::uint32_t, std::queue<std::string>>   _clientMessages;
 };
 
 #endif /* !SERVER_HPP_ */

@@ -50,6 +50,19 @@ void Server::networkLoop() {
                       << std::endl;  // TODO: handle packet
         }
     }
+    while (!_globalMessages.empty()) {  // ? global messages
+        std::cout << "Global message: " << _globalMessages.front() << std::endl;
+        _networkingModule->broadcastMessage(_globalMessages.front());
+        _globalMessages.pop();
+    }
+    for (auto &client : _networkingModule->getClients()) {  // ? client messages
+        while (!_clientMessages[client.getId()].empty()) {
+            std::cout << "Client " << client.getId()
+                      << " message: " << _clientMessages[client.getId()].front()
+                      << std::endl;
+            _clientMessages[client.getId()].pop();
+        }
+    }
     std::cout << "networkLoop" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
