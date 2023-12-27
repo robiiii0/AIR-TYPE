@@ -20,6 +20,7 @@ Engine::RendererModule::Components::InputComponent::InputComponent(
     _text.setCharacterSize(30);
     _isClicked = false;
     _isHovered = false;
+    _str = "";
     std::cout << "InputComponent created" << std::endl;
 }
 
@@ -45,17 +46,12 @@ bool Engine::RendererModule::Components::InputComponent::getClicked() {
 
 void Engine::RendererModule::Components::InputComponent::handleEvent(
     sf::Event event) {
-    if (event.type == sf::Event::TextEntered) {
-        if (event.text.unicode < 128 && _str.size() < 20) {
+    if (event.type == sf::Event::TextEntered && _isClicked) {
+        if (_str.size() < 20 && event.text.unicode != 8)
             _str += static_cast<char>(event.text.unicode);
-            _text.setString(_str);
-        }
-    } else if (event.type == sf::Event::KeyPressed &&
-               event.key.code == sf::Keyboard::BackSpace) {
-        if (!_str.empty()) {
+        else if (event.text.unicode == 8 && !_str.empty())
             _str.pop_back();
-            _text.setString(_str);
-        }
+        _text.setString(_str);
     }
 }
 
