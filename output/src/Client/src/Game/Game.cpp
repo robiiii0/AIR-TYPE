@@ -401,13 +401,9 @@ void Game::GameStart() {
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 
-void Game::SoundUp() {
-    _sounds[0]->setVolume(_sounds[0]->getVolume() + 1);
-}
+void Game::SoundUp() { _sounds[0]->setVolume(_sounds[0]->getVolume() + 1); }
 
-void Game::SoundLess() {
-    _sounds[0]->setVolume(_sounds[0]->getVolume() - 1);
-}
+void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1); }
 
 void Game::WindowSize500() {
     _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
@@ -432,11 +428,13 @@ void Game::setSettings() {
                 static_cast<float>(_height_drawable / 2 - 300)},
                {2, 2});
     // Text sound.
-    // TODO: Find a way to retrieve the component with his id to change the value of volume.
-     createText(std::to_string(static_cast<int>(_sounds[0]->getVolume())),
-                _fonts[TITLE], {static_cast<float>(_width_drawable / 2),
-                                static_cast<float>(_height_drawable / 2 - 200) + 40},
-                {1, 1});
+    // TODO: Find a way to retrieve the component with his id to change the
+    // value of volume.
+    createText(std::to_string(static_cast<int>(_sounds[0]->getVolume())),
+               _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2 - 200) + 40},
+               {1, 1});
     // Button volume -.
     createRoundedButton("-", _fonts[TITLE],
                         {static_cast<float>(_width_drawable / 2 - 150),

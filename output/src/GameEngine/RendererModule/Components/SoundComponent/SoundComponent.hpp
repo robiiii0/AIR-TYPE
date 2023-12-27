@@ -35,13 +35,13 @@ namespace Engine {
 
                     void setLoop(bool loop);
 
-                    void setVolume(float volume);
+                    void  setVolume(float volume);
                     float getVolume() const;
 
                 protected:
                 private:
                     std::uint32_t _id;
-                    SoundData    _data;
+                    SoundData     _data;
                     sf::Music     _sound;
             };
         };  // namespace Components

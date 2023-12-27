@@ -131,6 +131,7 @@ class Game {
         void WindowSize500();
         void WindowSize800();
         void WindowSizeFullscreen();
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
