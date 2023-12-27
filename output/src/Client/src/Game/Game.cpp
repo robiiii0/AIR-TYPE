@@ -34,6 +34,9 @@ Game::Game() {
         "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
+
+    // Main music loop.
+    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
 void Game::run() {
@@ -298,8 +301,6 @@ void Game::setParalax() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
-
     // Background texture
 
     createSpriteParallax(
@@ -400,33 +401,78 @@ void Game::GameStart() {
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 
+void Game::SoundUp() { _sounds[0]->setVolume(_sounds[0]->getVolume() + 1); }
+
+void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1); }
+
+void Game::WindowSize500() {
+    _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
+    std::cout << "window size 500" << std::endl;
+}
+
+void Game::WindowSize800() {
+    _gameEngine.getRendererModule()->getWindow().setSize({800, 600});
+    std::cout << "window size 800" << std::endl;
+}
+
+void Game::WindowSizeFullscreen() {
+    // TODO: Get screen size to set window size with it.
+    std::cout << "window size fullscreen" << std::endl;
+}
+
 void Game::setSettings() {
-    //    sf::Vector2u textureSize = _textures[0].getSize();
-    //
-    //    float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
-    //    float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
-    //    float scale = std::max(scale_x, scale_y);
-    //
-    //    createSprite(_textures[BACKGROUND],
-    //                 {static_cast<float>(_width_drawable / 2),
-    //                  static_cast<float>(_height_drawable / 2)},
-    //                 {scale, scale});
     // SOUND SECTION.
+    // Sound title.
+    createText("Volume", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2 - 300)},
+               {2, 2});
     // Text sound.
-    // createText(std::to_string(static_cast<int>(_music.getVolume())),
-    //            _fonts[TITLE], {925, 100});
+    // TODO: Find a way to retrieve the component with his id to change the
+    // value of volume.
+    createText(std::to_string(static_cast<int>(_sounds[0]->getVolume())),
+               _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2 - 200) + 40},
+               {1, 1});
     // Button volume -.
-    createSprite(_textures[1], {700, 100}, {0.1, 0.1});
+    createRoundedButton("-", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 - 150),
+                         static_cast<float>(_height_drawable / 2 - 200)},
+                        {100, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::SoundLess, this));
     // Button volume +.
-    createSprite(_textures[1], {1150, 100}, {0.1, 0.1});
+    createRoundedButton("+", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 + 50),
+                         static_cast<float>(_height_drawable / 2 - 200)},
+                        {100, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::SoundUp, this));
 
     // WINDOW_SIZE SECTION.
+    // Window size title.
+    createText("Window size", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2)},
+               {2, 2});
+    // TODO: Fix mouse position if window size changes.
     // Window 500x500.
-    createSprite(_textures[1], {700, 500}, {0.1, 0.1});
+    createRoundedButton("500x500", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 - 375),
+                         static_cast<float>(_height_drawable / 2 + 100)},
+                        {150, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::WindowSize500, this));
     // Window 800x600.
-    createSprite(_textures[1], {925, 500}, {0.1, 0.1});
+    createRoundedButton("800x600", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 - 75),
+                         static_cast<float>(_height_drawable / 2 + 100)},
+                        {150, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::WindowSize800, this));
     // Window fullscreen.
-    createSprite(_textures[1], {1150, 500}, {0.1, 0.1});
+    createRoundedButton("Fullscreen", _fonts[TITLE],
+                        {static_cast<float>(_width_drawable / 2 + 225),
+                         static_cast<float>(_height_drawable / 2 + 100)},
+                        {150, 100}, sf::Color::Red, sf::Color::White,
+                        std::bind(&Game::WindowSizeFullscreen, this));
 }
 
 void Game::changeState(int state) {

@@ -11,14 +11,14 @@
 #include <stdexcept>
 
 Engine::RendererModule::Components::SoundComponent::SoundComponent(
-    SoundData &value) :
-    _data(value) {
+    SoundData &value) {
+    _data = value;
     if (!_sound.openFromFile(_data.path))
         std::cout << "cant load: " << _data.path << std::endl;
     _sound.setLoop(_data.loop);
     _sound.setVolume(_data.volume);
     if (_data.play) _sound.play();
-    std::cout << "sound created" << std::endl;
+    std::cout << "sound created with volume at " << _data.volume << std::endl;
 }
 
 Engine::RendererModule::Components::SoundComponent::~SoundComponent() {
@@ -42,4 +42,18 @@ void Engine::RendererModule::Components::SoundComponent::pause() {
 
 void Engine::RendererModule::Components::SoundComponent::stop() {
     _sound.stop();
+}
+
+void Engine::RendererModule::Components::SoundComponent::setLoop(bool loop) {
+    _sound.setLoop(loop);
+}
+
+void Engine::RendererModule::Components::SoundComponent::setVolume(
+    float volume) {
+    _sound.setVolume(volume);
+    _data.volume = volume;
+}
+
+float Engine::RendererModule::Components::SoundComponent::getVolume() const {
+    return _data.volume;
 }
