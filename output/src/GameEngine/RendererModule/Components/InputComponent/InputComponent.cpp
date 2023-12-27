@@ -10,7 +10,7 @@
 Engine::RendererModule::Components::InputComponent::InputComponent(
     InputData &data, sf::Font &font) :
     _data(data) {
-    _text.setString("_data.text");
+    _text.setString("Default value.");
     _text.setFont(font);
     _text.setScale(_data.scale);
     sf::FloatRect bounds = _text.getLocalBounds();

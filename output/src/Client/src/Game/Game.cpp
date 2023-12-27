@@ -234,10 +234,10 @@ void Game::setMenu() {
                {1, 1});
 
     //    // server choice
-//    createSprite(_textures[BUTTON],
-//                 {static_cast<float>(_width_drawable / 6),
-//                  static_cast<float>(_height_drawable / 3)},
-//                 {0.6, 0.5});
+    //    createSprite(_textures[BUTTON],
+    //                 {static_cast<float>(_width_drawable / 6),
+    //                  static_cast<float>(_height_drawable / 3)},
+    //                 {0.6, 0.5});
     createText("Server choice", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 6),
                 static_cast<float>(_height_drawable / 3.4)},
@@ -248,10 +248,10 @@ void Game::setMenu() {
                 {0.6, 0.5});
     //    //    server ip
     //
-//    createSprite(_textures[BUTTON],
-//                 {static_cast<float>(_width_drawable / 5),
-//                  static_cast<float>(_height_drawable / 2.2)},
-//                 {0.8, 0.5});
+    //    createSprite(_textures[BUTTON],
+    //                 {static_cast<float>(_width_drawable / 5),
+    //                  static_cast<float>(_height_drawable / 2.2)},
+    //                 {0.8, 0.5});
     createText("Server ip", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 5),
                 static_cast<float>(_height_drawable / 2.4)},

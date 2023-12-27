@@ -30,9 +30,10 @@ void Engine::RendererModule::RendererModule::handleEvent(
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
-//        if (_event.type == sf::Event::KeyPressed) {
-//        }
-        if (_event.type == sf::Event::TextEntered || _event.type == sf::Event::KeyPressed) {
+        //        if (_event.type == sf::Event::KeyPressed) {
+        //        }
+        if (_event.type == sf::Event::TextEntered ||
+            _event.type == sf::Event::KeyPressed) {
             for (auto id : id_list) {
                 try {
                     auto components = entityManager.getAllComponents(id);
@@ -171,7 +172,6 @@ void Engine::RendererModule::RendererModule::update(
                         }
                     }
                 }
-
             }
         } catch (const Engine::EntityManager::NoComponent &e) {
             std::cerr << e.what() << '\n';
