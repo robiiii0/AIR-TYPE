@@ -203,6 +203,32 @@ void Game::createButton(std::function<void()> func, std::string text,
     addEntity(button_entity);
 }
 
+void Game::createInput(sf::Font &font, sf::Texture &texture,
+                       sf::Vector2f position, sf::Vector2f scale,
+                       sf::Color color, float rotation) {
+    uint32_t input_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::InputData input_temp = {
+        position, scale, color, rotation};
+
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        _sprite, position, scale, color, rotation, true};
+
+    std::shared_ptr<Engine::RendererModule::Components::InputComponent>
+        inputComponent = std::make_shared<
+            Engine::RendererModule::Components::InputComponent>(input_temp,
+                                                                font);
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 texture);
+
+    _gameEngine.getEntityManager()->addComponent(input_entity, spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(input_entity, inputComponent);
+    addEntity(input_entity);
+}
+
 void Game::setMenu() {
     //        title
     createText("Air-Type", _fonts[TITLE],
@@ -211,24 +237,32 @@ void Game::setMenu() {
                {1, 1});
 
     //    // server choice
-    createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width_drawable / 6),
-                  static_cast<float>(_height_drawable / 3)},
-                 {0.6, 0.5});
+    //    createSprite(_textures[BUTTON],
+    //                 {static_cast<float>(_width_drawable / 6),
+    //                  static_cast<float>(_height_drawable / 3)},
+    //                 {0.6, 0.5});
     createText("Server choice", _fonts[TITLE],
                {static_cast<float>(_width_drawable / 6),
-                static_cast<float>(_height_drawable / 3)},
+                static_cast<float>(_height_drawable / 3.4)},
                {0.6, 0.5});
+    //    createInput(_fonts[TITLE], _textures[BUTTON],
+    //                {static_cast<float>(_width_drawable / 6),
+    //                 static_cast<float>(_height_drawable / 3)},
+    //                {0.6, 0.5});
     //    //    server ip
     //
-    createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width_drawable / 5),
-                  static_cast<float>(_height_drawable / 2.2)},
-                 {0.8, 0.5});
-    createText("Server ip", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 5),
-                static_cast<float>(_height_drawable / 2.2)},
-               {0.8, 0.5});
+    //    createSprite(_textures[BUTTON],
+    //                 {static_cast<float>(_width_drawable / 5),
+    //                  static_cast<float>(_height_drawable / 2.2)},
+    //                 {0.8, 0.5});
+    //    createText("Server ip", _fonts[TITLE],
+    //               {static_cast<float>(_width_drawable / 5),
+    //                static_cast<float>(_height_drawable / 2.4)},
+    //               {0.8, 0.5});
+    createInput(_fonts[TITLE], _textures[BUTTON],
+                {static_cast<float>(_width_drawable / 5),
+                 static_cast<float>(_height_drawable / 2.2)},
+                {0.6, 0.5});
     //    //    //    server port
     createSprite(_textures[BUTTON],
                  {static_cast<float>(_width_drawable / 5),
