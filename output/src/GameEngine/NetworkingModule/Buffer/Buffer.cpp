@@ -56,3 +56,15 @@ std::string Engine::Network::Buffer::readNextPacket() {
     }
     return packet;
 }
+
+bool Engine::Network::Buffer::hasPacket() {
+    for (std::size_t i = _read_head; i != _write_head; i++) {
+        if (i == __circular_buffer_size) {
+            i = 0;
+        }
+        if (_buffer[i] == _protocol_suffix) {
+            return true;
+        }
+    }
+    return false;
+}

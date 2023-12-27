@@ -50,6 +50,11 @@ namespace Engine {
                  * @return The message read
                  */
                 std::string readNextPacket();
+                /*
+                 * @brief Check if the buffer has a packet
+                 * @return True if the buffer has a packet, false otherwise
+                 */
+                bool hasPacket();
 
             protected:
             private:

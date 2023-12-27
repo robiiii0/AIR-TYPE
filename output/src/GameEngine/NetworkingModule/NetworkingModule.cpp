@@ -190,7 +190,7 @@ void Engine::Network::NetworkingModule::broadcastMessage(
     }
 }
 
-std::vector<Engine::Network::Client>
-    Engine::Network::NetworkingModule::getClients() const noexcept {
+std::vector<Engine::Network::Client> &
+    Engine::Network::NetworkingModule::getClients() noexcept {
     return _clients;
 }
