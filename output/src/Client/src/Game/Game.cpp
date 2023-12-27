@@ -242,20 +242,20 @@ void Game::setMenu() {
                {static_cast<float>(_width_drawable / 6),
                 static_cast<float>(_height_drawable / 3.4)},
                {0.6, 0.5});
-//    createInput(_fonts[TITLE], _textures[BUTTON],
-//                {static_cast<float>(_width_drawable / 6),
-//                 static_cast<float>(_height_drawable / 3)},
-//                {0.6, 0.5});
+    //    createInput(_fonts[TITLE], _textures[BUTTON],
+    //                {static_cast<float>(_width_drawable / 6),
+    //                 static_cast<float>(_height_drawable / 3)},
+    //                {0.6, 0.5});
     //    //    server ip
     //
     //    createSprite(_textures[BUTTON],
     //                 {static_cast<float>(_width_drawable / 5),
     //                  static_cast<float>(_height_drawable / 2.2)},
     //                 {0.8, 0.5});
-//    createText("Server ip", _fonts[TITLE],
-//               {static_cast<float>(_width_drawable / 5),
-//                static_cast<float>(_height_drawable / 2.4)},
-//               {0.8, 0.5});
+    //    createText("Server ip", _fonts[TITLE],
+    //               {static_cast<float>(_width_drawable / 5),
+    //                static_cast<float>(_height_drawable / 2.4)},
+    //               {0.8, 0.5});
     createInput(_fonts[TITLE], _textures[BUTTON],
                 {static_cast<float>(_width_drawable / 5),
                  static_cast<float>(_height_drawable / 2.2)},
