@@ -11,10 +11,11 @@
 int main() {
     Game game;
 
-    // game.setMenu();
-    game.setParalax();
+    //    game.setParalax();
+    //    game.setMenu();
+    // game.createTest();
     // game.setLobby();
-    //    game.setSettings();
+    game.setSettings();
     game.run();
     return 0;
 }

@@ -18,6 +18,8 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
+// TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
+
 void Engine::RendererModule::RendererModule::handleEvent(
     Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
@@ -28,13 +30,56 @@ void Engine::RendererModule::RendererModule::handleEvent(
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
-        if (_event.type == sf::Event::KeyPressed) {
+        //        if (_event.type == sf::Event::KeyPressed) {
+        //        }
+        if (_event.type == sf::Event::TextEntered ||
+            _event.type == sf::Event::KeyPressed) {
+            for (auto id : id_list) {
+                try {
+                    auto components = entityManager.getAllComponents(id);
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       InputComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        InputComponent>(component)
+                                    ->getClicked();
+                            if (isClicked) {
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        InputComponent>(component)
+                                    ->handleEvent(_event);
+                                return;
+                            }
+                        }
+                    }
+                } catch (const Engine::EntityManager::NoComponent &e) {
+                    std::cerr << e.what() << '\n';
+                }
+            }
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
             for (auto id : id_list) {
                 try {
                     auto components = entityManager.getAllComponents(id);
                     for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       InputComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        InputComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                            if (isClicked) {
+                                std::cout << "CLICKED" << std::endl;
+                                return;
+                            }
+                        }
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
                                        ClickableComponent)) {
@@ -45,6 +90,24 @@ void Engine::RendererModule::RendererModule::handleEvent(
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
+                            if (isClicked) {
+                                std::cout << "CLICKED" << std::endl;
+                                return;
+                            }
+                        }
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       RoundedClickableComponent)) {
+                            bool isClicked =
+                                std::dynamic_pointer_cast<
+                                    Engine::RendererModule::Components::
+                                        RoundedClickableComponent>(component)
+                                    ->isClicked(
+                                        std::make_pair(_event.mouseButton.x,
+                                                       _event.mouseButton.y));
+                            if (isClicked) {
+                                return;
+                            }
                         }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {
@@ -76,6 +139,38 @@ void Engine::RendererModule::RendererModule::update(
                     clickableComp->isHovered(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});
+                }
+                if (auto clickableComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::
+                            RoundedClickableComponent>(component)) {
+                    // If it is, update the component
+                    clickableComp->isHovered(
+                        {sf::Mouse::getPosition(_window).x,
+                         sf::Mouse::getPosition(_window).y});
+                }
+                if (auto spriteComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::SpriteComponent>(
+                        component)) {
+                    for (auto &component2 : components) {
+                        if (auto posComp = std::dynamic_pointer_cast<
+                                Engine::Entity::Component::GenericComponents::
+                                    PositionComponent>(component2)) {
+                            spriteComp->setPosition(posComp->getValue().x,
+                                                    posComp->getValue().y);
+                        }
+                    }
+                }
+                if (auto textComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::TextComponent>(
+                        component)) {
+                    for (auto &component2 : components) {
+                        if (auto posComp = std::dynamic_pointer_cast<
+                                Engine::Entity::Component::GenericComponents::
+                                    PositionComponent>(component2)) {
+                            textComp->setPosition(posComp->getValue().x,
+                                                  posComp->getValue().y);
+                        }
+                    }
                 }
             }
         } catch (const Engine::EntityManager::NoComponent &e) {

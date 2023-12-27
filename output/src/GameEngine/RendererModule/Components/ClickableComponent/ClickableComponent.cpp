@@ -11,8 +11,8 @@
 #include <stdexcept>
 
 Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
-    ClickableData &value, sf::Texture &texture) :
-    _data(value) {
+    ClickableData &value, sf::Texture &texture, std::function<void()> func) :
+    _data(value), _func(func) {
     _isHovered = false;
     _isClicked = false;
     _sprite.setTexture(texture);
@@ -27,8 +27,9 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     std::cout << "ClickableCompoent created" << std::endl;
 }
 
-sf::Vector2f Engine::RendererModule::Components::ClickableComponent::getPos()
-    const {
+sf::Vector2f
+    Engine::RendererModule::Components::ClickableComponent::getPosition()
+        const {
     return _data.pos;
 }
 
@@ -54,24 +55,30 @@ void Engine::RendererModule::Components::ClickableComponent::update() {
 }
 
 bool Engine::RendererModule::Components::ClickableComponent::isHovered(
-    std::pair<float, float> mousePos) const {
+    std::pair<float, float> mousePos) {
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
-        _data._sprite.setColor(sf::Color::Red);
-        return true;
+        _isHovered = true;
     } else {
-        _data._sprite.setColor(sf::Color::White);
-        return false;
+        _isHovered = false;
     }
-    return _isClicked;
+
+    if (_isHovered) {
+        _sprite.setColor(sf::Color::Magenta);
+    } else {
+        _sprite.setColor(sf::Color::White);
+    }
+
+    return _isHovered;
 }
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
-    std::pair<float, float> mousePos) const {
+    std::pair<float, float> mousePos) {
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
+        _func();
         return true;
     } else {
         return false;

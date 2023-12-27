@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../../EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.hpp"
 #include "../../IRendererComponent/IRendererComponent.hpp"
 
 namespace Engine {
@@ -21,6 +22,7 @@ namespace Engine {
                     sf::Vector2f scale;
                     sf::Color    color;
                     float        rotation;
+                    bool         Playable;
             };
 
             class SpriteComponent :
@@ -31,8 +33,8 @@ namespace Engine {
                         sf::Texture &texture);  // TODO changer le std::string
                                                 // pour le sprite c'est pas bien
                     ~SpriteComponent();
-                    void         execute() override;
-                    std::string &get();
+
+                    void execute() override;
 
                     // Sprite
                     void          setRotation(float rotation);
@@ -46,6 +48,8 @@ namespace Engine {
                 private:
                     SpriteData &_data;
                     sf::Sprite  _sprite;
+                    Engine::Entity::Component::GenericComponents::Vector2f
+                        _relative_pos;
             };
         };  // namespace Components
     };      // namespace RendererModule

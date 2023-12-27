@@ -27,11 +27,18 @@ namespace Engine {
                     void        execute() override;
                     void        setBoundingBox(HitboxData &data);
                     HitboxData &getBoundingBox();
+                    Vector2f    getPos() const;
+                    Vector2f    getSize() const;
+                    void        setPos(Vector2f pos);
+                    void        setSize(Vector2f size);
+
                     bool operator==(const BoundingBoxComponent &other) const;
 
                 protected:
                 private:
                     HitboxData &_data;
+                    Vector2f    _pos;
+                    Vector2f    _size;
             };
         };  // namespace Components
     };      // namespace Physic

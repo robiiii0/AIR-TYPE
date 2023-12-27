@@ -15,11 +15,14 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     _data(value) {
     _sprite.setTexture(texture);
     _sprite.setScale(_data.scale);
-    sf::FloatRect text_bounds = _sprite.getGlobalBounds();
-    _sprite.setPosition({_data.pos.x - text_bounds.width / 2,
-                         _data.pos.y - text_bounds.height / 2});
+    sf::FloatRect texture_bounds = _sprite.getGlobalBounds();
+    _sprite.setPosition({_data.pos.x - texture_bounds.width /
+                                           2,  // ? What does the 2 represent ?
+                         _data.pos.y - texture_bounds.height / 2});
     _sprite.setColor(_data.color);
     _sprite.setRotation(_data.rotation);
+    _relative_pos.x = _data.pos.x - texture_bounds.width / 2;
+    _relative_pos.y = _data.pos.y - texture_bounds.height / 2;
     std::cout << "sprite created" << std::endl;
 }
 
@@ -49,7 +52,7 @@ void Engine::RendererModule::Components::SpriteComponent::setOrigin(float x,
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
                                                                       float y) {
-    _data._sprite.setPosition(x, y);
+    _data._sprite.setPosition(x + _relative_pos.x, y + _relative_pos.y);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setTextureRect(

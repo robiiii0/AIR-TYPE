@@ -7,11 +7,16 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <functional>
 #include <string>
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
-#include "../GameState/GameState.hpp"
+#include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
+#include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
+
+// #include "../GameState/GameState.hpp"
 
 enum {
     BACKGROUND = 0,
@@ -36,6 +41,13 @@ enum {
 };
 
 enum {
+    MENU = 0,
+    SETTINGS,
+    LOBBY,
+    GAME
+};
+
+enum {
     TITLE,
     SUBTITLE,
 };
@@ -55,7 +67,6 @@ class Game {
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
-        void loadMusic(std::string path);
 
         // Create Component
         void createText(std::string text, sf::Font &font,
@@ -66,7 +77,7 @@ class Game {
                           sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
-                          float        rotation = 0);
+                          float rotation = 0, bool playable = false);
 
         void createSpriteParallax(sf::Texture &_texture,
                                   std::string  _name = "parallaxSprite",
@@ -82,21 +93,56 @@ class Game {
                              sf::Color    color = sf::Color::White,
                              float        rotation = 0);
 
-        void createButton(std::string text, sf::Texture &texture,
-                          sf::Font &font, sf::Vector2f position = {0.0, 0.0},
+        void createButton(std::function<void()> func, std::string text,
+                          sf::Texture &texture, sf::Font &font,
+                          sf::Vector2f position = {0.0, 0.0},
                           sf::Vector2f scale = {1, 1},
                           sf::Color    color = sf::Color::White,
                           float        rotation = 0);
+
+        void createInput(sf::Font &font, sf::Texture &texture,
+                         sf::Vector2f position = {0.0, 0.0},
+                         sf::Vector2f scale = {1, 1},
+                         sf::Color    color = sf::Color::White,
+                         float        rotation = 0);
+
+        void createSound(std::string path, float volume = 50, bool loop = false,
+                         bool play = false);
+
+        void createRoundedButton(
+            std::string text, sf::Font &font,
+            sf::Vector2f position = {0.0, 0.0}, sf::Vector2f scale = {1, 1},
+            sf::Color             colorButton = sf::Color::White,
+            sf::Color             colorText = sf::Color::White,
+            std::function<void()> _func = []() {});
 
         // Set Screen
         void setMenu();
         void setParalax();
         void setLobby();
         void setSettings();
+        void InitGame();
+
+        void GameStart();
+        // void Setting();
+
+        void changeState(int state);
+        void clearCurrentState();
+        void setupState();
+
+        // Sound Settings
+        void SoundUp();
+        void SoundLess();
+
+        // Window size settings
+        void WindowSize500();
+        void WindowSize800();
+        void WindowSizeFullscreen();
 
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
+        int                        _gameState;
 
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;
@@ -106,8 +152,10 @@ class Game {
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
-        sf::Music                _music;
-        sf::Sprite               _sprite;
+        std::vector<
+            std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
+                   _sounds;
+        sf::Sprite _sprite;
 };
 
 #endif  // GAME_HPP
