@@ -8,6 +8,8 @@
 #ifndef SERVER_HPP_
 #define SERVER_HPP_
 
+#include <cstdint>
+
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
 class Server {
@@ -23,7 +25,9 @@ class Server {
         void stop();
 
     private:
-        bool _running;
+        void                                               networkLoop();
+        bool                                               _running;
+        std::uint32_t                                      _nb_clients;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
 };
 
