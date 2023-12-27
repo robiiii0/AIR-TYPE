@@ -426,6 +426,11 @@ void Game::WindowSizeFullscreen() {
 
 void Game::setSettings() {
     // SOUND SECTION.
+    // Sound title.
+    createText("Volume", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2 - 300)},
+               {2, 2});
     // Text sound.
     // TODO: Find a way to retrieve the component with his id to change the value of volume.
      createText(std::to_string(static_cast<int>(_sounds[0]->getVolume())),
@@ -446,6 +451,11 @@ void Game::setSettings() {
                         std::bind(&Game::SoundUp, this));
 
     // WINDOW_SIZE SECTION.
+    // Window size title.
+    createText("Window size", _fonts[TITLE],
+               {static_cast<float>(_width_drawable / 2),
+                static_cast<float>(_height_drawable / 2)},
+               {2, 2});
     // TODO: Fix mouse position if window size changes.
     // Window 500x500.
     createRoundedButton("500x500", _fonts[TITLE],
