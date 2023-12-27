@@ -28,6 +28,7 @@ void Server::init() {
 
 void Server::loop() {
     std::cout << "loop" << std::endl;
+    _globalMessages.emplace("This is a test message broadcast at every loop");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     networkLoop();
 }
@@ -39,8 +40,9 @@ void Server::networkLoop() {
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
         std::cout << "Welcoming Client " << client.getId() << std::endl;
-        _networkingModule->sendMessage(
-            "Hello", client.getId());  // TODO: send real welcome message
+        _clientMessages[client.getId()] = std::queue<std::string>();
+        _clientMessages[client.getId()].emplace(
+            "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
@@ -60,9 +62,9 @@ void Server::networkLoop() {
             std::cout << "Client " << client.getId()
                       << " message: " << _clientMessages[client.getId()].front()
                       << std::endl;
+            _networkingModule->sendMessage(
+                _clientMessages[client.getId()].front(), client.getId());
             _clientMessages[client.getId()].pop();
         }
     }
-    std::cout << "networkLoop" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
