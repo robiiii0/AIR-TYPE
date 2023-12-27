@@ -90,7 +90,7 @@ namespace Engine {
                  * @exceptsafe Shall not throw exceptions
                  * @relatesalso Engine::Network::Client
                  */
-                std::vector<Client> getClients() const noexcept;
+                std::vector<Client> &getClients() noexcept;
 
             protected:
                 /*
