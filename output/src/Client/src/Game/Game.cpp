@@ -143,6 +143,7 @@ void Game::createSprite(sf::Texture &texture, sf::Vector2f position,
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
     sf::Sprite                                     sprite_temp_temp;
+
     Engine::RendererModule::Components::SpriteData sprite_temp = {
         sprite_temp_temp, position, scale, color, rotation, playable};
 
@@ -241,10 +242,10 @@ void Game::setMenu() {
     //                 {static_cast<float>(_width_drawable / 6),
     //                  static_cast<float>(_height_drawable / 3)},
     //                 {0.6, 0.5});
-    createText("Server choice", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 6),
-                static_cast<float>(_height_drawable / 3.4)},
-               {0.6, 0.5});
+//    createText("Server choice", _fonts[TITLE],
+//               {static_cast<float>(_width_drawable / 6),
+//                static_cast<float>(_height_drawable / 3.4)},
+//               {0.6, 0.5});
     //    createInput(_fonts[TITLE], _textures[BUTTON],
     //                {static_cast<float>(_width_drawable / 6),
     //                 static_cast<float>(_height_drawable / 3)},
@@ -259,21 +260,21 @@ void Game::setMenu() {
     //               {static_cast<float>(_width_drawable / 5),
     //                static_cast<float>(_height_drawable / 2.4)},
     //               {0.8, 0.5});
-    createInput(_fonts[TITLE], _textures[BUTTON],
-                {static_cast<float>(_width_drawable / 5),
-                 static_cast<float>(_height_drawable / 2.2)},
-                {0.6, 0.5});
+//    createInput(_fonts[TITLE], _textures[BUTTON],
+//                {static_cast<float>(_width_drawable / 5),
+//                 static_cast<float>(_height_drawable / 2.2)},
+//                {0.6, 0.5});
     //    //    //    server port
-    createSprite(_textures[BUTTON],
-                 {static_cast<float>(_width_drawable / 5),
-                  static_cast<float>(_height_drawable / 1.8)},
-                 {0.8, 0.5});
-    createText("Server Port", _fonts[TITLE],
-               {static_cast<float>(_width_drawable / 5),
-                static_cast<float>(_height_drawable / 1.8)},
-               {0.8, 0.5});
+//    createSprite(_textures[BUTTON],
+//                 {static_cast<float>(_width_drawable / 5),
+//                  static_cast<float>(_height_drawable / 1.8)},
+//                 {0.8, 0.5});
+//    createText("Server Port", _fonts[TITLE],
+//               {static_cast<float>(_width_drawable / 5),
+//                static_cast<float>(_height_drawable / 1.8)},
+//               {0.8, 0.5});
     //    //    go to lobby
-    createButton(std::bind(&Game::changeState, this, LOBBY), "Go To lobby",
+    createButton(std::bind(&Game::changeState, this, GAME), "Go To lobby",
                  _textures[BUTTON], _fonts[TITLE],
                  {static_cast<float>(_width_drawable / 6),
                   static_cast<float>(_height_drawable / 1.5)},
@@ -379,23 +380,6 @@ void Game::setParalax() {
                          {0.3, 0.3},
                          {static_cast<float>(-6.0), static_cast<float>(4.0)},
                          true, sf::IntRect(0, 0, 1000, 1000));
-
-    //    createRoundedButton("Play", _fonts[TITLE],
-    //                        {static_cast<float>(_width_drawable / 2 - 100),
-    //                         static_cast<float>(_height_drawable / 2)},
-    //                        {200, 100}, sf::Color::Red, sf::Color::White,
-    //                        std::bind(&Game::GameStart, this));
-    //
-    //    createRoundedButton("Setting", _fonts[TITLE],
-    //                        {static_cast<float>(_width_drawable / 2 - 100),
-    //                         static_cast<float>(_height_drawable / 1.5)},
-    //                        {200, 100}, sf::Color::Red, sf::Color::White,
-    //                        std::bind(&Game::changeState, this, SETTINGS));
-
-    //    createText("Air-Type", _fonts[TITLE],
-    //               {static_cast<float>(_width_drawable / 2),
-    //                static_cast<float>(_height_drawable / 5)},
-    //               {2, 2});
 }
 
 void Game::InitGame() {
@@ -412,6 +396,7 @@ void Game::InitGame() {
                  {static_cast<float>(0 + _width_drawable / 8),
                   static_cast<float>(_height_drawable / 2)},
                  {scale, scale}, sf::Color::White, 0, true);
+
 
     createButton(std::bind(&Game::changeState, this, MENU), "",
                  _textures[QUIT_BUTTON], _fonts[TITLE],
@@ -531,7 +516,7 @@ void Game::setupState() {
             setMenu();
             break;
         case LOBBY:
-            //            setLobby();
+//            setLobby();
             break;
         case SETTINGS:
             setSettings();

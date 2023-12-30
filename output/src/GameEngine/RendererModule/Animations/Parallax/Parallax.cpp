@@ -96,7 +96,6 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
             std::uniform_int_distribution<int> distribution(5, 8);
 
             int random_number = distribution(generator);
-            std::cout << _data._pos.first << std::endl;
             setPosition(
                 (text_bounds.width + _data.rect.width + (50 * random_number)),
                 (0));
