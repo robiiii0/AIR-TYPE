@@ -40,7 +40,7 @@ void Engine::RendererModule::RendererModule::handleEvent(
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
                                        SpriteComponent)) {
-                                        std::cout << "yep" << std::endl;
+                            std::cout << "yep" << std::endl;
                             std::dynamic_pointer_cast<
                                 Engine::RendererModule::Components::
                                     SpriteComponent>(component)

@@ -42,7 +42,7 @@ namespace Engine {
                     void          setOrigin(float x, float y);
                     void          setTextureRect(const sf::IntRect &rect);
                     void          setPosition(float x, float y);
-                    void handleEvent(int key);
+                    void          handleEvent(int key);
                     sf::Drawable &getDrawable() override;
 
                 protected:
@@ -52,7 +52,7 @@ namespace Engine {
                     sf::Color    _color;
                     float        _rotation;
                     bool         _Playable;
-                    sf::Sprite  _sprite;
+                    sf::Sprite   _sprite;
             };
         };  // namespace Components
     };      // namespace RendererModule

@@ -19,12 +19,11 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     this->_rotation = value.rotation;
     this->_Playable = value.Playable;
 
-
     _sprite.setScale(_scale);
     sf::FloatRect texture_bounds = _sprite.getGlobalBounds();
-    _sprite.setPosition({_pos.x - texture_bounds.width /
-                                           2,  // ? What does the 2 represent ?
-                         _pos.y - texture_bounds.height / 2});
+    _sprite.setPosition(
+        {_pos.x - texture_bounds.width / 2,  // ? What does the 2 represent ?
+         _pos.y - texture_bounds.height / 2});
     _sprite.setColor(_color);
     _sprite.setRotation(_rotation);
 
@@ -32,13 +31,11 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     _pos.y = _pos.y - texture_bounds.height / 2;
 }
 
-
 void Engine::RendererModule::Components::SpriteComponent::handleEvent(int key) {
     if (_Playable) {
         if (key == sf::Keyboard::Up) {
-            this->_sprite.setPosition(
-                this->_sprite.getPosition().x,
-                this->_sprite.getPosition().y - 10);
+            this->_sprite.setPosition(this->_sprite.getPosition().x,
+                                      this->_sprite.getPosition().y - 10);
         }
         if (key == sf::Keyboard::Down) {
             this->_sprite.move(0, 10);
