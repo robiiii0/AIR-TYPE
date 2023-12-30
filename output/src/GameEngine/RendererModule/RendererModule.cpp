@@ -30,6 +30,28 @@ void Engine::RendererModule::RendererModule::handleEvent(
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
+
+        if (_event.type == sf::Event::KeyPressed) {
+            std::cout << _event.key.code << std::endl;
+            for (auto id : id_list) {
+                try {
+                    auto components = entityManager.getAllComponents(id);
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::RendererModule::Components::
+                                       SpriteComponent)) {
+                            std::cout << "yep" << std::endl;
+                            std::dynamic_pointer_cast<
+                                Engine::RendererModule::Components::
+                                    SpriteComponent>(component)
+                                ->handleEvent(_event.key.code);
+                        }
+                    }
+                } catch (const Engine::EntityManager::NoComponent &e) {
+                    std::cerr << e.what() << '\n';
+                }
+            }
+        }
         //        if (_event.type == sf::Event::KeyPressed) {
         //        }
         if (_event.type == sf::Event::TextEntered ||

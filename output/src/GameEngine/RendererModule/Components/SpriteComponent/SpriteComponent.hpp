@@ -42,14 +42,17 @@ namespace Engine {
                     void          setOrigin(float x, float y);
                     void          setTextureRect(const sf::IntRect &rect);
                     void          setPosition(float x, float y);
+                    void          handleEvent(int key);
                     sf::Drawable &getDrawable() override;
 
                 protected:
                 private:
-                    SpriteData &_data;
-                    sf::Sprite  _sprite;
-                    Engine::Entity::Component::GenericComponents::Vector2f
-                        _relative_pos;
+                    sf::Vector2f _pos;
+                    sf::Vector2f _scale;
+                    sf::Color    _color;
+                    float        _rotation;
+                    bool         _Playable;
+                    sf::Sprite   _sprite;
             };
         };  // namespace Components
     };      // namespace RendererModule
