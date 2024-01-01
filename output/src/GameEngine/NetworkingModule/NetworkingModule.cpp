@@ -176,16 +176,20 @@ void Engine::Network::NetworkingModule::sendMessage(
         }
         index++;
     }
-    std::string packet = std::to_string(_protocol_prefix) + message +
-                         std::to_string(_protocol_suffix);
+    std::string packet = "";
+    packet += _protocol_prefix;
+    packet += message;
+    packet += _protocol_suffix;
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
-    std::string packet = std::to_string(_protocol_prefix) + message +
-                         std::to_string(_protocol_suffix);
+    std::string               packet = "";
+    packet += _protocol_prefix;
+    packet += message;
+    packet += _protocol_suffix;
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;
