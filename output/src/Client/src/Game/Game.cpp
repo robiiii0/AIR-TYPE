@@ -12,6 +12,8 @@ Game::Game() {
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     _gameState = MENU;
+    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+    1024, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");

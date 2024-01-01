@@ -43,15 +43,27 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
         ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
         ../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp
+        ../GameEngine/NetworkingModule/NetworkingModule.cpp
+        ../GameEngine/NetworkingModule/Client/Client.cpp
+        ../GameEngine/NetworkingModule/Buffer/Buffer.cpp
+        ../GameEngine/NetworkingModule/Messaging/Messager.cpp
+        ../GameEngine/NetworkingModule/exceptions/ClientDisconnectedException/ClientDisconnectedException.cpp
+        ../GameEngine/NetworkingModule/exceptions/ClientIdOutOfRangeException/ClientIdOutOfRangeException.cpp
+        ../GameEngine/NetworkingModule/exceptions/CouldNotAcceptClientException/CouldNotAcceptClientException.cpp
+        ../GameEngine/NetworkingModule/exceptions/CouldNotBindAddressException/CouldNotBindAddressException.cpp
+        ../GameEngine/NetworkingModule/exceptions/CouldNotReceiveException/CouldNotReceiveException.cpp
+        ../GameEngine/NetworkingModule/exceptions/CouldNotSendException/CouldNotSendException.cpp
+        ../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
         # ../GameEngine/NetworkingModule/NetworkingModule.cpp
         # ../GameEngine/PhysicModule/PhysicModule.cpp
 )
 
+link_directories(${CMAKE_SOURCE_DIR}/GameEngine/NetworkingModule)
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
+target_link_libraries(r-type_client PRIVATE engine_networking sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

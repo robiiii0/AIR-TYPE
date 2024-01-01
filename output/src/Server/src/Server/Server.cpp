@@ -36,6 +36,8 @@ void Server::loop() {
 void Server::stop() { _running = false; }
 
 void Server::networkLoop() {
+    std::cout << "nb clients: " << _networkingModule->getClients().size()
+              << std::endl;
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
