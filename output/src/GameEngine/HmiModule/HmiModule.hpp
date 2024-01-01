@@ -7,16 +7,17 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+
 namespace Engine {
     struct HmiData {
         int id;
     };
+
         class HmiModule {
             public:
                 HmiModule();
                 ~HmiModule() = default;
-
-                void keyEvent(sf::Event &event);
 
             private:
             HmiData _data{};

@@ -13,6 +13,7 @@ Game::Game() {
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     _gameState = MENU;    
     _networkingModule = nullptr;
+    _hmiModule = std::make_shared<Engine::HmiModule>();
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");

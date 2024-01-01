@@ -16,6 +16,7 @@
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
+#include "../../../GameEngine/HmiModule/HmiModule.hpp"
 
 // #include "../GameState/GameState.hpp"
 
@@ -158,6 +159,7 @@ class Game {
                    _sounds;
         sf::Sprite _sprite;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::shared_ptr<Engine::HmiModule> _hmiModule;
 };
 
 #endif  // GAME_HPP
