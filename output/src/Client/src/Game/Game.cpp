@@ -11,10 +11,8 @@ Game::Game() {
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
-    _gameState = MENU;
-    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
-    0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
-    _networkingModule->sendMessage("Connecting to server", 0);
+    _gameState = MENU;    
+    _networkingModule = nullptr;
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -51,6 +49,21 @@ void Game::run() {
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
 
+        if (_networkingModule != nullptr) {
+            _networkingModule->sendMessage("test", 0);
+            for (auto &client : _networkingModule->getClients()) {  // ? client update
+                while (client.getBuffer()->hasPacket()) {
+                std::string msg = client.getBuffer()->readNextPacket();
+                if (msg.find("New Player") != std::string::npos) {
+                    std::cout << "New Player" << std::endl;
+                    createSprite(_textures[PLAYER],
+                                {static_cast<float>(_width_drawable / 2),
+                                static_cast<float>(_height_drawable / 2)},
+                                {2, 2}, sf::Color::White, 0, true);
+                }
+                }
+            }
+        }
         std::vector<uint32_t> result = getEntities();
         //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
@@ -395,16 +408,11 @@ void Game::InitGame() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    createSprite(_textures[PLAYER],
-                 {static_cast<float>(0 + _width_drawable / 8),
-                  static_cast<float>(_height_drawable / 2)},
-                 {scale, scale}, sf::Color::White, 0, true);
+    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+    0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
+     _networkingModule->sendMessage("Connecting to server", 0);
 
-    createButton(std::bind(&Game::changeState, this, MENU), "",
-                 _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width_drawable / 1.05),
-                  static_cast<float>(_height_drawable / 1.05)},
-                 {0.10, 0.10});
+
 }
 
 void Game::GameStart() {
@@ -413,12 +421,8 @@ void Game::GameStart() {
     for (uint32_t i = 0; i < AllEntities.size(); i++) {
         _entities =
             _gameEngine.getEntityManager()->destroyEntity(AllEntities[i]);
-        std::cout << "destruction de l'entitée " << i << std::endl;
     }
-    std::cout << _entities.size() << std::endl;
-    std::cout << "init the game" << std::endl;
     InitGame();
-    std::cout << "le jeu se lance" << std::endl;
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 

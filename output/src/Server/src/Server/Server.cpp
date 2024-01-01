@@ -46,6 +46,7 @@ void Server::networkLoop() {
         _clientMessages[client.getId()].emplace(
             "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
+        _globalMessages.emplace("New Player");
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         if (client.getBuffer()->hasPacket()) {
