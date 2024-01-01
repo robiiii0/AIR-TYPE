@@ -7,6 +7,8 @@
 
 #include "NetworkingModule.hpp"
 
+#include <string.h>
+
 Engine::Network::NetworkingModule::NetworkingModule(int                port,
                                                     NetworkingTypeEnum type,
                                                     int max_clients) :
@@ -176,16 +178,22 @@ void Engine::Network::NetworkingModule::sendMessage(
         }
         index++;
     }
-    std::string packet = std::to_string(_protocol_prefix) + message +
-                         std::to_string(_protocol_suffix);
+    char packet_str[message.length() + 2];
+    packet_str[0] = _protocol_prefix;
+    memcpy(packet_str + 1, message.c_str(), message.length() + 1);
+    packet_str[message.length()] = _protocol_suffix;
+    std::string packet = std::string{packet_str};
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
-    std::string packet = std::to_string(_protocol_prefix) + message +
-                         std::to_string(_protocol_suffix);
+    char                      packet_str[message.length() + 2];
+    packet_str[0] = _protocol_prefix;
+    memcpy(packet_str + 1, message.c_str(), message.length() + 1);
+    packet_str[message.length()] = _protocol_suffix;
+    std::string packet = std::string{packet_str};
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;
