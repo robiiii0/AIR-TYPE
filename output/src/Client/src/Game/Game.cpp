@@ -343,7 +343,7 @@ void Game::createRoundedButton(std::string text, sf::Font &font,
     addEntity(button_entity);
 }
 
-void Game::setParalax() {
+void Game::setParallax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;

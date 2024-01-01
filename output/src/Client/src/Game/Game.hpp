@@ -120,7 +120,7 @@ class Game {
 
         // Set Screen
         void setMenu();
-        void setParalax();
+        void setParallax();
         //        void setLobby();
         void setSettings();
         void InitGame();
