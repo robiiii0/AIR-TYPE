@@ -62,7 +62,7 @@ bool Engine::Network::Buffer::hasPacket() {
         if (i == __circular_buffer_size) {
             i = 0;
         }
-        if (_buffer[i] == (char)_protocol_suffix) {
+        if (_buffer[i] == _protocol_suffix) {
             return true;
         }
     }

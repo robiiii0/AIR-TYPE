@@ -7,8 +7,6 @@
 
 #include "NetworkingModule.hpp"
 
-#include <string.h>
-
 Engine::Network::NetworkingModule::NetworkingModule(int                port,
                                                     NetworkingTypeEnum type,
                                                     int max_clients) :
@@ -178,24 +176,16 @@ void Engine::Network::NetworkingModule::sendMessage(
         }
         index++;
     }
-    char packet_str[message.length() + 3];
-    packet_str[0] = (char)_protocol_prefix;
-    memcpy(packet_str + 1, message.c_str(), message.length() + 1);
-    packet_str[message.length() + 2] = (char)_protocol_suffix;
-    packet_str[message.length() + 3] = '\0';
-    std::string packet = std::string{packet_str};
+    std::string packet = std::to_string(_protocol_prefix) + message +
+                         std::to_string(_protocol_suffix);
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
-    char                      packet_str[message.length() + 3];
-    packet_str[0] = (char)_protocol_prefix;
-    memcpy(packet_str + 1, message.c_str(), message.length() + 1);
-    packet_str[message.length() + 2] = (char)_protocol_suffix;
-    packet_str[message.length() + 3] = '\0';
-    std::string packet = std::string{packet_str};
+    std::string packet = std::to_string(_protocol_prefix) + message +
+                         std::to_string(_protocol_suffix);
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;

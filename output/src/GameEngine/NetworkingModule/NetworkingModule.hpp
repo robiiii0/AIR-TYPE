@@ -116,9 +116,9 @@ namespace Engine {
                 struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
                 int                                  _max_clients;
-                const uint8_t                        _protocol_prefix = 0xAA;
-                const uint8_t                        _protocol_suffix = 0xBB;
-                std::thread                          _running_thread;
+                const int8_t _protocol_prefix = (char)0xAA;
+                const int8_t _protocol_suffix = (char)0xBB;
+                std::thread  _running_thread;
         };
     };  // namespace Network
 };      // namespace Engine
