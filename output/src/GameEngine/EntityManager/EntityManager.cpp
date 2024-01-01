@@ -38,10 +38,10 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::uint32_t id = _entities.size();
     _available_entities.pop();
     _living_entity_count++;
-    std::cout << "Created entity " << id << std::endl;
+    // std::cout << "Created entity " << id << std::endl;
     Entity entity(id);
     _entities.push_back(std::make_shared<Entity>(entity));
-    std::cout << "Entity count: " << _entities.size() << std::endl;
+    // std::cout << "Entity count: " << _entities.size() << std::endl;
     return id;
 }
 
