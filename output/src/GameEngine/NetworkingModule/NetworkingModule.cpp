@@ -179,10 +179,10 @@ void Engine::Network::NetworkingModule::sendMessage(
         index++;
     }
     char packet_str[message.length() + 3];
-    packet_str[0] = _protocol_prefix;
+    packet_str[0] = (char)_protocol_prefix;
     memcpy(packet_str + 1, message.c_str(), message.length() + 1);
-    packet_str[message.length() + 1] = _protocol_suffix;
-    packet_str[message.length() + 2] = '\0';
+    packet_str[message.length() + 2] = (char)_protocol_suffix;
+    packet_str[message.length() + 3] = '\0';
     std::string packet = std::string{packet_str};
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
@@ -191,10 +191,10 @@ void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
     char                      packet_str[message.length() + 3];
-    packet_str[0] = _protocol_prefix;
+    packet_str[0] = (char)_protocol_prefix;
     memcpy(packet_str + 1, message.c_str(), message.length() + 1);
-    packet_str[message.length() + 1] = _protocol_suffix;
-    packet_str[message.length() + 2] = '\0';
+    packet_str[message.length() + 2] = (char)_protocol_suffix;
+    packet_str[message.length() + 3] = '\0';
     std::string packet = std::string{packet_str};
     for (auto &client : _clients) {
         if (!client.isConnected()) {
