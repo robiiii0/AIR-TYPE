@@ -176,17 +176,21 @@ void Engine::Network::NetworkingModule::sendMessage(
         }
         index++;
     }
-    messager.sendMessage(message, _clients[index], _socket_fd);
+    std::string packet = std::to_string(_protocol_prefix) + message +
+                         std::to_string(_protocol_suffix);
+    messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
+    std::string packet = std::to_string(_protocol_prefix) + message +
+                         std::to_string(_protocol_suffix);
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;
         }
-        messager.sendMessage(message, client, _socket_fd);
+        messager.sendMessage(packet, client, _socket_fd);
     }
 }
 
