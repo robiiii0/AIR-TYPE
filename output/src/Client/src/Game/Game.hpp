@@ -158,7 +158,7 @@ class Game {
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                    _sounds;
         sf::Sprite _sprite;
-        std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::unique_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule> _hmiModule;
 };
 

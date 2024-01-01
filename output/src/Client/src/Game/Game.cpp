@@ -409,7 +409,7 @@ void Game::InitGame() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+    _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
     0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
      _networkingModule->sendMessage("Connecting to server", 0);
 
