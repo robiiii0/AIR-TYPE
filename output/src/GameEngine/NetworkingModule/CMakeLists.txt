@@ -17,9 +17,7 @@ add_library(engine_networking
     exceptions/CouldNotReceiveException/CouldNotReceiveException.cpp
     exceptions/CouldNotSendException/CouldNotSendException.cpp
     exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
-    Messaging/Messager.cpp
-        ../HmiModule/HmiModule.hpp
-        ../HmiModule/HmiModule.cpp)
+    Messaging/Messager.cpp)
 
 
 add_custom_command(TARGET engine_networking POST_BUILD
