@@ -55,7 +55,6 @@ add_executable(r-type_client
         ../GameEngine/NetworkingModule/exceptions/CouldNotSendException/CouldNotSendException.cpp
         ../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
         ../GameEngine/HmiModule/HmiModule.cpp
-        ../GameEngine/HmiModule/HmiModule.hpp
 
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
