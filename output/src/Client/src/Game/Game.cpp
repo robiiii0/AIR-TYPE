@@ -33,6 +33,9 @@ Game::Game() {
         "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
     loadTexture(
         "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
+    loadTexture("src/Client/assets/new_assets/ennemy/sprites/enemy1.png");
+    
+    loadTexture("src/Client/assets/new_assets/shoot/shoot1.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
 
@@ -64,6 +67,7 @@ void Game::run() {
                 }
             }
         }
+
         std::vector<uint32_t> result = getEntities();
         //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
@@ -254,10 +258,10 @@ void Game::setMenu() {
                {1, 1});
 
     //    // server choice
-    //    createSprite(_textures[BUTTON],
-    //                 {static_cast<float>(_width_drawable / 6),
-    //                  static_cast<float>(_height_drawable / 3)},
-    //                 {0.6, 0.5});
+       createSprite(_textures[BUTTON],
+                    {static_cast<float>(_width_drawable / 6),
+                     static_cast<float>(_height_drawable / 3)},
+                    {0.6, 0.5});
     //    createText("Server choice", _fonts[TITLE],
     //               {static_cast<float>(_width_drawable / 6),
     //                static_cast<float>(_height_drawable / 3.4)},
@@ -514,6 +518,26 @@ void Game::clearCurrentState() {
         }
     }
     _entities.erase(_entities.begin() + 7, _entities.end());
+}
+
+void Game::createMissile(sf::Vector2f position)
+{
+    std::cout << "create missile" << std::endl;
+    uint32_t missile_entity = _gameEngine.getEntityManager()->createEntity();
+
+    sf::Sprite Sprite_temp;
+
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        Sprite_temp, position, {1, 1}, sf::Color::White, 0, true};
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 _textures[BULLET]);
+
+    _gameEngine.getEntityManager()->addComponent(missile_entity, spriteComponent);
+    addEntity(missile_entity);
+
 }
 
 void Game::setupState() {

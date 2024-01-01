@@ -117,6 +117,8 @@ class Game {
             sf::Color             colorText = sf::Color::White,
             std::function<void()> _func = []() {});
 
+        void createMissile(sf::Vector2f position);
+
         // Set Screen
         void setMenu();
         void setParalax();
