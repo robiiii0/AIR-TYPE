@@ -13,7 +13,8 @@ Game::Game() {
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     _gameState = MENU;
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
-    1024, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
+    0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
+    _networkingModule->sendMessage("Connecting to server", 0);
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -38,7 +39,7 @@ Game::Game() {
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
 
     // Main music loop.
-    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
+    // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
 void Game::run() {
