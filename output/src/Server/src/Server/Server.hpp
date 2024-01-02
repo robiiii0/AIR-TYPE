@@ -33,6 +33,7 @@ class Server {
         void sendToAllExcept(std::uint32_t id, std::string message);
         void sendGameStatus(std::uint32_t id);
         void createPlayer(std::uint32_t id);
+        void createMissile(std::uint32_t id, std::uint32_t playerId);
 
     private:
         void                                                networkLoop();
@@ -45,6 +46,7 @@ class Server {
         std::chrono::_V2::high_resolution_clock::time_point _clock;
 
         std::map<std::uint32_t, std::uint32_t>              _playerEntities;
+        std::map<std::uint32_t, std::uint32_t>              _missileEntities;
 };
 
 #endif /* !SERVER_HPP_ */

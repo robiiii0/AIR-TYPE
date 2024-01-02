@@ -108,6 +108,23 @@ void Server::createPlayer(std::uint32_t id) {
     sendGameStatus(id);
 }
 
+void Server::createMissile(std::uint32_t id, std::uint32_t playerId) {
+    std::cout << "Creating missile " << id << std::endl;
+    _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    std::cout << "Missile " << id << " created" << std::endl;
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{0.0, 0.0};
+    auto position = std::make_shared<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+        position_data);
+    _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
+                                                  position);
+    std::string msg = "New Missile " + std::to_string(id) + " " +
+                      std::to_string(position->getValue().x) + " " +
+                      std::to_string(position->getValue().y);
+
+    sendToAllExcept(id, msg);   
+}
+
 void Server::networkLoop() {
     std::cout << "nb clients: " << _networkingModule->getClients().size()
               << std::endl;
