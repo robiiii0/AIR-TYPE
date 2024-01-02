@@ -127,7 +127,7 @@ void Game::run() {
                         if (msg.find(" ") == std::string::npos) {
                             missile_info.emplace_back(msg);
                         }
-                        if (!_missiles.empty() && missile_info.size() == 5) {
+                        if (!_missiles.empty() && missile_info.size() == 5 && std::stoi(missile_info[2]) < _missiles.size()) {
                             std::cout << "missile_info: " << missile_info[2] << " "
                                     << missile_info[3] << " " << missile_info[4]
                                     << std::endl;

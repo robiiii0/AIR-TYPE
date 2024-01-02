@@ -30,8 +30,8 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
-    networkLoop();
     update();
+    networkLoop();
     applyTickrate();
 }
 
@@ -205,6 +205,7 @@ void Server::update() {
 }
 
 void Server::updateMissiles() {
+    int i = 0;
     for (auto &entity : _missileEntities) {
         auto missile =
             _gameEngine->getEntityManager()->getEntity(entity.second);
@@ -226,8 +227,10 @@ void Server::updateMissiles() {
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
+                i++;
                 break;
             }
         }
     }
+    std::cout << "Updated " << i << " missiles" << std::endl;
 }
