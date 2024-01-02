@@ -45,9 +45,11 @@ class Server {
         std::map<std::uint32_t, std::queue<std::string>>   _clientMessages;
         std::chrono::high_resolution_clock::time_point     _clock;
 
+
         std::map<std::uint32_t, std::uint32_t>              _playerEntities;
         std::map<std::uint32_t, std::uint32_t>              _missileEntities;
         std::uint32_t _missileID;
+
 };
 
 #endif /* !SERVER_HPP_ */

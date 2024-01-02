@@ -145,10 +145,11 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
         //             std::cerr << e.what() << '\n';
         //         }
         //     }
-            if (_event.type == sf::Event::KeyPressed) {
+
+        if (_event.type == sf::Event::KeyPressed) {
             std::cout << "jappuie" << std::endl;
             return _event.key.code;
-            }
+        }
 
         // }
     }
