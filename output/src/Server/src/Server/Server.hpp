@@ -35,14 +35,14 @@ class Server {
         void createPlayer(std::uint32_t id);
 
     private:
-        void                                                networkLoop();
-        bool                                                _running;
-        std::uint32_t                                       _nb_clients;
-        std::unique_ptr<Engine::Network::NetworkingModule>  _networkingModule;
-        std::unique_ptr<Engine::GameEngine>                 _gameEngine;
-        std::queue<std::string>                             _globalMessages;
-        std::map<std::uint32_t, std::queue<std::string>>    _clientMessages;
-        std::chrono::high_resolution_clock::time_point _clock;
+        void                                               networkLoop();
+        bool                                               _running;
+        std::uint32_t                                      _nb_clients;
+        std::unique_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::unique_ptr<Engine::GameEngine>                _gameEngine;
+        std::queue<std::string>                            _globalMessages;
+        std::map<std::uint32_t, std::queue<std::string>>   _clientMessages;
+        std::chrono::high_resolution_clock::time_point     _clock;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
 };

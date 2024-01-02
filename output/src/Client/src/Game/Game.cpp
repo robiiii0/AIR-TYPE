@@ -41,14 +41,12 @@ Game::Game() {
     // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
-
-
-
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
-        _hmiModule->keyEvent(_gameEngine.getRendererModule()->UpdateForServer());
+        _hmiModule->keyEvent(
+            _gameEngine.getRendererModule()->UpdateForServer());
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         _gameEngine.getRendererModule()->handleEvent(
@@ -372,7 +370,7 @@ void Game::setParallax() {
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
-    float scale = std::max(scale_x, scale_y);
+    float       scale = std::max(scale_x, scale_y);
     const float myRef = {static_cast<float>(1.0)};
 
     // Background texture
@@ -427,7 +425,7 @@ void Game::InitGame() {
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
-    float scale = std::max(scale_x, scale_y);
+    float       scale = std::max(scale_x, scale_y);
     const float myRef = {static_cast<float>(1.0)};
 
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(

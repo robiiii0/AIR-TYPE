@@ -12,7 +12,6 @@ Engine::HmiModule::HmiModule() {
 // Engine::HmiData &Engine::HmiModule::getData() { r; }
 
 void Engine::HmiModule::keyEvent(int key) {
-
     switch (key) {
         case sf::Keyboard::Up:
             keyboard.set(0);

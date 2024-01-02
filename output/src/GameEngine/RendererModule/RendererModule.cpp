@@ -18,7 +18,6 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
-
 int Engine::RendererModule::RendererModule::UpdateForServer() {
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
@@ -29,7 +28,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer() {
     }
     return 0;
 }
-
 
 // TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
 

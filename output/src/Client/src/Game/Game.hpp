@@ -71,7 +71,6 @@ class Game {
         void loadFont(std::string path);
         void loadTexture(std::string path);
 
-
         // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
