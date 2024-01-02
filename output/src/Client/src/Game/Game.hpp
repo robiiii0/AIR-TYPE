@@ -121,6 +121,7 @@ class Game {
             std::function<void()> _func = []() {});
 
         void attack();
+        void createMissile(std::uint32_t id, float x, float y);
 
         // Set Screen
         void setMenu();

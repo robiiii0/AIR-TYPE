@@ -25,6 +25,7 @@ void Server::init() {
         4242, Engine::Network::NetworkingTypeEnum::UDP, 10);
     _nb_clients = 0;
     _gameEngine = std::make_unique<Engine::GameEngine>(false);
+    _missileID = 0;
 }
 
 void Server::loop() {
@@ -162,7 +163,8 @@ void Server::networkLoop() {
                       << std::endl;  // TODO: handle packet
             if (packet == "ATTACK") {
                 std::cout << "Creating missile" << std::endl;
-                createMissile(client.getId());
+                createMissile(_missileID);
+                _missileID++;
             }
         }
     }

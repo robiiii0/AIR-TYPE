@@ -34,6 +34,8 @@ Game::Game() {
         "src/Client/assets/new_assets/background/Menu/noatmosphere.png");
     loadTexture(
         "src/Client/assets/new_assets/player/sprites/player1_yellow.png");
+    loadTexture("src/Client/assets/new_assets/ennemy/sprites/ennemy1.png");
+    loadTexture("src/Client/assets/new_assets/shoot/shoot1.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/3.png");
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
 
@@ -48,7 +50,6 @@ void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
-
         _hmiModule->keyEvent(_gameEngine.getRendererModule()->UpdateForServer(
             *_gameEngine.getEntityManager(), getEntities()));
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
@@ -80,10 +81,29 @@ void Game::run() {
                         createSprite(_textures[PLAYER],
                                      {std::stof(player_info[3]),
                                       std::stof(player_info[4])},
-                                     {2, 2}, sf::Color::White, 0, true);
+                                     {20, 20}, sf::Color::White, 0, true);
                     }
                     if (msg.find("Move") != std::string::npos) {
 
+                    }
+                    if (msg.find("New Missile") != std::string::npos) {
+                        std::vector<std::string> missile_info;
+                        while (msg.find(" ") != std::string::npos) {
+                            missile_info.emplace_back(
+                                msg.substr(0, msg.find(" ")));
+                            std::cout << msg << std::endl;
+                            msg.erase(0, msg.find(" ") + 1);
+                        }
+                        if (msg.find(" ") == std::string::npos) {
+                            missile_info.emplace_back(msg);
+                        }
+                        std::cout << "missile_info: " << missile_info[2] << " "
+                                  << missile_info[3] << " " << missile_info[4]
+                                  << std::endl;
+                        createSprite(_textures[BULLET],
+                                     {std::stof(missile_info[3]),
+                                      std::stof(missile_info[4])},
+                                     {2, 2}, sf::Color::White, 0, true);
                     }
                 }
             }
@@ -94,7 +114,7 @@ void Game::run() {
 
 
         // std::cout << "size: " << start - std::clock() << std::endl;
-        if (std::clock() - start > 10000 && _networkingModule != nullptr) {
+        if (std::clock() - start > 50000 && _networkingModule != nullptr) {
             attack();
             start = std::clock();
         }
@@ -567,6 +587,31 @@ void Game::attack() {
     std::cout << "j'attaque la" << std::endl;
     _networkingModule->sendMessage("ATTACK", 0);
 }
+
+// void Game::createMissile(std::uint32_t id, float x, float y)
+// {
+//     std::cout << "Creating missile " << id << std::endl;
+//     uint32_t missileEntities = _gameEngine.getEntityManager()->createEntity();
+
+//     Engine::Entity::Component::GenericComponents::Vector2f position_data{x, y};
+
+//     auto position = std::make_shared<
+//         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+//         position_data);
+
+//     _gameEngine.getEntityManager()->addComponent(missileEntities, position);
+
+//     sf::Sprite sprite_temp;
+//     Engine::RendererModule::Components::SpriteData sprite_temp_data = {
+//         sprite_temp, {x, y}, {20, 20}, sf::Color::White, 0, true};
+
+//     auto sprite = std::make_shared<
+//         Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data,
+//                                                              _textures[BULLET]);
+
+//     _gameEngine.getEntityManager()->addComponent(missileEntities, sprite);
+//     addEntity(missileEntities);
+// }
 
 void Game::setupState() {
     switch (_gameState) {
