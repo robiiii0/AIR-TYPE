@@ -67,14 +67,14 @@ void Server::networkLoop() {
         _globalMessages.emplace("New Player");
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
-        if (client.getBuffer()->hasPacket()) {
-            std::cout << "Client " << client.getId()
-                      << " sent: " << client.getBuffer()->read()
+        while (client.getBuffer()->hasPacket()) {
+            std::string packet = client.getBuffer()->readNextPacket();
+            std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        std::cout << "Global message: " << _globalMessages.front() << std::endl;
+        std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
         _networkingModule->broadcastMessage(_globalMessages.front());
         _globalMessages.pop();
     }

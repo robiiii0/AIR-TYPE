@@ -50,7 +50,7 @@ std::string Engine::Network::Buffer::readNextPacket() {
         if (c == _protocol_suffix) {
             break;
         } else {
-            packet += c;
+            if (c != _protocol_prefix) packet += c;
         }
         _read_head %= __circular_buffer_size;
     }
