@@ -64,6 +64,7 @@ void Server::sendToAllExcept(std::uint32_t id, std::string message) {
 
 void Server::sendGameStatus(std::uint32_t id) {
     // ? send all players
+    _clientMessages[id].emplace("STATUS START");
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         Engine::Entity::Component::GenericComponents::Vector2f position =
@@ -76,6 +77,7 @@ void Server::sendGameStatus(std::uint32_t id) {
                           std::to_string(position.y);
         _clientMessages[id].emplace(msg);
     }
+    _clientMessages[id].emplace("STATUS END");
 }
 
 void Server::createPlayer(std::uint32_t id) {
