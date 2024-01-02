@@ -28,8 +28,6 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
-    std::cout << "loop" << std::endl;
-    _globalMessages.emplace("This is a test message broadcast at every loop");
     networkLoop();
     applyTickrate();
 }
