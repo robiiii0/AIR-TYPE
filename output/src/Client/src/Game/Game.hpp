@@ -7,6 +7,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <ctime>
 #include <functional>
 #include <string>
 #include <vector>
@@ -119,6 +120,9 @@ class Game {
             sf::Color             colorButton = sf::Color::White,
             sf::Color             colorText = sf::Color::White,
             std::function<void()> _func = []() {});
+
+        void attack();
+        void createMissile(std::uint32_t id, float x, float y);
 
         // Set Screen
         void setMenu();

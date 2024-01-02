@@ -25,6 +25,7 @@ void Server::init() {
         4242, Engine::Network::NetworkingTypeEnum::UDP, 10);
     _nb_clients = 0;
     _gameEngine = std::make_unique<Engine::GameEngine>(false);
+    _missileID = 0;
 }
 
 void Server::loop() {
@@ -44,13 +45,13 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        // std::cout << "Server Tickrate: "
-        //           << 1.0 /
-        //                  std::chrono::duration_cast<std::chrono::microseconds>(
-        //                      std::chrono::high_resolution_clock::now() -
-        //                      _clock) .count() *
-        //                  1000000
-        //           << std::endl;
+        std::cout << "Server Tickrate: "
+                  << 1.0 /
+                         std::chrono::duration_cast<std::chrono::microseconds>(
+                             std::chrono::high_resolution_clock::now() - _clock)
+                             .count() *
+                         1000000
+                  << std::endl;
     }
 }
 
@@ -106,6 +107,40 @@ void Server::createPlayer(std::uint32_t id) {
     sendGameStatus(id);
 }
 
+void Server::createMissile(std::uint32_t id) {
+    std::cout << "Creating missile " << id << std::endl;
+    _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    std::cout << "Missile " << id << " created" << std::endl;
+
+    for (auto &entity : _playerEntities) {
+        auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
+        for (auto &component : player->_components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    position_data(position->getValue());
+                // auto pos = std::make_shared<
+                //     Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+                //     position_data);
+                _gameEngine->getEntityManager()->addComponent(
+                    _missileEntities[id], position);
+                std::string msg = "New Missile " + std::to_string(id) + " " +
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
+                std::cout << msg << std::endl;
+                _globalMessages.emplace(msg);
+            }
+        }
+    }
+
+    // _gameEngine->getEntityManager()->getEntity(id)->
+}
+
 void Server::networkLoop() {
     // std::cout << "nb clients: " << _networkingModule->getClients().size()
     //   << std::endl;
@@ -125,6 +160,13 @@ void Server::networkLoop() {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
+
+            if (packet == "ATTACK") {
+                std::cout << "Creating missile" << std::endl;
+                createMissile(_missileID);
+                _missileID++;
+            }
+
             if (packet.find("Move") != std::string::npos) {
                 if (packet.find("up") != std::string::npos) {
                     // movePlayer
