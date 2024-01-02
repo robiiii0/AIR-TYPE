@@ -27,13 +27,33 @@ void Server::init() {
 }
 
 void Server::loop() {
+    _clock = std::chrono::high_resolution_clock::now();
     std::cout << "loop" << std::endl;
     _globalMessages.emplace("This is a test message broadcast at every loop");
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     networkLoop();
+    applyTickrate();
 }
 
 void Server::stop() { _running = false; }
+
+void Server::applyTickrate() {
+    const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(
+        std::chrono::high_resolution_clock::now() - _clock);
+    if (elapsed.count() < 1000 / SERVER_TICKRATE) {
+        const long duration = 1000000 / SERVER_TICKRATE;
+        const long sleepTime = duration - elapsed.count();
+        if (sleepTime > 0) {
+            std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
+        }
+        std::cout << "Server Tickrate: "
+                  << 1.0 /
+                         std::chrono::duration_cast<std::chrono::microseconds>(
+                             std::chrono::high_resolution_clock::now() - _clock)
+                             .count() *
+                         1000000
+                  << std::endl;
+    }
+}
 
 void Server::networkLoop() {
     std::cout << "nb clients: " << _networkingModule->getClients().size()
