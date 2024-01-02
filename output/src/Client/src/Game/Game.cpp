@@ -77,10 +77,15 @@ void Game::applyStatus(Engine::Network::Client &client) {
             std::vector<std::string> player_info;
             while (msg.find(" ") != std::string::npos) {
                 player_info.emplace_back(msg.substr(0, msg.find(" ")));
+                std::cout << msg << std::endl;
                 msg.erase(0, msg.find(" ") + 1);
             }
+            if (msg.find(" ") == std::string::npos) {
+                player_info.emplace_back(msg);
+            }
+            std::cout << "player_info: " << " " << player_info[3] << " " << player_info[2] << std::endl;
             createSprite(_textures[PLAYER],
-                         {std::stof(player_info[1]), std::stof(player_info[2])},
+                         {std::stof(player_info[2]), std::stof(player_info[3])},
                          {2, 2}, sf::Color::White, 0, true);
         }
         msg = client.getBuffer()->readNextPacket();
