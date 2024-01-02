@@ -13,8 +13,8 @@
 #include <map>
 #include <queue>
 
-#include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 #include "../../../GameEngine/GameEngine.hpp"
+#include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
 #define SERVER_TICKRATE 64
 
@@ -44,7 +44,7 @@ class Server {
         std::map<std::uint32_t, std::queue<std::string>>    _clientMessages;
         std::chrono::high_resolution_clock::time_point _clock;
 
-        std::map<std::uint32_t, std::uint32_t>              _playerEntities;
+        std::map<std::uint32_t, std::uint32_t> _playerEntities;
 };
 
 #endif /* !SERVER_HPP_ */
