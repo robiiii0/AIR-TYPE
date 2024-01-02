@@ -35,7 +35,6 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
 
     _data._name = value._name;
     _data._movement = value._movement;
-    std::cout << "sprite for paralax created" << std::endl;
 }
 
 sf::Drawable &

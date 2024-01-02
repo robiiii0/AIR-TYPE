@@ -17,6 +17,7 @@ Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
         _available_entities.push(i);
+    _living_entity_count = 0;
     //    _entities.clear();
 }
 
@@ -38,10 +39,8 @@ std::uint32_t Engine::Entity::EntityManager::createEntity() {
     std::uint32_t id = _entities.size();
     _available_entities.pop();
     _living_entity_count++;
-    std::cout << "Created entity " << id << std::endl;
     Entity entity(id);
     _entities.push_back(std::make_shared<Entity>(entity));
-    std::cout << "Entity count: " << _entities.size() << std::endl;
     return id;
 }
 
@@ -77,7 +76,6 @@ std::vector<std::uint32_t> Engine::Entity::EntityManager::destroyEntity(
 
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
         if (_entities[i]->_id == entity_id) {
-            std::cout << "yep " << std::endl;
             _entities.erase(_entities.begin() + i);
             newList.erase(newList.begin() + i);
             return newList;

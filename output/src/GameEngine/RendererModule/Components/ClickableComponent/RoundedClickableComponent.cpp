@@ -16,7 +16,6 @@ Engine::RendererModule::Components::RoundedClickableComponent::
     _buttonShape.setFillColor(sf::Color::Magenta);
     _buttonShape.setOutlineColor(sf::Color::Black);
     _buttonShape.setOutlineThickness(2.0f);
-    std::cout << "ClickableComponent created" << std::endl;
 }
 
 Engine::RendererModule::Components::RoundedClickableComponent::

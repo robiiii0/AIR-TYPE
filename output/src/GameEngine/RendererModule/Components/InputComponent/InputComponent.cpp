@@ -21,7 +21,6 @@ Engine::RendererModule::Components::InputComponent::InputComponent(
     _isClicked = false;
     _isHovered = false;
     _str = "";
-    std::cout << "InputComponent created" << std::endl;
 }
 
 Engine::RendererModule::Components::InputComponent::~InputComponent() {}
@@ -69,7 +68,6 @@ bool Engine::RendererModule::Components::InputComponent::isClicked(
 
     if (Bounds.contains(mousePos.first, mousePos.second)) {
         _isClicked = true;
-        std::cout << "Clicked" << std::endl;
         return true;
     } else {
         _isClicked = false;

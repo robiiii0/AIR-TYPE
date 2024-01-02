@@ -28,7 +28,6 @@ void Engine::Physic::Components::TransformComponent::setPos(
 }
 
 void Engine::Physic::Components::TransformComponent::setPos(float x, float y) {
-    std::cout << "test" << std::endl;
     _pos.x = x;
     _pos.y = y;
 }

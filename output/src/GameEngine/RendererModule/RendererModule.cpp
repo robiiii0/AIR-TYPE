@@ -18,6 +18,17 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
+int Engine::RendererModule::RendererModule::UpdateForServer() {
+    while (_window.pollEvent(_event)) {
+        if (_event.type == sf::Event::Closed) _window.close();
+        if (_event.type == sf::Event::KeyPressed) {
+            std::cout << "jappuie" << std::endl;
+            return _event.key.code;
+        }
+    }
+    return 0;
+}
+
 // TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
 
 void Engine::RendererModule::RendererModule::handleEvent(
@@ -32,7 +43,6 @@ void Engine::RendererModule::RendererModule::handleEvent(
             _window.close();
 
         if (_event.type == sf::Event::KeyPressed) {
-            std::cout << _event.key.code << std::endl;
             for (auto id : id_list) {
                 try {
                     auto components = entityManager.getAllComponents(id);
@@ -40,7 +50,6 @@ void Engine::RendererModule::RendererModule::handleEvent(
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
                                        SpriteComponent)) {
-                            std::cout << "yep" << std::endl;
                             std::dynamic_pointer_cast<
                                 Engine::RendererModule::Components::
                                     SpriteComponent>(component)

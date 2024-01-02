@@ -12,6 +12,8 @@ Game::Game() {
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
     _gameState = MENU;
+    _networkingModule = nullptr;
+    _hmiModule = std::make_shared<Engine::HmiModule>();
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -36,22 +38,58 @@ Game::Game() {
     // loadTexture("src/Client/assets/new_assets/background/parallax/4.png");
 
     // Main music loop.
-    createSound("src/Client/assets/Sound/music.wav", 50, true, true);
+    // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
+        _hmiModule->keyEvent(
+            _gameEngine.getRendererModule()->UpdateForServer());
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
 
+        if (_networkingModule != nullptr) {
+            for (auto &client :
+                 _networkingModule->getClients()) {  // ? client update
+                while (client.getBuffer()->hasPacket()) {
+                    std::string msg = client.getBuffer()->readNextPacket();
+                    if (msg == "STATUS START") {
+                        applyStatus(client);
+                    }
+                }
+            }
+        }
         std::vector<uint32_t> result = getEntities();
-        //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
+    }
+}
+
+void Game::applyStatus(Engine::Network::Client &client) {
+    std::string msg = client.getBuffer()->readNextPacket();
+    while (msg != "STATUS END") {
+        if (msg.find("Player") != std::string::npos) {
+            std::vector<std::string> player_info;
+            while (msg.find(" ") != std::string::npos) {
+                player_info.emplace_back(msg.substr(0, msg.find(" ")));
+                std::cout << msg << std::endl;
+                msg.erase(0, msg.find(" ") + 1);
+            }
+            if (msg.find(" ") == std::string::npos) {
+                player_info.emplace_back(msg);
+            }
+            std::cout << "player_info: "
+                      << " " << player_info[3] << " " << player_info[2]
+                      << std::endl;
+            createSprite(_textures[PLAYER],
+                         {std::stof(player_info[2]), std::stof(player_info[3])},
+                         {2, 2}, sf::Color::White, 0, true);
+        }
+        msg = client.getBuffer()->readNextPacket();
     }
 }
 
@@ -326,14 +364,13 @@ void Game::createRoundedButton(std::string text, sf::Font &font,
     addEntity(button_entity);
 }
 
-void Game::setParalax() {
+void Game::setParallax() {
     sf::Vector2u textureSize = _textures[0].getSize();
 
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
-    float scale = std::max(scale_x, scale_y);
-    std::cout << scale << std::endl;
+    float       scale = std::max(scale_x, scale_y);
     const float myRef = {static_cast<float>(1.0)};
 
     // Background texture
@@ -388,34 +425,21 @@ void Game::InitGame() {
     float scale_x = static_cast<float>(_width_drawable) / textureSize.x;
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
-    float scale = std::max(scale_x, scale_y);
-    std::cout << scale << std::endl;
+    float       scale = std::max(scale_x, scale_y);
     const float myRef = {static_cast<float>(1.0)};
 
-    createSprite(_textures[PLAYER],
-                 {static_cast<float>(0 + _width_drawable / 8),
-                  static_cast<float>(_height_drawable / 2)},
-                 {scale, scale}, sf::Color::White, 0, true);
-
-    createButton(std::bind(&Game::changeState, this, MENU), "",
-                 _textures[QUIT_BUTTON], _fonts[TITLE],
-                 {static_cast<float>(_width_drawable / 1.05),
-                  static_cast<float>(_height_drawable / 1.05)},
-                 {0.10, 0.10});
+    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+        0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
+    _networkingModule->sendMessage("Connecting to server", 0);
 }
 
 void Game::GameStart() {
     std::vector<uint32_t> AllEntities = getEntities();
-    std::cout << AllEntities.size() << std::endl;
     for (uint32_t i = 0; i < AllEntities.size(); i++) {
         _entities =
             _gameEngine.getEntityManager()->destroyEntity(AllEntities[i]);
-        std::cout << "destruction de l'entitée " << i << std::endl;
     }
-    std::cout << _entities.size() << std::endl;
-    std::cout << "init the game" << std::endl;
     InitGame();
-    std::cout << "le jeu se lance" << std::endl;
     // _gameEngine.getEntityManager()->removeComponent(getEntities(), );
 }
 
@@ -425,17 +449,14 @@ void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1); }
 
 void Game::WindowSize500() {
     _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
-    std::cout << "window size 500" << std::endl;
 }
 
 void Game::WindowSize800() {
     _gameEngine.getRendererModule()->getWindow().setSize({800, 600});
-    std::cout << "window size 800" << std::endl;
 }
 
 void Game::WindowSizeFullscreen() {
     // TODO: Get screen size to set window size with it.
-    std::cout << "window size fullscreen" << std::endl;
 }
 
 void Game::setSettings() {

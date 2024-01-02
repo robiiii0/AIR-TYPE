@@ -11,7 +11,7 @@
 int main() {
     Game game;
 
-    game.setParalax();
+    game.setParallax();
     game.setMenu();
     // game.createTest();
     // game.setLobby();

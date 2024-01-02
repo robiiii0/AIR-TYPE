@@ -56,11 +56,9 @@ void Engine::Physic::PhysicModule::update(
                         auto transform = std::dynamic_pointer_cast<
                             Engine::Physic::Components::TransformComponent>(
                             TransCompo);
-                        std::cout << transform << std::endl;
                         movement->updateVelocity(dt);
                         transform->setPos(transform->getPos() +
                                           movement->getVelocity());
-                        std::cout << transform->getPos().x << std::endl;
                     }
                 }
 

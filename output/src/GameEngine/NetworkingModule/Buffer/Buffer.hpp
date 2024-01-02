@@ -61,8 +61,8 @@ namespace Engine {
                 std::array<char, __circular_buffer_size> _buffer;
                 std::size_t                              _read_head;
                 std::size_t                              _write_head;
-                const uint8_t _protocol_prefix = 0xAA;
-                const uint8_t _protocol_suffix = 0xBB;
+                const int8_t                             _protocol_prefix = 170;
+                const int8_t                             _protocol_suffix = 187;
         };
     };  // namespace Network
 };      // namespace Engine
