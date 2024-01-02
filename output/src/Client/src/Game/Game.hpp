@@ -58,6 +58,7 @@ class Game {
     public:
         Game();
         void run();
+        void applyStatus(Engine::Network::Client &client);
 
         Engine::GameEngine &getGameEngine();
 

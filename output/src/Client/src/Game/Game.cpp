@@ -53,17 +53,12 @@ void Game::run() {
         _hmiModule->keyEvent(_gameEngine.getRendererModule()->getWindow());
 
         if (_networkingModule != nullptr) {
-            _networkingModule->sendMessage("test", 0);
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    if (msg.find("New Player") != std::string::npos) {
-                        std::cout << "New Player" << std::endl;
-                        createSprite(_textures[PLAYER],
-                                     {static_cast<float>(_width_drawable / 2),
-                                      static_cast<float>(_height_drawable / 2)},
-                                     {2, 2}, sf::Color::White, 0, true);
+                    if (msg == "STATUS START") {
+                        applyStatus(client);
                     }
                 }
             }
@@ -72,6 +67,23 @@ void Game::run() {
         //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
+    }
+}
+
+void Game::applyStatus(Engine::Network::Client &client) {
+    std::string msg = client.getBuffer()->readNextPacket();
+    while (msg != "STATUS END") {
+        if (msg.find("Player") != std::string::npos) {
+            std::vector<std::string> player_info;
+            while (msg.find(" ") != std::string::npos) {
+                player_info.emplace_back(msg.substr(0, msg.find(" ")));
+                msg.erase(0, msg.find(" ") + 1);
+            }
+            createSprite(_textures[PLAYER],
+                         {std::stof(player_info[1]), std::stof(player_info[2])},
+                         {2, 2}, sf::Color::White, 0, true);
+        }
+        msg = client.getBuffer()->readNextPacket();
     }
 }
 

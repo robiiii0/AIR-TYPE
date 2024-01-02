@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(LIBS -lpthread)
 
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/Server/Server.cpp
@@ -36,13 +38,23 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/NoComponent/NoComponent.cpp
+                ../GameEngine/RendererModule/RendererModule.cpp
+                ../GameEngine/RendererModule/WindowManager/Window.cpp
+                ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
+                ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
+                ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
+                ../GameEngine/RendererModule/Components/ClickableComponent/RoundedClickableComponent.cpp
+                ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
+                ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
+                ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
+                ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
                 )
 
 # Create the executable for the server with only main.cpp
 add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
-target_link_libraries(r-type_server ${LIBS})
+target_link_libraries(r-type_server ${LIBS} sfml-graphics sfml-window sfml-system sfml-audio)
 
 add_custom_command(TARGET r-type_server POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

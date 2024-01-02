@@ -67,25 +67,37 @@ void Server::sendGameStatus(std::uint32_t id) {
     _clientMessages[id].emplace("STATUS START");
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
-        Engine::Entity::Component::GenericComponents::Vector2f position =
-            player
-                ->getComponent<Engine::Entity::Component::GenericComponents::
-                                   PositionComponent>()
-                ->getValue();
-        std::string msg = "Player " + std::to_string(entity.first) + " " +
-                          std::to_string(position.x) + " " +
-                          std::to_string(position.y);
-        _clientMessages[id].emplace(msg);
+        for (auto &component : player->_components) {
+            if (typeid(*component) == typeid(Engine::Entity::Component::
+                                                 GenericComponents::
+                                                     Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                std::string msg = "Player " + std::to_string(entity.first) +
+                                  " " + std::to_string(position->getValue().x) +
+                                  " " +
+                                  std::to_string(position->getValue().y);
+                _clientMessages[id].emplace(msg);
+            }
+        }
+        // std::string msg = "Player " + std::to_string(entity.first) + " " +
+        //                   std::to_string(position->getValue().x) + " " +
+        //                   std::to_string(position->getValue().y);
+        // _clientMessages[id].emplace(msg);
     }
     _clientMessages[id].emplace("STATUS END");
 }
 
 void Server::createPlayer(std::uint32_t id) {
+    std::cout << "Creating player " << id << std::endl;
     _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    std::cout << "Player " << id << " created" << std::endl;
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{
+        0.0, (100.0f + id * 100)};
     auto position = std::make_shared<
-        Engine::Entity::Component::GenericComponents::PositionComponent>(
-        Engine::Entity::Component::GenericComponents::Vector2f{0,
-                                                               100 + id * 100});
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+        position_data);
     _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
                                                   position);
     std::string msg = "New Player " + std::to_string(id) + " " +
