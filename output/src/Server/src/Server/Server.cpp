@@ -54,6 +54,45 @@ void Server::applyTickrate() {
     }
 }
 
+void Server::sendToAllExcept(std::uint32_t id, std::string message) {
+    for (auto &client : _networkingModule->getClients()) {
+        if (client.getId() != id) {
+            _clientMessages[client.getId()].emplace(message);
+        }
+    }
+}
+
+void Server::sendGameStatus(std::uint32_t id) {
+    // ? send all players
+    for (auto &entity : _playerEntities) {
+        auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
+        Engine::Entity::Component::GenericComponents::Vector2f position =
+            player
+                ->getComponent<Engine::Entity::Component::GenericComponents::
+                                   PositionComponent>()
+                ->getValue();
+        std::string msg = "Player " + std::to_string(entity.first) + " " +
+                          std::to_string(position.x) + " " +
+                          std::to_string(position.y);
+        _clientMessages[id].emplace(msg);
+    }
+}
+
+void Server::createPlayer(std::uint32_t id) {
+    _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    auto position = std::make_shared<
+        Engine::Entity::Component::GenericComponents::PositionComponent>(
+        Engine::Entity::Component::GenericComponents::Vector2f{0,
+                                                               100 + id * 100});
+    _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
+                                                  position);
+    std::string msg = "New Player " + std::to_string(id) + " " +
+                      std::to_string(position->getValue().x) + " " +
+                      std::to_string(position->getValue().y);
+    sendToAllExcept(id, msg);
+    sendGameStatus(id);
+}
+
 void Server::networkLoop() {
     std::cout << "nb clients: " << _networkingModule->getClients().size()
               << std::endl;
@@ -65,7 +104,7 @@ void Server::networkLoop() {
         _clientMessages[client.getId()].emplace(
             "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
-        _globalMessages.emplace("New Player");
+        createPlayer(client.getId());
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {

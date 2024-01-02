@@ -30,6 +30,9 @@ class Server {
         void loop();
         void stop();
         void applyTickrate();
+        void sendToAllExcept(std::uint32_t id, std::string message);
+        void sendGameStatus(std::uint32_t id);
+        void createPlayer(std::uint32_t id);
 
     private:
         void                                                networkLoop();
@@ -40,6 +43,8 @@ class Server {
         std::queue<std::string>                             _globalMessages;
         std::map<std::uint32_t, std::queue<std::string>>    _clientMessages;
         std::chrono::_V2::high_resolution_clock::time_point _clock;
+
+        std::map<std::uint32_t, std::uint32_t>              _playerEntities;
 };
 
 #endif /* !SERVER_HPP_ */
