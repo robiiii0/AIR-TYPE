@@ -86,7 +86,7 @@ void Game::run() {
                                      {std::stof(player_info[3]),
                                       std::stof(player_info[4])},
 
-                                     {20, 20}, sf::Color::White, 0, true);
+                                     {200, 200}, sf::Color::White, 0, true);
                     }
                     if (msg.find("Move") != std::string::npos) {
                     }

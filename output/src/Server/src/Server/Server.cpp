@@ -45,13 +45,13 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        // std::cout << "Server Tickrate: "
-        //           << 1.0 /
-        //                  std::chrono::duration_cast<std::chrono::microseconds>(
-        //                      std::chrono::high_resolution_clock::now() -
-        //                      _clock) .count() *
-        //                  1000000
-        //           << std::endl;
+        std::cout << "Server Tickrate: "
+                  << 1.0 /
+                         std::chrono::duration_cast<std::chrono::microseconds>(
+                             std::chrono::high_resolution_clock::now() - _clock)
+                             .count() *
+                         1000000
+                  << std::endl;
     }
 }
 
@@ -160,6 +160,12 @@ void Server::networkLoop() {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
+
+            if (packet == "ATTACK") {
+                std::cout << "Creating missile" << std::endl;
+                createMissile(_missileID);
+                _missileID++;
+            }
 
             if (packet.find("Move") != std::string::npos) {
                 if (packet.find("up") != std::string::npos) {

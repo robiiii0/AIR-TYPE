@@ -9,7 +9,6 @@ Engine::HmiModule::HmiModule() {
     std::cout << "HmiModule created" << std::endl;
 }
 
-
 std::string Engine::HmiModule::keyEvent(int key) {
     switch (key) {
         case sf::Keyboard::Up:
