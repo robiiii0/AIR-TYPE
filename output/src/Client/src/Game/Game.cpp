@@ -41,16 +41,18 @@ Game::Game() {
     // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
+
+
+
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
+        _hmiModule->keyEvent(_gameEngine.getRendererModule()->UpdateForServer());
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
-
-        _hmiModule->keyEvent(_gameEngine.getRendererModule()->getWindow());
 
         if (_networkingModule != nullptr) {
             for (auto &client :
@@ -64,7 +66,6 @@ void Game::run() {
             }
         }
         std::vector<uint32_t> result = getEntities();
-        //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
@@ -370,7 +371,6 @@ void Game::setParallax() {
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
     float scale = std::max(scale_x, scale_y);
-    std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
     // Background texture
@@ -426,7 +426,6 @@ void Game::InitGame() {
     float scale_y = static_cast<float>(_height_drawable) / textureSize.y;
 
     float scale = std::max(scale_x, scale_y);
-    std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
@@ -436,7 +435,6 @@ void Game::InitGame() {
 
 void Game::GameStart() {
     std::vector<uint32_t> AllEntities = getEntities();
-    std::cout << AllEntities.size() << std::endl;
     for (uint32_t i = 0; i < AllEntities.size(); i++) {
         _entities =
             _gameEngine.getEntityManager()->destroyEntity(AllEntities[i]);
@@ -451,17 +449,14 @@ void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1); }
 
 void Game::WindowSize500() {
     _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
-    std::cout << "window size 500" << std::endl;
 }
 
 void Game::WindowSize800() {
     _gameEngine.getRendererModule()->getWindow().setSize({800, 600});
-    std::cout << "window size 800" << std::endl;
 }
 
 void Game::WindowSizeFullscreen() {
     // TODO: Get screen size to set window size with it.
-    std::cout << "window size fullscreen" << std::endl;
 }
 
 void Game::setSettings() {

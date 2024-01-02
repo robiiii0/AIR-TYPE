@@ -42,7 +42,7 @@ class Server {
         std::unique_ptr<Engine::GameEngine>                 _gameEngine;
         std::queue<std::string>                             _globalMessages;
         std::map<std::uint32_t, std::queue<std::string>>    _clientMessages;
-        std::chrono::_V2::high_resolution_clock::time_point _clock;
+        std::chrono::high_resolution_clock::time_point _clock;
 
         std::map<std::uint32_t, std::uint32_t>              _playerEntities;
 };
