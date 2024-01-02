@@ -42,6 +42,7 @@ Game::Game() {
 }
 
 void Game::run() {
+    clock_t start = clock();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
@@ -67,6 +68,13 @@ void Game::run() {
         //        std::cout << result.size() << std::endl;
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
+
+
+        std::cout << "size: " << start - std::clock() << std::endl;
+        if (std::clock() - start > 10000 && _networkingModule != nullptr) {
+            attack();
+            start = std::clock();
+        }
     }
 }
 
@@ -533,6 +541,12 @@ void Game::clearCurrentState() {
         }
     }
     _entities.erase(_entities.begin() + 7, _entities.end());
+}
+
+void Game::attack() {
+    std::cout << "j'attaque la" << std::endl;
+    _networkingModule->sendMessage("ATTACK", 0);
+    std::cout << "j'attaque la" << std::endl;
 }
 
 void Game::setupState() {

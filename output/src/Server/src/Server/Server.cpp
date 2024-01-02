@@ -113,7 +113,6 @@ void Server::createMissile(std::uint32_t id) {
     _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
     std::cout << "Missile " << id << " created" << std::endl;
 
-
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : player->_components) {
@@ -125,15 +124,16 @@ void Server::createMissile(std::uint32_t id) {
                         Vector2fComponent>(component);
                     
                 Engine::Entity::Component::GenericComponents::Vector2f position_data(position->getValue());
-                auto pos = std::make_shared<
-                    Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-                    position_data);
+                // auto pos = std::make_shared<
+                //     Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+                //     position_data);
                 _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
                                                             position);
                 std::string msg = "New Missile " + std::to_string(id) + " " +
                                 std::to_string(position->getValue().x) + " " +
                                 std::to_string(position->getValue().y);
-                sendToAllExcept(id, msg);
+                std::cout << msg << std::endl;
+                _globalMessages.emplace(msg);
             }
         }
     }
@@ -162,6 +162,9 @@ void Server::networkLoop() {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
+            if (packet == "ACTION") {
+                createMissile(client.getId());
+            }
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages

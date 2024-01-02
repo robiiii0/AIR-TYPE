@@ -10,6 +10,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <ctime>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/HmiModule/HmiModule.hpp"
@@ -118,6 +119,8 @@ class Game {
             sf::Color             colorButton = sf::Color::White,
             sf::Color             colorText = sf::Color::White,
             std::function<void()> _func = []() {});
+
+        void attack();
 
         // Set Screen
         void setMenu();
