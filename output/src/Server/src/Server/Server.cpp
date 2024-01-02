@@ -30,6 +30,7 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
+    update();
     networkLoop();
     applyTickrate();
 }
@@ -187,6 +188,37 @@ void Server::networkLoop() {
             _networkingModule->sendMessage(
                 _clientMessages[client.getId()].front(), client.getId());
             _clientMessages[client.getId()].pop();
+        }
+    }
+}
+
+void Server::update() {
+    updateMissiles();
+    // updatePlayers();
+}
+
+void Server::updateMissiles() {
+    for (auto &entity : _missileEntities) {
+        auto missile = _gameEngine->getEntityManager()->getEntity(entity.second);
+        for (auto &component : missile->_components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                float x = position->getValue().x;
+                float y = position->getValue().y;
+                x += 1;
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    position_data(x, y);
+                position->setValue(position_data);
+                std::string msg = "Update Missile " + std::to_string(entity.first) +
+                                  " " + std::to_string(position->getValue().x) +
+                                  " " + std::to_string(position->getValue().y);
+                _globalMessages.emplace(msg);
+                break;
+            }
         }
     }
 }

@@ -108,6 +108,42 @@ void Game::run() {
                                      {std::stof(missile_info[3]),
                                       std::stof(missile_info[4])},
                                      {2, 2}, sf::Color::White, 0, true);
+                        std::cout << "\033[33m" << "CREATED MISSILE" << "\033[0m" << std::endl;
+                        _missiles.emplace_back(
+                            _gameEngine.getEntityManager()->getNbEntites() - 1);
+                    }
+                    if (msg.find("Update Missile") != std::string::npos) {
+                        std::vector<std::string> missile_info;
+                        while (msg.find(" ") != std::string::npos) {
+                            missile_info.emplace_back(
+                                msg.substr(0, msg.find(" ")));
+                            msg.erase(0, msg.find(" ") + 1);
+                        }
+                        if (msg.find(" ") == std::string::npos) {
+                            missile_info.emplace_back(msg);
+                        }
+                        std::cout << "missile_info: " << missile_info[2] << " "
+                                  << missile_info[3] << " " << missile_info[4]
+                                  << std::endl;
+                        if (!_missiles.empty()) {
+                            for (auto &component :
+                                _gameEngine.getEntityManager()
+                                    ->getEntity(
+                                        _missiles[std::stoi(missile_info[2])])
+                                    ->_components) {
+                                if (typeid(*component) ==
+                                    typeid(Engine::RendererModule::Components::
+                                            SpriteComponent)) {
+                                    auto sprite = std::dynamic_pointer_cast<
+                                        Engine::RendererModule::Components::
+                                            SpriteComponent>(component);
+                                    float posx = std::stof(missile_info[3]);
+                                    float posy = std::stof(missile_info[4]);
+                                    std::cout << "\033[38;5;208m" << "UPDATE MISSILE " << posx << " " << posy << "\033[0m" << std::endl;
+                                    sprite->setPosition(posx, posy);
+                                }
+                            }
+                        }
                     }
                 }
             }

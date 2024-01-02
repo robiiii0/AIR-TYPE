@@ -167,6 +167,7 @@ class Game {
         sf::Sprite                                         _sprite;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
+        std::vector<std::uint32_t>                         _missiles;
 };
 
 #endif  // GAME_HPP
