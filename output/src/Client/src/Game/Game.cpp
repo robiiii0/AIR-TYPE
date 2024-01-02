@@ -70,7 +70,7 @@ void Game::run() {
                                                 getEntities());
 
 
-        std::cout << "size: " << start - std::clock() << std::endl;
+        // std::cout << "size: " << start - std::clock() << std::endl;
         if (std::clock() - start > 10000 && _networkingModule != nullptr) {
             attack();
             start = std::clock();
@@ -546,7 +546,6 @@ void Game::clearCurrentState() {
 void Game::attack() {
     std::cout << "j'attaque la" << std::endl;
     _networkingModule->sendMessage("ATTACK", 0);
-    std::cout << "j'attaque la" << std::endl;
 }
 
 void Game::setupState() {
