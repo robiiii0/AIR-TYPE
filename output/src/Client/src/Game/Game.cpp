@@ -118,8 +118,6 @@ void Game::run() {
                         std::cout << "\033[1;32m"
                                   << msg
                                   << "\033[0m" << std::endl;
-                        // erase last char
-                        msg.erase(msg.size() - 1);
                         std::vector<std::string> missile_info;
                         while (msg.find(" ") != std::string::npos) {
                             missile_info.emplace_back(
