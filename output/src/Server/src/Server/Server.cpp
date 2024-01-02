@@ -30,8 +30,8 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
-    update();
     networkLoop();
+    update();
     applyTickrate();
 }
 
@@ -46,13 +46,18 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        std::cout << "Server Tickrate: "
-                  << 1.0 /
-                         std::chrono::duration_cast<std::chrono::microseconds>(
-                             std::chrono::high_resolution_clock::now() - _clock)
-                             .count() *
-                         1000000
-                  << std::endl;
+        auto tickrate = 1.0 /
+                        std::chrono::duration_cast<std::chrono::microseconds>(
+                            std::chrono::high_resolution_clock::now() - _clock)
+                            .count() *
+                        1000000;
+        std::string color = "\033[1;32m";
+        if (tickrate / SERVER_TICKRATE < 0.9)
+            color = "\033[1;33m";
+        if (tickrate / SERVER_TICKRATE < 0.8)
+            color = "\033[1;31m";
+        std::string color_end = "\033[0m";
+        std::cout << "Server Tickrate: " << color << tickrate << color_end << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 
@@ -176,9 +181,11 @@ void Server::networkLoop() {
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
-        _networkingModule->broadcastMessage(_globalMessages.front());
-        _globalMessages.pop();
+        while (!_globalMessages.empty()) {
+            std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
+            _networkingModule->broadcastMessage(_globalMessages.front());
+            _globalMessages.pop();
+        }
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
         while (!_clientMessages[client.getId()].empty()) {
@@ -199,7 +206,8 @@ void Server::update() {
 
 void Server::updateMissiles() {
     for (auto &entity : _missileEntities) {
-        auto missile = _gameEngine->getEntityManager()->getEntity(entity.second);
+        auto missile =
+            _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : missile->_components) {
             if (typeid(*component) ==
                 typeid(Engine::Entity::Component::GenericComponents::
@@ -213,9 +221,10 @@ void Server::updateMissiles() {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     position_data(x, y);
                 position->setValue(position_data);
-                std::string msg = "Update Missile " + std::to_string(entity.first) +
-                                  " " + std::to_string(position->getValue().x) +
-                                  " " + std::to_string(position->getValue().y);
+                std::string msg = "Update Missile " +
+                                  std::to_string(entity.first) + " " +
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
                 break;
             }

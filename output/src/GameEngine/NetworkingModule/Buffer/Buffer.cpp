@@ -41,7 +41,7 @@ std::string Engine::Network::Buffer::read(const int &length) {
     }
     return message;
 }
-
+#include <iostream>
 std::string Engine::Network::Buffer::readNextPacket() {
     std::string packet;
     bool        isPacket = false;
@@ -57,6 +57,11 @@ std::string Engine::Network::Buffer::readNextPacket() {
         } else if (isPacket) {
             packet += c;
         }
+    }
+    if (_read_head == _write_head) { // ! Might need to be improved
+        _read_head = 0;
+        _write_head = 0;
+        _buffer = {0};
     }
     return packet;
 }
