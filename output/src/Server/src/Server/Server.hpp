@@ -33,7 +33,7 @@ class Server {
         void sendToAllExcept(std::uint32_t id, std::string message);
         void sendGameStatus(std::uint32_t id);
         void createPlayer(std::uint32_t id);
-        void createMissile(std::uint32_t id, std::uint32_t playerId);
+        void createMissile(std::uint32_t id);
 
     private:
         void                                                networkLoop();
