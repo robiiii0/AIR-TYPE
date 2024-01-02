@@ -129,10 +129,10 @@ void Game::run() {
                         if (msg.find(" ") == std::string::npos) {
                             missile_info.emplace_back(msg);
                         }
-                        std::cout << "missile_info: " << missile_info[2] << " "
-                                  << missile_info[3] << " " << missile_info[4]
-                                  << std::endl;
                         if (!_missiles.empty() && missile_info.size() == 5) {
+                            std::cout << "missile_info: " << missile_info[2] << " "
+                                    << missile_info[3] << " " << missile_info[4]
+                                    << std::endl;
                             for (auto &component :
                                  _gameEngine.getEntityManager()
                                      ->getEntity(

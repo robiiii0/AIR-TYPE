@@ -41,7 +41,7 @@ std::string Engine::Network::Buffer::read(const int &length) {
     }
     return message;
 }
-#include <iostream>
+
 std::string Engine::Network::Buffer::readNextPacket() {
     std::string packet;
     bool        isPacket = false;
