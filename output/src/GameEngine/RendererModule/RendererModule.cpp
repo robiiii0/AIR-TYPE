@@ -41,7 +41,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
-
                         }
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
@@ -53,7 +52,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
-
                         }
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
@@ -65,7 +63,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
                                     ->isClicked(
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
-
                         }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {

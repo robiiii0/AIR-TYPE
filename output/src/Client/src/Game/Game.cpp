@@ -50,7 +50,6 @@ void Game::run() {
             _gameEngine.getRendererModule()->UpdateForServer(*_gameEngine.getEntityManager(), getEntities()));
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
@@ -58,6 +57,29 @@ void Game::run() {
                     std::string msg = client.getBuffer()->readNextPacket();
                     if (msg == "STATUS START") {
                         applyStatus(client);
+                    }
+                    if (msg.find("New Player") != std::string::npos) {
+                                    std::cout << msg << std::endl;
+
+            std::vector<std::string> player_info;
+            while (msg.find(" ") != std::string::npos) {
+                player_info.emplace_back(msg.substr(0, msg.find(" ")));
+                std::cout << msg << std::endl;
+                msg.erase(0, msg.find(" ") + 1);
+            }
+            if (msg.find(" ") == std::string::npos) {
+                player_info.emplace_back(msg);
+            }
+
+            for (auto i : player_info) {
+                std::cout << i << std::endl;
+            }
+            std::cout << "player_info: " << player_info[1]
+                      << " " << player_info[2] << " " << player_info[3]
+                      << std::endl;
+            createSprite(_textures[PLAYER],
+                         {std::stof(player_info[3]), std::stof(player_info[4])},
+                         {2, 2}, sf::Color::White, 0, true);
                     }
                 }
             }
@@ -79,6 +101,8 @@ void Game::applyStatus(Engine::Network::Client &client) {
     std::string msg = client.getBuffer()->readNextPacket();
     while (msg != "STATUS END") {
         if (msg.find("Player") != std::string::npos) {
+            std::cout << msg << std::endl;
+
             std::vector<std::string> player_info;
             while (msg.find(" ") != std::string::npos) {
                 player_info.emplace_back(msg.substr(0, msg.find(" ")));
@@ -88,8 +112,8 @@ void Game::applyStatus(Engine::Network::Client &client) {
             if (msg.find(" ") == std::string::npos) {
                 player_info.emplace_back(msg);
             }
-            std::cout << "player_info: "
-                      << " " << player_info[3] << " " << player_info[2]
+            std::cout << "player_info: " << player_info[1]
+                      << " " << player_info[2] << " " << player_info[3]
                       << std::endl;
             createSprite(_textures[PLAYER],
                          {std::stof(player_info[2]), std::stof(player_info[3])},
