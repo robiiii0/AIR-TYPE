@@ -44,13 +44,13 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        std::cout << "Server Tickrate: "
-                  << 1.0 /
-                         std::chrono::duration_cast<std::chrono::microseconds>(
-                             std::chrono::high_resolution_clock::now() - _clock)
-                             .count() *
-                         1000000
-                  << std::endl;
+        // std::cout << "Server Tickrate: "
+        //           << 1.0 /
+        //                  std::chrono::duration_cast<std::chrono::microseconds>(
+        //                      std::chrono::high_resolution_clock::now() -
+        //                      _clock) .count() *
+        //                  1000000
+        //           << std::endl;
     }
 }
 
@@ -107,8 +107,8 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::networkLoop() {
-    std::cout << "nb clients: " << _networkingModule->getClients().size()
-              << std::endl;
+    // std::cout << "nb clients: " << _networkingModule->getClients().size()
+    //   << std::endl;
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
@@ -119,11 +119,17 @@ void Server::networkLoop() {
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
     }
+
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
+            if (packet.find("Move") != std::string::npos) {
+                if (packet.find("up") != std::string::npos) {
+                    // movePlayer
+                }
+            }
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages

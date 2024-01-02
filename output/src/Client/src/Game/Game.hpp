@@ -70,6 +70,7 @@ class Game {
         // Load Assets
         void loadFont(std::string path);
         void loadTexture(std::string path);
+        void testMessage();
 
         // Create Component
         void createText(std::string text, sf::Font &font,
@@ -146,6 +147,7 @@ class Game {
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
         int                        _gameState;
+        int                        _ClientId;
 
         unsigned int _width = sf::VideoMode::getDesktopMode().width;
         unsigned int _height = sf::VideoMode::getDesktopMode().height;

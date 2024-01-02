@@ -14,6 +14,7 @@ Game::Game() {
     _gameState = MENU;
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
+    _ClientId = 0;
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -41,15 +42,17 @@ Game::Game() {
     // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
-
-
 void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
 
-        _hmiModule->keyEvent(_gameEngine.getRendererModule()->UpdateForServer(
-            *_gameEngine.getEntityManager(), getEntities()));
+        std::string eventKey = _hmiModule->keyEvent(
+            _gameEngine.getRendererModule()->UpdateForServer(
+                *_gameEngine.getEntityManager(), getEntities()));
+        if (eventKey != "nothing") {
+            _networkingModule->sendMessage("Move " + eventKey, _ClientId);
+        }
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         if (_networkingModule != nullptr) {
@@ -81,9 +84,9 @@ void Game::run() {
                                       std::stof(player_info[4])},
                                      {2, 2}, sf::Color::White, 0, true);
                     }
-                    if (msg.find("Move") != std::string::npos) {
+                    // if (msg.find("Move") != std::string::npos) {
 
-                    }
+                    // }
                 }
             }
         }
@@ -108,6 +111,7 @@ void Game::applyStatus(Engine::Network::Client &client) {
             if (msg.find(" ") == std::string::npos) {
                 player_info.emplace_back(msg);
             }
+            _ClientId = std::stoi(player_info[1]);
             std::cout << "player_info: " << player_info[1] << " "
                       << player_info[2] << " " << player_info[3] << std::endl;
             createSprite(_textures[PLAYER],
