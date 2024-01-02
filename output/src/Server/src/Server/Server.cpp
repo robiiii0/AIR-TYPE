@@ -21,9 +21,10 @@ int Server::run() {
 
 void Server::init() {
     _running = false;
-    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+    _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
         4242, Engine::Network::NetworkingTypeEnum::UDP, 10);
     _nb_clients = 0;
+    _gameEngine = std::make_unique<Engine::GameEngine>(false);
 }
 
 void Server::loop() {

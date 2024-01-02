@@ -9,6 +9,7 @@ set(LIBS -lpthread)
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/Server/Server.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/GameEngine.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/NetworkingModule.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/Client/Client.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/Buffer/Buffer.cpp
@@ -19,7 +20,23 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/CouldNotBindAddressException/CouldNotBindAddressException.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/CouldNotReceiveException/CouldNotReceiveException.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/CouldNotSendException/CouldNotSendException.cpp
-                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp)
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/EntityManager.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/AComponent/AComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/GenericComponents/DoubleComponent/DoubleComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotAddEntity/CouldNotAddEntity.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotCreateEntity/CouldNotCreateEntity.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotFindComponent/CouldNotFindComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/exceptions/NoComponent/NoComponent.cpp
+                )
 
 # Create the executable for the server with only main.cpp
 add_executable(r-type_server ${SERVER_SRC})
