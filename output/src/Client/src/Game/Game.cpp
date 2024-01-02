@@ -11,7 +11,7 @@ Game::Game() {
         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
-    _gameState = MENU;    
+    _gameState = MENU;
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
@@ -50,18 +50,21 @@ void Game::run() {
         _gameEngine.getRendererModule()->handleEvent(
             *_gameEngine.getEntityManager(), getEntities());
 
+        _hmiModule->keyEvent(_gameEngine.getRendererModule()->getWindow());
+
         if (_networkingModule != nullptr) {
             _networkingModule->sendMessage("test", 0);
-            for (auto &client : _networkingModule->getClients()) {  // ? client update
+            for (auto &client :
+                 _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
-                std::string msg = client.getBuffer()->readNextPacket();
-                if (msg.find("New Player") != std::string::npos) {
-                    std::cout << "New Player" << std::endl;
-                    createSprite(_textures[PLAYER],
-                                {static_cast<float>(_width_drawable / 2),
-                                static_cast<float>(_height_drawable / 2)},
-                                {2, 2}, sf::Color::White, 0, true);
-                }
+                    std::string msg = client.getBuffer()->readNextPacket();
+                    if (msg.find("New Player") != std::string::npos) {
+                        std::cout << "New Player" << std::endl;
+                        createSprite(_textures[PLAYER],
+                                     {static_cast<float>(_width_drawable / 2),
+                                      static_cast<float>(_height_drawable / 2)},
+                                     {2, 2}, sf::Color::White, 0, true);
+                    }
                 }
             }
         }
@@ -409,11 +412,9 @@ void Game::InitGame() {
     std::cout << scale << std::endl;
     const float myRef = {static_cast<float>(1.0)};
 
-    _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
-    0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
-     _networkingModule->sendMessage("Connecting to server", 0);
-
-
+    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+        0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
+    _networkingModule->sendMessage("Connecting to server", 0);
 }
 
 void Game::GameStart() {
