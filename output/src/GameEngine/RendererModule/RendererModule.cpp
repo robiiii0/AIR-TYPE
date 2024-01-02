@@ -18,7 +18,8 @@ void Engine::RendererModule::RendererModule::init(int width, int height,
     _window.setFramerateLimit(framerate);
 }
 
-int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::EntityManager &entityManager,
+int Engine::RendererModule::RendererModule::UpdateForServer(
+    Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed) _window.close();
@@ -33,17 +34,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
                     for (auto &component : components) {
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
-                                       InputComponent)) {
-                            bool isClicked =
-                                std::dynamic_pointer_cast<
-                                    Engine::RendererModule::Components::
-                                        InputComponent>(component)
-                                    ->isClicked(
-                                        std::make_pair(_event.mouseButton.x,
-                                                       _event.mouseButton.y));
-                        }
-                        if (typeid(*component) ==
-                            typeid(Engine::RendererModule::Components::
                                        ClickableComponent)) {
                             bool isClicked =
                                 std::dynamic_pointer_cast<
@@ -53,23 +43,11 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
                                         std::make_pair(_event.mouseButton.x,
                                                        _event.mouseButton.y));
                         }
-                        if (typeid(*component) ==
-                            typeid(Engine::RendererModule::Components::
-                                       RoundedClickableComponent)) {
-                            bool isClicked =
-                                std::dynamic_pointer_cast<
-                                    Engine::RendererModule::Components::
-                                        RoundedClickableComponent>(component)
-                                    ->isClicked(
-                                        std::make_pair(_event.mouseButton.x,
-                                                       _event.mouseButton.y));
-                        }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {
                     std::cerr << e.what() << '\n';
                 }
             }
-
         }
 
         // if (_event.type == sf::Event::KeyPressed) {
@@ -112,7 +90,7 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
         //                             Engine::RendererModule::Components::
         //                                 InputComponent>(component)
         //                             ->handleEvent(_event);
-                                
+
         //                     }
         //                 }
         //             }
@@ -167,10 +145,10 @@ int Engine::RendererModule::RendererModule::UpdateForServer(    Engine::Entity::
         //             std::cerr << e.what() << '\n';
         //         }
         //     }
-        //     if (_event.type == sf::Event::KeyPressed) {
-        //     std::cout << "jappuie" << std::endl;
-        //     return _event.key.code;
-        //     }
+            if (_event.type == sf::Event::KeyPressed) {
+            std::cout << "jappuie" << std::endl;
+            return _event.key.code;
+            }
 
         // }
     }
