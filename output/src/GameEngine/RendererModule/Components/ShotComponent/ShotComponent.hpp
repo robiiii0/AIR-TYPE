@@ -17,9 +17,7 @@ namespace Engine {
             class ShotComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    ShotComponent(
-                        ShotData  &value,
-                        sf::Texture &texture);
+                    ShotComponent(ShotData &value, sf::Texture &texture);
                     ~ShotComponent();
 
                     void execute() override;

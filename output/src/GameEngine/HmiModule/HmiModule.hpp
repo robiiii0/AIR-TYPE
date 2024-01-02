@@ -7,32 +7,31 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
-#include <iostream>
 #include <bitset>
+#include <iostream>
 
 namespace Engine {
     struct HmiData {
-        std::bitset<8> keyboard;
+            std::bitset<8> keyboard;
     };
 
-        class HmiModule {
-            public:
-                HmiModule();
-                ~HmiModule() = default;
+    class HmiModule {
+        public:
+            HmiModule();
+            ~HmiModule() = default;
 
-                HmiData &getData();
+            HmiData &getData();
 
-                void keyEvent(sf::Event &event);
+            void keyEvent(sf::Window &window);
 
-            private:
+        private:
             /**
-                 * @brief up = 0, down = 1, left = 2, right = 3, space = 4,
-                 * escape = 5
-                 *
-            */
+             * @brief up = 0, down = 1, left = 2, right = 3, space = 4,
+             * escape = 5
+             *
+             */
             HmiData _data{};
-        };
+    };
 }  // namespace Engine
 
-#endif //NETWORKING_HMIMODULE_HPP
+#endif  // NETWORKING_HMIMODULE_HPP
