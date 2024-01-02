@@ -115,32 +115,30 @@ void Server::createMissile(std::uint32_t id) {
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : player->_components) {
-            if (typeid(*component) == typeid(Engine::Entity::Component::
-                                                 GenericComponents::
-                                                     Vector2fComponent)) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                    
-                Engine::Entity::Component::GenericComponents::Vector2f position_data(position->getValue());
+
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    position_data(position->getValue());
                 // auto pos = std::make_shared<
                 //     Engine::Entity::Component::GenericComponents::Vector2fComponent>(
                 //     position_data);
-                _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
-                                                            position);
+                _gameEngine->getEntityManager()->addComponent(
+                    _missileEntities[id], position);
                 std::string msg = "New Missile " + std::to_string(id) + " " +
-                                std::to_string(position->getValue().x) + " " +
-                                std::to_string(position->getValue().y);
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
                 std::cout << msg << std::endl;
                 _globalMessages.emplace(msg);
             }
         }
     }
 
-
-
     // _gameEngine->getEntityManager()->getEntity(id)->
-
 }
 
 void Server::networkLoop() {

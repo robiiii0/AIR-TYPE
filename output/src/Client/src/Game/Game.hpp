@@ -7,10 +7,10 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <ctime>
 #include <functional>
 #include <string>
 #include <vector>
-#include <ctime>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/HmiModule/HmiModule.hpp"

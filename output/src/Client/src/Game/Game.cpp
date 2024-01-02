@@ -44,8 +44,6 @@ Game::Game() {
     // createSound("src/Client/assets/Sound/music.wav", 50, true, true);
 }
 
-
-
 void Game::run() {
     clock_t start = clock();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
@@ -91,7 +89,6 @@ void Game::run() {
                                      {20, 20}, sf::Color::White, 0, true);
                     }
                     if (msg.find("Move") != std::string::npos) {
-
                     }
                     if (msg.find("New Missile") != std::string::npos) {
                         std::vector<std::string> missile_info;
@@ -118,7 +115,6 @@ void Game::run() {
         std::vector<uint32_t> result = getEntities();
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
-
 
         // std::cout << "size: " << start - std::clock() << std::endl;
         if (std::clock() - start > 50000 && _networkingModule != nullptr) {
@@ -601,9 +597,11 @@ void Game::attack() {
 // void Game::createMissile(std::uint32_t id, float x, float y)
 // {
 //     std::cout << "Creating missile " << id << std::endl;
-//     uint32_t missileEntities = _gameEngine.getEntityManager()->createEntity();
+//     uint32_t missileEntities =
+//     _gameEngine.getEntityManager()->createEntity();
 
-//     Engine::Entity::Component::GenericComponents::Vector2f position_data{x, y};
+//     Engine::Entity::Component::GenericComponents::Vector2f position_data{x,
+//     y};
 
 //     auto position = std::make_shared<
 //         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
