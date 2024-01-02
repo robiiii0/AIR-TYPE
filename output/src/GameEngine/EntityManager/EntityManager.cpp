@@ -17,7 +17,7 @@ Engine::Entity::EntityManager::EntityManager() {
     _componentManager = Component::ComponentManager();
     for (std::uint32_t i = 0; i < __max_entities; i++)
         _available_entities.push(i);
-        _living_entity_count = 0;
+    _living_entity_count = 0;
     //    _entities.clear();
 }
 

@@ -68,16 +68,15 @@ void Server::sendGameStatus(std::uint32_t id) {
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : player->_components) {
-            if (typeid(*component) == typeid(Engine::Entity::Component::
-                                                 GenericComponents::
-                                                     Vector2fComponent)) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 std::string msg = "Player " + std::to_string(entity.first) +
                                   " " + std::to_string(position->getValue().x) +
-                                  " " +
-                                  std::to_string(position->getValue().y);
+                                  " " + std::to_string(position->getValue().y);
                 _clientMessages[id].emplace(msg);
             }
         }
@@ -93,8 +92,8 @@ void Server::createPlayer(std::uint32_t id) {
     std::cout << "Creating player " << id << std::endl;
     _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
     std::cout << "Player " << id << " created" << std::endl;
-    Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        500.0, 700.0};
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{500.0,
+                                                                         700.0};
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);

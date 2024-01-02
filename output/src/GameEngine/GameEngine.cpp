@@ -8,7 +8,8 @@
 #include "GameEngine.hpp"
 
 Engine::GameEngine::GameEngine(bool client) {
-    _rendererModule = (client) ? std::make_shared<RendererModule::RendererModule>() : nullptr;
+    _rendererModule =
+        (client) ? std::make_shared<RendererModule::RendererModule>() : nullptr;
     _entityManager = std::make_shared<Entity::EntityManager>();
     //    _localStorageModule = new LocalStorage::LocalStorageModule();
     //    if (client)

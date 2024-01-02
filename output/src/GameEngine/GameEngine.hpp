@@ -30,8 +30,8 @@ namespace Engine {
 
             std::shared_ptr<Engine::Entity::EntityManager> getEntityManager()
                 const;
-            std::shared_ptr<Engine::RendererModule::RendererModule> getRendererModule()
-                const;
+            std::shared_ptr<Engine::RendererModule::RendererModule>
+                getRendererModule() const;
             std::shared_ptr<Engine::Physic::PhysicModule> getPhysicModule()
                 const;
             //            const; LocalStorage::LocalStorageModule
@@ -40,9 +40,10 @@ namespace Engine {
             //            const;
 
         private:
-            std::shared_ptr<Engine::Entity::EntityManager>  _entityManager;
-            std::shared_ptr<Engine::RendererModule::RendererModule> _rendererModule;
-            std::shared_ptr<Engine::Physic::PhysicModule>   _physicModule;
+            std::shared_ptr<Engine::Entity::EntityManager> _entityManager;
+            std::shared_ptr<Engine::RendererModule::RendererModule>
+                                                          _rendererModule;
+            std::shared_ptr<Engine::Physic::PhysicModule> _physicModule;
 
             //            LocalStorage::LocalStorageModule *_localStorageModule;
             //            Network::NetworkingModule        *_networkingModule;
