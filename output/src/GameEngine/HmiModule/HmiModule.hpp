@@ -22,7 +22,7 @@ namespace Engine {
 
             HmiData &getData();
 
-            void keyEvent(int keycode);
+            std::string keyEvent(int keycode);
 
         private:
             /**

@@ -32,12 +32,15 @@ namespace Engine {
                           int framerate);
                 void update(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
-                void handleEvent(Engine::Entity::EntityManager &entityManager,
-                                 std::vector<uint32_t>          id_list);
+                // void handleEvent(Engine::Entity::EntityManager
+                // &entityManager,
+                //                  std::vector<uint32_t>          id_list);
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();
-                int               UpdateForServer();
+                int               UpdateForServer(
+                                  Engine::Entity::EntityManager &entityManager,
+                                  std::vector<uint32_t>          id_list);
 
             protected:
             private:
