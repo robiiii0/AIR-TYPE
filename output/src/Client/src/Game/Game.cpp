@@ -92,7 +92,9 @@ void Game::applyStatus(Engine::Network::Client &client) {
             if (msg.find(" ") == std::string::npos) {
                 player_info.emplace_back(msg);
             }
-            std::cout << "player_info: " << " " << player_info[3] << " " << player_info[2] << std::endl;
+            std::cout << "player_info: "
+                      << " " << player_info[3] << " " << player_info[2]
+                      << std::endl;
             createSprite(_textures[PLAYER],
                          {std::stof(player_info[2]), std::stof(player_info[3])},
                          {2, 2}, sf::Color::White, 0, true);

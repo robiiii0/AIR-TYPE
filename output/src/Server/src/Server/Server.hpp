@@ -13,8 +13,8 @@
 #include <map>
 #include <queue>
 
-#include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 #include "../../../GameEngine/GameEngine.hpp"
+#include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
 #define SERVER_TICKRATE 64
 
