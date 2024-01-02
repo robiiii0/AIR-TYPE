@@ -9,7 +9,6 @@ Engine::HmiModule::HmiModule() {
     std::cout << "HmiModule created" << std::endl;
 }
 
-// Engine::HmiData &Engine::HmiModule::getData() { r; }
 
 void Engine::HmiModule::keyEvent(int key) {
     switch (key) {
