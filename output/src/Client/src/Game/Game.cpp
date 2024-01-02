@@ -46,11 +46,9 @@ void Game::run() {
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 1.0f / 60.0f);
         _hmiModule->keyEvent(
-            _gameEngine.getRendererModule()->UpdateForServer());
+            _gameEngine.getRendererModule()->UpdateForServer(*_gameEngine.getEntityManager(), getEntities()));
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-        _gameEngine.getRendererModule()->handleEvent(
-            *_gameEngine.getEntityManager(), getEntities());
 
         if (_networkingModule != nullptr) {
             for (auto &client :
@@ -522,7 +520,7 @@ void Game::changeState(int state) {
 
 void Game::clearCurrentState() {
     for (auto entity : _entities) {
-        if (entity >= 7 || _gameState == GAME) {
+        if (_gameState == GAME) {
             std::cout << "destruction de l'entitée " << entity << std::endl;
             _gameEngine.getEntityManager()->destroyEntity(entity);
         }
