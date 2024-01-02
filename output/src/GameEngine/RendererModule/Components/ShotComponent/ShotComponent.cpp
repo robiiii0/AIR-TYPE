@@ -13,7 +13,6 @@ Engine::RendererModule::Components::ShotComponent::ShotComponent(
     _sprite.setPosition(_pos);
     _sprite.setScale(_scale);
     _sprite.move(4, 4);
-    std::cout << "shoot created" << std::endl;
 }
 
 Engine::RendererModule::Components::ShotComponent::~ShotComponent() {}

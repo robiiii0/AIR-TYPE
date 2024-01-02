@@ -92,7 +92,6 @@ void Server::sendGameStatus(std::uint32_t id) {
 void Server::createPlayer(std::uint32_t id) {
     std::cout << "Creating player " << id << std::endl;
     _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
-    std::cout << "Player " << id << " created" << std::endl;
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
         500.0, 700.0};
     auto position = std::make_shared<

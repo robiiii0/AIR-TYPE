@@ -22,7 +22,7 @@ namespace Engine {
 
             HmiData &getData();
 
-            void keyEvent(sf::Window &window);
+            void keyEvent(int keycode);
 
         private:
             /**
@@ -30,7 +30,7 @@ namespace Engine {
              * escape = 5
              *
              */
-            HmiData _data{};
+            std::bitset<8> keyboard;
     };
 }  // namespace Engine
 
