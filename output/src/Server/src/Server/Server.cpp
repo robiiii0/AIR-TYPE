@@ -30,6 +30,7 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
+    _globalMessages.emplace("add player 1 0 0");
     networkLoop();
     applyTickrate();
 }
@@ -81,15 +82,12 @@ void Server::sendGameStatus(std::uint32_t id) {
                 _clientMessages[id].emplace(msg);
             }
         }
-        // std::string msg = "Player " + std::to_string(entity.first) + " " +
-        //                   std::to_string(position->getValue().x) + " " +
-        //                   std::to_string(position->getValue().y);
-        // _clientMessages[id].emplace(msg);
     }
     _clientMessages[id].emplace("STATUS END");
 }
 
 void Server::createPlayer(std::uint32_t id) {
+    Serializer serializer;
     std::cout << "Creating player " << id << std::endl;
     _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
@@ -99,11 +97,13 @@ void Server::createPlayer(std::uint32_t id) {
         position_data);
     _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
                                                   position);
-    std::string msg = "New Player " + std::to_string(id) + " " +
+    std::string msg = "add player " + std::to_string(id) + " " +
                       std::to_string(position->getValue().x) + " " +
                       std::to_string(position->getValue().y);
 
-    sendToAllExcept(id, msg);
+    std::vector<std::string> message;
+    message.push_back(msg);
+    sendToAllExcept(id, serializer.serializeToPacket(message));
     sendGameStatus(id);
 }
 
@@ -129,7 +129,7 @@ void Server::createMissile(std::uint32_t id) {
                 //     position_data);
                 _gameEngine->getEntityManager()->addComponent(
                     _missileEntities[id], position);
-                std::string msg = "New Missile " + std::to_string(id) + " " +
+                std::string msg = "add missile " + std::to_string(id) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 std::cout << msg << std::endl;
@@ -144,6 +144,9 @@ void Server::createMissile(std::uint32_t id) {
 void Server::networkLoop() {
     // std::cout << "nb clients: " << _networkingModule->getClients().size()
     //   << std::endl;
+
+    Serializer serializer;
+
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
@@ -161,10 +164,6 @@ void Server::networkLoop() {
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
 
-            if (packet.find("Asking fo menu") != std::string::npos) {
-                std::cout << "Sending menu" << std::endl;
-            }
-
             if (packet == "ATTACK") {
                 std::cout << "Creating missile" << std::endl;
                 createMissile(_missileID);
@@ -180,8 +179,12 @@ void Server::networkLoop() {
     }
     while (!_globalMessages.empty()) {  // ? global messages
         std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
-        _networkingModule->broadcastMessage(_globalMessages.front());
-        _globalMessages.pop();
+        std::vector<std::string> messages;
+        while (_globalMessages.size() > 0) {
+            messages.push_back(_globalMessages.front());
+            _globalMessages.pop();
+        }
+        _networkingModule->broadcastMessage(serializer.serializeToPacket(messages));
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
         while (!_clientMessages[client.getId()].empty()) {
