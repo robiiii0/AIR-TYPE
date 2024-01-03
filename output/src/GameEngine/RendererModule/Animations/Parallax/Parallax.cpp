@@ -112,7 +112,7 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
     }
     if (isAnimated == true) {
         sf::Time elapsed1 = _clock.getElapsedTime();
-        if (elapsed1.asSeconds() > 0.05) {
+        if (elapsed1.asSeconds() > 0.07) {
             Animation();
             _clock.restart();
         }

@@ -149,11 +149,11 @@ class Client {
 
 
 
-        void createParallax(std::vector<sf::Texture> Textures);
+        void createParallax(std::vector<sf::Texture> &Textures);
         void ConnectionWithServer();
 
-        std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);
-
+        // std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);
+        void LoadTexture(std::string paths);
 
     private:
         Engine::GameEngine         _gameEngine;

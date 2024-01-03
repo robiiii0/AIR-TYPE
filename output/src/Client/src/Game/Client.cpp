@@ -10,14 +10,25 @@ Client::Client() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
     std::cout << "test" << std::endl;
-    _texturesParallax = LoadTextures({"src/Client/assets/assetsRefacto/Background/1.png"});
+    LoadTexture("src/Client/assets/new_assets/background/Menu/background.png");
+    LoadTexture("src/Client/assets/new_assets/background/Menu/earth.png");
+
+
+    // LoadTexture("src/Client/assets/new_assets/back");
     std::cout << "test 3" << std::endl;
-    
-
-
     // , "src/Client/assets/assetsRefacto/Background/planet.png", "src/Client/assets/assetsRefacto/Background/planet2.png", "src/Client/assets/assetsRefacto/Background/planet3.png", "src/Client/assets/assetsRefacto/Background/Rock.png", "src/Client/assets/assetsRefacto/Background/Rock2.png", "src/Client/assets/assetsRefacto/Background/Rock3.png"
 
-}   
+}
+
+void Client::LoadTexture(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturesParallax.push_back(texture);
+}
 
 void Client::setMenu()
 {
@@ -29,12 +40,16 @@ void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
-    setMenu();
 }
 
 void Client::run() {
-    ConnectionWithServer();
+    // ConnectionWithServer();
+    setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+
+        _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+                                                getEntities());
+
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
