@@ -40,12 +40,12 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    // ConnectionWithServer();
+    Serializer serializer;
+    ConnectionWithServer();
     setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
@@ -55,7 +55,20 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    std::cout << msg << std::endl;
+                    serialized_data_t data = serializer.binaryStringToStruct<serialized_data_t>(msg);
+                    std::cout << "To Add Players:" << std::endl;
+                        for (int i = 0; i < data.to_add.nb_players; ++i) {
+                            std::cout << "Player ID: " << data.to_add.players[i].id
+                                    << ", X: " << data.to_add.players[i].x
+                                    << ", Y: " << data.to_add.players[i].y << std::endl;
+                        }
+
+                        // Printing information from the 'to_add' game_objects_t
+                        std::cout << "To Add Missiles:" << std::endl;
+                        for (int i = 0; i < data.to_add.nb_missiles; ++i) {
+                            std::cout << "Missile ID: " << data.to_add.missiles[i].id
+                                    << ", X: " << data.to_add.missiles[i].x << std::endl;
+                        }
                 }
             }
         }
