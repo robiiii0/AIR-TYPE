@@ -9,22 +9,21 @@ Client::Client() {
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
+    LoadBackground();
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
-    LoadBackground();
-    // addPlayer();
+    LoadTexturePlayer("src/Client/assets/new_assets/player/sprites/player1_pink.png");
+    // addPlayer();x
 }
 
-void Client::addPlayer()
-{
-    createPlayer();
-}
 
 void Client::setMenu()
 {
     createBackground(_backgroundTexture);
     createParallax(_texturesParallax);
+    createPlayer(_texturePlayer);
+    
 }
 
 void Client::ConnectionWithServer() {

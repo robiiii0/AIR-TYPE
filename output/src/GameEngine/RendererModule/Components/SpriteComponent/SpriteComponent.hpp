@@ -17,8 +17,8 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SpriteData {
-                    sf::Vector2f pos;
-                    sf::Vector2f scale;
+                    Engine::Entity::Component::GenericComponents::Vector2f pos;
+                    Engine::Entity::Component::GenericComponents::Vector2f scale;
                     sf::Color    color;
                     float        rotation;
                     bool         Playable;
@@ -45,8 +45,8 @@ namespace Engine {
 
                 protected:
                 private:
-                    sf::Vector2f _pos;
-                    sf::Vector2f _scale;
+                    Engine::Entity::Component::GenericComponents::Vector2f _pos;
+                    Engine::Entity::Component::GenericComponents::Vector2f _scale;
                     sf::Color    _color;
                     float        _rotation;
                     bool         _Playable;

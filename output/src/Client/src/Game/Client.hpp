@@ -39,16 +39,15 @@ class Client {
 
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
-        void ConnectionWithServer();
+        void createPlayer(std::vector<sf::Texture> &Textures);
 
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);
         void LoadTextureParallax(std::string paths);
+        void LoadTexturePlayer(std::string paths);
         void LoadBackground();
 
         void setMenu();
-
-        void addPlayer();
-        void createPlayer();
+        void ConnectionWithServer();
 
     private:
         Engine::GameEngine         _gameEngine;
@@ -60,6 +59,7 @@ class Client {
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
+        std::vector<sf::Texture> _texturePlayer;
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
         
