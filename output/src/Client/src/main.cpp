@@ -5,11 +5,11 @@
 ** main
 */
 
- #include "../../GameEngine/GameEngine.hpp"
- #include "./Game/Client.hpp"
+#include "../../GameEngine/GameEngine.hpp"
+#include "./Game/Client.hpp"
 
- int main() {
-     Client client;
-     client.run();
-     return 0;
- }
+int main() {
+    Client client;
+    client.run();
+    return 0;
+}
