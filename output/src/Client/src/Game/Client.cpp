@@ -20,6 +20,9 @@ Client::Client() {
     LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadBackground();
     // addPlayer();
+    LoadTexturePlayer(
+        "src/Client/assets/new_assets/player/sprites/player1_pink.png");
+    // addPlayer();x
 }
 
 void Client::setMenu() {
