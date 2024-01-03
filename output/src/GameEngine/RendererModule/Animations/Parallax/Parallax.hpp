@@ -50,7 +50,8 @@ namespace Engine {
                     std::pair<float, float> _movement;
                     bool                    isAnimated;
                     sf::IntRect             rect;
-                    sf::Clock               _clock;;
+                    sf::Clock               _clock;
+                    ;
             };
         };  // namespace Components
     };      // namespace RendererModule

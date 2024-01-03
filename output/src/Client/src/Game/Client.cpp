@@ -1,29 +1,31 @@
 #include "Client.hpp"
 
-
-
 Client::Client() {
-    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920 ? 1920 : sf::VideoMode::getDesktopMode().width;
-    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080 ? 1080 : sf::VideoMode::getDesktopMode().height;
-    _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight, "Air Typing", 60);
+    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920
+                       ? 1920
+                       : sf::VideoMode::getDesktopMode().width;
+    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080
+                        ? 1080
+                        : sf::VideoMode::getDesktopMode().height;
+    _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
+                                          "Air Typing", 60);
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
     LoadBackground();
-    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/earth.png");
+    LoadTextureParallax(
+        "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
-    LoadTexturePlayer("src/Client/assets/new_assets/player/sprites/player1_pink.png");
+    LoadTexturePlayer(
+        "src/Client/assets/new_assets/player/sprites/player1_pink.png");
     // addPlayer();x
 }
 
-
-void Client::setMenu()
-{
+void Client::setMenu() {
     createBackground(_backgroundTexture);
     createParallax(_texturesParallax);
     createPlayer(_texturePlayer);
-    
 }
 
 void Client::ConnectionWithServer() {
@@ -36,7 +38,6 @@ void Client::run() {
     // ConnectionWithServer();
     setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
 
@@ -54,11 +55,12 @@ void Client::run() {
             }
         }
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                        getEntities());
+                                                getEntities());
     }
 }
 
-// TODO : implement server response for the menu, create sprite when i have the response
+// TODO : implement server response for the menu, create sprite when i have the
+// response
 
 int main() {
     Client client;

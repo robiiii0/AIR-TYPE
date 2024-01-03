@@ -38,7 +38,7 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     _sprite.setScale(value._scale.first, value._scale.second);
     sf::FloatRect text_bounds = _sprite.getGlobalBounds();
     _sprite.setPosition({value._pos.first - text_bounds.width / 2,
-                               value._pos.second - text_bounds.height / 2});
+                         value._pos.second - text_bounds.height / 2});
     _movement = value._movement;
     _clock = value._clock;
 }
@@ -94,7 +94,7 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
 
     if (_sprite.getPosition().x < -text_bounds.width) {
         if (isAnimated == true) {
-            setPosition(4920,900);
+            setPosition(4920, 900);
 
         } else {
             setPosition(4920, 1080);

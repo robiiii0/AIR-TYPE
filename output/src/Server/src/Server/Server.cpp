@@ -48,8 +48,8 @@ void Server::applyTickrate() {
         // std::cout << "Server Tickrate: "
         //           << 1.0 /
         //                  std::chrono::duration_cast<std::chrono::microseconds>(
-        //                      std::chrono::high_resolution_clock::now() - _clock)
-        //                      .count() *
+        //                      std::chrono::high_resolution_clock::now() -
+        //                      _clock) .count() *
         //                  1000000
         //           << std::endl;
     }
@@ -163,7 +163,6 @@ void Server::networkLoop() {
 
             if (packet.find("Asking fo menu") != std::string::npos) {
                 std::cout << "Sending menu" << std::endl;
-
             }
 
             if (packet == "ATTACK") {

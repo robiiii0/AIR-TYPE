@@ -7,12 +7,12 @@
 //     _gameEngine.getRendererModule()->init(
 //         int(sf::VideoMode::getDesktopMode().width),
 //         int(sf::VideoMode::getDesktopMode().height), "Air-Type", 60);
-//     _width_drawable = _gameEngine.getRendererModule()->getWindow().getSize().x;
-//     _height_drawable = _gameEngine.getRendererModule()->getWindow().getSize().y;
-//     _gameState = MENU;
-//     _networkingModule = nullptr;
-//     _hmiModule = std::make_shared<Engine::HmiModule>();
-//     _ClientId = 0;
+//     _width_drawable =
+//     _gameEngine.getRendererModule()->getWindow().getSize().x;
+//     _height_drawable =
+//     _gameEngine.getRendererModule()->getWindow().getSize().y; _gameState =
+//     MENU; _networkingModule = nullptr; _hmiModule =
+//     std::make_shared<Engine::HmiModule>(); _ClientId = 0;
 //     loadFont("src/Client/assets/Fonts/Roboto-Regular.ttf");
 //     loadTexture("src/Client/assets/new_assets/background/bg-preview-big.png");
 //     loadTexture("src/Client/assets/Buttons/Button.png");
@@ -48,8 +48,8 @@
 //         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
 //                                               getEntities(), 1.0f / 60.0f);
 
-        // _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
-        //                                         getEntities());
+// _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+//                                         getEntities());
 //         if (_networkingModule != nullptr) {
 //             for (auto &client :
 //                  _networkingModule->getClients()) {  // ? client update
@@ -93,8 +93,10 @@
 //                         if (msg.find(" ") == std::string::npos) {
 //                             missile_info.emplace_back(msg);
 //                         }
-//                         std::cout << "missile_info: " << missile_info[2] << " "
-//                                   << missile_info[3] << " " << missile_info[4]
+//                         std::cout << "missile_info: " << missile_info[2] << "
+//                         "
+//                                   << missile_info[3] << " " <<
+//                                   missile_info[4]
 //                                   << std::endl;
 //                         createSprite(_textures[BULLET],
 //                                      {std::stof(missile_info[3]),
@@ -135,10 +137,12 @@
 //             _ClientId = std::stoi(player_info[1]);
 
 //             std::cout << "player_info: " << player_info[1] << " "
-//                       << player_info[2] << " " << player_info[3] << std::endl;
+//                       << player_info[2] << " " << player_info[3] <<
+//                       std::endl;
 //             createSprite(_textures[PLAYER],
-//                          {std::stof(player_info[2]), std::stof(player_info[3])},
-//                          {2, 2}, sf::Color::White, 0, true);
+//                          {std::stof(player_info[2]),
+//                          std::stof(player_info[3])}, {2, 2},
+//                          sf::Color::White, 0, true);
 //         }
 //         msg = client.getBuffer()->readNextPacket();
 //     }
@@ -172,23 +176,26 @@
 //     _textures.push_back(texture);
 // }
 
-// void Game::createSound(std::string path, float volume, bool loop, bool play) {
+// void Game::createSound(std::string path, float volume, bool loop, bool play)
+// {
 //     uint32_t soundEntity = _gameEngine.getEntityManager()->createEntity();
 
 //     Engine::RendererModule::Components::SoundData sound_temp = {path, loop,
-//                                                                 play, volume};
+//                                                                 play,
+//                                                                 volume};
 
 //     std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
 //         soundComponent = std::make_shared<
 //             Engine::RendererModule::Components::SoundComponent>(sound_temp);
 
-//     _gameEngine.getEntityManager()->addComponent(soundEntity, soundComponent);
-//     addEntity(soundEntity);
+//     _gameEngine.getEntityManager()->addComponent(soundEntity,
+//     soundComponent); addEntity(soundEntity);
 //     _sounds.push_back(soundComponent);
 //     std::cout << "SOUND CREATED!" << std::endl;
 // }
 
-// void Game::createText(std::string text, sf::Font &font, sf::Vector2f position,
+// void Game::createText(std::string text, sf::Font &font, sf::Vector2f
+// position,
 //                       sf::Vector2f scale, sf::Color color, float rotation) {
 //     uint32_t textEntity = _gameEngine.getEntityManager()->createEntity();
 
@@ -241,14 +248,15 @@
 //             Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
 //                                                                  texture);
 
-//     _gameEngine.getEntityManager()->addComponent(spriteEntity, spriteComponent);
-//     addEntity(spriteEntity);
+//     _gameEngine.getEntityManager()->addComponent(spriteEntity,
+//     spriteComponent); addEntity(spriteEntity);
 // }
 
 // void Game::createClickable(sf::Texture &texture, sf::Vector2f position,
 //                            sf::Vector2f scale, sf::Color color,
 //                            float rotation) {
-//     uint32_t clickable_entity = _gameEngine.getEntityManager()->createEntity();
+//     uint32_t clickable_entity =
+//     _gameEngine.getEntityManager()->createEntity();
 
 //     sf::Sprite                                        sprite_temp_temp;
 //     Engine::RendererModule::Components::ClickableData clickable_temp = {
@@ -289,8 +297,8 @@
 
 //     _gameEngine.getEntityManager()->addComponent(button_entity,
 //                                                  spriteComponent);
-//     _gameEngine.getEntityManager()->addComponent(button_entity, titleComponent);
-//     addEntity(button_entity);
+//     _gameEngine.getEntityManager()->addComponent(button_entity,
+//     titleComponent); addEntity(button_entity);
 // }
 
 // void Game::createInput(sf::Font &font, sf::Texture &texture,
@@ -314,9 +322,10 @@
 //             Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
 //                                                                  texture);
 
-//     _gameEngine.getEntityManager()->addComponent(input_entity, spriteComponent);
-//     _gameEngine.getEntityManager()->addComponent(input_entity, inputComponent);
-//     addEntity(input_entity);
+//     _gameEngine.getEntityManager()->addComponent(input_entity,
+//     spriteComponent);
+//     _gameEngine.getEntityManager()->addComponent(input_entity,
+//     inputComponent); addEntity(input_entity);
 // }
 
 // void Game::setMenu() {
@@ -388,7 +397,8 @@
 //                                std::function<void()> _func) {
 //     uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
 
-//     Engine::RendererModule::Components::RoundedClickableData clickable_temp = {
+//     Engine::RendererModule::Components::RoundedClickableData clickable_temp =
+//     {
 //         {position.x, position.y}, {scale.x, scale.y}, colorButton};
 
 //     Engine::RendererModule::Components::TextData text_temp = {
@@ -411,8 +421,8 @@
 
 //     _gameEngine.getEntityManager()->addComponent(button_entity,
 //                                                  spriteComponent);
-//     _gameEngine.getEntityManager()->addComponent(button_entity, titleComponent);
-//     addEntity(button_entity);
+//     _gameEngine.getEntityManager()->addComponent(button_entity,
+//     titleComponent); addEntity(button_entity);
 // }
 
 // void Game::setParallax() {
@@ -460,8 +470,9 @@
 //                          {static_cast<float>(_width_drawable + (500 * 2)),
 //                           static_cast<float>(_height_drawable / 2)},
 //                          {0.3, 0.3},
-//                          {static_cast<float>(-6.0), static_cast<float>(-7.0)},
-//                          true, sf::IntRect(0, 0, 1000, 1000));
+//                          {static_cast<float>(-6.0),
+//                          static_cast<float>(-7.0)}, true, sf::IntRect(0, 0,
+//                          1000, 1000));
 //     createSpriteParallax(_textures[ICE], "Background",
 //                          {static_cast<float>(_width_drawable + (500 * 3)),
 //                           static_cast<float>(_height_drawable / 2)},
@@ -496,7 +507,8 @@
 
 // void Game::SoundUp() { _sounds[0]->setVolume(_sounds[0]->getVolume() + 1); }
 
-// void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1); }
+// void Game::SoundLess() { _sounds[0]->setVolume(_sounds[0]->getVolume() - 1);
+// }
 
 // void Game::WindowSize500() {
 //     _gameEngine.getRendererModule()->getWindow().setSize({500, 500});
@@ -592,22 +604,24 @@
 // //     uint32_t missileEntities =
 // //     _gameEngine.getEntityManager()->createEntity();
 
-// //     Engine::Entity::Component::GenericComponents::Vector2f position_data{x,
+// //     Engine::Entity::Component::GenericComponents::Vector2f
+// position_data{x,
 // //     y};
 
 // //     auto position = std::make_shared<
 // //         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
 // //         position_data);
 
-// //     _gameEngine.getEntityManager()->addComponent(missileEntities, position);
+// //     _gameEngine.getEntityManager()->addComponent(missileEntities,
+// position);
 
 // //     sf::Sprite sprite_temp;
 // //     Engine::RendererModule::Components::SpriteData sprite_temp_data = {
 // //         sprite_temp, {x, y}, {20, 20}, sf::Color::White, 0, true};
 
 // //     auto sprite = std::make_shared<
-// //         Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data,
-// //                                                              _textures[BULLET]);
+// // Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data,
+// // _textures[BULLET]);
 
 // //     _gameEngine.getEntityManager()->addComponent(missileEntities, sprite);
 // //     addEntity(missileEntities);
