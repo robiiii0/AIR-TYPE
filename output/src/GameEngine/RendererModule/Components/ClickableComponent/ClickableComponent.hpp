@@ -17,10 +17,12 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct ClickableData {
-                    sf::Sprite   _sprite;
+                    sf::Sprite   sprite;
                     sf::Vector2f pos;
                     sf::Vector2f scale;
                     sf::Color    color;
+                    sf::Font     font;
+                    std::string  text;
                     float        rotation;
             };
 
@@ -44,6 +46,8 @@ namespace Engine {
                     ClickableData        &_data;
                     std::function<void()> _func = []() {};
                     sf::Sprite            _sprite;
+                    sf::Font              _font;
+                    sf::Text              _text;
                     sf::Vector2f          _scale;
                     bool                  _isHovered;
                     bool                  _isClicked;

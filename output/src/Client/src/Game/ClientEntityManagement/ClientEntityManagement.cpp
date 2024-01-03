@@ -7,5 +7,4 @@ void Client::removeEntity(std::uint32_t entity) {
                     _entities.end());
 }
 
-
 std::vector<std::uint32_t> &Client::getEntities() { return _entities; }

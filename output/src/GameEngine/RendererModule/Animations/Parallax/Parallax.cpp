@@ -38,7 +38,7 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     _sprite.setScale(value._scale.first, value._scale.second);
     sf::FloatRect text_bounds = _sprite.getGlobalBounds();
     _sprite.setPosition({value._pos.first - text_bounds.width / 2,
-                               value._pos.second - text_bounds.height / 2});
+                         value._pos.second - text_bounds.height / 2});
     _movement = value._movement;
     _clock = value._clock;
 }
@@ -101,9 +101,8 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
             std::uniform_int_distribution<int> distribution(5, 8);
 
             int random_number = distribution(generator);
-            setPosition(
-                (text_bounds.width + rect.width + (50 * random_number)),
-                (0));
+            setPosition((text_bounds.width + rect.width + (50 * random_number)),
+                        (0));
 
             _movement.second = random_number;
         } else {

@@ -68,11 +68,6 @@ class Client {
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        // Load Assets
-        void loadFont(std::string path);
-        void loadTexture(std::string path);
-        void testMessage();
-
         // Create Component
         void createText(std::string text, sf::Font &font,
                         sf::Vector2f position = {0.0, 0.0},
@@ -147,27 +142,29 @@ class Client {
         void WindowSize800();
         void WindowSizeFullscreen();
 
-
-
         void createParallax(std::vector<sf::Texture> &Textures);
         void ConnectionWithServer();
 
-        // std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);
+        // Load Assets
         void LoadTexture(std::string paths);
+        void LoadTextureButton(std::string paths);
+
+        void LoadFont(std::string paths);
 
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
         int                        _ClientId;
 
-        int  _screenWidth;
+        int _screenWidth;
         int _screenHeight;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
         std::vector<sf::Texture> _texturesButton;
-        
-        std::shared_ptr<Engine::RendererModule::Components::SoundComponent> _sounds;
+
+        std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
+                                                           _sounds;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
 };

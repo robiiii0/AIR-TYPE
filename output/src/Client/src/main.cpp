@@ -12,7 +12,7 @@
 //     Game game;
 
 //     game.setParallax();
-    // game.setMenu();
+// game.setMenu();
 //     game.run();
 //     return 0;
 // }

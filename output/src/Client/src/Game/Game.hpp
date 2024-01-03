@@ -15,9 +15,12 @@
 // #include "../../../GameEngine/GameEngine.hpp"
 // #include "../../../GameEngine/HmiModule/HmiModule.hpp"
 // #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
-// #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
-// #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
-// #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
+// #include
+// "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
+// #include
+// "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+// #include
+// "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 
 // // #include "../GameState/GameState.hpp"
 
@@ -77,7 +80,8 @@
 //         void createText(std::string text, sf::Font &font,
 //                         sf::Vector2f position = {0.0, 0.0},
 //                         sf::Vector2f scale = {1, 1},
-//                         sf::Color color = sf::Color::White, float rotation = 0);
+//                         sf::Color color = sf::Color::White, float rotation =
+//                         0);
 //         void createSprite(sf::Texture &texture,
 //                           sf::Vector2f position = {0.0, 0.0},
 //                           sf::Vector2f scale = {1, 1},
@@ -111,7 +115,8 @@
 //                          sf::Color    color = sf::Color::White,
 //                          float        rotation = 0);
 
-//         void createSound(std::string path, float volume = 50, bool loop = false,
+//         void createSound(std::string path, float volume = 50, bool loop =
+//         false,
 //                          bool play = false);
 
 //         void createRoundedButton(
