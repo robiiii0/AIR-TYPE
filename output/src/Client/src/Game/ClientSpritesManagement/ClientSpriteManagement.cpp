@@ -23,8 +23,13 @@ void Client::createParallax(std::vector<sf::Texture> &Textures) {
 void Client::createBackground(sf::Texture &texture) {
     uint32_t spriteBackgroundEntity =
         _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Entity::Component::GenericComponents::Vector2f pos = {0.0, 0.0};
+
+    std::shared_ptr<Engine::Entity::Component::GenericComponents::Vector2fComponent> posComponent =  std::make_shared<Engine::Entity::Component::GenericComponents::Vector2fComponent>(pos);
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        {0, 0}, {1, 1}, sf::Color::White, 0, false};
+        pos, {1, 1}, sf::Color::White, 0, false};
+
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
@@ -42,8 +47,14 @@ void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     for (int i = _ClientId; i < Textures.size(); i++) {
         uint32_t spritePlayerEntity =
             _gameEngine.getEntityManager()->createEntity();
+
+        Engine::Entity::Component::GenericComponents::Vector2f pos = {250.0, 250.0};
+
+
+        std::shared_ptr<Engine::Entity::Component::GenericComponents::Vector2fComponent> posComponent =  std::make_shared<Engine::Entity::Component::GenericComponents::Vector2fComponent>(pos);
+
         Engine::RendererModule::Components::SpriteData sprite_temp = {
-            {500, 500}, {2, 2}, sf::Color::White, 0, false};
+           pos, {2, 2}, sf::Color::White, 0, false};
 
         std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
             spriteComponent = std::make_shared<
@@ -51,6 +62,7 @@ void Client::createPlayer(std::vector<sf::Texture> &Textures) {
                 sprite_temp, Textures[i]);
         _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
                                                      spriteComponent);
+        _gameEngine.getEntityManager()->addComponent(spritePlayerEntity, posComponent);
         addEntity(spritePlayerEntity);
     }
 }

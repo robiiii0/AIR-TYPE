@@ -18,8 +18,7 @@ namespace Engine {
         namespace Components {
             struct SpriteData {
                     Engine::Entity::Component::GenericComponents::Vector2f pos;
-                    Engine::Entity::Component::GenericComponents::Vector2f
-                              scale;
+                    Engine::Entity::Component::GenericComponents::Vector2f scale;
                     sf::Color color;
                     float     rotation;
                     bool      Playable;

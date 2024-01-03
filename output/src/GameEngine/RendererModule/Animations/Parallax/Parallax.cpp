@@ -10,7 +10,7 @@
 #include <iostream>
 #include <random>
 
-#include "../../../../Client/src/Game/Game.hpp"
+#include "../../../../Client/src/Game/Client.hpp"
 
 void Engine::RendererModule::Components::parallaxComponent::execute() {}
 
