@@ -9,10 +9,15 @@ Client::Client() {
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
-    _texturesParallax = LoadTextures({"src/Client/assets/assetsRefacto/Background/1.png", "src/Client/assets/assetsRefacto/Background/planet.png", "src/Client/assets/assetsRefacto/Background/planet2.png", "src/Client/assets/assetsRefacto/Background/planet3.png", "src/Client/assets/assetsRefacto/Background/Rock.png", "src/Client/assets/assetsRefacto/Background/Rock2.png", "src/Client/assets/assetsRefacto/Background/Rock3.png"});
-}
+    std::cout << "test" << std::endl;
+    _texturesParallax = LoadTextures({"src/Client/assets/assetsRefacto/Background/1.png"});
+    std::cout << "test 3" << std::endl;
+    
 
 
+    // , "src/Client/assets/assetsRefacto/Background/planet.png", "src/Client/assets/assetsRefacto/Background/planet2.png", "src/Client/assets/assetsRefacto/Background/planet3.png", "src/Client/assets/assetsRefacto/Background/Rock.png", "src/Client/assets/assetsRefacto/Background/Rock2.png", "src/Client/assets/assetsRefacto/Background/Rock3.png"
+
+}   
 
 void Client::setMenu()
 {
@@ -43,7 +48,8 @@ void Client::run() {
                 }
             }
         }
-
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                        getEntities());
     }
 }
 
