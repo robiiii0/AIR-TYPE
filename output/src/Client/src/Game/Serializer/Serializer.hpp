@@ -43,8 +43,8 @@ class Serializer {
         template<typename T>
         std::string structToBinaryString(const T& data);
 
-        template<typename T>
-        T binaryStringToStruct(const std::string& data);
+        // template<typename T>
+        serialized_data_t binaryStringToStruct(const std::string& data);
 
         std::string serializeToPacket(std::vector<std::string> args);
 

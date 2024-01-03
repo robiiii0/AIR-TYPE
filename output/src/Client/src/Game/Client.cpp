@@ -55,7 +55,7 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    serialized_data_t data = serializer.binaryStringToStruct<serialized_data_t>(msg);
+                    serialized_data_t data = serializer.binaryStringToStruct(msg);
                     std::cout << "To Add Players:" << std::endl;
                         for (int i = 0; i < data.to_add.nb_players; ++i) {
                             std::cout << "Player ID: " << data.to_add.players[i].id

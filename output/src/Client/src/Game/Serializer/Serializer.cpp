@@ -115,9 +115,9 @@ std::string struct_to_binary_string(const T &data) {
     return std::string(reinterpret_cast<const char *>(&data), sizeof(T));
 }
 
-template<typename T>
-T binary_string_to_struct(const std::string &data) {
-    return *reinterpret_cast<const T *>(data.data());
+// template<typename T>
+serialized_data_t Serializer::binaryStringToStruct(const std::string &data) {
+    return *reinterpret_cast<const serialized_data_t *>(data.data());
 }
 
 std::string Serializer::serializeToPacket(std::vector<std::string> args) {
