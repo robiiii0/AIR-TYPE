@@ -149,7 +149,7 @@ class Client {
 
 
 
-        void createParallax();
+        void createParallax(std::vector<sf::Texture> Textures);
         void ConnectionWithServer();
 
         std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);

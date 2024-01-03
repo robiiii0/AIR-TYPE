@@ -1,19 +1,6 @@
-#include "RefactoGame.hpp"
+#include "Client.hpp"
 
 
-std::vector<sf::Texture> Client::LoadTextures(std::vector<std::string> paths) {
-    std::vector<sf::Texture> textures;
-
-    for (auto path : paths) {
-        sf::Texture texture;
-        if (texture.loadFromFile(path) == false) {
-            std::cerr << "Error: could not load texture " << path << std::endl;
-            exit(84);
-        }
-        textures.push_back(texture);
-    }
-    return textures;
-}
 
 Client::Client() {
     _screenWidth = sf::VideoMode::getDesktopMode().width > 1920 ? 1920 : sf::VideoMode::getDesktopMode().width;
@@ -26,26 +13,18 @@ Client::Client() {
 }
 
 
-void Client::createParallax()
-{
-
-}
-
 
 void Client::setMenu()
 {
-    createParallax();
+    createParallax(_texturesParallax);
 }
-
-
-std::vector<std::uint32_t> &Client::getEntities() { return _entities; }
 
 
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
-    _networkingModule->sendMessage("Asking for menu", 0);
+    setMenu();
 }
 
 void Client::run() {
@@ -54,6 +33,16 @@ void Client::run() {
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
+
+        if (_networkingModule != nullptr) {
+            for (auto &client :
+                 _networkingModule->getClients()) {  // ? client update
+                while (client.getBuffer()->hasPacket()) {
+                    std::string msg = client.getBuffer()->readNextPacket();
+                    std::cout << msg << std::endl;
+                }
+            }
+        }
 
     }
 }

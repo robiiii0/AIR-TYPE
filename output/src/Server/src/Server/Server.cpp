@@ -163,7 +163,7 @@ void Server::networkLoop() {
 
             if (packet.find("Asking fo menu") != std::string::npos) {
                 std::cout << "Sending menu" << std::endl;
-                _clientMessages[client.getId()].emplace("Menu");
+
             }
 
             if (packet == "ATTACK") {
