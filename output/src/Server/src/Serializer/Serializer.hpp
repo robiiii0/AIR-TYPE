@@ -46,6 +46,8 @@ class Serializer {
         template<typename T>
         T binaryStringToStruct(const std::string& data);
 
+        std::string serializeToPacket(std::vector<std::string> args);
+
     protected:
         serialized_data_t initSerializedData();
     private:

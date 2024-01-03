@@ -119,3 +119,15 @@ template<typename T>
 T binary_string_to_struct(const std::string &data) {
     return *reinterpret_cast<const T *>(data.data());
 }
+
+std::string Serializer::serializeToPacket(std::vector<std::string> args) {
+    serialized_data_t data = serialize(args);
+    std::string packet;
+
+    packet += struct_to_binary_string<serialized_data_t>(data);
+    delete[] data.to_add.players;
+    delete[] data.to_add.missiles;
+    delete[] data.to_update.players;
+    delete[] data.to_update.missiles;
+    return packet;
+}
