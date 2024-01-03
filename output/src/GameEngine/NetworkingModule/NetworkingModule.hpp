@@ -101,14 +101,6 @@ namespace Engine {
                 Serializer::Serializer &getSerializer() noexcept;
 
             protected:
-                /*
-                 * @brief Run the networking module to make it listen to
-                 * incoming messages
-                 * @throws CouldNotAcceptClientException If the server could not
-                 * accept a client in TCP mode
-                 * @throws CouldNotSendReceiveException If the server could not
-                 * receive a message in UDP mode
-                 */
                 void run();
                 void addClient(const struct sockaddr_in &client_address);
                 void runTCP(Engine::Network::Messager &messager);
