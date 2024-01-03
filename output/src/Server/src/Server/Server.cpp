@@ -47,13 +47,18 @@ void Server::applyTickrate() {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
         _globalMessages.emplace("add missile 0 10 10");
-        std::cout << "Server Tickrate: "
-                  << 1.0 /
-                         std::chrono::duration_cast<std::chrono::microseconds>(
-                             std::chrono::high_resolution_clock::now() -
-                             _clock) .count() *
-                         1000000
-                  << std::endl;
+
+        auto tickrate = 1.0 /
+                        std::chrono::duration_cast<std::chrono::microseconds>(
+                            std::chrono::high_resolution_clock::now() - _clock)
+                            .count() *
+                        1000000;
+        std::string color = "\033[1;32m";
+        if (tickrate / SERVER_TICKRATE < 0.9) color = "\033[1;33m";
+        if (tickrate / SERVER_TICKRATE < 0.8) color = "\033[1;31m";
+        std::string color_end = "\033[0m";
+        std::cout << "Server Tickrate: " << color << tickrate << color_end
+                  << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 
@@ -103,7 +108,8 @@ void Server::createPlayer(std::uint32_t id) {
 
     std::vector<std::string> message;
     message.push_back(msg);
-    sendToAllExcept(id, _networkingModule->getSerializer().serializeToPacket(message));
+    sendToAllExcept(
+        id, _networkingModule->getSerializer().serializeToPacket(message));
     sendGameStatus(id);
 }
 
@@ -176,13 +182,15 @@ void Server::networkLoop() {
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        // std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
+        // std::cout << "Broadcasting: " << _globalMessages.front() <<
+        // std::endl;
         std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());
             _globalMessages.pop();
         }
-        _networkingModule->broadcastMessage(_networkingModule->getSerializer().serializeToPacket(messages));
+        _networkingModule->broadcastMessage(
+            _networkingModule->getSerializer().serializeToPacket(messages));
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
         while (!_clientMessages[client.getId()].empty()) {

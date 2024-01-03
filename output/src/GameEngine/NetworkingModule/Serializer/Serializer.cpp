@@ -104,6 +104,10 @@ Engine::Network::Serializer::serialized_data_t
         data.to_add.missiles[i].id = -1;
         data.to_update.missiles[i].id = -1;
     }
+    data.to_add.nb_players = 0;
+    data.to_add.nb_missiles = 0;
+    data.to_update.nb_players = 0;
+    data.to_update.nb_missiles = 0;
     return data;
 }
 

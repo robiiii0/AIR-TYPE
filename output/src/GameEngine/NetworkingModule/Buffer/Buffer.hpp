@@ -14,7 +14,7 @@
 
 namespace Engine {
     namespace Network {
-        const std::size_t __circular_buffer_size = 4096;
+        const std::size_t __circular_buffer_size = 16384;
 
         class Buffer {
             public:
@@ -55,6 +55,10 @@ namespace Engine {
                  * @return True if the buffer has a packet, false otherwise
                  */
                 bool hasPacket();
+                /*
+                 * @brief Clear the buffer and reset read and write heads
+                 */
+                void clear();
 
             protected:
             private:

@@ -58,12 +58,21 @@ std::string Engine::Network::Buffer::readNextPacket() {
             packet += c;
         }
     }
+    if (_read_head == _write_head) {
+        _read_head = 0;
+        _write_head = 0;
+        _buffer.fill(0);
+    }
     return packet;
 }
 
 bool Engine::Network::Buffer::hasPacket() {
     bool isPacket = false;
 
+    while (_buffer[_read_head] != _protocol_prefix && _read_head != _write_head) {
+        _read_head++;
+        _read_head %= __circular_buffer_size;
+    }
     for (std::size_t i = _read_head; i != _write_head; i++) {
         if (i == __circular_buffer_size) {
             i = 0;
@@ -74,5 +83,12 @@ bool Engine::Network::Buffer::hasPacket() {
             return true;
         }
     }
+    clear();
     return false;
+}
+
+void Engine::Network::Buffer::clear() {
+    _read_head = 0;
+    _write_head = 0;
+    _buffer.fill(0);
 }
