@@ -17,16 +17,11 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     _isClicked = false;
     _sprite.setTexture(texture);
     _sprite.setScale(_data.scale);
-    if (!_data.text.empty()) {
-        _text.setString(_data.text);
-        _text.setFont(_data.font);
-        _text.setCharacterSize(30);
-    }
     sf::FloatRect text_bounds = _sprite.getGlobalBounds();
     _sprite.setPosition({_data.pos.x - text_bounds.width / 2,
                          _data.pos.y - text_bounds.height / 2});
     _sprite.setColor(_data.color);
-    _sprite.setRotation(sf::degrees(_data.rotation));
+    _sprite.setRotation(_data.rotation);
     _data.pos.x = value.pos.x;
     _data.pos.y = value.pos.y;
     std::cout << "ClickableCompoent created" << std::endl;

@@ -99,7 +99,7 @@ void Client::createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation) {
-    uint32_t   entity = _gameEngine.getEntityManager()->createEntity();
+    uint32_t   button_entity = _gameEngine.getEntityManager()->createEntity();
     sf::Sprite tmp_sprite(texture);
 
     Engine::RendererModule::Components::ClickableData tmp_clickable = {
@@ -110,9 +110,35 @@ void Client::createButton(std::function<void()> func, std::string text,
             Engine::RendererModule::Components::ClickableComponent>(
             tmp_clickable, texture, func);
 
-    _gameEngine.getEntityManager()->addComponent(entity, clickableComponent);
+    _gameEngine.getEntityManager()->addComponent(button_entity,
+                                                 clickableComponent);
 
-    addEntity(entity);
+    addEntity(button_entity);
+    if (!text.empty()) {
+        createText(text, font,
+                   {static_cast<float>(position.x),
+                    static_cast<float>(position.y - 6)},
+                   {static_cast<float>(scale.x + 0.6),
+                    static_cast<float>(scale.y + 0.6)},
+                   color, rotation);
+    }
+}
+
+void Client::createText(std::string text, sf::Font &font, sf::Vector2f position,
+                        sf::Vector2f scale, sf::Color color, float rotation) {
+    uint32_t text_entity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::RendererModule::Components::TextData tmp_text = {
+        text, font, color, position, scale, rotation};
+
+    std::shared_ptr<Engine::RendererModule::Components::TextComponent>
+        textComponent =
+            std::make_shared<Engine::RendererModule::Components::TextComponent>(
+                tmp_text);
+
+    _gameEngine.getEntityManager()->addComponent(text_entity, textComponent);
+
+    addEntity(text_entity);
 }
 
 // TODO : implement server response for the menu, create sprite when i have the
