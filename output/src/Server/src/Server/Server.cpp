@@ -30,7 +30,7 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
-    _globalMessages.emplace("add player 1 0 0");
+    // _globalMessages.emplace("add player 1 0 0");
     networkLoop();
     applyTickrate();
 }
@@ -46,13 +46,14 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        // std::cout << "Server Tickrate: "
-        //           << 1.0 /
-        //                  std::chrono::duration_cast<std::chrono::microseconds>(
-        //                      std::chrono::high_resolution_clock::now() -
-        //                      _clock) .count() *
-        //                  1000000
-        //           << std::endl;
+        _globalMessages.emplace("add missile 0 10 10");
+        std::cout << "Server Tickrate: "
+                  << 1.0 /
+                         std::chrono::duration_cast<std::chrono::microseconds>(
+                             std::chrono::high_resolution_clock::now() -
+                             _clock) .count() *
+                         1000000
+                  << std::endl;
     }
 }
 
@@ -178,7 +179,7 @@ void Server::networkLoop() {
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
+        // std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
         std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());

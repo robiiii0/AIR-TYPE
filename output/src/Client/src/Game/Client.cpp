@@ -17,7 +17,7 @@ Client::Client() {
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
-    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
+    LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
     // addPlayer();
     LoadTexturePlayer(
@@ -56,7 +56,7 @@ void Client::run() {
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
                     serialized_data_t data = serializer.binaryStringToStruct(msg);
-                    std::cout << "To Add Players:" << std::endl;
+                    std::cout << "To Add Players:" << data.to_add.nb_players << std::endl;
                         for (int i = 0; i < data.to_add.nb_players; ++i) {
                             std::cout << "Player ID: " << data.to_add.players[i].id
                                     << ", X: " << data.to_add.players[i].x
