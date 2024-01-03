@@ -5,14 +5,11 @@
 ** main
 */
 
-// #include "../../GameEngine/GameEngine.hpp"
-// #include "./Game/Game.hpp"
+ #include "../../GameEngine/GameEngine.hpp"
+ #include "./Game/Client.hpp"
 
-// int main() {
-//     Game game;
-
-//     game.setParallax();
-// game.setMenu();
-//     game.run();
-//     return 0;
-// }
+ int main() {
+     Client client;
+     client.run();
+     return 0;
+ }

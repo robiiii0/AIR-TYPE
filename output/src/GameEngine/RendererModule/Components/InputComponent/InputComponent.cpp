@@ -61,10 +61,10 @@ bool Engine::RendererModule::Components::InputComponent::isClicked(
     std::pair<float, float> mousePos) {
     sf::FloatRect Bounds = _text.getGlobalBounds();
 
-    Bounds.left -= 100.0f;
-    Bounds.top -= 100.0f;
-    Bounds.width += 100.0f;
-    Bounds.height += 100.0f;
+//    Bounds.left -= 100.0f;
+//    Bounds.top -= 100.0f;
+//    Bounds.width += 100.0f;
+//    Bounds.height += 100.0f;
 
     if (Bounds.contains(mousePos.first, mousePos.second)) {
         _isClicked = true;
