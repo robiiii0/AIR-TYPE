@@ -15,6 +15,7 @@
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
+#include "../Serializer/Serializer.hpp"
 
 #define SERVER_TICKRATE 64
 
