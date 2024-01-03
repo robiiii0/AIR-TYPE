@@ -69,85 +69,9 @@ class Client {
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        // Load Assets
-        void loadFont(std::string path);
-        void loadTexture(std::string path);
-        void testMessage();
-
-        // Create Component
-        void createText(std::string text, sf::Font &font,
-                        sf::Vector2f position = {0.0, 0.0},
-                        sf::Vector2f scale = {1, 1},
-                        sf::Color color = sf::Color::White, float rotation = 0);
-        void createSprite(sf::Texture &texture,
-                          sf::Vector2f position = {0.0, 0.0},
-                          sf::Vector2f scale = {1, 1},
-                          sf::Color    color = sf::Color::White,
-                          float rotation = 0, bool playable = false);
-
-        void createSpriteParallax(sf::Texture &_texture,
-                                  std::string  _name = "parallaxSprite",
-                                  std::pair<float, float> _pos = {0, 0},
-                                  std::pair<float, float> _scale = {1, 1},
-                                  std::pair<float, float> _movement = {1, 1},
-                                  bool                    isAnimated = false,
-                                  sf::IntRect rect = {0, 0, 1920, 1080});
-
-        void createClickable(sf::Texture &texture,
-                             sf::Vector2f position = {0.0, 0.0},
-                             sf::Vector2f scale = {1, 1},
-                             sf::Color    color = sf::Color::White,
-                             float        rotation = 0);
-
-        void createButton(std::function<void()> func, std::string text,
-                          sf::Texture &texture, sf::Font &font,
-                          sf::Vector2f position = {0.0, 0.0},
-                          sf::Vector2f scale = {1, 1},
-                          sf::Color    color = sf::Color::White,
-                          float        rotation = 0);
-
-        void createInput(sf::Font &font, sf::Texture &texture,
-                         sf::Vector2f position = {0.0, 0.0},
-                         sf::Vector2f scale = {1, 1},
-                         sf::Color    color = sf::Color::White,
-                         float        rotation = 0);
-
-        void createSound(std::string path, float volume = 50, bool loop = false,
-                         bool play = false);
-
-        void createRoundedButton(
-            std::string text, sf::Font &font,
-            sf::Vector2f position = {0.0, 0.0}, sf::Vector2f scale = {1, 1},
-            sf::Color             colorButton = sf::Color::White,
-            sf::Color             colorText = sf::Color::White,
-            std::function<void()> _func = []() {});
 
         void attack();
         void createMissile(std::uint32_t id, float x, float y);
-
-        // Set Screen
-        void setMenu();
-        void setParallax();
-        //        void setLobby();
-        void setSettings();
-        void InitGame();
-
-        void GameStart();
-        // void Setting();
-
-        void changeState(int state);
-        void clearCurrentState();
-        void setupState();
-
-        // Sound Settings
-        void SoundUp();
-        void SoundLess();
-
-        // Window size settings
-        void WindowSize500();
-        void WindowSize800();
-        void WindowSizeFullscreen();
-
 
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
@@ -157,7 +81,10 @@ class Client {
         void LoadTextureParallax(std::string paths);
         void LoadBackground();
 
+        void setMenu();
+
         void addPlayer();
+        void createPlayer();
 
     private:
         Engine::GameEngine         _gameEngine;

@@ -22,6 +22,50 @@ void Client::createBackground(sf::Texture &texture)
     std::cout << "backgroundEntity added" << std::endl;
 }
 
+
+void Client::createPlayer() {
+    sf::Texture texture;
+    if (texture.loadFromFile("src/Client/assets/new_assets/Player/sprtes/player1_yellow.png") == false) {
+        std::cerr << "Error: could not load texture " << "src/Client/assets/new_assets/Player/Player.png" << std::endl;
+        exit(84);
+    }
+
+    uint32_t playerEntity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Entity::Component::GenericComponents::Vector2f position_data = {0, 0};
+    auto position = std::make_shared<Engine::Entity::Component::GenericComponents::Vector2fComponent>(position_data);
+
+    sf::Sprite sprite_temp;
+    Engine::RendererModule::Components::SpriteData sprite_temp_data = {sprite_temp, {0, 0}, {1, 1}, sf::Color::White, 0, false};
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent> spriteComponent = std::make_shared<Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data, texture);
+
+    _gameEngine.getEntityManager()->addComponent(playerEntity, position);
+    addEntity(playerEntity);
+    std::cout << "playerEntity added" << std::endl;
+}
+
+
+void Client::LoadBackground()
+{
+    sf::Texture texture;
+    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/background.png") == false) {
+        std::cerr << "Error: could not load texture " << "src/Client/assets/new_assets/background/Menu/background.png" << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _backgroundTexture = texture;
+}
+
+void Client::LoadTextureParallax(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturesParallax.push_back(texture);
+}
+
 void Client::createParallax(std::vector<sf::Texture> &Textures)
 {
     for (int i = 0; i < Textures.size(); i++) {
@@ -42,17 +86,3 @@ void Client::createParallax(std::vector<sf::Texture> &Textures)
     }
 }
 
-// std::vector<sf::Texture> Client::LoadTextures(std::vector<std::string> paths) {
-
-//     std::vector<sf::Texture> textures;
-
-//     for (auto path : paths) {
-//         sf::Texture texture;
-//         if (texture.loadFromFile(path) == false) {
-//             std::cerr << "Error: could not load texture " << path << std::endl;
-//             exit(84);
-//         }
-//         texture.setSmooth(true);
-//         _texturesParallax.push_back(texture);
-//     }
-// }
