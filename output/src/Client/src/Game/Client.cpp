@@ -15,7 +15,7 @@ Client::Client() {
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
     LoadBackground();
-    addPlayer();
+    // addPlayer();
 
     // LoadTexture("src/Client/assets/new_assets/back");
     std::cout << "test 3" << std::endl;
@@ -25,7 +25,24 @@ Client::Client() {
 
 void Client::addPlayer()
 {
-    std::cout << "Create Player" << std::endl;
+    // sf::Texture texture;
+    // if (texture.loadFromFile("src/Client/assets/new_assets/Player/sprtes/player1_yellow.png") == false) {
+    //     std::cerr << "Error: could not load texture " << "src/Client/assets/new_assets/Player/Player.png" << std::endl;
+    //     exit(84);
+    // }
+
+    // uint32_t playerEntity = _gameEngine.getEntityManager()->createEntity();
+
+    // Engine::Entity::Component::GenericComponents::Vector2f position_data = {0, 0};
+    // auto position = std::make_shared<Engine::Entity::Component::GenericComponents::Vector2fComponent>(position_data);
+
+    // sf::Sprite sprite_temp;
+    // Engine::RendererModule::Components::SpriteData sprite_temp_data = {sprite_temp, {0, 0}, {1, 1}, sf::Color::White, 0, false};
+    // std::shared_ptr<Engine::RendererModule::Components::SpriteComponent> spriteComponent = std::make_shared<Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data, texture);
+
+    // _gameEngine.getEntityManager()->addComponent(playerEntity, position);
+    // addEntity(playerEntity);
+    // std::cout << "playerEntity added" << std::endl;
 }
 
 void Client::LoadTextureParallax(std::string paths) {
