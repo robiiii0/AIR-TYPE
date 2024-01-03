@@ -17,8 +17,6 @@ namespace Engine {
         namespace Components {
 
             struct parallaxData {
-                    sf::Sprite              _sprite;
-                    std::string             _name;
                     std::pair<float, float> _pos;
                     std::pair<float, float> _scale;
                     std::pair<float, float> _movement;
@@ -46,7 +44,14 @@ namespace Engine {
                     void          Animation();
 
                 private:
-                    parallaxData _data;
+                    sf::Sprite              _sprite;
+                    std::pair<float, float> _pos;
+                    std::pair<float, float> _scale;
+                    std::pair<float, float> _movement;
+                    bool                    isAnimated;
+                    sf::IntRect             rect;
+                    sf::Clock               _clock;
+                    ;
             };
         };  // namespace Components
     };      // namespace RendererModule

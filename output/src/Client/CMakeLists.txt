@@ -25,7 +25,9 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/ULongComponent/ULongComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
-        src/Game/Game.cpp
+        src/Game/Client.cpp
+        src/Game/ClientEntityManagement/ClientEntityManagement.cpp
+        src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
         ../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotAddEntity/CouldNotAddEntity.cpp
