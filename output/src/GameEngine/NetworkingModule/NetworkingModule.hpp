@@ -20,6 +20,7 @@
 
 #include "Client/Client.hpp"
 #include "Messaging/Messager.hpp"
+#include "Serializer/Serializer.hpp"
 #include "enums/NetworkingTypeEnum.hpp"
 #include "exceptions/ClientDisconnectedException/ClientDisconnectedException.hpp"
 #include "exceptions/ClientIdOutOfRangeException/ClientIdOutOfRangeException.hpp"
@@ -91,6 +92,13 @@ namespace Engine {
                  * @relatesalso Engine::Network::Client
                  */
                 std::vector<Client> &getClients() noexcept;
+                /*
+                 * @brief Get the serializer of the networking module
+                 * @return The serializer of the networking module
+                 * @exceptsafe Shall not throw exceptions
+                 * @relatesalso Engine::Network::Serializer::Serializer
+                 */
+                Serializer::Serializer &getSerializer() noexcept;
 
             protected:
                 /*
@@ -111,14 +119,15 @@ namespace Engine {
                     const struct sockaddr_in &client_address);
 
             private:
-                NetworkingTypeEnum                   _type;
-                int                                  _socket_fd;
-                struct sockaddr_in                   _server_address;
-                std::vector<Engine::Network::Client> _clients;
-                int                                  _max_clients;
-                const int8_t                         _protocol_prefix = -86;
-                const int8_t                         _protocol_suffix = -69;
-                std::thread                          _running_thread;
+                NetworkingTypeEnum                      _type;
+                int                                     _socket_fd;
+                struct sockaddr_in                      _server_address;
+                std::vector<Engine::Network::Client>    _clients;
+                int                                     _max_clients;
+                const int8_t                            _protocol_prefix = -86;
+                const int8_t                            _protocol_suffix = -69;
+                std::thread                             _running_thread;
+                Engine::Network::Serializer::Serializer _serializer;
         };
     };  // namespace Network
 };      // namespace Engine

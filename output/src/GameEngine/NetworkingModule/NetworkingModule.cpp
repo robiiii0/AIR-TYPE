@@ -202,3 +202,8 @@ std::vector<Engine::Network::Client> &
     Engine::Network::NetworkingModule::getClients() noexcept {
     return _clients;
 }
+
+Engine::Network::Serializer::Serializer &
+    Engine::Network::NetworkingModule::getSerializer() noexcept {
+    return _serializer;
+}
