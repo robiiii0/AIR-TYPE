@@ -64,15 +64,6 @@ namespace Engine {
                 ~NetworkingModule();
 
                 /*
-                 * @brief Run the networking module to make it listen to
-                 * incoming messages
-                 * @throws CouldNotAcceptClientException If the server could not
-                 * accept a client in TCP mode
-                 * @throws CouldNotSendReceiveException If the server could not
-                 * receive a message in UDP mode
-                 */
-                void run();
-                /*
                  * @brief Send a message to a specific client
                  * @param message The message to send
                  * @param client_id The id of the client to send the message to
@@ -99,9 +90,18 @@ namespace Engine {
                  * @exceptsafe Shall not throw exceptions
                  * @relatesalso Engine::Network::Client
                  */
-                std::vector<Client> getClients() const noexcept;
+                std::vector<Client> &getClients() noexcept;
 
             protected:
+                /*
+                 * @brief Run the networking module to make it listen to
+                 * incoming messages
+                 * @throws CouldNotAcceptClientException If the server could not
+                 * accept a client in TCP mode
+                 * @throws CouldNotSendReceiveException If the server could not
+                 * receive a message in UDP mode
+                 */
+                void run();
                 void addClient(const struct sockaddr_in &client_address);
                 void runTCP(Engine::Network::Messager &messager);
                 void runUDP(Engine::Network::Messager &messager);
@@ -116,8 +116,8 @@ namespace Engine {
                 struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
                 int                                  _max_clients;
-                const uint8_t                        _protocol_prefix = 0xAA;
-                const uint8_t                        _protocol_suffix = 0xBB;
+                const int8_t                         _protocol_prefix = 170;
+                const int8_t                         _protocol_suffix = 187;
                 std::thread                          _running_thread;
         };
     };  // namespace Network

@@ -5,16 +5,14 @@
 ** main
 */
 
-#include "../../GameEngine/GameEngine.hpp"
-#include "./Game/Game.hpp"
+// #include "../../GameEngine/GameEngine.hpp"
+// #include "./Game/Game.hpp"
 
-int main() {
-    Game game;
+// int main() {
+//     Game game;
 
-    // game.setMenu();
-    game.setParalax();
-    // game.setLobby();
-    //    game.setSettings();
-    game.run();
-    return 0;
-}
+//     game.setParallax();
+// game.setMenu();
+//     game.run();
+//     return 0;
+// }

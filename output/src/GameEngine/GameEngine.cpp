@@ -8,8 +8,9 @@
 #include "GameEngine.hpp"
 
 Engine::GameEngine::GameEngine(bool client) {
-    _rendererModule = new RendererModule::RendererModule();
-    _entityManager = new Entity::EntityManager();
+    _rendererModule =
+        (client) ? std::make_shared<RendererModule::RendererModule>() : nullptr;
+    _entityManager = std::make_shared<Entity::EntityManager>();
     //    _localStorageModule = new LocalStorage::LocalStorageModule();
     //    if (client)
     //        _networkingModule = new Network::NetworkingModule(
@@ -47,22 +48,17 @@ void Engine::GameEngine::run() {
     }
 }
 
-Engine::Entity::EntityManager *Engine::GameEngine::getEntityManager() const {
+std::shared_ptr<Engine::Entity::EntityManager>
+    Engine::GameEngine::getEntityManager() const {
     return _entityManager;
 }
 
-//
-// Engine::LocalStorage::LocalStorageModule *
-//    Engine::GameEngine::getLocalStorageModule() const {
-//    return _localStorageModule;
-//}
-//
-// Engine::Network::NetworkingModule *Engine::GameEngine::getNetworkingModule()
-//    const {
-//    return _networkingModule;
-//}
-
-Engine::RendererModule::RendererModule *Engine::GameEngine::getRendererModule()
-    const {
+std::shared_ptr<Engine::RendererModule::RendererModule>
+    Engine::GameEngine::getRendererModule() const {
     return _rendererModule;
+}
+
+std::shared_ptr<Engine::Physic::PhysicModule>
+    Engine::GameEngine::getPhysicModule() const {
+    return _physicModule;
 }

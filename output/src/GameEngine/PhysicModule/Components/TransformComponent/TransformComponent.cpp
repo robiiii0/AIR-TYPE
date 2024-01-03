@@ -7,6 +7,8 @@
 
 #include "TransformComponent.hpp"
 
+#include <iostream>
+
 Engine::Physic::Components::TransformComponent::TransformComponent(
     TransformData &data) :
     _data(data) {}
@@ -20,17 +22,24 @@ void Engine::Physic::Components::TransformComponent::setTransform(
     _data = data;
 }
 
-void Engine::Physic::Components::TransformComponent::setPos(Vector2f pos) {
-    _data.pos = pos;
+void Engine::Physic::Components::TransformComponent::setPos(
+    Engine::Physic::Vector2f pos) {
+    _pos = pos;
 }
 
-void Engine::Physic::Components::TransformComponent::setScale(Vector2f scale) {
-    _data.scale = scale;
+void Engine::Physic::Components::TransformComponent::setPos(float x, float y) {
+    _pos.x = x;
+    _pos.y = y;
+}
+
+void Engine::Physic::Components::TransformComponent::setScale(
+    Engine::Physic::Vector2f scale) {
+    _scale = scale;
 }
 
 void Engine::Physic::Components::TransformComponent::setRotation(
     float rotation) {
-    _data.rotation = rotation;
+    _rotation = rotation;
 }
 
 Engine::Physic::Components::TransformData &
@@ -40,5 +49,14 @@ Engine::Physic::Components::TransformData &
 
 Engine::Physic::Vector2f
     Engine::Physic::Components::TransformComponent::getPos() const {
-    return _data.pos;
+    return _pos;
+}
+
+Engine::Physic::Vector2f
+    Engine::Physic::Components::TransformComponent::getScale() const {
+    return _scale;
+}
+
+float Engine::Physic::Components::TransformComponent::getRotation() const {
+    return _rotation;
 }

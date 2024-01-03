@@ -44,15 +44,35 @@ std::string Engine::Network::Buffer::read(const int &length) {
 
 std::string Engine::Network::Buffer::readNextPacket() {
     std::string packet;
+    bool        isPacket = false;
 
     while (_read_head != _write_head) {
         char c = _buffer[_read_head++];
-        if (c == _protocol_suffix) {
+        if (c == _protocol_prefix) {
+            isPacket = true;
+        } else if (c == _protocol_suffix && isPacket) {
             break;
-        } else {
+        } else if (c == _protocol_suffix && !isPacket) {
+            packet = "";
+        } else if (isPacket) {
             packet += c;
         }
-        _read_head %= __circular_buffer_size;
     }
     return packet;
+}
+
+bool Engine::Network::Buffer::hasPacket() {
+    bool isPacket = false;
+
+    for (std::size_t i = _read_head; i != _write_head; i++) {
+        if (i == __circular_buffer_size) {
+            i = 0;
+        }
+        if (_buffer[i] == _protocol_prefix) {
+            isPacket = true;
+        } else if (_buffer[i] == _protocol_suffix && isPacket) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -11,16 +11,42 @@
 #include <stdexcept>
 
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
-    SpriteData &value, sf::Texture &texture) :
-    _data(value) {
-    _sprite.setTexture(texture);
-    _sprite.setScale(_data.scale);
-    sf::FloatRect text_bounds = _sprite.getGlobalBounds();
-    _sprite.setPosition({_data.pos.x - text_bounds.width / 2,
-                         _data.pos.y - text_bounds.height / 2});
-    _sprite.setColor(_data.color);
-    _sprite.setRotation(_data.rotation);
-    std::cout << "sprite created" << std::endl;
+    SpriteData &value, sf::Texture &texture) {
+    sf::Sprite Sprite;
+    this->_sprite = Sprite;
+    this->_sprite.setTexture(texture);
+    this->_pos = value.pos;
+    this->_scale = value.scale;
+    this->_color = value.color;
+    this->_rotation = value.rotation;
+    this->_Playable = value.Playable;
+
+    this->_sprite.setScale({this->_scale.x, this->_scale.y});
+    sf::FloatRect texture_bounds = _sprite.getGlobalBounds();
+    _sprite.setPosition({this->_pos.x, this->_pos.y});
+    _sprite.setColor(_color);
+    _sprite.setRotation(_rotation);
+    std::cout << "SpriteComponent created" << std::endl;
+    std::cout << this->_scale.x << this->_scale.y << std::endl;
+    std::cout << this->_pos.x << this->_pos.y << std::endl;
+}
+
+void Engine::RendererModule::Components::SpriteComponent::handleEvent(int key) {
+    if (_Playable) {
+        if (key == sf::Keyboard::Up) {
+            this->_sprite.setPosition(this->_sprite.getPosition().x,
+                                      this->_sprite.getPosition().y - 10);
+        }
+        if (key == sf::Keyboard::Down) {
+            this->_sprite.move(0, 10);
+        }
+        if (key == sf::Keyboard::Left) {
+            this->_sprite.move(-10, 0);
+        }
+        if (key == sf::Keyboard::Right) {
+            this->_sprite.move(10, 0);
+        }
+    }
 }
 
 sf::Drawable &
@@ -34,25 +60,20 @@ void Engine::RendererModule::Components::SpriteComponent::execute() {}
 
 void Engine::RendererModule::Components::SpriteComponent::setRotation(
     float rotation) {
-    _data._sprite.setRotation(rotation);
+    _sprite.setRotation(rotation);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
                                                                    float y) {
-    _data._sprite.setScale(x, y);
-}
-
-void Engine::RendererModule::Components::SpriteComponent::setOrigin(float x,
-                                                                    float y) {
-    _data._sprite.setOrigin(x, y);
+    _sprite.setScale(x, y);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
                                                                       float y) {
-    _data._sprite.setPosition(x, y);
+    _sprite.setPosition(x + _pos.x, y + _pos.y);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setTextureRect(
     const sf::IntRect &rect) {
-    _data._sprite.setTextureRect(rect);
+    _sprite.setTextureRect(rect);
 }
