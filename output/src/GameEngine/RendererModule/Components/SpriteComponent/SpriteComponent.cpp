@@ -12,6 +12,8 @@
 
 Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     SpriteData &value, sf::Texture &texture) {
+    sf::Sprite Sprite;
+    _sprite = Sprite;
     _sprite.setTexture(texture);
     this->_pos = value.pos;
     this->_scale = value.scale;
@@ -66,11 +68,6 @@ void Engine::RendererModule::Components::SpriteComponent::setRotation(
 void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
                                                                    float y) {
     _sprite.setScale(x, y);
-}
-
-void Engine::RendererModule::Components::SpriteComponent::setOrigin(float x,
-                                                                    float y) {
-    _sprite.setOrigin(x, y);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,

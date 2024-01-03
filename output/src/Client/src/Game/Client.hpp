@@ -20,42 +20,6 @@
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
-// #include "../GameState/GameState.hpp"
-
-enum {
-    BACKGROUND = 0,
-    BUTTON,
-    PARAMETER_BUTTON,
-    QUIT_BUTTON,
-    STARS,
-    EARTH,
-    Galaxy,
-    NOMANSLAND,
-    ASTEROID,
-    BLACKHOLE,
-    GAZ,
-    ICE,
-    LAVA,
-    MOON,
-    NOATMOSPHERE,
-    PLAYER,
-    ENEMY,
-    BULLET,
-    TEXT,
-};
-
-enum {
-    MENU = 0,
-    SETTINGS,
-    LOBBY,
-    GAME
-};
-
-enum {
-    TITLE,
-    SUBTITLE,
-};
-
 class Client {
     public:
         Client();

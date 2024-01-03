@@ -17,7 +17,6 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct SpriteData {
-                    sf::Sprite   _sprite;
                     sf::Vector2f pos;
                     sf::Vector2f scale;
                     sf::Color    color;
@@ -39,7 +38,6 @@ namespace Engine {
                     // Sprite
                     void          setRotation(float rotation);
                     void          setScale(float x, float y);
-                    void          setOrigin(float x, float y);
                     void          setTextureRect(const sf::IntRect &rect);
                     void          setPosition(float x, float y);
                     void          handleEvent(int key);

@@ -5,10 +5,9 @@ void Client::createBackground(sf::Texture &texture)
     uint32_t spriteBackgroundEntity =
         _gameEngine.getEntityManager()->createEntity();
 
-    sf::Sprite sprite_temp_temp;
 
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        sprite_temp_temp, {960, 540}, {1, 1}, sf::Color::White, 0, false};
+        {960, 540}, {1, 1}, sf::Color::White, 0, false};
 
         std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
@@ -35,8 +34,7 @@ void Client::createPlayer() {
     Engine::Entity::Component::GenericComponents::Vector2f position_data = {0, 0};
     auto position = std::make_shared<Engine::Entity::Component::GenericComponents::Vector2fComponent>(position_data);
 
-    sf::Sprite sprite_temp;
-    Engine::RendererModule::Components::SpriteData sprite_temp_data = {sprite_temp, {0, 0}, {1, 1}, sf::Color::White, 0, false};
+    Engine::RendererModule::Components::SpriteData sprite_temp_data = {{0, 0}, {1, 1}, sf::Color::White, 0, false};
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent> spriteComponent = std::make_shared<Engine::RendererModule::Components::SpriteComponent>(sprite_temp_data, texture);
 
     _gameEngine.getEntityManager()->addComponent(playerEntity, position);
