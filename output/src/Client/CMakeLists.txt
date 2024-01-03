@@ -26,7 +26,6 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
         src/Game/Client.cpp
-        src/Game/Serializer/Serializer.cpp
         src/Game/ClientEntityManagement/ClientEntityManagement.cpp
         src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
         ../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
@@ -37,7 +36,6 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/exceptions/CouldNotFindEntity/CouldNotFindEntity.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotRemoveComponent/CouldNotRemoveComponent.cpp
         ../GameEngine/EntityManager/exceptions/NoComponent/NoComponent.cpp
-
         ../GameEngine/PhysicModule/PhysicModule.cpp
         ../GameEngine/PhysicModule/Components/BoundingBoxComponent/BoundingBoxComponent.cpp
         ../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.cpp
@@ -55,6 +53,7 @@ add_executable(r-type_client
         ../GameEngine/NetworkingModule/exceptions/CouldNotReceiveException/CouldNotReceiveException.cpp
         ../GameEngine/NetworkingModule/exceptions/CouldNotSendException/CouldNotSendException.cpp
         ../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
+        ../GameEngine/NetworkingModule/Serializer/Serializer.cpp
         ../GameEngine/HmiModule/HmiModule.cpp
         ../GameEngine/HmiModule/HmiModule.hpp
 
