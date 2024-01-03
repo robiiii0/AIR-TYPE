@@ -45,6 +45,7 @@ void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
+    _networkingModule->sendMessage("Asking for menu", 0);
 }
 
 void Client::run() {
@@ -54,11 +55,10 @@ void Client::run() {
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
 
-        if (eventKey != "nothing") {
-            _networkingModule->sendMessage("Move " + eventKey, _ClientId);
-        }
     }
 }
+
+// TODO : implement server response for the menu, create sprite when i have the response
 
 
 int main() {

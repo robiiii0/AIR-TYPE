@@ -45,13 +45,13 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        std::cout << "Server Tickrate: "
-                  << 1.0 /
-                         std::chrono::duration_cast<std::chrono::microseconds>(
-                             std::chrono::high_resolution_clock::now() - _clock)
-                             .count() *
-                         1000000
-                  << std::endl;
+        // std::cout << "Server Tickrate: "
+        //           << 1.0 /
+        //                  std::chrono::duration_cast<std::chrono::microseconds>(
+        //                      std::chrono::high_resolution_clock::now() - _clock)
+        //                      .count() *
+        //                  1000000
+        //           << std::endl;
     }
 }
 
@@ -142,8 +142,8 @@ void Server::createMissile(std::uint32_t id) {
 }
 
 void Server::networkLoop() {
-    std::cout << "nb clients: " << _networkingModule->getClients().size()
-      << std::endl;
+    // std::cout << "nb clients: " << _networkingModule->getClients().size()
+    //   << std::endl;
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
@@ -160,6 +160,11 @@ void Server::networkLoop() {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
+
+            if (packet.find("Asking fo menu") != std::string::npos) {
+                std::cout << "Sending menu" << std::endl;
+                _clientMessages[client.getId()].emplace("Menu");
+            }
 
             if (packet == "ATTACK") {
                 std::cout << "Creating missile" << std::endl;
