@@ -28,6 +28,7 @@ add_executable(r-type_client
         src/Game/Client.cpp
         src/Game/ClientEntityManagement/ClientEntityManagement.cpp
         src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
+        src/Game/ClientMenuManagement/ClientMenuManagement.cpp
         ../GameEngine/EntityManager/exceptions/ComponentAlreadyExists/ComponentAlreadyExists.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotAddComponent/CouldNotAddComponent.cpp
         ../GameEngine/EntityManager/exceptions/CouldNotAddEntity/CouldNotAddEntity.cpp
@@ -56,7 +57,7 @@ add_executable(r-type_client
         ../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
         ../GameEngine/HmiModule/HmiModule.cpp
         ../GameEngine/HmiModule/HmiModule.hpp
-
+        src/Game/ClientMenuManagement/ClientSetDisplay.cpp
 
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp
