@@ -16,6 +16,8 @@ Client::Client() {
         "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
+    LoadTextureButton("src/Client/assets/Buttons/Button.png");
+    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadBackground();
     // addPlayer();
 }
