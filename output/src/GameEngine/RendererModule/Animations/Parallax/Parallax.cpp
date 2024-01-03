@@ -94,20 +94,10 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
 
     if (_sprite.getPosition().x < -text_bounds.width) {
         if (isAnimated == true) {
-            std::random_device rd;
+            setPosition(4920,900);
 
-            std::default_random_engine generator(rd());
-
-            std::uniform_int_distribution<int> distribution(5, 8);
-
-            int random_number = distribution(generator);
-            setPosition(
-                (text_bounds.width + rect.width + (50 * random_number)),
-                (0));
-
-            _movement.second = random_number;
         } else {
-            setPosition((text_bounds.width + rect.width), 0);
+            setPosition(4920, 1080);
         }
     }
     if (isAnimated == true) {
@@ -118,12 +108,7 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
         }
     }
 
-    if ((_sprite.getPosition().y > text_bounds.height) ||
-        (_sprite.getPosition().y < 0)) {
-        _movement.second = _movement.second * -1;
-    }
-
-    _sprite.move({_movement.first, _movement.second});
+    _sprite.move({-1, 0});
 }
 
 Engine::RendererModule::Components::parallaxComponent::~parallaxComponent() {}

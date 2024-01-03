@@ -18,6 +18,7 @@
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
 // #include "../GameState/GameState.hpp"
 
@@ -148,12 +149,15 @@ class Client {
         void WindowSizeFullscreen();
 
 
-
+        void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
         void ConnectionWithServer();
 
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string> paths);
-        void LoadTexture(std::string paths);
+        void LoadTextureParallax(std::string paths);
+        void LoadBackground();
+
+        void addPlayer();
 
     private:
         Engine::GameEngine         _gameEngine;
@@ -166,6 +170,7 @@ class Client {
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
         std::vector<sf::Texture> _texturesButton;
+        sf::Texture              _backgroundTexture;
         
         std::shared_ptr<Engine::RendererModule::Components::SoundComponent> _sounds;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;

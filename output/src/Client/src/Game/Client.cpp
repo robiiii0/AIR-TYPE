@@ -10,9 +10,12 @@ Client::Client() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
     std::cout << "test" << std::endl;
-    LoadTexture("src/Client/assets/new_assets/background/Menu/background.png");
-    LoadTexture("src/Client/assets/new_assets/background/Menu/earth.png");
-
+    // LoadTextureParallax("src/Client/assets/new_assets/background/Menu/background.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/earth.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
+    LoadBackground();
+    addPlayer();
 
     // LoadTexture("src/Client/assets/new_assets/back");
     std::cout << "test 3" << std::endl;
@@ -20,7 +23,12 @@ Client::Client() {
 
 }
 
-void Client::LoadTexture(std::string paths) {
+void Client::addPlayer()
+{
+    std::cout << "Create Player" << std::endl;
+}
+
+void Client::LoadTextureParallax(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {
         std::cerr << "Error: could not load texture " << paths << std::endl;
@@ -30,11 +38,22 @@ void Client::LoadTexture(std::string paths) {
     _texturesParallax.push_back(texture);
 }
 
-void Client::setMenu()
+void Client::LoadBackground()
 {
-    createParallax(_texturesParallax);
+    sf::Texture texture;
+    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/background.png") == false) {
+        std::cerr << "Error: could not load texture " << "src/Client/assets/new_assets/background/Menu/background.png" << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _backgroundTexture = texture;
 }
 
+void Client::setMenu()
+{
+    createBackground(_backgroundTexture);
+    createParallax(_texturesParallax);
+}
 
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
@@ -69,7 +88,6 @@ void Client::run() {
 }
 
 // TODO : implement server response for the menu, create sprite when i have the response
-
 
 int main() {
     Client client;
