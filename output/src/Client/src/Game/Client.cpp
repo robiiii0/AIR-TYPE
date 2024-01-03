@@ -40,7 +40,6 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    Serializer serializer;
     ConnectionWithServer();
     setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
@@ -55,7 +54,7 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    serialized_data_t data = serializer.binaryStringToStruct(msg);
+                    auto data = _networkingModule->getSerializer().binaryStringToStruct(msg);
                     std::cout << "To Add Players:" << data.to_add.nb_players << std::endl;
                         for (int i = 0; i < data.to_add.nb_players; ++i) {
                             std::cout << "Player ID: " << data.to_add.players[i].id
