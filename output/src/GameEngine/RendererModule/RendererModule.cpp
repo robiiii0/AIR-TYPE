@@ -26,29 +26,6 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
-        if (_event.type == sf::Event::MouseButtonPressed) {
-            std::cout << "cliqued" << std::endl;
-            for (auto id : id_list) {
-                try {
-                    auto components = entityManager.getAllComponents(id);
-                    for (auto &component : components) {
-                        if (typeid(*component) ==
-                            typeid(Engine::RendererModule::Components::
-                                       ClickableComponent)) {
-                            bool isClicked =
-                                std::dynamic_pointer_cast<
-                                    Engine::RendererModule::Components::
-                                        ClickableComponent>(component)
-                                    ->isClicked(
-                                        std::make_pair(_event.mouseButton.x,
-                                                       _event.mouseButton.y));
-                        }
-                    }
-                } catch (const Engine::EntityManager::NoComponent &e) {
-                    std::cerr << e.what() << '\n';
-                }
-            }
-        }
 
         // if (_event.type == sf::Event::KeyPressed) {
         //     for (auto id : id_list) {
