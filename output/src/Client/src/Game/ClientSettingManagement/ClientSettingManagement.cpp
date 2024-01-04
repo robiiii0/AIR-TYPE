@@ -43,7 +43,7 @@ void Client::ChangeKeyBinding()
 
 void Client::setSetting()
 {
-
+    // call this function to change key
     // ChangeKeyBinding();
     int nb = 0;
     createBackground(_backgroundTexture);

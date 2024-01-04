@@ -39,8 +39,8 @@ void Client::ConnectionWithServer() {
 
 void Client::run() {
     // ConnectionWithServer();
-    // setMenu();
-    setSetting();
+    setMenu();
+    // setSetting();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
