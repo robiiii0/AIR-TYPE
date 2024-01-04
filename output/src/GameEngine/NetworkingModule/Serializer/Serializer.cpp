@@ -124,7 +124,7 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
 Engine::Network::Serializer::serialized_data_t
     Engine::Network::Serializer::Serializer::binaryStringToStruct(
         const std::string &data) {
-    std::cout << "Received " << data.length() << " bytes" << std::endl;
+    // std::cout << "Received " << data.length() << " bytes" << std::endl;
     // if (i != sizeof(serialized_data_t)) {
     //     std::cerr << "Serializer: Invalid binary string" << std::endl;
     //     return initSerializedData();

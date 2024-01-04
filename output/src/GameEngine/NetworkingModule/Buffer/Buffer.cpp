@@ -63,9 +63,10 @@ std::string Engine::Network::Buffer::readNextPacket() {
         } else if (isPacket) {
             packet += c;
         }
+        _read_head %= __circular_buffer_size;
     }
     if (_read_head == _write_head) {
-        clear();
+        // clear();
     }
     return packet;
 }
@@ -73,7 +74,7 @@ std::string Engine::Network::Buffer::readNextPacket() {
 bool Engine::Network::Buffer::hasPacket() {
     std::lock_guard<std::mutex> lock(_mutex);
     bool isPacket = false;
-    std::cout << "buffer content:" << std::endl;
+    // std::cout << "buffer content:" << _buffer.data() << std::endl;
     // for (std::size_t i = _read_head; i != _write_head; i++) {
     //     std::cout << _buffer[i];
     //     i %= __circular_buffer_size;

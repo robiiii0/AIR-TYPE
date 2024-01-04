@@ -191,8 +191,8 @@ void Server::networkLoop() {
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        std::cout << "Broadcasting: " << _globalMessages.front() <<
-        std::endl;
+        // std::cout << "Broadcasting: " << _globalMessages.front() <<
+        // std::endl;
         std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());

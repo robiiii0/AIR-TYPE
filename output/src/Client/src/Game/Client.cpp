@@ -35,6 +35,8 @@ void Client::run() {
     ConnectionWithServer();
     setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        // std::chrono::high_resolution_clock::time_point clock =
+        //     std::chrono::high_resolution_clock::now();
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         std::string eventKey = _hmiModule->keyEvent(
@@ -47,23 +49,41 @@ void Client::run() {
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
                     // std::cout << "Message received: " << msg << std::endl;
-                    auto data = _networkingModule->getSerializer().binaryStringToStruct(msg);
-                    std::cout << "To Add Players:" << data.to_add.nb_players << std::endl;
-                        // for (int i = 0; i < data.to_add.nb_players; ++i) {
-                        //     std::cout << "Player ID: " << data.to_add.players[i].id
-                        //             << ", X: " << data.to_add.players[i].x
-                        //             << ", Y: " << data.to_add.players[i].y << std::endl;
-                        // }
+                    auto data =
+                        _networkingModule->getSerializer().binaryStringToStruct(
+                            msg);
+                    std::cout << "To Add Players:" << data.to_add.nb_players
+                              << std::endl;
+                    // for (int i = 0; i < data.to_add.nb_players; ++i) {
+                    //     std::cout << "Player ID: " <<
+                    //     data.to_add.players[i].id
+                    //             << ", X: " << data.to_add.players[i].x
+                    //             << ", Y: " << data.to_add.players[i].y <<
+                    //             std::endl;
+                    // }
 
-                        // Printing information from the 'to_add' game_objects_t
-                        // std::cout << "To Add Missiles:" << std::endl;
-                        // for (int i = 0; i < data.to_add.nb_missiles; ++i) {
-                        //     std::cout << "Missile ID: " << data.to_add.missiles[i].id
-                        //             << ", X: " << data.to_add.missiles[i].x << std::endl;
-                        // }
+                    // Printing information from the 'to_add' game_objects_t
+                    // std::cout << "To Add Missiles:" << std::endl;
+                    // for (int i = 0; i < data.to_add.nb_missiles; ++i) {
+                    //     std::cout << "Missile ID: " <<
+                    //     data.to_add.missiles[i].id
+                    //             << ", X: " << data.to_add.missiles[i].x <<
+                    //             std::endl;
+                    // }
                 }
             }
         }
+        // const auto elapsed =
+        //     std::chrono::duration_cast<std::chrono::microseconds>(
+        //         std::chrono::high_resolution_clock::now() - clock);
+        // if (elapsed.count() < 1000 / 16) {
+        //     const long duration = 1000000 / 16;
+        //     const long sleepTime = duration - elapsed.count();
+        //     if (sleepTime > 0) {
+        //         std::this_thread::sleep_for(
+        //             std::chrono::microseconds(sleepTime));
+        //     }
+        // }
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }

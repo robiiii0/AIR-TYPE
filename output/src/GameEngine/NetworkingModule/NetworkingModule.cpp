@@ -118,7 +118,7 @@ void Engine::Network::NetworkingModule::runUDP(
         recvfrom(_socket_fd, buffer, sizeof(buffer), 0,
                  (struct sockaddr *)&client_address, &client_address_size);
 
-    std::cout << "Received " << bytesReceived << " bytes" << std::endl;
+    // std::cout << "Received " << bytesReceived << " bytes" << std::endl;
     if (bytesReceived == static_cast<std::size_t>(-1)) {
         perror("recvfrom error");
         std::cerr << "Error: " << (errno) << std::endl;
