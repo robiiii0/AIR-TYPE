@@ -95,18 +95,20 @@ class Client {
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
-
         void setSetting();
         void ChangeKeyBinding();
         //        void setSettings();
         //        void setGame();
-
+        void setGame();
         void ConnectionWithServer();
 
-        //Gamestate handling
-        void changeState(int state);
+        // Gamestate handling
+        void changeState(GameState state);
         void clearCurrentState();
         void setupState();
+
+        void handleExit();
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
@@ -127,7 +129,7 @@ class Client {
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                                                            _sounds;
-        std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::unique_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
 };
 
