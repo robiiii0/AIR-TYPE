@@ -20,7 +20,21 @@
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
+
+
+
+
 class Client {
+
+    enum Key {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ATTACK,
+        ENTER,
+        ESCAPE
+    };
     public:
         Client();
         void run();
@@ -55,6 +69,7 @@ class Client {
         void LoadTextureButton(std::string paths);
 
         void setMenu();
+        void setSetting();
         void ConnectionWithServer();
 
     private:
