@@ -17,7 +17,6 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct ClickableData {
-                    sf::Sprite   sprite;
                     sf::Vector2f pos;
                     sf::Vector2f scale;
                     sf::Color    color;

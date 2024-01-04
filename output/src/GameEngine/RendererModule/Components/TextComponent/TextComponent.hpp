@@ -19,8 +19,8 @@ namespace Engine {
                     std::string  text;
                     sf::Font    &font;
                     sf::Color    color;
-                    sf::Vector2f position;
-                    sf::Vector2f scale;
+                    Engine::Entity::Component::GenericComponents::Vector2f position;
+                    Engine::Entity::Component::GenericComponents::Vector2f scale;
                     float        rotation;
             };
 

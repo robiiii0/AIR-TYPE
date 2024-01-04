@@ -22,6 +22,11 @@ Client::Client() {
     // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
+
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/Up.png");
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_left.png");
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_Down.png");
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_right.png");
     // addPlayer();x
 }
 
