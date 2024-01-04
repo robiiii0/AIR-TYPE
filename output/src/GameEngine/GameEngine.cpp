@@ -11,13 +11,6 @@ Engine::GameEngine::GameEngine(bool client) {
     _rendererModule =
         (client) ? std::make_shared<RendererModule::RendererModule>() : nullptr;
     _entityManager = std::make_shared<Entity::EntityManager>();
-    //    _localStorageModule = new LocalStorage::LocalStorageModule();
-    //    if (client)
-    //        _networkingModule = new Network::NetworkingModule(
-    //            4243, Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242);
-    //    else
-    //        _networkingModule = new Network::NetworkingModule(
-    //            4242, Network::NetworkingTypeEnum::UDP);
 }
 
 Engine::GameEngine::~GameEngine() {}
@@ -42,9 +35,6 @@ void Engine::GameEngine::run() {
         }
 
         lastTime = currentTime;
-
-        // _rendererModule->update();
-        // _rendererModule->render(*_entityManager, 0);
     }
 }
 

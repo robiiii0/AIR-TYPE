@@ -131,9 +131,6 @@ void Server::createMissile(std::uint32_t id) {
 
                 Engine::Entity::Component::GenericComponents::Vector2f
                     position_data(position->getValue());
-                // auto pos = std::make_shared<
-                //     Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-                //     position_data);
                 _gameEngine->getEntityManager()->addComponent(
                     _missileEntities[id], position);
                 std::string msg = "add missile " + std::to_string(id) + " " +
@@ -144,22 +141,16 @@ void Server::createMissile(std::uint32_t id) {
             }
         }
     }
-
-    // _gameEngine->getEntityManager()->getEntity(id)->
 }
 
 void Server::networkLoop() {
-    // std::cout << "nb clients: " << _networkingModule->getClients().size()
-    //   << std::endl;
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
         std::cout << "Welcoming Client " << client.getId() << std::endl;
         _clientMessages[client.getId()] = std::queue<std::string>();
-        // _clientMessages[client.getId()].emplace(
-        //     "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
-        // createPlayer(client.getId());
+        createPlayer(client.getId());
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
@@ -191,8 +182,6 @@ void Server::networkLoop() {
         }
     }
     while (!_globalMessages.empty()) {  // ? global messages
-        // std::cout << "Broadcasting: " << _globalMessages.front() <<
-        // std::endl;
         std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());

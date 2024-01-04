@@ -117,25 +117,12 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     std::copy(reinterpret_cast<const char *>(&data),
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
-    // return std::string(reinterpret_cast<const char *>(&data));
     return binaryString;
 }
 
 Engine::Network::Serializer::serialized_data_t
     Engine::Network::Serializer::Serializer::binaryStringToStruct(
         const std::string &data) {
-    // std::cout << "Received " << data.length() << " bytes" << std::endl;
-    // if (i != sizeof(serialized_data_t)) {
-    //     std::cerr << "Serializer: Invalid binary string" << std::endl;
-    //     return initSerializedData();
-    // }
-
-    // if (data.size() != sizeof(serialized_data_t)) {
-    //     std::cerr << "Serializer: Invalid binary string" << std::endl;
-    //     return initSerializedData();
-    // }
-
-    // return *reinterpret_cast<const serialized_data_t *>(data.c_str());
     serialized_data_t serialized_data;
     std::copy(data.begin(), data.end(),
               reinterpret_cast<char *>(&serialized_data));
@@ -145,7 +132,6 @@ Engine::Network::Serializer::serialized_data_t
 std::string Engine::Network::Serializer::Serializer::serializeToPacket(
     std::vector<std::string> args) {
     serialized_data_t data = serialize(args);
-    // std::cout << "To Add Players:" << data.to_add.nb_players << std::endl;
     std::string packet;
 
     packet += structToBinaryString(data);

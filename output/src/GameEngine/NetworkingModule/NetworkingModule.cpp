@@ -118,7 +118,6 @@ void Engine::Network::NetworkingModule::runUDP(
         recvfrom(_socket_fd, buffer, sizeof(buffer), 0,
                  (struct sockaddr *)&client_address, &client_address_size);
 
-    // std::cout << "Received " << bytesReceived << " bytes" << std::endl;
     if (bytesReceived == static_cast<std::size_t>(-1)) {
         perror("recvfrom error");
         std::cerr << "Error: " << (errno) << std::endl;
@@ -215,10 +214,6 @@ void Engine::Network::NetworkingModule::sendMessage(
     packet += _protocol_prefix;
     packet += message;
     packet += _protocol_suffix;  // TODO: encoder en base64
-    // std::cout << "Before " << sizeof(packet.length()) << "\n" << packet << std::endl;
-    // packet = encodeBase64(packet);
-    // std::cout << "After " << sizeof(packet.length()) << "\n" << packet << std::endl;
-    // std::cout << "Sending " << packet << std::endl;
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
@@ -226,9 +221,7 @@ void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
     std::string               packet = "";
-    // packet += _protocol_prefix;
     packet += message;
-    // packet += _protocol_suffix;
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;

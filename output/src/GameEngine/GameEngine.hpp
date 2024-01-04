@@ -9,16 +9,11 @@
 #define GAMEENGINE_HPP_
 
 #include "RendererModule/RendererModule.hpp"
-// #include "../EntityManager/EntityManager.hpp"
 #include <chrono>
 #include <thread>
 
 #include "./EntityManager/EntityManager.hpp"
 #include "./PhysicModule/PhysicModule.hpp"
-
-// #include "LocalStorageModule/LocalStorageModule.hpp"
-// #include "NetworkingModule/NetworkingModule.hpp"
-// #include "PhysicModule/PhysicModule.hpp"
 
 namespace Engine {
     class GameEngine {
@@ -34,10 +29,6 @@ namespace Engine {
                 getRendererModule() const;
             std::shared_ptr<Engine::Physic::PhysicModule> getPhysicModule()
                 const;
-            //            const; LocalStorage::LocalStorageModule
-            //            *getLocalStorageModule() const;
-            //            Network::NetworkingModule *getNetworkingModule()
-            //            const;
 
         private:
             std::shared_ptr<Engine::Entity::EntityManager> _entityManager;
@@ -45,8 +36,6 @@ namespace Engine {
                                                           _rendererModule;
             std::shared_ptr<Engine::Physic::PhysicModule> _physicModule;
 
-            //            LocalStorage::LocalStorageModule *_localStorageModule;
-            //            Network::NetworkingModule        *_networkingModule;
     };
 }  // namespace Engine
 
