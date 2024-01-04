@@ -51,7 +51,7 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    auto data =
+                    auto        data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
                     std::cout << "To Add Players:" << data.to_add.nb_players
@@ -64,4 +64,5 @@ void Client::run() {
     }
 }
 
-// TODO : implement server response for the menu, create sprite when i have the response
+// TODO : implement server response for the menu, create sprite when i have the
+// response

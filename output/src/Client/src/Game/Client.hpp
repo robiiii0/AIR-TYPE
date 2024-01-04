@@ -58,7 +58,6 @@ class Client {
 
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
-
         void setMenu();
         void ConnectionWithServer();
 

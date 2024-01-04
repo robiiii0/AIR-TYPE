@@ -6,6 +6,7 @@
 */
 
 #include "Buffer.hpp"
+
 #include "../Serializer/Serializer.hpp"
 
 Engine::Network::Buffer::Buffer() : _read_head(0), _write_head(0) {}
@@ -27,7 +28,7 @@ void Engine::Network::Buffer::write(const std::string &message) {
 
 std::string Engine::Network::Buffer::read() {
     std::lock_guard<std::mutex> lock(_mutex);
-    std::string message;
+    std::string                 message;
     while (_read_head != _write_head) {
         message += _buffer[_read_head++];
         _read_head %= __circular_buffer_size;
@@ -37,7 +38,7 @@ std::string Engine::Network::Buffer::read() {
 
 std::string Engine::Network::Buffer::read(const int &length) {
     std::lock_guard<std::mutex> lock(_mutex);
-    std::string message;
+    std::string                 message;
 
     for (int i = 0; i < length && _read_head != _write_head; i++) {
         message += _buffer[_read_head++];
@@ -48,8 +49,8 @@ std::string Engine::Network::Buffer::read(const int &length) {
 
 std::string Engine::Network::Buffer::readNextPacket() {
     std::lock_guard<std::mutex> lock(_mutex);
-    std::string packet;
-    bool        isPacket = false;
+    std::string                 packet;
+    bool                        isPacket = false;
 
     while (_read_head != _write_head) {
         char c = _buffer[_read_head++];
@@ -73,7 +74,7 @@ std::string Engine::Network::Buffer::readNextPacket() {
 
 bool Engine::Network::Buffer::hasPacket() {
     std::lock_guard<std::mutex> lock(_mutex);
-    bool isPacket = false;
+    bool                        isPacket = false;
     for (std::size_t i = _read_head; i != _write_head; i++) {
         if (i == __circular_buffer_size) {
             i = 0;

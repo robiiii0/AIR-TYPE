@@ -15,13 +15,15 @@ Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type) {
 }
 
 Engine::Network::Messager::~Messager() {}
+
 #include <iostream>
+
 void Engine::Network::Messager::sendMessage(const std::string       &message,
                                             Engine::Network::Client &client,
                                             int socket_fd) {
     std::unique_lock lock(_mutex);
-    const char                 *msg = message.c_str();
-    std::size_t                 bytesSent = 0;
+    const char      *msg = message.c_str();
+    std::size_t      bytesSent = 0;
 
     if (_mode) {
         bytesSent = send(client.getSocketFd(), msg, message.size(), 0);

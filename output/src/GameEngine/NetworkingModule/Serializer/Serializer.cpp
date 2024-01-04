@@ -132,7 +132,7 @@ Engine::Network::Serializer::serialized_data_t
 std::string Engine::Network::Serializer::Serializer::serializeToPacket(
     std::vector<std::string> args) {
     serialized_data_t data = serialize(args);
-    std::string packet;
+    std::string       packet;
 
     packet += structToBinaryString(data);
     std::cout << "Sending " << packet.length() << " bytes" << std::endl;

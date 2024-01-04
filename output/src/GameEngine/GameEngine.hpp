@@ -8,12 +8,12 @@
 #ifndef GAMEENGINE_HPP_
 #define GAMEENGINE_HPP_
 
-#include "RendererModule/RendererModule.hpp"
 #include <chrono>
 #include <thread>
 
 #include "./EntityManager/EntityManager.hpp"
 #include "./PhysicModule/PhysicModule.hpp"
+#include "RendererModule/RendererModule.hpp"
 
 namespace Engine {
     class GameEngine {
@@ -35,7 +35,6 @@ namespace Engine {
             std::shared_ptr<Engine::RendererModule::RendererModule>
                                                           _rendererModule;
             std::shared_ptr<Engine::Physic::PhysicModule> _physicModule;
-
     };
 }  // namespace Engine
 

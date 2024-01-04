@@ -117,9 +117,9 @@ void Client::createMissile(std::uint32_t id, float x, float y) {
 
     std::shared_ptr<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>
-        posComponent =
-            std::make_shared<Engine::Entity::Component::GenericComponents::
-                                 Vector2fComponent>(pos);
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
 
     Engine::RendererModule::Components::SpriteData sprite_temp = {
         pos, {1, 1}, sf::Color::White, 0, false};
