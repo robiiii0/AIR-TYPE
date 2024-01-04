@@ -109,6 +109,7 @@ namespace Engine {
                 void addMessageToClientBuffer(
                     const char *buffer, std::size_t &bytesReceived,
                     const struct sockaddr_in &client_address);
+                std::string encodeBase64(const std::string &message);
 
             private:
                 NetworkingTypeEnum                   _type;

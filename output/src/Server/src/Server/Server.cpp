@@ -46,6 +46,8 @@ void Server::applyTickrate() {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
         _globalMessages.emplace("add player 0 10 10");
+        _globalMessages.emplace("add player 0 10 10");
+        _globalMessages.emplace("add player 0 10 10");
 
         auto tickrate = 1.0 /
                         std::chrono::duration_cast<std::chrono::microseconds>(

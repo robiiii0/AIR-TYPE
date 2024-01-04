@@ -127,7 +127,7 @@ void Engine::Network::NetworkingModule::runUDP(
         if (isNewClient(client_address)) {
             Engine::Network::Client client(client_address, 0);
             std::string             message = buffer;
-            _clients.push_back(client);
+            _clients.push_back(client);  // TODO: décoder base64
             client.getBuffer()->write(buffer, bytesReceived);
         } else {
             addMessageToClientBuffer(buffer, bytesReceived, client_address);
@@ -160,6 +160,40 @@ void Engine::Network::NetworkingModule::addMessageToClientBuffer(
     }
 }
 
+std::string Engine::Network::NetworkingModule::encodeBase64(
+    const std::string &input) {
+    // Définition de la table de codage base64
+    const char *base64_chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+    // Initialisation de la chaîne de sortie
+    std::string output;
+
+    // Conversion des octets de la chaîne d'entrée en base64
+    for (size_t i = 0; i < input.size(); i += 3) {
+        // Concaténation de trois octets en un entier de 24 bits
+        uint8_t  byte1 = input[i];
+        uint8_t  byte2 = (i + 1 < input.size()) ? input[i + 1] : 0;
+        uint8_t  byte3 = (i + 2 < input.size()) ? input[i + 2] : 0;
+        uint32_t value = (byte1 << 16) | (byte2 << 8) | byte3;
+
+        // Conversion de l'entier de 24 bits en base64
+        output += base64_chars[value >> 18];
+        output += base64_chars[(value >> 12) & 0x3F];
+        output += base64_chars[(value >> 6) & 0x3F];
+        output += base64_chars[value & 0x3F];
+    }
+
+    // Retrait des caractères de remplissage "="
+    if (output.size() % 4 == 2) {
+        output += "==";
+    } else if (output.size() % 4 == 3) {
+        output += "=";
+    }
+
+    return output;
+}
+
 void Engine::Network::NetworkingModule::sendMessage(
     const std::string &message, const std::size_t &client_id) {
     Engine::Network::Messager messager(_type);
@@ -180,7 +214,11 @@ void Engine::Network::NetworkingModule::sendMessage(
     std::string packet = "";
     packet += _protocol_prefix;
     packet += message;
-    packet += _protocol_suffix;
+    packet += _protocol_suffix;  // TODO: encoder en base64
+    // std::cout << "Before " << sizeof(packet.length()) << "\n" << packet << std::endl;
+    // packet = encodeBase64(packet);
+    // std::cout << "After " << sizeof(packet.length()) << "\n" << packet << std::endl;
+    // std::cout << "Sending " << packet << std::endl;
     messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
@@ -188,14 +226,14 @@ void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     Engine::Network::Messager messager(_type);
     std::string               packet = "";
-    packet += _protocol_prefix;
+    // packet += _protocol_prefix;
     packet += message;
-    packet += _protocol_suffix;
+    // packet += _protocol_suffix;
     for (auto &client : _clients) {
         if (!client.isConnected()) {
             continue;
         }
-        messager.sendMessage(packet, client, _socket_fd);
+        sendMessage(packet, client.getId());
     }
 }
 
