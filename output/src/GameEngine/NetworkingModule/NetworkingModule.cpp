@@ -109,7 +109,7 @@ void Engine::Network::NetworkingModule::runTCP(
 
 void Engine::Network::NetworkingModule::runUDP(
     Engine::Network::Messager &messager) {
-    char               buffer[1024];
+    char               buffer[16384];
     struct sockaddr_in client_address;
     socklen_t          client_address_size = sizeof(client_address);
     std::size_t        bytesReceived = 0;
