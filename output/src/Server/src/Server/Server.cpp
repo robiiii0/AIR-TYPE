@@ -149,18 +149,16 @@ void Server::createMissile(std::uint32_t id) {
 void Server::networkLoop() {
     // std::cout << "nb clients: " << _networkingModule->getClients().size()
     //   << std::endl;
-
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
         std::cout << "Welcoming Client " << client.getId() << std::endl;
         _clientMessages[client.getId()] = std::queue<std::string>();
-        _clientMessages[client.getId()].emplace(
-            "Welcome");  // TODO: send a real welcome msg
+        // _clientMessages[client.getId()].emplace(
+        //     "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
-        createPlayer(client.getId());
+        // createPlayer(client.getId());
     }
-
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
             std::string packet = client.getBuffer()->readNextPacket();
@@ -180,6 +178,16 @@ void Server::networkLoop() {
             }
         }
     }
+    for (auto &client : _networkingModule->getClients()) {  // ? client messages
+        while (!_clientMessages[client.getId()].empty()) {
+            std::cout << "Client " << client.getId()
+                      << " message: " << _clientMessages[client.getId()].front()
+                      << std::endl;
+            _networkingModule->sendMessage(
+                _clientMessages[client.getId()].front(), client.getId());
+            _clientMessages[client.getId()].pop();
+        }
+    }
     while (!_globalMessages.empty()) {  // ? global messages
         std::cout << "Broadcasting: " << _globalMessages.front() <<
         std::endl;
@@ -190,15 +198,5 @@ void Server::networkLoop() {
         }
         _networkingModule->broadcastMessage(
             _networkingModule->getSerializer().serializeToPacket(messages));
-    }
-    for (auto &client : _networkingModule->getClients()) {  // ? client messages
-        while (!_clientMessages[client.getId()].empty()) {
-            std::cout << "Client " << client.getId()
-                      << " message: " << _clientMessages[client.getId()].front()
-                      << std::endl;
-            _networkingModule->sendMessage(
-                _clientMessages[client.getId()].front(), client.getId());
-            _clientMessages[client.getId()].pop();
-        }
     }
 }

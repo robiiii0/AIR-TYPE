@@ -10,6 +10,7 @@
 
 #include <array>
 #include <cstdint>
+#include <mutex>
 #include <string>
 
 namespace Engine {
@@ -63,10 +64,12 @@ namespace Engine {
             protected:
                 bool isPrefix(const std::size_t index);
                 bool isSuffix(const std::size_t index);
+
             private:
                 std::array<char, __circular_buffer_size> _buffer;
                 std::size_t                              _read_head;
                 std::size_t                              _write_head;
+                std::mutex                               _mutex;
                 const std::string _protocol_prefix = "PACKET_START";
                 const std::string _protocol_suffix = "PACKET_END";
         };

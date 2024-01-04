@@ -15,7 +15,7 @@ Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type) {
 }
 
 Engine::Network::Messager::~Messager() {}
-
+#include <iostream>
 void Engine::Network::Messager::sendMessage(const std::string       &message,
                                             Engine::Network::Client &client,
                                             int socket_fd) {
@@ -40,8 +40,6 @@ void Engine::Network::Messager::startReceiving(
     std::thread receiveThread([this, &client] { receiveLoop(client); });
     receiveThread.detach();
 }
-
-#include <iostream>
 
 void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
     char        buffer[1024];
