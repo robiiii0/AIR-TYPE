@@ -26,109 +26,10 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape)
             _window.close();
-
-        // if (_event.type == sf::Event::KeyPressed) {
-        //     for (auto id : id_list) {
-        //         try {
-        //             auto components = entityManager.getAllComponents(id);
-        //             for (auto &component : components) {
-        //                 if (typeid(*component) ==
-        //                     typeid(Engine::RendererModule::Components::
-        //                                SpriteComponent)) {
-        //                     std::dynamic_pointer_cast<
-        //                         Engine::RendererModule::Components::
-        //                             SpriteComponent>(component)
-        //                         ->handleEvent(_event.key.code);
-        //                 }
-        //             }
-        //         } catch (const Engine::EntityManager::NoComponent &e) {
-        //             std::cerr << e.what() << '\n';
-        //         }
-        //     }
-        // }
-        // //        if (_event.type == sf::Event::KeyPressed) {
-        // //        }
-        // if (_event.type == sf::Event::TextEntered ||
-        //     _event.type == sf::Event::KeyPressed) {
-        //     for (auto id : id_list) {
-        //         try {
-        //             auto components = entityManager.getAllComponents(id);
-        //             for (auto &component : components) {
-        //                 if (typeid(*component) ==
-        //                     typeid(Engine::RendererModule::Components::
-        //                                InputComponent)) {
-        //                     bool isClicked =
-        //                         std::dynamic_pointer_cast<
-        //                             Engine::RendererModule::Components::
-        //                                 InputComponent>(component)
-        //                             ->getClicked();
-        //                     if (isClicked) {
-        //                         std::dynamic_pointer_cast<
-        //                             Engine::RendererModule::Components::
-        //                                 InputComponent>(component)
-        //                             ->handleEvent(_event);
-
-        //                     }
-        //                 }
-        //             }
-        //         } catch (const Engine::EntityManager::NoComponent &e) {
-        //             std::cerr << e.what() << '\n';
-        //         }
-        //     }
-        // }
-        // if (_event.type == sf::Event::MouseButtonPressed) {
-        //     for (auto id : id_list) {
-        //         try {
-        //             auto components = entityManager.getAllComponents(id);
-        //             for (auto &component : components) {
-        //                 if (typeid(*component) ==
-        //                     typeid(Engine::RendererModule::Components::
-        //                                InputComponent)) {
-        //                     bool isClicked =
-        //                         std::dynamic_pointer_cast<
-        //                             Engine::RendererModule::Components::
-        //                                 InputComponent>(component)
-        //                             ->isClicked(
-        //                                 std::make_pair(_event.mouseButton.x,
-        //                                                _event.mouseButton.y));
-
-        //                 }
-        //                 if (typeid(*component) ==
-        //                     typeid(Engine::RendererModule::Components::
-        //                                ClickableComponent)) {
-        //                     bool isClicked =
-        //                         std::dynamic_pointer_cast<
-        //                             Engine::RendererModule::Components::
-        //                                 ClickableComponent>(component)
-        //                             ->isClicked(
-        //                                 std::make_pair(_event.mouseButton.x,
-        //                                                _event.mouseButton.y));
-
-        //                 }
-        //                 if (typeid(*component) ==
-        //                     typeid(Engine::RendererModule::Components::
-        //                                RoundedClickableComponent)) {
-        //                     bool isClicked =
-        //                         std::dynamic_pointer_cast<
-        //                             Engine::RendererModule::Components::
-        //                                 RoundedClickableComponent>(component)
-        //                             ->isClicked(
-        //                                 std::make_pair(_event.mouseButton.x,
-        //                                                _event.mouseButton.y));
-
-        //                 }
-        //             }
-        //         } catch (const Engine::EntityManager::NoComponent &e) {
-        //             std::cerr << e.what() << '\n';
-        //         }
-        //     }
-
         if (_event.type == sf::Event::KeyPressed) {
             std::cout << "jappuie" << std::endl;
             return _event.key.code;
         }
-
-        // }
     }
     return 0;
 }

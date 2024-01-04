@@ -109,3 +109,27 @@ void Client::LoadTextureParallax(std::string paths) {
     texture.setSmooth(true);
     _texturesParallax.push_back(texture);
 }
+
+void Client::createMissile(std::uint32_t id, float x, float y) {
+    uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Entity::Component::GenericComponents::Vector2f pos = {x, y};
+
+    std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
+
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        pos, {1, 1}, sf::Color::White, 0, false};
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(
+            sprite_temp, _textureMissile);
+    _gameEngine.getEntityManager()->addComponent(missileEntity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(missileEntity, posComponent);
+    addEntity(missileEntity);
+}

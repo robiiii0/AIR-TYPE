@@ -17,14 +17,17 @@ Client::Client() {
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
-    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
+    LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
     // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
-    // Sounds declaration.
+
+    LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
+
     LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
+
     // addPlayer();x
 }
 
@@ -35,22 +38,24 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    // ConnectionWithServer();
+    ConnectionWithServer();
     setMenu();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
-
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    std::cout << msg << std::endl;
+                    auto        data =
+                        _networkingModule->getSerializer().binaryStringToStruct(
+                            msg);
+                    std::cout << "To Add Players:" << data.to_add.nb_players
+                              << std::endl;
                 }
             }
         }

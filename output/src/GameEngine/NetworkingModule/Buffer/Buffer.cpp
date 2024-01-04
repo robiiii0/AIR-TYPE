@@ -7,12 +7,15 @@
 
 #include "Buffer.hpp"
 
+#include "../Serializer/Serializer.hpp"
+
 Engine::Network::Buffer::Buffer() : _read_head(0), _write_head(0) {}
 
 Engine::Network::Buffer::~Buffer() {}
 
 void Engine::Network::Buffer::write(const char        *message,
                                     const std::size_t &length) {
+    // std::lock_guard<std::mutex> lock(_mutex);
     for (std::size_t i = 0; i < length; i++) {
         _buffer[_write_head++] = message[i];
         _write_head %= __circular_buffer_size;
@@ -24,7 +27,8 @@ void Engine::Network::Buffer::write(const std::string &message) {
 }
 
 std::string Engine::Network::Buffer::read() {
-    std::string message;
+    std::lock_guard<std::mutex> lock(_mutex);
+    std::string                 message;
     while (_read_head != _write_head) {
         message += _buffer[_read_head++];
         _read_head %= __circular_buffer_size;
@@ -33,7 +37,8 @@ std::string Engine::Network::Buffer::read() {
 }
 
 std::string Engine::Network::Buffer::read(const int &length) {
-    std::string message;
+    std::lock_guard<std::mutex> lock(_mutex);
+    std::string                 message;
 
     for (int i = 0; i < length && _read_head != _write_head; i++) {
         message += _buffer[_read_head++];
@@ -43,36 +48,69 @@ std::string Engine::Network::Buffer::read(const int &length) {
 }
 
 std::string Engine::Network::Buffer::readNextPacket() {
-    std::string packet;
-    bool        isPacket = false;
+    std::lock_guard<std::mutex> lock(_mutex);
+    std::string                 packet;
+    bool                        isPacket = false;
 
     while (_read_head != _write_head) {
         char c = _buffer[_read_head++];
-        if (c == _protocol_prefix) {
+        if (isPrefix(_read_head)) {
+            _read_head += _protocol_prefix.length();
             isPacket = true;
-        } else if (c == _protocol_suffix && isPacket) {
+        } else if (isSuffix(_read_head) && isPacket) {
+            _read_head += _protocol_suffix.length();
+            packet += c;
             break;
-        } else if (c == _protocol_suffix && !isPacket) {
-            packet = "";
         } else if (isPacket) {
             packet += c;
         }
+        _read_head %= __circular_buffer_size;
+    }
+    if (_read_head == _write_head) {
+        // clear();
     }
     return packet;
 }
 
 bool Engine::Network::Buffer::hasPacket() {
-    bool isPacket = false;
-
+    std::lock_guard<std::mutex> lock(_mutex);
+    bool                        isPacket = false;
     for (std::size_t i = _read_head; i != _write_head; i++) {
         if (i == __circular_buffer_size) {
             i = 0;
         }
-        if (_buffer[i] == _protocol_prefix) {
+        if (isPrefix(i)) {
+            i += _protocol_prefix.length() - 1;
             isPacket = true;
-        } else if (_buffer[i] == _protocol_suffix && isPacket) {
+        } else if (isSuffix(i) && isPacket) {
             return true;
         }
     }
     return false;
+}
+
+void Engine::Network::Buffer::clear() {
+    _read_head = 0;
+    _write_head = 0;
+    _buffer.fill(0);
+}
+
+bool Engine::Network::Buffer::isPrefix(const std::size_t index) {
+    for (std::size_t i = 0; i < _protocol_prefix.length(); i++) {
+        if (_buffer[(index + i) % __circular_buffer_size] !=
+            _protocol_prefix[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Engine::Network::Buffer::isSuffix(const std::size_t index) {
+    for (std::size_t i = 0; i < _protocol_suffix.length(); i++) {
+        if (_buffer[(index + i) % __circular_buffer_size] !=
+            _protocol_suffix[i]) {
+            return false;
+        }
+    }
+    return true;
 }

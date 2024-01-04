@@ -53,6 +53,9 @@ class Client {
         void LoadBackground();
         void LoadFont(std::string paths);
         void LoadTextureButton(std::string paths);
+
+        void LoadTextureMissile(std::string paths);
+
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
@@ -71,6 +74,7 @@ class Client {
         std::vector<sf::Texture> _texturePlayer;
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
+        sf::Texture              _textureMissile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
