@@ -12,6 +12,7 @@ Client::Client() {
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
+    _gameState = MENU;
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
@@ -22,7 +23,6 @@ Client::Client() {
     LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
-    // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
 
@@ -41,7 +41,6 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
 
-    // addPlayer();x
 }
 
 void Client::ConnectionWithServer() {
@@ -51,9 +50,8 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    ConnectionWithServer();
-    setMenu();
-    // setSetting();
+     ConnectionWithServer();
+    setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
@@ -75,6 +73,35 @@ void Client::run() {
         }
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
+    }
+}
+
+void Client::changeState(int state) {
+    clearCurrentState();
+    _gameState = state;
+    setupState();
+}
+
+void Client::clearCurrentState() {
+    for (auto entity : _entities) {
+        std::cout << "destruction de l'entitée " << entity << std::endl;
+        _gameEngine.getEntityManager()->destroyEntity(entity);
+    }
+}
+
+void Client::setupState() {
+    switch (_gameState) {
+        case MENU:
+            setMenu();
+            break;
+//        case SETTINGS:
+//            setSettings();
+//            break;
+//        case GAME:
+//            setGame();
+//            break;
+        default:
+            break;
     }
 }
 

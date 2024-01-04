@@ -20,6 +20,15 @@
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
+enum GameState {
+    MENU,
+    GAME,
+    SETTINGS,
+    PAUSE,
+    GAMEOVER,
+    EXIT,
+};
+
 class Client {
         enum Key {
             UP = sf::Keyboard::Up,
@@ -89,8 +98,15 @@ class Client {
 
         void setSetting();
         void ChangeKeyBinding();
+        //        void setSettings();
+        //        void setGame();
+
         void ConnectionWithServer();
 
+        //Gamestate handling
+        void changeState(int state);
+        void clearCurrentState();
+        void setupState();
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
@@ -98,6 +114,7 @@ class Client {
 
         int _screenWidth;
         int _screenHeight;
+        int _gameState;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
