@@ -1,8 +1,16 @@
 #include "../Client.hpp"
 
 void Client::handleExit() {
+    // TODO: stop the networking module before destroying it.
     _networkingModule = nullptr;
+    std::cout << "networking module destroyed" << std::endl;
+    for (auto &sound : _sounds) {
+        sound->stop();
+        sound = nullptr;
+        std::cout << "sound stopped" << std::endl;
+    }
     _sounds.clear();
+    _gameEngine.getRendererModule()->getWindow().close();
 }
 
 void Client::changeState(GameState state) {
