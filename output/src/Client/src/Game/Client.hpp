@@ -45,7 +45,6 @@ class Client {
         void applyStatus(Engine::Network::Client &client);
 
         Engine::GameEngine &getGameEngine();
-
         // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
