@@ -27,6 +27,7 @@ Client::Client() {
     LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_left.png");
     LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_Down.png");
     LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/key_right.png");
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/Space.png");
     // addPlayer();x
 }
 

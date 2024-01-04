@@ -33,10 +33,11 @@ void Client::CreateSprite(
 void Client::ChangeKeyBinding()
 {
     createBackground(_backgroundTexture);
-    CreateSprite({450, 250}, {0.3, 0.3}, _textureSetting[0], "Key Up");
-    CreateSprite({250, 450}, {0.3, 0.3}, _textureSetting[1], "Key Left");
-    CreateSprite({450, 450}, {0.3, 0.3}, _textureSetting[2], "Key Down");
-    CreateSprite({650, 450}, {0.3, 0.3}, _textureSetting[3], "Key Right");
+    CreateSprite({450, 250}, {0.3, 0.3}, _textureSetting[UP_TEXTURE], "Key Up");
+    CreateSprite({250, 450}, {0.3, 0.3}, _textureSetting[LEFT_TEXTURE], "Key Left");
+    CreateSprite({450, 450}, {0.3, 0.3}, _textureSetting[DOWN_TEXTURE], "Key Down");
+    CreateSprite({650, 450}, {0.3, 0.3}, _textureSetting[RIGHT_TEXTURE], "Key Right");
+    CreateSprite({850, 250}, {0.3, 0.3}, _textureSetting[ATTACK_TEXTURE], "Attack");
 }
 
 
