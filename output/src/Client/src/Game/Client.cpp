@@ -22,7 +22,9 @@ Client::Client() {
     // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
+    // Sounds declaration.
     LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
+    LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
     // addPlayer();x
 }
 

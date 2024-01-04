@@ -72,7 +72,9 @@ class Client {
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
 
-        std::vector<std::shared_ptr<Engine::RendererModule::Components::SoundComponent>> _sounds;
+        std::vector<
+            std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
+                                                           _sounds;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
 };

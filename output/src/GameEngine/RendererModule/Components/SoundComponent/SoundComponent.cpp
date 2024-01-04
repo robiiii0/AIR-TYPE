@@ -7,9 +7,6 @@
 
 #include "SoundComponent.hpp"
 
-#include <iostream>
-#include <stdexcept>
-
 Engine::RendererModule::Components::SoundComponent::SoundComponent(
     SoundData &value) {
     _data = value;
