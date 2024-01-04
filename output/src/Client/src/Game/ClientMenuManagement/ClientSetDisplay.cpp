@@ -18,7 +18,4 @@ void Client::setGame() {
                  {static_cast<float>(_screenWidth / 1.05),
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.10, 0.10}, sf::Color::White, 0);
-//    createMissile(0, 0, 0);
 }
-
-

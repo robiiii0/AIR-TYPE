@@ -1,8 +1,6 @@
 #include "../Client.hpp"
 
-void Client::handleExit() {
-    _networkingModule = nullptr;
-}
+void Client::handleExit() { _networkingModule = nullptr; }
 
 void Client::changeState(GameState state) {
     clearCurrentState();
