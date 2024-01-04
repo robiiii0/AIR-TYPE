@@ -22,6 +22,7 @@ Client::Client() {
     // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
+    LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
     // addPlayer();x
 }
 
@@ -42,7 +43,6 @@ void Client::run() {
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
-
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
@@ -89,5 +89,4 @@ void Client::run() {
     }
 }
 
-// TODO : implement server response for the menu, create sprite when i have the
-// response
+// TODO : implement server response for the menu, create sprite when i have the response
