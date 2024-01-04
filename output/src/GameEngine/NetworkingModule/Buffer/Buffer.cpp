@@ -6,6 +6,7 @@
 */
 
 #include "Buffer.hpp"
+#include "../Serializer/Serializer.hpp"
 
 Engine::Network::Buffer::Buffer() : _read_head(0), _write_head(0) {}
 
@@ -47,21 +48,20 @@ std::string Engine::Network::Buffer::readNextPacket() {
     bool        isPacket = false;
 
     while (_read_head != _write_head) {
-        char c = _buffer[_read_head++];
-        if (c == _protocol_prefix) {
+        char c = _buffer[_read_head];
+        if (isPrefix(_read_head)) {
+            _read_head += _protocol_prefix.length();
             isPacket = true;
-        } else if (c == _protocol_suffix && isPacket) {
+        } else if (isSuffix(_read_head) && isPacket) {
             break;
-        } else if (c == _protocol_suffix && !isPacket) {
+        } else if (isSuffix(_read_head) && !isPacket) {
             packet = "";
         } else if (isPacket) {
             packet += c;
         }
     }
     if (_read_head == _write_head) {
-        _read_head = 0;
-        _write_head = 0;
-        _buffer.fill(0);
+        clear();
     }
     return packet;
 }
@@ -69,7 +69,7 @@ std::string Engine::Network::Buffer::readNextPacket() {
 bool Engine::Network::Buffer::hasPacket() {
     bool isPacket = false;
 
-    while (_buffer[_read_head] != _protocol_prefix && _read_head != _write_head) {
+    while (!isPrefix(_read_head) && _read_head != _write_head) {
         _read_head++;
         _read_head %= __circular_buffer_size;
     }
@@ -77,9 +77,9 @@ bool Engine::Network::Buffer::hasPacket() {
         if (i == __circular_buffer_size) {
             i = 0;
         }
-        if (_buffer[i] == _protocol_prefix) {
+        if (isPrefix(i)) {
             isPacket = true;
-        } else if (_buffer[i] == _protocol_suffix && isPacket) {
+        } else if (isSuffix(i) && isPacket) {
             return true;
         }
     }
@@ -91,4 +91,24 @@ void Engine::Network::Buffer::clear() {
     _read_head = 0;
     _write_head = 0;
     _buffer.fill(0);
+}
+
+bool Engine::Network::Buffer::isPrefix(const std::size_t index) {
+    for (std::size_t i = 0; i < _protocol_prefix.length(); i++) {
+        if (_buffer[(index + i) % __circular_buffer_size] !=
+            _protocol_prefix[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Engine::Network::Buffer::isSuffix(const std::size_t index) {
+    for (std::size_t i = 0; i < _protocol_suffix.length(); i++) {
+        if (_buffer[(index + i) % __circular_buffer_size] !=
+            _protocol_suffix[i]) {
+            return false;
+        }
+    }
+    return true;
 }

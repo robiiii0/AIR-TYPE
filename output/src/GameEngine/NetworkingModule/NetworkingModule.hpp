@@ -111,14 +111,14 @@ namespace Engine {
                     const struct sockaddr_in &client_address);
 
             private:
-                NetworkingTypeEnum                      _type;
-                int                                     _socket_fd;
-                struct sockaddr_in                      _server_address;
-                std::vector<Engine::Network::Client>    _clients;
-                int                                     _max_clients;
-                const int8_t                            _protocol_prefix = -86;
-                const int8_t                            _protocol_suffix = -69;
-                std::thread                             _running_thread;
+                NetworkingTypeEnum                   _type;
+                int                                  _socket_fd;
+                struct sockaddr_in                   _server_address;
+                std::vector<Engine::Network::Client> _clients;
+                int                                  _max_clients;
+                const std::string _protocol_prefix = "PACKET_START";
+                const std::string _protocol_suffix = "PACKET_END";
+                std::thread       _running_thread;
                 Engine::Network::Serializer::Serializer _serializer;
         };
     };  // namespace Network

@@ -49,8 +49,7 @@ namespace Engine {
 
                     serialized_data_t serialize(std::vector<std::string> args);
 
-                    template<typename T>
-                    std::string structToBinaryString(const T& data);
+                    std::string structToBinaryString(const serialized_data_t& data);
 
                     serialized_data_t binaryStringToStruct(
                         const std::string& data);

@@ -19,7 +19,7 @@ Engine::Network::Messager::~Messager() {}
 void Engine::Network::Messager::sendMessage(const std::string       &message,
                                             Engine::Network::Client &client,
                                             int socket_fd) {
-    std::lock_guard<std::mutex> lock(mutex);
+    std::unique_lock lock(_mutex);
     const char                 *msg = message.c_str();
     std::size_t                 bytesSent = 0;
 
@@ -32,12 +32,11 @@ void Engine::Network::Messager::sendMessage(const std::string       &message,
                            sizeof(client.getAddress()));
     }
     if (bytesSent < 0) throw CouldNotSendException(client);
+    lock.unlock();
 }
 
 void Engine::Network::Messager::startReceiving(
     Engine::Network::Client &client) {
-    std::lock_guard<std::mutex> lock(mutex);
-
     std::thread receiveThread([this, &client] { receiveLoop(client); });
     receiveThread.detach();
 }

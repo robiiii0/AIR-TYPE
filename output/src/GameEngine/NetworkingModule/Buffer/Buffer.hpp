@@ -61,12 +61,14 @@ namespace Engine {
                 void clear();
 
             protected:
+                bool isPrefix(const std::size_t index);
+                bool isSuffix(const std::size_t index);
             private:
                 std::array<char, __circular_buffer_size> _buffer;
                 std::size_t                              _read_head;
                 std::size_t                              _write_head;
-                const int8_t                             _protocol_prefix = -86;
-                const int8_t                             _protocol_suffix = -69;
+                const std::string _protocol_prefix = "PACKET_START";
+                const std::string _protocol_suffix = "PACKET_END";
         };
     };  // namespace Network
 };      // namespace Engine
