@@ -127,7 +127,7 @@ void Client::createMissile(std::uint32_t id, float x, float y) {
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
             Engine::RendererModule::Components::SpriteComponent>(
-            sprite_temp, _texturePlayer[0]);
+            sprite_temp, _textureMissile);
     _gameEngine.getEntityManager()->addComponent(missileEntity,
                                                  spriteComponent);
     _gameEngine.getEntityManager()->addComponent(missileEntity, posComponent);

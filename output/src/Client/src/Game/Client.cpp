@@ -41,7 +41,6 @@ void Client::run() {
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
-        createMissile(0, 0, 0);
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
