@@ -53,7 +53,11 @@ class Client {
         void LoadBackground();
         void LoadFont(std::string paths);
         void LoadTextureButton(std::string paths);
+
         void LoadTextureMissile(std::string paths);
+
+        void LoadSound(std::string paths, bool loop, bool play, float volume);
+
 
         void setMenu();
         void ConnectionWithServer();
@@ -73,7 +77,8 @@ class Client {
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
 
-        std::shared_ptr<Engine::RendererModule::Components::SoundComponent>
+        std::vector<
+            std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                                                            _sounds;
         std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
