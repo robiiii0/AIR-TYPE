@@ -20,6 +20,15 @@
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
+enum GameState {
+    MENU,
+    GAME,
+    SETTINGS,
+    PAUSE,
+    GAMEOVER,
+    EXIT,
+};
+
 class Client {
         enum Key {
             UP = sf::Keyboard::Up,
@@ -86,10 +95,17 @@ class Client {
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
-
-        void setSetting();
+        void setSettings();
+        void setGame();
         void ChangeKeyBinding();
         void ConnectionWithServer();
+
+        // Gamestate handling
+        void changeState(GameState state);
+        void clearCurrentState();
+        void setupState();
+
+        void handleExit();
 
     private:
         Engine::GameEngine         _gameEngine;
@@ -98,6 +114,7 @@ class Client {
 
         int _screenWidth;
         int _screenHeight;
+        int _gameState;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
@@ -110,7 +127,7 @@ class Client {
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                                                            _sounds;
-        std::shared_ptr<Engine::Network::NetworkingModule> _networkingModule;
+        std::unique_ptr<Engine::Network::NetworkingModule> _networkingModule;
         std::shared_ptr<Engine::HmiModule>                 _hmiModule;
 };
 

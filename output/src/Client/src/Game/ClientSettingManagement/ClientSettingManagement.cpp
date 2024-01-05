@@ -47,7 +47,7 @@ void Client::ChangeKeyBinding() {
                  "Attack");
 }
 
-void Client::setSetting() {
+void Client::setSettings() {
     // call this function to change key
     // ChangeKeyBinding();
     int nb = 0;
@@ -85,4 +85,10 @@ void Client::setSetting() {
                  {static_cast<float>(_screenWidth / 2 + 250),
                   static_cast<float>(_screenHeight / 3)},
                  {0.2, 0.2}, sf::Color::White, 0);
+    // Button return.
+    createButton(std::bind(&Client::changeState, this, MENU), "",
+                 _texturesButton[0], _fonts[0],
+                 {static_cast<float>(_screenWidth / 1.05),
+                  static_cast<float>(_screenHeight / 1.05)},
+                 {0.10, 0.10}, sf::Color::White, 0);
 }
