@@ -68,14 +68,15 @@ void Client::run() {
                     auto        data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    if (data.to_add.nb_players > 4) {
-                        break;
-                    }
-                    for (int i = 0; i < data.to_add.nb_players; i++) {
-                        createPlayer(_texturePlayer[i],
-                                     {data.to_add.players[i].x,
-                                      data.to_add.players[i].y});
-                    }
+                    std::cout << "Client: " << data.players[0].id << std::endl;
+                    // if (data.to_add.nb_players > 4) {
+                    //     break;
+                    // }
+                    // for (int i = 0; i < data.to_add.nb_players; i++) {
+                    //     createPlayer(_texturePlayer[i],
+                    //                  {data.to_add.players[i].x,
+                    //                   data.to_add.players[i].y});
+                    // }
                 }
             }
         }

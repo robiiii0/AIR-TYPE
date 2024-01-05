@@ -73,7 +73,7 @@ void Server::sendToAllExcept(std::uint32_t id, std::string message) {
 
 void Server::sendGameStatus(std::uint32_t id) {
     // ? send all players
-    _clientMessages[id].emplace("STATUS START");
+    // _clientMessages[id].emplace("STATUS START");
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : player->_components) {
@@ -90,7 +90,7 @@ void Server::sendGameStatus(std::uint32_t id) {
             }
         }
     }
-    _clientMessages[id].emplace("STATUS END");
+    // _clientMessages[id].emplace("STATUS END");
 }
 
 void Server::createPlayer(std::uint32_t id) {
@@ -182,7 +182,6 @@ void Server::networkLoop() {
         // _networkingModule->broadcastMessage(
             // _networkingModule->getSerializer().serializeToPacket(messages));
     }
-    
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
         std::vector<std::string> msg_client;
         for (auto &msg : messages) {
@@ -197,5 +196,11 @@ void Server::networkLoop() {
                 // _clientMessages[client.getId()].front(), client.getId());
             _clientMessages[client.getId()].pop();
         }
+        if (messages.size() > 0)
+            _networkingModule->sendMessage(
+                _networkingModule->getSerializer().serializeToPacket(msg_client),
+                client.getId());
+        // _networkingModule->sendMessage(
+        //     _networkingModule->getSerializer().serializeToPacket(messages), client.getId());
     }
 }
