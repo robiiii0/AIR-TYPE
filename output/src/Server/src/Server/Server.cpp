@@ -114,6 +114,28 @@ void Server::createPlayer(std::uint32_t id) {
     sendGameStatus(id);
 }
 
+void Server::createEnnemy(std::uint32_t id) {
+    std::cout << "Creating ennemy " << id << std::endl;
+    _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    std::cout << "Ennemy " << id << " created" << std::endl;
+
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{
+        500.0, static_cast<float>(700.0 + (50 * id))};
+    auto position = std::make_shared<Engine::Entity::Component::
+                                         GenericComponents::Vector2fComponent>(
+                                                            position_data);
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id], position);
+    std::string msg = "add ennemy " + std::to_string(id) + " " +
+                      std::to_string(position->getValue().x) + " " +
+                      std::to_string(position->getValue().y);
+
+    std::vector<std::string> message;
+    message.push_back(msg);
+    sendToAllExcept(
+        id, _networkingModule->getSerializer().serializeToPacket(message));
+    sendGameStatus(id);
+}
+
 void Server::createMissile(std::uint32_t id) {
     std::cout << "Creating missile " << id << std::endl;
     _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
@@ -192,26 +214,6 @@ void Server::networkLoop() {
             if (packet.find("NEW POWERUP") != std::string::npos) {
                 std::cout << "Creating powerup" << std::endl;
                 // createPowerup
-            }
-
-            if (packet.find("UPDATE PLAYER") != std::string::npos) {
-                std::cout << "Updating player" << std::endl;
-                // updatePlayer
-            }
-            
-            if (packet.find("UPDATE ENNEMY") != std::string::npos) {
-                std::cout << "Updating ennemy" << std::endl;
-                // updateEnnemy
-            }
-            
-            if (packet.find("UPDATE MISSILE") != std::string::npos) {
-                std::cout << "Updating missile" << std::endl;
-                // updateMissile
-            }
-
-            if (packet.find("UPDATE BOSS") != std::string::npos) {
-                std::cout << "Updating boss" << std::endl;
-                // updateBoss
             }
 
             // if (packet.find("Disconnect") != std::string::npos) {

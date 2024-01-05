@@ -33,6 +33,7 @@ class Server {
         void sendToAllExcept(std::uint32_t id, std::string message);
         void sendGameStatus(std::uint32_t id);
         void createPlayer(std::uint32_t id);
+        void createEnnemy(std::uint32_t id);
         void createMissile(std::uint32_t id);
 
     private:
@@ -46,6 +47,7 @@ class Server {
         std::chrono::high_resolution_clock::time_point     _clock;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
+        std::map<std::uint32_t, std::uint32_t> _ennemyEntities;
         std::map<std::uint32_t, std::uint32_t> _missileEntities;
         std::uint32_t                          _missileID;
 };
