@@ -17,6 +17,7 @@ Client::Client() {
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
+    LoadTextureButton("src/Client/assets/assetsRefacto/settings/emptyButton.png");
     LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadBackground();
     // addPlayer();

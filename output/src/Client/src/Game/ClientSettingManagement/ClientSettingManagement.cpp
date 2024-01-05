@@ -59,20 +59,20 @@ void Client::setSetting()
 
 
     createText("Volume", _fonts[0],
-               {static_cast<float>(_screenWidth / 2 - _texturesButton[0].getSize().x),static_cast<float>(_screenHeight / 2 - _texturesButton[0].getSize().y / nb)},
-               {0.5, 0.5}, sf::Color::White, 0);
+               {static_cast<float>(_screenWidth / 2 + 100),static_cast<float>(_screenHeight / 3 - 50)},
+               {1, 1}, sf::Color::White, 0);
     // value of volume.
     createText("100", _fonts[0],
-               {static_cast<float>(_screenWidth / 2 - _texturesButton[0].getSize().x), static_cast<float>(_screenHeight / 2 - _texturesButton[0].getSize().y / nb + 50)},
+               {static_cast<float>(_screenWidth / 2 + 100), static_cast<float>(_screenHeight / 3)},
                {0.5, 0.5}, sf::Color::White, 0);
     // Button volume -.
-    createButton([this]() {},"-",_texturesButton[0],  _fonts[0],
-                        {static_cast<float>(_screenWidth / 2 - _texturesButton[0].getSize().x), static_cast<float>(_screenHeight / 2 - _texturesButton[0].getSize().y)},
-                        {1, 1}, sf::Color::White
+    createButton([this]() {},"-",_texturesButton[1],  _fonts[0],
+                        {static_cast<float>(_screenWidth / 2 - 50), static_cast<float>(_screenHeight /3)},
+                        {0.2, 0.2}, sf::Color::White
                         ,0);
     // Button volume +.
-    createButton([this]() {},"+",_texturesButton[0],  _fonts[0],
-                        {static_cast<float>(_screenWidth / 2 - _texturesButton[0].getSize().x), static_cast<float>(_screenHeight / 2 - _texturesButton[0].getSize().y + 50)},
-                        {1, 1}, sf::Color::White
+    createButton([this]() {},"+",_texturesButton[1],  _fonts[0],
+                        {static_cast<float>(_screenWidth / 2 + 250), static_cast<float>(_screenHeight / 3)},
+                        {0.2, 0.2}, sf::Color::White
                         , 0);
 }
