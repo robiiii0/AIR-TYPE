@@ -95,11 +95,9 @@ class Client {
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
-        void setSetting();
-        void ChangeKeyBinding();
-        //        void setSettings();
-        //        void setGame();
+        void setSettings();
         void setGame();
+        void ChangeKeyBinding();
         void ConnectionWithServer();
 
         // Gamestate handling

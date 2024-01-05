@@ -35,9 +35,9 @@ void Client::setupState() {
         case GameState::GAME:
             setGame();
             break;
-            //        case SETTINGS:
-            //            setSettings();
-            //            break;
+        case GameState::SETTINGS:
+            setSettings();
+            break;
         default:
             break;
     }
