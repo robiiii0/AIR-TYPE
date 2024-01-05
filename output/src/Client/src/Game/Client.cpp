@@ -69,7 +69,9 @@ void Client::run() {
                     auto        data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    std::cout << " " << data.to_add.nb_players << std::endl;
+                    if (data.to_add.nb_players > 4) {
+                        break;
+                    }
                     for (int i = 0; i < data.to_add.nb_players; i++) {
                         createPlayer(_texturePlayer[i],
                                      {data.to_add.players[i].x,
