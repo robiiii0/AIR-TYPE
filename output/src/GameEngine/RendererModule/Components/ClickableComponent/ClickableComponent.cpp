@@ -54,30 +54,28 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
     std::pair<float, float> mousePos) {
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
-    if (bounds.contains(mousePos.first, mousePos.second)) {
+    if (bounds.contains(mousePos.first, mousePos.second))
         _isHovered = true;
-    } else {
+    else
         _isHovered = false;
-    }
 
-    if (_isHovered) {
+    if (_isHovered)
         _sprite.setColor(sf::Color::Magenta);
-    } else {
+    else
         _sprite.setColor(sf::Color::White);
-    }
 
     return _isHovered;
 }
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) {
+    std::cout << "is clicked" << std::endl;
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {
         _func();
         return true;
-    } else {
+    } else
         return false;
-    }
     return _isClicked;
 }

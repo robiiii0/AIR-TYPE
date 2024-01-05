@@ -45,13 +45,21 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        // std::cout << "Server Tickrate: "
-        //           << 1.0 /
-        //                  std::chrono::duration_cast<std::chrono::microseconds>(
-        //                      std::chrono::high_resolution_clock::now() -
-        //                      _clock) .count() *
-        //                  1000000
-        //           << std::endl;
+        _globalMessages.emplace("add player 0 10 10");
+        _globalMessages.emplace("add player 0 10 10");
+        _globalMessages.emplace("add player 0 10 10");
+
+        auto tickrate = 1.0 /
+                        std::chrono::duration_cast<std::chrono::microseconds>(
+                            std::chrono::high_resolution_clock::now() - _clock)
+                            .count() *
+                        1000000;
+        std::string color = "\033[1;32m";
+        if (tickrate / SERVER_TICKRATE < 0.9) color = "\033[1;33m";
+        if (tickrate / SERVER_TICKRATE < 0.8) color = "\033[1;31m";
+        std::string color_end = "\033[0m";
+        std::cout << "Server Tickrate: " << color << tickrate << color_end
+                  << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 
@@ -81,10 +89,6 @@ void Server::sendGameStatus(std::uint32_t id) {
                 _clientMessages[id].emplace(msg);
             }
         }
-        // std::string msg = "Player " + std::to_string(entity.first) + " " +
-        //                   std::to_string(position->getValue().x) + " " +
-        //                   std::to_string(position->getValue().y);
-        // _clientMessages[id].emplace(msg);
     }
     _clientMessages[id].emplace("STATUS END");
 }
@@ -99,11 +103,14 @@ void Server::createPlayer(std::uint32_t id) {
         position_data);
     _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
                                                   position);
-    std::string msg = "New Player " + std::to_string(id) + " " +
+    std::string msg = "add player " + std::to_string(id) + " " +
                       std::to_string(position->getValue().x) + " " +
                       std::to_string(position->getValue().y);
 
-    sendToAllExcept(id, msg);
+    std::vector<std::string> message;
+    message.push_back(msg);
+    sendToAllExcept(
+        id, _networkingModule->getSerializer().serializeToPacket(message));
     sendGameStatus(id);
 }
 
@@ -124,12 +131,9 @@ void Server::createMissile(std::uint32_t id) {
 
                 Engine::Entity::Component::GenericComponents::Vector2f
                     position_data(position->getValue());
-                // auto pos = std::make_shared<
-                //     Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-                //     position_data);
                 _gameEngine->getEntityManager()->addComponent(
                     _missileEntities[id], position);
-                std::string msg = "New Missile " + std::to_string(id) + " " +
+                std::string msg = "add missile " + std::to_string(id) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 std::cout << msg << std::endl;
@@ -137,33 +141,22 @@ void Server::createMissile(std::uint32_t id) {
             }
         }
     }
-
-    // _gameEngine->getEntityManager()->getEntity(id)->
 }
 
 void Server::networkLoop() {
-    // std::cout << "nb clients: " << _networkingModule->getClients().size()
-    //   << std::endl;
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
         auto &client = _networkingModule->getClients().back();
         std::cout << "Welcoming Client " << client.getId() << std::endl;
         _clientMessages[client.getId()] = std::queue<std::string>();
-        _clientMessages[client.getId()].emplace(
-            "Welcome");  // TODO: send a real welcome msg
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
     }
-
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
             std::string packet = client.getBuffer()->readNextPacket();
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
-
-            if (packet.find("Asking fo menu") != std::string::npos) {
-                std::cout << "Sending menu" << std::endl;
-            }
 
             if (packet == "ATTACK") {
                 std::cout << "Creating missile" << std::endl;
@@ -178,11 +171,6 @@ void Server::networkLoop() {
             }
         }
     }
-    while (!_globalMessages.empty()) {  // ? global messages
-        std::cout << "Broadcasting: " << _globalMessages.front() << std::endl;
-        _networkingModule->broadcastMessage(_globalMessages.front());
-        _globalMessages.pop();
-    }
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
         while (!_clientMessages[client.getId()].empty()) {
             std::cout << "Client " << client.getId()
@@ -192,5 +180,14 @@ void Server::networkLoop() {
                 _clientMessages[client.getId()].front(), client.getId());
             _clientMessages[client.getId()].pop();
         }
+    }
+    while (!_globalMessages.empty()) {  // ? global messages
+        std::vector<std::string> messages;
+        while (_globalMessages.size() > 0) {
+            messages.push_back(_globalMessages.front());
+            _globalMessages.pop();
+        }
+        _networkingModule->broadcastMessage(
+            _networkingModule->getSerializer().serializeToPacket(messages));
     }
 }

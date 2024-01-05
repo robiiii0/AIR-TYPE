@@ -10,11 +10,12 @@
 
 #include <array>
 #include <cstdint>
+#include <mutex>
 #include <string>
 
 namespace Engine {
     namespace Network {
-        const std::size_t __circular_buffer_size = 4096;
+        const std::size_t __circular_buffer_size = 16384;
 
         class Buffer {
             public:
@@ -55,14 +56,22 @@ namespace Engine {
                  * @return True if the buffer has a packet, false otherwise
                  */
                 bool hasPacket();
+                /*
+                 * @brief Clear the buffer and reset read and write heads
+                 */
+                void clear();
 
             protected:
+                bool isPrefix(const std::size_t index);
+                bool isSuffix(const std::size_t index);
+
             private:
                 std::array<char, __circular_buffer_size> _buffer;
                 std::size_t                              _read_head;
                 std::size_t                              _write_head;
-                const int8_t                             _protocol_prefix = 170;
-                const int8_t                             _protocol_suffix = 187;
+                std::mutex                               _mutex;
+                const std::string _protocol_prefix = "PACKET_START";
+                const std::string _protocol_suffix = "PACKET_END";
         };
     };  // namespace Network
 };      // namespace Engine

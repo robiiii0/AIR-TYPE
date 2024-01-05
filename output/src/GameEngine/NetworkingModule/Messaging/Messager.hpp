@@ -32,7 +32,7 @@ namespace Engine {
             protected:
             private:
                 void       receiveLoop(Engine::Network::Client &client);
-                std::mutex mutex;
+                std::mutex _mutex;
                 std::condition_variable cv;
                 bool                    _mode;
         };

@@ -62,3 +62,13 @@ void Client::createText(std::string text, sf::Font &font, Engine::Entity::Compon
     _gameEngine.getEntityManager()->addComponent(text_entity, textComponent);
     addEntity(text_entity);
 }
+
+void Client::LoadTextureMissile(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _textureMissile = texture;
+}
