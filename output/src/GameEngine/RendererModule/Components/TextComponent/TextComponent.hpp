@@ -16,12 +16,14 @@ namespace Engine {
     namespace RendererModule {
         namespace Components {
             struct TextData {
-                    std::string  text;
-                    sf::Font    &font;
-                    sf::Color    color;
-                    Engine::Entity::Component::GenericComponents::Vector2f position;
-                    Engine::Entity::Component::GenericComponents::Vector2f scale;
-                    float        rotation;
+                    std::string text;
+                    sf::Font   &font;
+                    sf::Color   color;
+                    Engine::Entity::Component::GenericComponents::Vector2f
+                        position;
+                    Engine::Entity::Component::GenericComponents::Vector2f
+                          scale;
+                    float rotation;
             };
 
             class TextComponent :

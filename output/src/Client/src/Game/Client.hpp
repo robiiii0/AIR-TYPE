@@ -21,24 +21,26 @@
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
 class Client {
-    enum Key {
-        UP = sf::Keyboard::Up,
-        DOWN = sf::Keyboard::Down,
-        LEFT = sf::Keyboard::Left,
-        RIGHT = sf::Keyboard::Right,
-        ATTACK = sf::Keyboard::Space,
-        ENTER = sf::Keyboard::Return,
-        ESCAPE = sf::Keyboard::Escape,
-    };
-    enum KeyBindingSprite {
-        UP_TEXTURE = 0,
-        DOWN_TEXTURE = 1,
-        LEFT_TEXTURE = 2,
-        RIGHT_TEXTURE = 3,
-        ATTACK_TEXTURE = 4,
-        ENTER_TEXTURE = 5,
-        ESCAPE_TEXTURE = 6,
-    };
+        enum Key {
+            UP = sf::Keyboard::Up,
+            DOWN = sf::Keyboard::Down,
+            LEFT = sf::Keyboard::Left,
+            RIGHT = sf::Keyboard::Right,
+            ATTACK = sf::Keyboard::Space,
+            ENTER = sf::Keyboard::Return,
+            ESCAPE = sf::Keyboard::Escape,
+        };
+
+        enum KeyBindingSprite {
+            UP_TEXTURE = 0,
+            DOWN_TEXTURE = 1,
+            LEFT_TEXTURE = 2,
+            RIGHT_TEXTURE = 3,
+            ATTACK_TEXTURE = 4,
+            ENTER_TEXTURE = 5,
+            ESCAPE_TEXTURE = 6,
+        };
+
     public:
         Client();
         void run();
@@ -54,8 +56,9 @@ class Client {
         void createMissile(std::uint32_t id, float x, float y);
 
         void CreateSprite(
-            Engine::Entity::Component::GenericComponents::Vector2f pos,Engine::Entity::Component::GenericComponents::Vector2f scale,  sf::Texture &texture, std::string name
-        );
+            Engine::Entity::Component::GenericComponents::Vector2f pos,
+            Engine::Entity::Component::GenericComponents::Vector2f scale,
+            sf::Texture &texture, std::string name);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
         void createPlayer(std::vector<sf::Texture> &Textures);
@@ -63,8 +66,11 @@ class Client {
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
-        void createText(std::string text, sf::Font &font, Engine::Entity::Component::GenericComponents::Vector2f position,
-                        Engine::Entity::Component::GenericComponents::Vector2f scale, sf::Color color, float rotation);
+        void createText(
+            std::string text, sf::Font &font,
+            Engine::Entity::Component::GenericComponents::Vector2f position,
+            Engine::Entity::Component::GenericComponents::Vector2f scale,
+            sf::Color color, float rotation);
 
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
@@ -80,7 +86,6 @@ class Client {
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
-
 
         void setSetting();
         void ChangeKeyBinding();

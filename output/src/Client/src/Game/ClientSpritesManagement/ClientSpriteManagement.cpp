@@ -100,7 +100,6 @@ void Client::LoadBackground() {
     _backgroundTexture = texture;
 }
 
-
 void Client::LoadSettingsKeyBindings(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {
