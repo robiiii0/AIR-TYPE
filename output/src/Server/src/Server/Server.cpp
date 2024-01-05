@@ -83,7 +83,7 @@ void Server::sendGameStatus(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "Player " + std::to_string(entity.first) +
+                std::string msg = "add player " + std::to_string(entity.first) +
                                   " " + std::to_string(position->getValue().x) +
                                   " " + std::to_string(position->getValue().y);
                 _clientMessages[id].emplace(msg);
@@ -108,8 +108,8 @@ void Server::createPlayer(std::uint32_t id) {
                       std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
-    std::string msg_to_send = "add player " + std::to_string(_nb_clients) + " 10 " + std::to_string(10 + (5  * _nb_clients));
-    _globalMessages.emplace(msg_to_send);
+    // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + " 10 " + std::to_string(10 + (5  * _nb_clients));
+    // _globalMessages.emplace(msg_to_send);
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
@@ -173,23 +173,29 @@ void Server::networkLoop() {
             }
         }
     }
-    for (auto &client : _networkingModule->getClients()) {  // ? client messages
-        while (!_clientMessages[client.getId()].empty()) {
-            std::cout << "Client " << client.getId()
-                      << " message: " << _clientMessages[client.getId()].front()
-                      << std::endl;
-            _networkingModule->sendMessage(
-                _clientMessages[client.getId()].front(), client.getId());
-            _clientMessages[client.getId()].pop();
-        }
-    }
+    std::vector<std::string> messages;
     while (!_globalMessages.empty()) {  // ? global messages
-        std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());
             _globalMessages.pop();
         }
-        _networkingModule->broadcastMessage(
-            _networkingModule->getSerializer().serializeToPacket(messages));
+        // _networkingModule->broadcastMessage(
+            // _networkingModule->getSerializer().serializeToPacket(messages));
+    }
+    
+    for (auto &client : _networkingModule->getClients()) {  // ? client messages
+        std::vector<std::string> msg_client;
+        for (auto &msg : messages) {
+            msg_client.push_back(msg);
+        }
+        while (!_clientMessages[client.getId()].empty()) {
+            std::cout << "Client " << client.getId()
+                      << " message: " << _clientMessages[client.getId()].front()
+                      << std::endl;
+            msg_client.push_back(_clientMessages[client.getId()].front());
+            // _networkingModule->sendMessage(
+                // _clientMessages[client.getId()].front(), client.getId());
+            _clientMessages[client.getId()].pop();
+        }
     }
 }
