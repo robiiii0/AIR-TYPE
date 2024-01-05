@@ -100,6 +100,16 @@ void Client::LoadBackground() {
     _backgroundTexture = texture;
 }
 
+void Client::LoadSettingsKeyBindings(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _textureSetting.push_back(texture);
+}
+
 void Client::LoadTextureParallax(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {

@@ -26,6 +26,7 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
         src/Game/Client.cpp
+        src/Game/ClientSettingManagement/ClientSettingManagement.cpp
         src/Game/ClientEntityManagement/ClientEntityManagement.cpp
         src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
         src/Game/ClientMenuManagement/ClientMenuManagement.cpp

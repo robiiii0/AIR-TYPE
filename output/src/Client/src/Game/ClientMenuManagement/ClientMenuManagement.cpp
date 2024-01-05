@@ -23,11 +23,10 @@ void Client::createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation) {
-    uint32_t   button_entity = _gameEngine.getEntityManager()->createEntity();
-    sf::Sprite tmp_sprite(texture);
+    uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::RendererModule::Components::ClickableData tmp_clickable = {
-        tmp_sprite, position, scale, color, rotation};
+        position, scale, color, rotation};
 
     std::shared_ptr<Engine::RendererModule::Components::ClickableComponent>
         clickableComponent = std::make_shared<
@@ -48,8 +47,11 @@ void Client::createButton(std::function<void()> func, std::string text,
     }
 }
 
-void Client::createText(std::string text, sf::Font &font, sf::Vector2f position,
-                        sf::Vector2f scale, sf::Color color, float rotation) {
+void Client::createText(
+    std::string text, sf::Font &font,
+    Engine::Entity::Component::GenericComponents::Vector2f position,
+    Engine::Entity::Component::GenericComponents::Vector2f scale,
+    sf::Color color, float rotation) {
     uint32_t text_entity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::RendererModule::Components::TextData tmp_text = {
@@ -61,7 +63,6 @@ void Client::createText(std::string text, sf::Font &font, sf::Vector2f position,
                 tmp_text);
 
     _gameEngine.getEntityManager()->addComponent(text_entity, textComponent);
-
     addEntity(text_entity);
 }
 

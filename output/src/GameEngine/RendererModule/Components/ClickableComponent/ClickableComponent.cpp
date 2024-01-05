@@ -13,6 +13,8 @@
 Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     ClickableData &value, sf::Texture &texture, std::function<void()> func) :
     _data(value), _func(func) {
+    sf::Sprite Sprite;
+    _sprite = Sprite;
     _isHovered = false;
     _isClicked = false;
     _sprite.setTexture(texture);
@@ -25,12 +27,6 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     _data.pos.x = value.pos.x;
     _data.pos.y = value.pos.y;
     std::cout << "ClickableCompoent created" << std::endl;
-}
-
-sf::Vector2f
-    Engine::RendererModule::Components::ClickableComponent::getPosition()
-        const {
-    return _data.pos;
 }
 
 sf::Drawable &

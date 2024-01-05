@@ -13,7 +13,7 @@ Engine::RendererModule::Components::TextComponent::TextComponent(
     _text.setString(_data.text);
     _text.setFont(_data.font);
     _text.setFillColor(_data.color);
-    _text.setScale(_data.scale);
+    _text.setScale(_data.scale.x, _data.scale.y);
     sf::FloatRect text_bounds = _text.getGlobalBounds();
     _text.setPosition({_data.position.x - text_bounds.width / 2,
                        _data.position.y - text_bounds.height / 2});
@@ -43,8 +43,8 @@ void Engine::RendererModule::Components::TextComponent::setTextData(
     _text.setString(_data.text);
     _text.setFont(_data.font);
     _text.setFillColor(_data.color);
-    _text.setPosition(_data.position);
-    _text.setScale(_data.scale);
+    _text.setPosition(_data.position.x, _data.position.y);
+    _text.setScale(_data.scale.x, _data.scale.y);
     _text.setRotation(_data.rotation);
 }
 

@@ -17,11 +17,24 @@ Client::Client() {
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
+    LoadTextureButton(
+        "src/Client/assets/assetsRefacto/settings/emptyButton.png");
+    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
     // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
+
+    LoadSettingsKeyBindings("src/Client/assets/assetsRefacto/settings/Up.png");
+    LoadSettingsKeyBindings(
+        "src/Client/assets/assetsRefacto/settings/key_left.png");
+    LoadSettingsKeyBindings(
+        "src/Client/assets/assetsRefacto/settings/key_Down.png");
+    LoadSettingsKeyBindings(
+        "src/Client/assets/assetsRefacto/settings/key_right.png");
+    LoadSettingsKeyBindings(
+        "src/Client/assets/assetsRefacto/settings/Space.png");
 
     LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
 
@@ -40,6 +53,7 @@ void Client::ConnectionWithServer() {
 void Client::run() {
     ConnectionWithServer();
     setMenu();
+    // setSetting();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
