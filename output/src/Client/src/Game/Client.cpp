@@ -19,7 +19,6 @@ Client::Client() {
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
     LoadTextureButton(
         "src/Client/assets/assetsRefacto/settings/emptyButton.png");
-    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
     // addPlayer();
