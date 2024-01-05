@@ -245,3 +245,63 @@ void Server::networkLoop() {
             _networkingModule->getSerializer().serializeToPacket(messages));
     }
 }
+
+void Server::updatePlayer(std::uint32_t id) {
+    auto player = _gameEngine->getEntityManager()->getEntity(_playerEntities[id]);
+    // for (auto &component : player->_components) {
+    //     if (typeid(*component) ==
+    //         typeid(Engine::Entity::Component::GenericComponents::
+    //                    Vector2fComponent)) {
+    //         auto position = std::dynamic_pointer_cast<
+    //             Engine::Entity::Component::GenericComponents::
+    //                 Vector2fComponent>(component);
+    //         position->getValue().y -= 1;
+    //     }
+    // }
+}
+
+void Server::updateEnnemy(std::uint32_t id) {
+    auto ennemy = _gameEngine->getEntityManager()->getEntity(_ennemyEntities[id]);
+    // for (auto &component : ennemy->_components) {
+    //     if (typeid(*component) ==
+    //         typeid(Engine::Entity::Component::GenericComponents::
+    //                    Vector2fComponent)) {
+    //         auto position = std::dynamic_pointer_cast<
+    //             Engine::Entity::Component::GenericComponents::
+    //                 Vector2fComponent>(component);
+    //         position->getValue().y -= 1;
+    //     }
+    // }
+}
+
+void Server::updateMissile(std::uint32_t id) {
+    auto missile = _gameEngine->getEntityManager()->getEntity(_missileEntities[id]);
+    for (auto &component : missile->_components) {
+        if (typeid(*component) ==
+            typeid(Engine::Entity::Component::GenericComponents::
+                       Vector2fComponent)) {
+            auto position = std::dynamic_pointer_cast<
+                Engine::Entity::Component::GenericComponents::
+                    Vector2fComponent>(component);
+            auto new_position = position->getValue();
+            new_position.x += 1;
+            position->setValue(new_position);
+        }
+    }
+}
+
+void Server::update()
+{
+    // ? update all entities
+    for (auto &entity : _playerEntities) {
+        updatePlayer(entity.first);
+    }
+    for (auto &entity : _ennemyEntities) {
+        updateEnnemy(entity.first);
+    }
+    for (auto &entity : _missileEntities) {
+        updateMissile(entity.first);
+    }
+    // ? update all components
+    // ? update all systems
+}

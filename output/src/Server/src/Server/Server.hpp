@@ -36,6 +36,11 @@ class Server {
         void createEnnemy(std::uint32_t id);
         void createMissile(std::uint32_t id);
 
+        void update();
+        void updatePlayer(std::uint32_t id);
+        void updateEnnemy(std::uint32_t id);
+        void updateMissile(std::uint32_t id);
+
     private:
         void                                               networkLoop();
         bool                                               _running;
