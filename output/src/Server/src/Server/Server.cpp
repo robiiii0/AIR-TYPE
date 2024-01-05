@@ -158,17 +158,69 @@ void Server::networkLoop() {
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
 
+            if (packet.find("Move") != std::string::npos) {
+                if (packet.find("up") != std::string::npos) {
+                    // movePlayer
+                }
+                if (packet.find("down") != std::string::npos) {
+                    // movePlayer
+                }
+                if (packet.find("left") != std::string::npos) {
+                    // movePlayer
+                }
+                if (packet.find("right") != std::string::npos) {
+                    // movePlayer
+                }
+            }
+
             if (packet == "ATTACK") {
                 std::cout << "Creating missile" << std::endl;
                 createMissile(_missileID);
                 _missileID++;
             }
 
-            if (packet.find("Move") != std::string::npos) {
-                if (packet.find("up") != std::string::npos) {
-                    // movePlayer
-                }
+            if (packet.find("NEW ENNEMY") != std::string::npos) {
+                std::cout << "Creating ennemy" << std::endl;
+                // createEnnemy
             }
+
+            if (packet.find("NEW BOSS") != std::string::npos) {
+                std::cout << "Creating boss" << std::endl;
+                // createBoss
+            }
+
+            if (packet.find("NEW POWERUP") != std::string::npos) {
+                std::cout << "Creating powerup" << std::endl;
+                // createPowerup
+            }
+
+            if (packet.find("UPDATE PLAYER") != std::string::npos) {
+                std::cout << "Updating player" << std::endl;
+                // updatePlayer
+            }
+            
+            if (packet.find("UPDATE ENNEMY") != std::string::npos) {
+                std::cout << "Updating ennemy" << std::endl;
+                // updateEnnemy
+            }
+            
+            if (packet.find("UPDATE MISSILE") != std::string::npos) {
+                std::cout << "Updating missile" << std::endl;
+                // updateMissile
+            }
+
+            if (packet.find("UPDATE BOSS") != std::string::npos) {
+                std::cout << "Updating boss" << std::endl;
+                // updateBoss
+            }
+
+            // if (packet.find("Disconnect") != std::string::npos) {
+            //     std::cout << "Client " << client.getId() << " disconnected"
+            //               << std::endl;
+            //     _networkingModule->disconnectClient(client.getId());
+            //     _nb_clients--;
+            // }
+
         }
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client messages
