@@ -108,9 +108,8 @@ void Server::createPlayer(std::uint32_t id) {
                       std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
-    _globalMessages.emplace("add player 0 10 10");
-    _globalMessages.emplace("add player 0 10 10");
-    _globalMessages.emplace("add player 0 10 10");
+    std::string msg_to_send = "add player " + std::to_string(_nb_clients) + " 10 " + std::to_string(10 + (5  * _nb_clients));
+    _globalMessages.emplace(msg_to_send);
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
