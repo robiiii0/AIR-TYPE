@@ -61,7 +61,7 @@ class Client {
             sf::Texture &texture, std::string name);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
-        void createPlayer(std::vector<sf::Texture> &Textures);
+        void createPlayer(sf::Texture &Textures, Engine::Entity::Component::GenericComponents::Vector2f position);
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
@@ -86,6 +86,7 @@ class Client {
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
+
 
         void setSetting();
         void ChangeKeyBinding();

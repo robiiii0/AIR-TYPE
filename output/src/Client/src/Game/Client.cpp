@@ -44,6 +44,7 @@ Client::Client() {
     // addPlayer();x
 }
 
+
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
@@ -68,8 +69,12 @@ void Client::run() {
                     auto        data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    std::cout << "To Add Players:" << data.to_add.nb_players
-                              << std::endl;
+                    std::cout << " " << data.to_add.nb_players << std::endl;
+                    for (int i = 0; i < data.to_add.nb_players; i++) {
+                        createPlayer(_texturePlayer[i],
+                                     {data.to_add.players[i].x,
+                                      data.to_add.players[i].y});
+                    }
                 }
             }
         }

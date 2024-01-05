@@ -45,9 +45,9 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        _globalMessages.emplace("add player 0 10 10");
-        _globalMessages.emplace("add player 0 10 10");
-        _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
 
         auto tickrate = 1.0 /
                         std::chrono::duration_cast<std::chrono::microseconds>(
@@ -108,6 +108,7 @@ void Server::createPlayer(std::uint32_t id) {
                       std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
+    _globalMessages.emplace("add player 0 10 10");
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
