@@ -30,6 +30,7 @@ void Server::init() {
 
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
+    update();
     networkLoop();
     applyTickrate();
 }
