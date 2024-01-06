@@ -75,6 +75,7 @@ void Client::run() {
                         createPlayer(_texturePlayer[i],
                                      {data.to_add.players[i].x,
                                       data.to_add.players[i].y});
+                        std::cout << "player created" << std::endl;
                     }
                 }
             }
