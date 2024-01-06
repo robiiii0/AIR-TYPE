@@ -20,6 +20,8 @@
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 
+#include "../../../GameEngine/NetworkingModule/Serializer/Serializer.hpp"
+
 class Client {
         enum Key {
             UP = sf::Keyboard::Up,
@@ -99,6 +101,9 @@ class Client {
 
         int _screenWidth;
         int _screenHeight;
+
+
+        std::vector<Engine::Network::Serializer::entity_t> _player;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
