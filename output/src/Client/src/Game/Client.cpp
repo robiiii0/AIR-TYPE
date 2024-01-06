@@ -47,7 +47,6 @@ void Client::ConnectionWithServer() {
 
 void Client::run() {
     setupState();
-    createEnemy(_texturesEnemies);
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
