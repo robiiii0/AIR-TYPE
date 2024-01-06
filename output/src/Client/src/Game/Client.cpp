@@ -1,12 +1,8 @@
 #include "Client.hpp"
 
 Client::Client() {
-    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920
-                       ? 1920
-                       : 1920;
-    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080
-                        ? 1080
-                        : 1080;
+    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920 ? 1920 : 1920;
+    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080 ? 1080 : 1080;
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "Air Typing", 60);
     _networkingModule = nullptr;

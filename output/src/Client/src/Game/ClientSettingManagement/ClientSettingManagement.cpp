@@ -33,7 +33,3 @@ void Client::CreateSprite(
     _gameEngine.getEntityManager()->addComponent(spriteEntity, textComponent);
     addEntity(spriteEntity);
 }
-
-
-
-
