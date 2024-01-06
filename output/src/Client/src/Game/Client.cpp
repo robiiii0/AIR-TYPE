@@ -67,7 +67,13 @@ void Client::run() {
                     std::string msg = client.getBuffer()->readNextPacket();
                     Engine::Network::Serializer::serialized_data_s    data = _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                     
+                for (auto &player : data.players) {
+                    std::cout << player.id << std::endl;
+                    if (player.id == _ClientId) {
+                        _player[_ClientId].x = player.x;
+                        _player[_ClientId].y = player.y;
+                    }
+                }
             }
         }
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
