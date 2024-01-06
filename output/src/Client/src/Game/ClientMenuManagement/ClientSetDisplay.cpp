@@ -41,7 +41,7 @@ void Client::ChangeKeyBinding() {
     createButton(
         std::bind(&Client::changeState, this, GameState::SETTINGS), "Back", _texturesButton[0], _fonts[0],
         sf::Vector2f(_screenWidth / 2 - _texturesButton[0].getSize().x,
-                     _screenHeight / 1.5 ),
+                     _screenHeight / 1.5),
         sf::Vector2f(0.5, 0.5), sf::Color::White, 0);
 }
 
