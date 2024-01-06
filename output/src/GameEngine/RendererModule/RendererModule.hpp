@@ -16,10 +16,10 @@
 #include "Components/AnimationComponent/AnimationComponent.hpp"
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/ClickableComponent/RoundedClickableComponent.hpp"
+#include "Components/EnemyComponent/EnemyComponent.hpp"
 #include "Components/InputComponent/InputComponent.hpp"
 #include "Components/SoundComponent/SoundComponent.hpp"
 #include "Components/SpriteComponent/SpriteComponent.hpp"
-#include "Components/EnemyComponent/EnemyComponent.hpp"
 #include "Components/TextComponent/TextComponent.hpp"
 #include "IRendererComponent/IRendererComponent.hpp"
 

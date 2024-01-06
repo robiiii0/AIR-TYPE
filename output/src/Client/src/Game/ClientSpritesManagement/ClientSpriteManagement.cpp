@@ -45,31 +45,25 @@ void Client::createBackground(sf::Texture &texture) {
 }
 
 void Client::createEnemy(std::vector<sf::Texture> &Textures) {
+    uint32_t EnemyEntity = _gameEngine.getEntityManager()->createEntity();
 
-
-    uint32_t EnemyEntity =
-        _gameEngine.getEntityManager()->createEntity();
-
-    Engine::Entity::Component::GenericComponents::Vector2f pos = {500.0,
-                                                                500.0};
+    Engine::Entity::Component::GenericComponents::Vector2f pos = {500.0, 500.0};
 
     std::shared_ptr<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>
-        posComponent =
-            std::make_shared<Engine::Entity::Component::GenericComponents::
-                                Vector2fComponent>(pos);
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
 
     Engine::RendererModule::Components::EnemyData sprite_temp = {
         pos, {2, 2}, sf::Color::White, 0, false};
 
     std::shared_ptr<Engine::RendererModule::Components::EnemyComponent>
         spriteComponent = std::make_shared<
-            Engine::RendererModule::Components::EnemyComponent>(
-            sprite_temp, Textures[0]);
-    _gameEngine.getEntityManager()->addComponent(EnemyEntity,
-                                                spriteComponent);
-    _gameEngine.getEntityManager()->addComponent(EnemyEntity,
-                                                posComponent);
+            Engine::RendererModule::Components::EnemyComponent>(sprite_temp,
+                                                                Textures[0]);
+    _gameEngine.getEntityManager()->addComponent(EnemyEntity, spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(EnemyEntity, posComponent);
     addEntity(EnemyEntity);
 }
 

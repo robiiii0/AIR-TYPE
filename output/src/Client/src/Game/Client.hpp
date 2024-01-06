@@ -17,9 +17,9 @@
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
-#include "../../../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.hpp"
 
 enum GameState {
     MENU,

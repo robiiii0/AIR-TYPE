@@ -64,12 +64,12 @@ void Engine::RendererModule::Components::EnemyComponent::setRotation(
 }
 
 void Engine::RendererModule::Components::EnemyComponent::setScale(float x,
-                                                                   float y) {
+                                                                  float y) {
     _sprite.setScale(x, y);
 }
 
 void Engine::RendererModule::Components::EnemyComponent::setPosition(float x,
-                                                                      float y) {
+                                                                     float y) {
     _sprite.setPosition(x + _pos.x, y + _pos.y);
 }
 

@@ -29,7 +29,7 @@ namespace Engine {
                 public Engine::RendererModule::IRendererComponent {
                 public:
                     EnemyComponent(
-                        EnemyData  &value,
+                        EnemyData   &value,
                         sf::Texture &texture);  // TODO changer le std::string
                                                 // pour le sprite c'est pas bien
                     ~EnemyComponent();
