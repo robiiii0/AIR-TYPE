@@ -33,6 +33,7 @@ Client::Client() {
         "src/Client/assets/assetsRefacto/settings/Space.png");
 
     LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
+    LoadTextureEnemies("src/Client/assets/new_assets/enemy/sprites/enemy5.png");
 
     LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
