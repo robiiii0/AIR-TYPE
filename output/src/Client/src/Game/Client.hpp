@@ -24,6 +24,7 @@ enum GameState {
     MENU,
     GAME,
     SETTINGS,
+    KEYBINDING,
     PAUSE,
     GAMEOVER,
     EXIT,
