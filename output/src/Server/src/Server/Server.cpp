@@ -31,6 +31,7 @@ void Server::init() {
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
     networkLoop();
+    update();
     applyTickrate();
 }
 
@@ -109,7 +110,7 @@ void Server::createPlayer(std::uint32_t id) {
 
     std::vector<std::string> message;
     // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + " 10 " + std::to_string(10 + (5  * _nb_clients));
-    // _globalMessages.emplace(msg_to_send);
+    // _globalMessages.emplace(msg);
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
@@ -117,32 +118,32 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createMissile(std::uint32_t id) {
-    std::cout << "Creating missile " << id << std::endl;
-    _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
-    std::cout << "Missile " << id << " created" << std::endl;
+//     std::cout << "Creating missile " << id << std::endl;
+//     _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
+//     std::cout << "Missile " << id << " created" << std::endl;
 
-    for (auto &entity : _playerEntities) {
-        auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
-        for (auto &component : player->_components) {
-            if (typeid(*component) ==
-                typeid(Engine::Entity::Component::GenericComponents::
-                           Vector2fComponent)) {
-                auto position = std::dynamic_pointer_cast<
-                    Engine::Entity::Component::GenericComponents::
-                        Vector2fComponent>(component);
+//     for (auto &entity : _playerEntities) {
+//         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
+//         for (auto &component : player->_components) {
+//             if (typeid(*component) ==
+//                 typeid(Engine::Entity::Component::GenericComponents::
+//                            Vector2fComponent)) {
+//                 auto position = std::dynamic_pointer_cast<
+//                     Engine::Entity::Component::GenericComponents::
+//                         Vector2fComponent>(component);
 
-                Engine::Entity::Component::GenericComponents::Vector2f
-                    position_data(position->getValue());
-                _gameEngine->getEntityManager()->addComponent(
-                    _missileEntities[id], position);
-                std::string msg = "add missile " + std::to_string(id) + " " +
-                                  std::to_string(position->getValue().x) + " " +
-                                  std::to_string(position->getValue().y);
-                std::cout << msg << std::endl;
-                _globalMessages.emplace(msg);
-            }
-        }
-    }
+//                 Engine::Entity::Component::GenericComponents::Vector2f
+//                     position_data(position->getValue());
+//                 _gameEngine->getEntityManager()->addComponent(
+//                     _missileEntities[id], position);
+//                 std::string msg = "add missile " + std::to_string(id) + " " +
+//                                   std::to_string(position->getValue().x) + " " +
+//                                   std::to_string(position->getValue().y);
+//                 std::cout << msg << std::endl;
+//                 _globalMessages.emplace(msg);
+//             }
+//         }
+//     }
 }
 
 void Server::networkLoop() {
@@ -223,7 +224,7 @@ void Server::updatePlayer(std::uint32_t id) {
                 std::string msg = "add player " + std::to_string(id) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
-                _clientMessages[id].emplace(msg);
+                _globalMessages.emplace(msg);
             }
         }
     }
@@ -231,6 +232,16 @@ void Server::updatePlayer(std::uint32_t id) {
 
 void Server::update()
 {
-    
-    // updatePlayer(0);
+    // ? update all entities
+    for (auto &entity : _playerEntities) {
+        updatePlayer(entity.second);
+    }
+    // for (auto &entity : _ennemyEntities) {
+    //     updateEnnemy(entity.second);
+    // }
+    // for (auto &entity : _missileEntities) {
+    //     updateMissile(entity.second);
+    // }
+    // ? update all components
+    // ? update all systems
 }

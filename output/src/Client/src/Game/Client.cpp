@@ -61,25 +61,31 @@ void Client::run() {
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
         if (_networkingModule != nullptr) {
-            for (auto &client :
-                 _networkingModule->getClients()) {  // ? client update
+            for (auto &client : _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
+                    std::cout << "message recu" << std::endl;
                     std::string msg = client.getBuffer()->readNextPacket();
-                    Engine::Network::Serializer::serialized_data_s    data = _networkingModule->getSerializer().binaryStringToStruct(
+                    if (sizeof(msg.data()) == sizeof(Engine::Network::Serializer::serialized_data_t)) {
+                        Engine::Network::Serializer::serialized_data_t data = _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                for (auto &player : data.players) {
-                    std::cout << player.id << std::endl;
-                    if (player.id == _ClientId) {
-                        _player[_ClientId].x = player.x;
-                        _player[_ClientId].y = player.y;
                     }
+                    // if (data.players != nullptr) {
+                    //     for (auto &player : data.players) {
+                    //         if (player.id != 0)
+                    //             continue;
+                    //         std::cout << "info de la struct" << std::endl;
+                    //         std::cout << player.id << std::endl;
+                    //         std::cout << player.x << std::endl;
+                    //         std::cout << player.y << std::endl;
+                    //     }
+                    //     std::cout << "ici" << std::endl;
+                    // }
                 }
             }
+            _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                                    getEntities());
         }
-        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                                getEntities());
     }
-}
 }
 
 // TODO : implement server response for the menu, create sprite when i have the
