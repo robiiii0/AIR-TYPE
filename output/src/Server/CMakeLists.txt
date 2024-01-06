@@ -50,6 +50,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
                 ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
                 ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
+                ../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.cpp
                 )
 
 # Create the executable for the server with only main.cpp

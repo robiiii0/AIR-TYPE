@@ -19,6 +19,7 @@
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.hpp"
 
 enum GameState {
     MENU,
@@ -72,6 +73,7 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
         void createPlayer(std::vector<sf::Texture> &Textures);
+        void createEnemy(std::vector<sf::Texture> &Textures);
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
@@ -92,7 +94,7 @@ class Client {
         void LoadTextureButton(std::string paths);
 
         void LoadTextureMissile(std::string paths);
-
+        void LoadTextureEnemies(std::string paths);
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void setMenu();
@@ -120,6 +122,7 @@ class Client {
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
         std::vector<sf::Texture> _texturePlayer;
+        std::vector<sf::Texture> _texturesEnemies;
         std::vector<sf::Texture> _textureSetting;
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
