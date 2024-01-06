@@ -16,6 +16,7 @@
 #include "Components/AnimationComponent/AnimationComponent.hpp"
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/ClickableComponent/RoundedClickableComponent.hpp"
+#include "Components/EnemyComponent/EnemyComponent.hpp"
 #include "Components/InputComponent/InputComponent.hpp"
 #include "Components/SoundComponent/SoundComponent.hpp"
 #include "Components/SpriteComponent/SpriteComponent.hpp"
@@ -32,9 +33,6 @@ namespace Engine {
                           int framerate);
                 void update(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
-                // void handleEvent(Engine::Entity::EntityManager
-                // &entityManager,
-                //                  std::vector<uint32_t>          id_list);
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();

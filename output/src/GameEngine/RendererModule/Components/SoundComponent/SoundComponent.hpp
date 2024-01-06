@@ -9,8 +9,11 @@
 #define AIR_TYPE_SOUND_COMPONENT_HPP
 
 #include <SFML/Audio.hpp>
+#include <iostream>
+#include <stdexcept>
 
 #include "../../IRendererComponent/IRendererComponent.hpp"
+#include "./SoundEnumType/SoundEnumType.hpp"
 
 namespace Engine {
     namespace RendererModule {

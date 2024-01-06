@@ -11,6 +11,7 @@ find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/Server/Server.cpp
+                # ${CMAKE_CURRENT_SOURCE_DIR}/src/Serializer/Serializer.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/GameEngine.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/NetworkingModule.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/Client/Client.cpp
@@ -23,6 +24,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/CouldNotReceiveException/CouldNotReceiveException.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/CouldNotSendException/CouldNotSendException.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/exceptions/SocketNotCreatedException/SocketNotCreatedException.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/NetworkingModule/Serializer/Serializer.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/EntityManager.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/ComponentManager.cpp
                 ${CMAKE_CURRENT_SOURCE_DIR}/../GameEngine/EntityManager/ComponentManager/AComponent/AComponent.cpp
@@ -48,6 +50,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ../GameEngine/RendererModule/Components/TextComponent/TextComponent.cpp
                 ../GameEngine/RendererModule/Components/SoundComponent/SoundComponent.cpp
                 ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
+                ../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.cpp
                 )
 
 # Create the executable for the server with only main.cpp
