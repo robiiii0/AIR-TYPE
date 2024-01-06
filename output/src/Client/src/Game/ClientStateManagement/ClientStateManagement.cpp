@@ -38,6 +38,8 @@ void Client::setupState() {
         case GameState::SETTINGS:
             setSettings();
             break;
+        case GameState::KEYBINDING:
+            ChangeKeyBinding();
         default:
             break;
     }

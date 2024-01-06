@@ -1,12 +1,8 @@
 #include "Client.hpp"
 
 Client::Client() {
-    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920
-                       ? 1920
-                       : sf::VideoMode::getDesktopMode().width;
-    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080
-                        ? 1080
-                        : sf::VideoMode::getDesktopMode().height;
+    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920 ? 1920 : 1920;
+    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080 ? 1080 : 1080;
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "Air Typing", 60);
     _networkingModule = nullptr;
@@ -49,7 +45,6 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    ConnectionWithServer();
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
@@ -65,8 +60,6 @@ void Client::run() {
                     auto        data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    std::cout << "To Add Players:" << data.to_add.nb_players
-                              << std::endl;
                 }
             }
         }
