@@ -59,6 +59,8 @@ jobs:
               run: 'bash install_vcpkg.sh'
             - name: 'Install dependencies'
               run: './vcpkg/vcpkg install sfml:${{ matrix.config.triplet }}'
+            - name: 'Build'
+              run: 'cd output && bash build_release.sh'
             - name: 'Upload binaries'
               uses: actions/upload-artifact@v3
               with:
