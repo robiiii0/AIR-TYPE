@@ -16,7 +16,6 @@ void Client::createParallax(std::vector<sf::Texture> &Textures) {
         _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
                                                      parallaxComponent);
         addEntity(spriteParallaxEntity);
-        std::cout << "parallaxEntity added" << std::endl;
     }
 }
 
@@ -41,7 +40,6 @@ void Client::createBackground(sf::Texture &texture) {
     _gameEngine.getEntityManager()->addComponent(spriteBackgroundEntity,
                                                  spriteComponent);
     addEntity(spriteBackgroundEntity);
-    std::cout << "backgroundEntity added" << std::endl;
 }
 
 void Client::createEnemy(std::vector<sf::Texture> &Textures) {
@@ -106,32 +104,31 @@ void Client::CreateBoss(
 void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     std::cout << " Texture size " << Textures.size() << "Client id "
               << _ClientId << std::endl;
-    for (int i = _ClientId; i < Textures.size(); i++) {
-        uint32_t spritePlayerEntity =
-            _gameEngine.getEntityManager()->createEntity();
+    // for (int i = _ClientId; i < Textures.size(); i++) {
+    //     uint32_t spritePlayerEntity =
+    //         _gameEngine.getEntityManager()->createEntity();
 
-        Engine::Entity::Component::GenericComponents::Vector2f pos = {250.0,
-                                                                      250.0};
+    //     Engine::Entity::Component::GenericComponents::Vector2f pos =
+    //     position;
 
-        std::shared_ptr<
-            Engine::Entity::Component::GenericComponents::Vector2fComponent>
-            posComponent =
-                std::make_shared<Engine::Entity::Component::GenericComponents::
-                                     Vector2fComponent>(pos);
+    //     std::shared_ptr<
+    //         Engine::Entity::Component::GenericComponents::Vector2fComponent>
+    //         posComponent =
+    //             std::make_shared<Engine::Entity::Component::GenericComponents::
+    //                                  Vector2fComponent>(pos);
+    //     Engine::RendererModule::Components::SpriteData sprite_temp = {
+    //         pos, {2, 2}, sf::Color::White, 0, false};
 
-        Engine::RendererModule::Components::SpriteData sprite_temp = {
-            pos, {2, 2}, sf::Color::White, 0, false};
-
-        std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-            spriteComponent = std::make_shared<
-                Engine::RendererModule::Components::SpriteComponent>(
-                sprite_temp, Textures[i]);
-        _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
-                                                     spriteComponent);
-        _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
-                                                     posComponent);
-        addEntity(spritePlayerEntity);
-    }
+    //     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+    //         spriteComponent = std::make_shared<
+    //             Engine::RendererModule::Components::SpriteComponent>(
+    //             sprite_temp, Textures);
+    //     _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
+    //                                                  spriteComponent);
+    //     _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
+    //                                                  posComponent);
+    //     addEntity(spritePlayerEntity);
+    // }
 }
 
 void Client::LoadTexturePlayer(std::string paths) {
@@ -156,9 +153,8 @@ void Client::LoadTextureEnemies(std::string paths) {
 
 void Client::LoadBackground() {
     sf::Texture texture;
-    if (texture.loadFromFile(
-            "src/Client/assets/new_assets/background/Menu/background.png") ==
-        false) {
+    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/"
+                             "background.png") == false) {
         std::cerr
             << "Error: could not load texture "
             << "src/Client/assets/new_assets/background/Menu/background.png"

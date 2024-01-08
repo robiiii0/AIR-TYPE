@@ -16,7 +16,6 @@ Client::Client() {
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
     LoadTextureButton(
         "src/Client/assets/assetsRefacto/settings/emptyButton.png");
-    LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadTextureBoss("src/Client/assets/new_assets/enemy/sprites/boss.png");
     LoadTexturePlayer(
@@ -58,14 +57,19 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    auto        data =
+                    Engine::Network::Serializer::serialized_data_t data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
+                    for (auto &player : data.players) {
+                        std::cout << player.id << std::endl;
+                        std::cout << player.x << std::endl;
+                        std::cout << player.y << std::endl;
+                    }
                 }
             }
+            _gameEngine.getRendererModule()->render(
+                *_gameEngine.getEntityManager(), getEntities());
         }
-        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                                getEntities());
     }
     handleExit();
 }

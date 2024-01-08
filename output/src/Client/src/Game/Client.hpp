@@ -15,6 +15,7 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/HmiModule/HmiModule.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
+#include "../../../GameEngine/NetworkingModule/Serializer/Serializer.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/BossComponent/BossComponent.hpp"
@@ -78,8 +79,10 @@ class Client {
             sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
+
         void createPlayer(std::vector<sf::Texture> &Textures);
         void createEnemy(std::vector<sf::Texture> &Textures);
+
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
@@ -126,6 +129,8 @@ class Client {
         int _screenWidth;
         int _screenHeight;
         int _gameState;
+
+        std::vector<Engine::Network::Serializer::entity_t> _player;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;

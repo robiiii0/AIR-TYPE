@@ -31,6 +31,7 @@ void Server::init() {
 void Server::loop() {
     _clock = std::chrono::high_resolution_clock::now();
     networkLoop();
+    update();
     applyTickrate();
 }
 
@@ -45,9 +46,9 @@ void Server::applyTickrate() {
         if (sleepTime > 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(sleepTime));
         }
-        _globalMessages.emplace("add player 0 10 10");
-        _globalMessages.emplace("add player 0 10 10");
-        _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
+        // _globalMessages.emplace("add player 0 10 10");
 
         auto tickrate = 1.0 /
                         std::chrono::duration_cast<std::chrono::microseconds>(
@@ -73,7 +74,7 @@ void Server::sendToAllExcept(std::uint32_t id, std::string message) {
 
 void Server::sendGameStatus(std::uint32_t id) {
     // ? send all players
-    _clientMessages[id].emplace("STATUS START");
+    // _clientMessages[id].emplace("STATUS START");
     for (auto &entity : _playerEntities) {
         auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
         for (auto &component : player->_components) {
@@ -83,14 +84,14 @@ void Server::sendGameStatus(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "Player " + std::to_string(entity.first) +
+                std::string msg = "add player " + std::to_string(entity.first) +
                                   " " + std::to_string(position->getValue().x) +
                                   " " + std::to_string(position->getValue().y);
                 _clientMessages[id].emplace(msg);
             }
         }
     }
-    _clientMessages[id].emplace("STATUS END");
+    // _clientMessages[id].emplace("STATUS END");
 }
 
 void Server::createPlayer(std::uint32_t id) {
@@ -108,6 +109,9 @@ void Server::createPlayer(std::uint32_t id) {
                       std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
+    // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + "
+    // 10 " + std::to_string(10 + (5  * _nb_clients));
+    // _globalMessages.emplace(msg);
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
@@ -115,32 +119,36 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createMissile(std::uint32_t id) {
-    std::cout << "Creating missile " << id << std::endl;
-    _missileEntities[id] = _gameEngine->getEntityManager()->createEntity();
-    std::cout << "Missile " << id << " created" << std::endl;
+    //     std::cout << "Creating missile " << id << std::endl;
+    //     _missileEntities[id] =
+    //     _gameEngine->getEntityManager()->createEntity(); std::cout <<
+    //     "Missile " << id << " created" << std::endl;
 
-    for (auto &entity : _playerEntities) {
-        auto player = _gameEngine->getEntityManager()->getEntity(entity.second);
-        for (auto &component : player->_components) {
-            if (typeid(*component) ==
-                typeid(Engine::Entity::Component::GenericComponents::
-                           Vector2fComponent)) {
-                auto position = std::dynamic_pointer_cast<
-                    Engine::Entity::Component::GenericComponents::
-                        Vector2fComponent>(component);
+    //     for (auto &entity : _playerEntities) {
+    //         auto player =
+    //         _gameEngine->getEntityManager()->getEntity(entity.second); for
+    //         (auto &component : player->_components) {
+    //             if (typeid(*component) ==
+    //                 typeid(Engine::Entity::Component::GenericComponents::
+    //                            Vector2fComponent)) {
+    //                 auto position = std::dynamic_pointer_cast<
+    //                     Engine::Entity::Component::GenericComponents::
+    //                         Vector2fComponent>(component);
 
-                Engine::Entity::Component::GenericComponents::Vector2f
-                    position_data(position->getValue());
-                _gameEngine->getEntityManager()->addComponent(
-                    _missileEntities[id], position);
-                std::string msg = "add missile " + std::to_string(id) + " " +
-                                  std::to_string(position->getValue().x) + " " +
-                                  std::to_string(position->getValue().y);
-                std::cout << msg << std::endl;
-                _globalMessages.emplace(msg);
-            }
-        }
-    }
+    //                 Engine::Entity::Component::GenericComponents::Vector2f
+    //                     position_data(position->getValue());
+    //                 _gameEngine->getEntityManager()->addComponent(
+    //                     _missileEntities[id], position);
+    //                 std::string msg = "add missile " + std::to_string(id) + "
+    //                 " +
+    //                                   std::to_string(position->getValue().x)
+    //                                   + " " +
+    //                                   std::to_string(position->getValue().y);
+    //                 std::cout << msg << std::endl;
+    //                 _globalMessages.emplace(msg);
+    //             }
+    //         }
+    //     }
 }
 
 void Server::networkLoop() {
@@ -171,23 +179,77 @@ void Server::networkLoop() {
             }
         }
     }
-    for (auto &client : _networkingModule->getClients()) {  // ? client messages
-        while (!_clientMessages[client.getId()].empty()) {
-            std::cout << "Client " << client.getId()
-                      << " message: " << _clientMessages[client.getId()].front()
-                      << std::endl;
-            _networkingModule->sendMessage(
-                _clientMessages[client.getId()].front(), client.getId());
-            _clientMessages[client.getId()].pop();
-        }
-    }
+    std::vector<std::string> messages;
     while (!_globalMessages.empty()) {  // ? global messages
-        std::vector<std::string> messages;
         while (_globalMessages.size() > 0) {
             messages.push_back(_globalMessages.front());
             _globalMessages.pop();
         }
-        _networkingModule->broadcastMessage(
-            _networkingModule->getSerializer().serializeToPacket(messages));
+        // _networkingModule->broadcastMessage(
+        // _networkingModule->getSerializer().serializeToPacket(messages));
     }
+    for (auto &client : _networkingModule->getClients()) {  // ? client messages
+        std::vector<std::string> msg_client;
+        for (auto &msg : messages) {
+            msg_client.push_back(msg);
+        }
+        while (!_clientMessages[client.getId()].empty()) {
+            std::cout << "Client " << client.getId()
+                      << " message: " << _clientMessages[client.getId()].front()
+                      << std::endl;
+            msg_client.push_back(_clientMessages[client.getId()].front());
+            // _networkingModule->sendMessage(
+            // _clientMessages[client.getId()].front(), client.getId());
+            _clientMessages[client.getId()].pop();
+        }
+        if (messages.size() > 0)
+            _networkingModule->sendMessage(
+                _networkingModule->getSerializer().serializeToPacket(
+                    msg_client),
+                client.getId());
+        // _networkingModule->sendMessage(
+        //     _networkingModule->getSerializer().serializeToPacket(messages),
+        //     client.getId());
+    }
+}
+
+void Server::updatePlayer(std::uint32_t id) {
+    // TODO : update player
+    // mettre a jour la position du player
+    // faire le message (add player id x y)
+    // bien le mettre dans _globalMessages
+
+    for (auto &player : _playerEntities) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(player.second)
+                              ->_components;
+        for (auto &component : components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                std::string msg = "add player " + std::to_string(id) + " " +
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
+                _globalMessages.emplace(msg);
+            }
+        }
+    }
+}
+
+void Server::update() {
+    // ? update all entities
+    for (auto &entity : _playerEntities) {
+        updatePlayer(entity.second);
+    }
+    // for (auto &entity : _ennemyEntities) {
+    //     updateEnnemy(entity.second);
+    // }
+    // for (auto &entity : _missileEntities) {
+    //     updateMissile(entity.second);
+    // }
+    // ? update all components
+    // ? update all systems
 }
