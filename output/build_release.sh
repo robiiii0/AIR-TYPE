@@ -5,7 +5,7 @@ echo "Current directory: $CURRENT_DIR"
 
 mkdir -p "$CURRENT_DIR/release"
 
-cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"
+cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt" -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake
 echo "building cmake $CURRENT_DIR/CMakeLists"
 
 make

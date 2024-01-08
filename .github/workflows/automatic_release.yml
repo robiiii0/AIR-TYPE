@@ -8,12 +8,27 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.config.os }}
+        strategy:
+            matrix:
+                config:
+                    - os: ubuntu-latest
+                      ext: ''
+                    - os: macos-latest
+                      ext: ''
+                    - os: windows-latest
+                      ext: '.exe'
         steps:
             - name: 'Checkout'
               uses: actions/checkout@v4
-            - name: 'Binary build'
-              run: 'cd output && bash build_release.sh'
+            - name: 'Setup vcpkg'
+              run: ./install_vcpkg.sh
+            - name: 'Binary build x86'
+              run: 'VCPKG_TARGET_ARCHITECTURE=x86 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_x86-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_x86-${{ matrix.config.os }}${{ matrix.config.ext }}'
+            - name: 'Binary build x64'
+              run: 'VCPKG_TARGET_ARCHITECTURE=x64 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_x64-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_x64-${{ matrix.config.os }}${{ matrix.config.ext }}'
+            - name: 'Binary build aarch64'
+              run: 'VCPKG_TARGET_ARCHITECTURE=arm64 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_aarch64-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_aarch64-${{ matrix.config.os }}${{ matrix.config.ext }}'
             - name: 'Upload binaries'
               uses: actions/upload-artifact@v3
               with:
