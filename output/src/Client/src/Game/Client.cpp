@@ -68,8 +68,8 @@ void Client::run() {
                 }
             }
         }
-            _gameEngine.getRendererModule()->render(
-                *_gameEngine.getEntityManager(), getEntities());
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                                getEntities());
     }
     handleExit();
 }
