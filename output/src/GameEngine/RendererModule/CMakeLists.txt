@@ -12,4 +12,4 @@ add_library(WindowModule
     WindowManager/Window.cpp
         Components/AnimationComponent/AnimationComponent.cpp)
 
-target_link_libraries(WindowModule PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
+target_link_libraries(WindowModule PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
