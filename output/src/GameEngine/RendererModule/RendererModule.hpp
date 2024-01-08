@@ -14,6 +14,7 @@
 #include "../EntityManager/EntityManager.hpp"
 #include "Animations/Parallax/Parallax.hpp"
 #include "Components/AnimationComponent/AnimationComponent.hpp"
+#include "Components/BossComponent/BossComponent.hpp"
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/ClickableComponent/RoundedClickableComponent.hpp"
 #include "Components/EnemyComponent/EnemyComponent.hpp"

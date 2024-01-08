@@ -18,6 +18,7 @@
 #include "../../../GameEngine/NetworkingModule/Serializer/Serializer.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/BossComponent/BossComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
@@ -71,6 +72,11 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f pos,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Texture &texture, std::string name);
+
+        void CreateBoss(
+            Engine::Entity::Component::GenericComponents::Vector2f pos,
+            Engine::Entity::Component::GenericComponents::Vector2f scale,
+            sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
@@ -95,6 +101,8 @@ class Client {
         void LoadSettingsKeyBindings(std::string paths);
         void LoadFont(std::string paths);
         void LoadTextureButton(std::string paths);
+
+        void LoadTextureBoss(std::string paths);
 
         void LoadTextureMissile(std::string paths);
         void LoadTextureEnemies(std::string paths);
@@ -132,6 +140,7 @@ class Client {
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
+        sf::Texture              _textureBoss;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

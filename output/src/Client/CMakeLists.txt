@@ -15,6 +15,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
         ../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.cpp
+        ../GameEngine/RendererModule/Components/BossComponent/BossComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/RoundedClickableComponent.cpp
         ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
