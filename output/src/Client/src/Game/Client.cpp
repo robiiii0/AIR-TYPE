@@ -43,7 +43,6 @@ Client::Client() {
     // addPlayer();x
 }
 
-
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
@@ -61,29 +60,22 @@ void Client::run() {
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
         if (_networkingModule != nullptr) {
-            for (auto &client : _networkingModule->getClients()) {  // ? client update
+            for (auto &client :
+                 _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
-                    std::cout << "message recu" << std::endl;
                     std::string msg = client.getBuffer()->readNextPacket();
-                    if (sizeof(msg.data()) == sizeof(Engine::Network::Serializer::serialized_data_t)) {
-                        Engine::Network::Serializer::serialized_data_t data = _networkingModule->getSerializer().binaryStringToStruct(
+                    Engine::Network::Serializer::serialized_data_t data =
+                        _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
+                    for (auto &player : data.players) {
+                        std::cout << player.id << std::endl;
+                        std::cout << player.x << std::endl;
+                        std::cout << player.y << std::endl;
                     }
-                    // if (data.players != nullptr) {
-                    //     for (auto &player : data.players) {
-                    //         if (player.id != 0)
-                    //             continue;
-                    //         std::cout << "info de la struct" << std::endl;
-                    //         std::cout << player.id << std::endl;
-                    //         std::cout << player.x << std::endl;
-                    //         std::cout << player.y << std::endl;
-                    //     }
-                    //     std::cout << "ici" << std::endl;
-                    // }
                 }
             }
-            _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                                    getEntities());
+            _gameEngine.getRendererModule()->render(
+                *_gameEngine.getEntityManager(), getEntities());
         }
     }
 }
