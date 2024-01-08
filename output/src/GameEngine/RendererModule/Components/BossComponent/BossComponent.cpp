@@ -10,8 +10,10 @@ Engine::RendererModule::Components::BossComponent::BossComponent(
     _scale = value.scale;
     _color = value.color;
     _rotation = value.rotation;
+    _rect = value.rect;
 
     _sprite.setTexture(texture);
+    _sprite.setTextureRect(_rect);
     _sprite.setPosition(_pos.x, _pos.y);
     _sprite.setScale(_scale.x, _scale.y);
     _sprite.setColor(_color);
@@ -44,9 +46,19 @@ void Engine::RendererModule::Components::BossComponent::setScale(float x,
 }
 
 void Engine::RendererModule::Components::BossComponent::setTextureRect(
-    const sf::IntRect &rect)
+    )
 {
-    _sprite.setTextureRect(rect);
+    if (_rect.left < 668) {
+        _rect.left += 167;
+    } else {
+        if (_rect.top < 1926) {
+            _rect.top += 214;
+            _rect.left = 0;
+        } else {
+            _rect.top = 0;
+        }
+    }
+    _sprite.setTextureRect(_rect);
 }
 
 void Engine::RendererModule::Components::BossComponent::setPosition(float x,

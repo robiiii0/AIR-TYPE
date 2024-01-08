@@ -22,6 +22,7 @@ namespace Engine {
                               scale;
                     sf::Color color;
                     float     rotation;
+                    sf::IntRect rect;
             };
 
             class BossComponent :
@@ -37,7 +38,7 @@ namespace Engine {
                     // Sprite
                     void          setRotation(float rotation);
                     void          setScale(float x, float y);
-                    void          setTextureRect(const sf::IntRect &rect);
+                    void          setTextureRect();
                     void          setPosition(float x, float y);
                     sf::Drawable &getDrawable() override;
 
@@ -49,6 +50,7 @@ namespace Engine {
                     sf::Color  _color;
                     float      _rotation;
                     sf::Sprite _sprite;
+                    sf::IntRect _rect;
             };
         };  // namespace Components
     };      // namespace RendererModule

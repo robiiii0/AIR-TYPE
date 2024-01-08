@@ -81,7 +81,7 @@ void Client::LoadTextureBoss(std::string path) {
 
 void Client::CreateBoss(Engine::Entity::Component::GenericComponents::Vector2f pos,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
-            sf::Texture &texture, std::string name)
+            sf::Texture &texture, sf::IntRect &rect)
 {
     uint32_t BossEntity = _gameEngine.getEntityManager()->createEntity();
 
@@ -95,7 +95,7 @@ void Client::CreateBoss(Engine::Entity::Component::GenericComponents::Vector2f p
                 std::make_shared<Engine::Entity::Component::GenericComponents::
                                      Vector2fComponent>(pos);
     Engine::RendererModule::Components::BossData sprite_temp = {
-        position, scale, sf::Color::White, 0};
+        position, scale, sf::Color::White, 0, rect};
 
     std::shared_ptr<Engine::RendererModule::Components::BossComponent>
         spriteComponent = std::make_shared<

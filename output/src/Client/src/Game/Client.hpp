@@ -75,7 +75,7 @@ class Client {
         void CreateBoss(
             Engine::Entity::Component::GenericComponents::Vector2f pos,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
-            sf::Texture &texture, std::string name);
+            sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
         void createPlayer(std::vector<sf::Texture> &Textures);
