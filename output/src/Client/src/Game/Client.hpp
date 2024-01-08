@@ -5,7 +5,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-// #include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <functional>

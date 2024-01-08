@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(LIBS -lpthread)
 
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(./)
 
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window  audio graphics CONFIG REQUIRED)
 
 add_library(WindowModule
     WindowManager/Window.cpp
