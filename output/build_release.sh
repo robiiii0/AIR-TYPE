@@ -10,7 +10,6 @@ mkdir -p "$CURRENT_DIR/release"
 echo "$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake :"
 cat $CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake
 
-echo "$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake"
 cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake"
 cmake --build "$CURRENT_DIR/release"
 
