@@ -64,6 +64,7 @@ void Client::run() {
                         std::cout << player.id << std::endl;
                         std::cout << player.x << std::endl;
                         std::cout << player.y << std::endl;
+                        // TODO: check le player.id, mettre le _CliendId > 4 pour l'init, crée le player si player.id > -1 et que _ClientID != player.id sinon update pos
                     }
                 }
             }
