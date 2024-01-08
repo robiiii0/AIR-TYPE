@@ -72,7 +72,8 @@ void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     //     uint32_t spritePlayerEntity =
     //         _gameEngine.getEntityManager()->createEntity();
 
-    //     Engine::Entity::Component::GenericComponents::Vector2f pos = position;
+    //     Engine::Entity::Component::GenericComponents::Vector2f pos =
+    //     position;
 
     //     std::shared_ptr<
     //         Engine::Entity::Component::GenericComponents::Vector2fComponent>
@@ -94,81 +95,80 @@ void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     // }
 }
 
-    void Client::LoadTexturePlayer(std::string paths) {
-        sf::Texture texture;
-        if (texture.loadFromFile(paths) == false) {
-            std::cerr << "Error: could not load texture " << paths << std::endl;
-            exit(84);
-        }
-        texture.setSmooth(true);
-        _texturePlayer.push_back(texture);
+void Client::LoadTexturePlayer(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
     }
+    texture.setSmooth(true);
+    _texturePlayer.push_back(texture);
+}
 
-    void Client::LoadTextureEnemies(std::string paths) {
-        sf::Texture texture;
-        if (texture.loadFromFile(paths) == false) {
-            std::cerr << "Error: could not load texture " << paths << std::endl;
-            exit(84);
-        }
-        texture.setSmooth(true);
-        _texturesEnemies.push_back(texture);
+void Client::LoadTextureEnemies(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
     }
+    texture.setSmooth(true);
+    _texturesEnemies.push_back(texture);
+}
 
-    void Client::LoadBackground() {
-        sf::Texture texture;
-        if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/"
-                                 "background.png") == false) {
-            std::cerr
-                << "Error: could not load texture "
-                << "src/Client/assets/new_assets/background/Menu/background.png"
-                << std::endl;
-            exit(84);
-        }
-        texture.setSmooth(true);
-        _backgroundTexture = texture;
+void Client::LoadBackground() {
+    sf::Texture texture;
+    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/"
+                             "background.png") == false) {
+        std::cerr
+            << "Error: could not load texture "
+            << "src/Client/assets/new_assets/background/Menu/background.png"
+            << std::endl;
+        exit(84);
     }
+    texture.setSmooth(true);
+    _backgroundTexture = texture;
+}
 
-    void Client::LoadSettingsKeyBindings(std::string paths) {
-        sf::Texture texture;
-        if (texture.loadFromFile(paths) == false) {
-            std::cerr << "Error: could not load texture " << paths << std::endl;
-            exit(84);
-        }
-        texture.setSmooth(true);
-        _textureSetting.push_back(texture);
+void Client::LoadSettingsKeyBindings(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
     }
+    texture.setSmooth(true);
+    _textureSetting.push_back(texture);
+}
 
-    void Client::LoadTextureParallax(std::string paths) {
-        sf::Texture texture;
-        if (texture.loadFromFile(paths) == false) {
-            std::cerr << "Error: could not load texture " << paths << std::endl;
-            exit(84);
-        }
-        texture.setSmooth(true);
-        _texturesParallax.push_back(texture);
+void Client::LoadTextureParallax(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
     }
+    texture.setSmooth(true);
+    _texturesParallax.push_back(texture);
+}
 
-    void Client::createMissile(std::uint32_t id, float x, float y) {
-        uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();
+void Client::createMissile(std::uint32_t id, float x, float y) {
+    uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();
 
-        Engine::Entity::Component::GenericComponents::Vector2f pos = {x, y};
+    Engine::Entity::Component::GenericComponents::Vector2f pos = {x, y};
 
-        std::shared_ptr<
-            Engine::Entity::Component::GenericComponents::Vector2fComponent>
-            posComponent =
-                std::make_shared<Engine::Entity::Component::GenericComponents::
-                                     Vector2fComponent>(pos);
+    std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
 
-        Engine::RendererModule::Components::SpriteData sprite_temp = {
-            pos, {1, 1}, sf::Color::White, 0, false};
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        pos, {1, 1}, sf::Color::White, 0, false};
 
-        std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-            spriteComponent = std::make_shared<
-                Engine::RendererModule::Components::SpriteComponent>(
-                sprite_temp, _textureMissile);
-        _gameEngine.getEntityManager()->addComponent(missileEntity,
-                                                     spriteComponent);
-        _gameEngine.getEntityManager()->addComponent(missileEntity,
-                                                     posComponent);
-        addEntity(missileEntity);
-    }
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(
+            sprite_temp, _textureMissile);
+    _gameEngine.getEntityManager()->addComponent(missileEntity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(missileEntity, posComponent);
+    addEntity(missileEntity);
+}
