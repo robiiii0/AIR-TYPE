@@ -65,7 +65,6 @@ void Client::run() {
                         std::cout << player.x << std::endl;
                         std::cout << player.y << std::endl;
                     }
-
                 }
             }
             _gameEngine.getRendererModule()->render(
