@@ -17,7 +17,7 @@ git clone https://github.com/Microsoft/vcpkg.git &
 
 while [ ! -e "vcpkg/README.md" ]; do
     echo -n "."
-    sleep 1
+    sleep 5
 done
 
 print_green "Download complete."
