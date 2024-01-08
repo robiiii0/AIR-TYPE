@@ -19,9 +19,9 @@ namespace Engine {
             struct BossData {
                     Engine::Entity::Component::GenericComponents::Vector2f pos;
                     Engine::Entity::Component::GenericComponents::Vector2f
-                              scale;
-                    sf::Color color;
-                    float     rotation;
+                                scale;
+                    sf::Color   color;
+                    float       rotation;
                     sf::IntRect rect;
             };
 
@@ -29,7 +29,7 @@ namespace Engine {
                 public Engine::RendererModule::IRendererComponent {
                 public:
                     BossComponent(
-                        BossData  &value,
+                        BossData    &value,
                         sf::Texture &texture);  // TODO changer le std::string
                     ~BossComponent();
 
@@ -46,10 +46,10 @@ namespace Engine {
                 private:
                     Engine::Entity::Component::GenericComponents::Vector2f _pos;
                     Engine::Entity::Component::GenericComponents::Vector2f
-                               _scale;
-                    sf::Color  _color;
-                    float      _rotation;
-                    sf::Sprite _sprite;
+                                _scale;
+                    sf::Color   _color;
+                    float       _rotation;
+                    sf::Sprite  _sprite;
                     sf::IntRect _rect;
             };
         };  // namespace Components

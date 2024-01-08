@@ -47,8 +47,6 @@ void Client::createButton(std::function<void()> func, std::string text,
     }
 }
 
-
-
 void Client::createText(
     std::string text, sf::Font &font,
     Engine::Entity::Component::GenericComponents::Vector2f position,

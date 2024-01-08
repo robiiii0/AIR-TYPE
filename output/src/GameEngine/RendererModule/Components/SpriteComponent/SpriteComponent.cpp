@@ -28,7 +28,6 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     _sprite.setRotation(_rotation);
     std::cout << "SpriteComponent created" << std::endl;
     std::cout << this->_scale.x << this->_scale.y << std::endl;
-
 }
 
 void Engine::RendererModule::Components::SpriteComponent::handleEvent(int key) {

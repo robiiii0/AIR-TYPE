@@ -1,9 +1,7 @@
 #include "BossComponent.hpp"
 
-
 Engine::RendererModule::Components::BossComponent::BossComponent(
-    BossData &value, sf::Texture &texture)
-{
+    BossData &value, sf::Texture &texture) {
     sf::Sprite Sprite;
     _sprite = Sprite;
     _pos = value.pos;
@@ -20,34 +18,25 @@ Engine::RendererModule::Components::BossComponent::BossComponent(
     _sprite.setRotation(_rotation);
 }
 
-Engine::RendererModule::Components::BossComponent::~BossComponent()
-{
-}
+Engine::RendererModule::Components::BossComponent::~BossComponent() {}
 
-void Engine::RendererModule::Components::BossComponent::execute()
-{
-}
+void Engine::RendererModule::Components::BossComponent::execute() {}
 
-sf::Drawable &Engine::RendererModule::Components::BossComponent::getDrawable()
-{
+sf::Drawable &Engine::RendererModule::Components::BossComponent::getDrawable() {
     return _sprite;
 }
 
 void Engine::RendererModule::Components::BossComponent::setRotation(
-    float rotation)
-{
+    float rotation) {
     _sprite.setRotation(rotation);
 }
 
 void Engine::RendererModule::Components::BossComponent::setScale(float x,
-                                                                 float y)
-{
+                                                                 float y) {
     _sprite.setScale(x, y);
 }
 
-void Engine::RendererModule::Components::BossComponent::setTextureRect(
-    )
-{
+void Engine::RendererModule::Components::BossComponent::setTextureRect() {
     if (_rect.left < 668) {
         _rect.left += 167;
     } else {
@@ -62,9 +51,6 @@ void Engine::RendererModule::Components::BossComponent::setTextureRect(
 }
 
 void Engine::RendererModule::Components::BossComponent::setPosition(float x,
-                                                                    float y)
-{
+                                                                    float y) {
     _sprite.setPosition(x, y);
 }
-
-

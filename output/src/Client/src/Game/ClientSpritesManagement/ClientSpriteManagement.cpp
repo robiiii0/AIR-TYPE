@@ -67,8 +67,6 @@ void Client::createEnemy(std::vector<sf::Texture> &Textures) {
     addEntity(EnemyEntity);
 }
 
-
-
 void Client::LoadTextureBoss(std::string path) {
     sf::Texture texture;
     if (texture.loadFromFile(path) == false) {
@@ -79,33 +77,31 @@ void Client::LoadTextureBoss(std::string path) {
     _textureBoss = texture;
 }
 
-void Client::CreateBoss(Engine::Entity::Component::GenericComponents::Vector2f pos,
-            Engine::Entity::Component::GenericComponents::Vector2f scale,
-            sf::Texture &texture, sf::IntRect &rect)
-{
+void Client::CreateBoss(
+    Engine::Entity::Component::GenericComponents::Vector2f pos,
+    Engine::Entity::Component::GenericComponents::Vector2f scale,
+    sf::Texture &texture, sf::IntRect &rect) {
     uint32_t BossEntity = _gameEngine.getEntityManager()->createEntity();
 
+    Engine::Entity::Component::GenericComponents::Vector2f position = {250.0,
+                                                                       250.0};
 
-            Engine::Entity::Component::GenericComponents::Vector2f position = {250.0,
-                                                                      250.0};
-
-        std::shared_ptr<
-            Engine::Entity::Component::GenericComponents::Vector2fComponent>
-            posComponent =
-                std::make_shared<Engine::Entity::Component::GenericComponents::
-                                     Vector2fComponent>(pos);
+    std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
     Engine::RendererModule::Components::BossData sprite_temp = {
         position, scale, sf::Color::White, 0, rect};
 
     std::shared_ptr<Engine::RendererModule::Components::BossComponent>
-        spriteComponent = std::make_shared<
-            Engine::RendererModule::Components::BossComponent>(sprite_temp,
-                                                                texture);
+        spriteComponent =
+            std::make_shared<Engine::RendererModule::Components::BossComponent>(
+                sprite_temp, texture);
     _gameEngine.getEntityManager()->addComponent(BossEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(BossEntity, posComponent);
     addEntity(BossEntity);
 }
-
 
 void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     std::cout << " Texture size " << Textures.size() << "Client id "
