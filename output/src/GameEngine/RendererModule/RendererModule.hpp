@@ -20,6 +20,7 @@
 #include "Components/InputComponent/InputComponent.hpp"
 #include "Components/SoundComponent/SoundComponent.hpp"
 #include "Components/SpriteComponent/SpriteComponent.hpp"
+#include "Components/BossComponent/BossComponent.hpp"
 #include "Components/TextComponent/TextComponent.hpp"
 #include "IRendererComponent/IRendererComponent.hpp"
 

@@ -18,7 +18,7 @@ Client::Client() {
         "src/Client/assets/assetsRefacto/settings/emptyButton.png");
     LoadFont("src/Client/assets/Fonts/Roboto-bold.ttf");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
-    LoadBackground();
+    LoadTextureBoss("src/Client/assets/new_assets/enemy/sprites/boss.png");
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
 

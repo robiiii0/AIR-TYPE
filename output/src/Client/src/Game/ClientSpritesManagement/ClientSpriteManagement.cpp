@@ -67,6 +67,47 @@ void Client::createEnemy(std::vector<sf::Texture> &Textures) {
     addEntity(EnemyEntity);
 }
 
+
+
+void Client::LoadTextureBoss(std::string path) {
+    sf::Texture texture;
+    if (texture.loadFromFile(path) == false) {
+        std::cerr << "Error: could not load texture " << path << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _textureBoss = texture;
+}
+
+void Client::CreateBoss(Engine::Entity::Component::GenericComponents::Vector2f pos,
+            Engine::Entity::Component::GenericComponents::Vector2f scale,
+            sf::Texture &texture, std::string name)
+{
+    uint32_t spriteBossEntity =
+        _gameEngine.getEntityManager()->createEntity();
+
+    std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
+
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        pos, scale, sf::Color::White, 0, false};
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 texture);
+    _gameEngine.getEntityManager()->addComponent(spriteBossEntity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(spriteBossEntity,
+                                                 posComponent);
+    addEntity(spriteBossEntity);
+    std::cout << name << " added" << std::endl;
+}
+
+
 void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     std::cout << " Texture size " << Textures.size() << "Client id "
               << _ClientId << std::endl;

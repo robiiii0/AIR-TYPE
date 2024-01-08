@@ -44,6 +44,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
                 ../GameEngine/RendererModule/WindowManager/Window.cpp
                 ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
                 ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
+                ../GameEngine/RendererModule/Components/BossComponent/BossComponent.cpp
                 ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
                 ../GameEngine/RendererModule/Components/ClickableComponent/RoundedClickableComponent.cpp
                 ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
