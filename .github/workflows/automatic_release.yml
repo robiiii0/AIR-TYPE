@@ -24,10 +24,10 @@ jobs:
                     #   arch: 'arm'
                     #   ext: ''
                     #   triplet: 'arm-linux'
-                    - os: macos-latest
-                      arch: 'x64'
-                      ext: ''
-                      triplet: 'x64-osx'
+                    # - os: macos-latest
+                    #   arch: 'x64'
+                    #   ext: ''
+                    #   triplet: 'x64-osx'
                     # - os: macos-latest
                     #   arch: 'x86_64'
                     #   ext: ''
