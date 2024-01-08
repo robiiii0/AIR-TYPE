@@ -14,6 +14,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/WindowManager/Window.cpp
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
+        ../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/RoundedClickableComponent.cpp
         ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
@@ -60,6 +61,8 @@ add_executable(r-type_client
         ../GameEngine/NetworkingModule/Serializer/Serializer.cpp
         ../GameEngine/HmiModule/HmiModule.cpp
         ../GameEngine/HmiModule/HmiModule.hpp
+        src/Game/ClientMenuManagement/ClientSetDisplay.cpp
+        src/Game/ClientStateManagement/ClientStateManagement.cpp
 
 
         # ../GameEngine/LocalStorageModule/LocalStorageModule.cpp

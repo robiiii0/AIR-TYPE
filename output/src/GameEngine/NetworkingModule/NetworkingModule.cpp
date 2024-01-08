@@ -71,8 +71,8 @@ Engine::Network::NetworkingModule::NetworkingModule(
 }
 
 Engine::Network::NetworkingModule::~NetworkingModule() {
-    if (_socket_fd != 1) close(_socket_fd);
     _running_thread.join();
+    if (_socket_fd != 1) close(_socket_fd);
 }
 
 void Engine::Network::NetworkingModule::run() {

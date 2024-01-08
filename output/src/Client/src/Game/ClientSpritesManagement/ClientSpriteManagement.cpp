@@ -42,11 +42,36 @@ void Client::createBackground(sf::Texture &texture) {
     addEntity(spriteBackgroundEntity);
 }
 
-void Client::createPlayer(
-    sf::Texture                                           &Textures,
-    Engine::Entity::Component::GenericComponents::Vector2f position) {
-    uint32_t spritePlayerEntity =
-        _gameEngine.getEntityManager()->createEntity();
+
+void Client::createEnemy(std::vector<sf::Texture> &Textures) {
+    uint32_t EnemyEntity = _gameEngine.getEntityManager()->createEntity();
+
+    Engine::Entity::Component::GenericComponents::Vector2f pos = {500.0, 500.0};
+
+    std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            pos);
+
+    Engine::RendererModule::Components::EnemyData sprite_temp = {
+        pos, {2, 2}, sf::Color::White, 0, false};
+
+    std::shared_ptr<Engine::RendererModule::Components::EnemyComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::EnemyComponent>(sprite_temp,
+                                                                Textures[0]);
+    _gameEngine.getEntityManager()->addComponent(EnemyEntity, spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(EnemyEntity, posComponent);
+    addEntity(EnemyEntity);
+}
+
+void Client::createPlayer(std::vector<sf::Texture> &Textures) {
+    std::cout << " Texture size " << Textures.size() << "Client id "
+              << _ClientId << std::endl;
+    for (int i = _ClientId; i < Textures.size(); i++) {
+        uint32_t spritePlayerEntity =
+            _gameEngine.getEntityManager()->createEntity();
 
     Engine::Entity::Component::GenericComponents::Vector2f pos = position;
 
@@ -77,6 +102,16 @@ void Client::LoadTexturePlayer(std::string paths) {
     }
     texture.setSmooth(true);
     _texturePlayer.push_back(texture);
+}
+
+void Client::LoadTextureEnemies(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturesEnemies.push_back(texture);
 }
 
 void Client::LoadBackground() {

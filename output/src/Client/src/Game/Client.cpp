@@ -1,17 +1,14 @@
 #include "Client.hpp"
 
 Client::Client() {
-    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920
-                       ? 1920
-                       : sf::VideoMode::getDesktopMode().width;
-    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080
-                        ? 1080
-                        : sf::VideoMode::getDesktopMode().height;
+    _screenWidth = sf::VideoMode::getDesktopMode().width > 1920 ? 1920 : 1920;
+    _screenHeight = sf::VideoMode::getDesktopMode().height > 1080 ? 1080 : 1080;
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "Air Typing", 60);
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 0;
+    _gameState = MENU;
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
@@ -21,7 +18,6 @@ Client::Client() {
         "src/Client/assets/assetsRefacto/settings/emptyButton.png");
     LoadFont("src/Client/assets/Fonts/Roboto-Bold.ttf");
     LoadBackground();
-    // addPlayer();
     LoadTexturePlayer(
         "src/Client/assets/new_assets/player/sprites/player1_pink.png");
 
@@ -36,23 +32,20 @@ Client::Client() {
         "src/Client/assets/assetsRefacto/settings/Space.png");
 
     LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
+    LoadTextureEnemies("src/Client/assets/new_assets/enemy/sprites/enemy5.png");
 
     LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
-
-    // addPlayer();x
 }
 
 void Client::ConnectionWithServer() {
-    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
+    _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
 }
 
 void Client::run() {
-    ConnectionWithServer();
-    setMenu();
-    // setSetting();
+    setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
@@ -72,12 +65,14 @@ void Client::run() {
                         std::cout << player.x << std::endl;
                         std::cout << player.y << std::endl;
                     }
+
                 }
             }
             _gameEngine.getRendererModule()->render(
                 *_gameEngine.getEntityManager(), getEntities());
         }
     }
+    handleExit();
 }
 
 // TODO : implement server response for the menu, create sprite when i have the
