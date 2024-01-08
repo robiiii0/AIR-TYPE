@@ -83,28 +83,27 @@ void Client::CreateBoss(Engine::Entity::Component::GenericComponents::Vector2f p
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Texture &texture, std::string name)
 {
-    uint32_t spriteBossEntity =
-        _gameEngine.getEntityManager()->createEntity();
+    uint32_t BossEntity = _gameEngine.getEntityManager()->createEntity();
 
-    std::shared_ptr<
-        Engine::Entity::Component::GenericComponents::Vector2fComponent>
-        posComponent = std::make_shared<
-            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-            pos);
 
-    Engine::RendererModule::Components::SpriteData sprite_temp = {
-        pos, scale, sf::Color::White, 0, false};
+            Engine::Entity::Component::GenericComponents::Vector2f position = {250.0,
+                                                                      250.0};
 
-    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        std::shared_ptr<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>
+            posComponent =
+                std::make_shared<Engine::Entity::Component::GenericComponents::
+                                     Vector2fComponent>(pos);
+    Engine::RendererModule::Components::BossData sprite_temp = {
+        position, scale, sf::Color::White, 0};
+
+    std::shared_ptr<Engine::RendererModule::Components::BossComponent>
         spriteComponent = std::make_shared<
-            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
-                                                                 texture);
-    _gameEngine.getEntityManager()->addComponent(spriteBossEntity,
-                                                 spriteComponent);
-    _gameEngine.getEntityManager()->addComponent(spriteBossEntity,
-                                                 posComponent);
-    addEntity(spriteBossEntity);
-    std::cout << name << " added" << std::endl;
+            Engine::RendererModule::Components::BossComponent>(sprite_temp,
+                                                                texture);
+    _gameEngine.getEntityManager()->addComponent(BossEntity, spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(BossEntity, posComponent);
+    addEntity(BossEntity);
 }
 
 
