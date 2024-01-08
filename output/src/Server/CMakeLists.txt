@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(LIBS -lpthread)
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
@@ -58,7 +58,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
-target_link_libraries(r-type_server ${LIBS} sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(r-type_server PRIVATE ${LIBS}  sfml-system sfml-network sfml-graphics sfml-window)
 
 add_custom_command(TARGET r-type_server POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
