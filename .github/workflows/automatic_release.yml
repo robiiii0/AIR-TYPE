@@ -16,38 +16,38 @@ jobs:
                       arch: 'x64'
                       ext: ''
                       triplet: 'x64-linux'
-                    - os: ubuntu-latest
-                      arch: 'x86_64'
-                      ext: ''
-                      triplet: 'x86-linux'
-                    - os: ubuntu-latest
-                      arch: 'arm'
-                      ext: ''
-                      triplet: 'arm-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'x86_64'
+                    #   ext: ''
+                    #   triplet: 'x86-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-linux'
                     - os: macos-latest
                       arch: 'x64'
                       ext: ''
                       triplet: 'x64-osx'
-                    - os: macos-latest
-                      arch: 'x86_64'
-                      ext: ''
-                      triplet: 'x86-osx'
-                    - os: macos-latest
-                      arch: 'arm'
-                      ext: ''
-                      triplet: 'arm-osx'
+                    # - os: macos-latest
+                    #   arch: 'x86_64'
+                    #   ext: ''
+                    #   triplet: 'x86-osx'
+                    # - os: macos-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-osx'
                     - os: windows-latest
                       arch: 'x64'
                       ext: '.exe'
                       triplet: 'x64-windows'
-                    - os: windows-latest
-                      arch: 'x86'
-                      ext: '.exe'
-                      triplet: 'x86-windows'
-                    - os: windows-latest
-                      arch: 'arm'
-                      ext: '.exe'
-                      triplet: 'arm-windows'
+                    # - os: windows-latest
+                    #   arch: 'x86'
+                    #   ext: '.exe'
+                    #   triplet: 'x86-windows'
+                    # - os: windows-latest
+                    #   arch: 'arm'
+                    #   ext: '.exe'
+                    #   triplet: 'arm-windows'
 
         env:
             VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.triplet }}
