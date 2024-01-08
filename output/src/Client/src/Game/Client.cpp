@@ -45,7 +45,6 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::run() {
-    ConnectionWithServer();
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
@@ -68,9 +67,9 @@ void Client::run() {
                     }
                 }
             }
+        }
             _gameEngine.getRendererModule()->render(
                 *_gameEngine.getEntityManager(), getEntities());
-        }
     }
     handleExit();
 }
