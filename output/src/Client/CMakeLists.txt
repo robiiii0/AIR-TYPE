@@ -5,7 +5,7 @@ project(r-type_client)
 set(CMAKE_CXX_STANDARD 20)
 
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 add_executable(r-type_client
         src/main.cpp
@@ -72,9 +72,10 @@ add_executable(r-type_client
 )
 
 link_directories(${CMAKE_SOURCE_DIR}/GameEngine/NetworkingModule)
+target_link_libraries(r-type_client PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
+
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE engine_networking sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

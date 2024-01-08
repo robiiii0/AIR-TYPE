@@ -6,8 +6,10 @@ echo "Current directory: $CURRENT_DIR"
 # Create a build directory if it doesn't exist
 mkdir -p "$CURRENT_DIR/build"
 
+
+
 # Run CMake to generate build files
-cmake "$CURRENT_DIR/CMakeLists.txt"
+cmake "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake" "$CURRENT_DIR/CMakeLists.txt"
 echo "building cmake $CURRENT_DIR/CMakeLists"
 
 # Build the project
