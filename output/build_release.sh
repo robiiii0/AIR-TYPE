@@ -7,6 +7,8 @@ mkdir -p "$CURRENT_DIR/release"
 
 # cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"   -DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake
 # echo "building cmake $CURRENT_DIR/CMakeLists"
+echo "$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake :"
+cat $CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake
 
 cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake"
 cmake --build "$CURRENT_DIR/release"
