@@ -12,10 +12,10 @@ jobs:
         strategy:
             matrix:
                 config:
-                    - os: ubuntu-latest
-                      ext: ''
-                    - os: macos-latest
-                      ext: ''
+                    # - os: ubuntu-latest
+                    #   ext: ''
+                    # - os: macos-latest
+                    #   ext: ''
                     - os: windows-latest
                       ext: '.exe'
         steps:
