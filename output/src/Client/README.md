@@ -1,4 +1,4 @@
-# CLient
+# R-Type - Client
 
 The client was created using the game engine and SMFL library. The client can be used to connect to a server and play the game.
 
