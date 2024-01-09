@@ -134,7 +134,7 @@ void Client::run() {
     createText("Hello World!", _fonts[0], {static_cast<float>(_screenWidth / 2), static_cast<float>(_screenHeight / 2)}, {1, 1}, sf::Color::White, 0);
 
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-        // Update caracteristics of the entities
+        // Update characteristics of entities
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(), getEntities());
 
         // Detect user inputs with the HMI module
