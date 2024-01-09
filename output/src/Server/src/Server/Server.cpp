@@ -239,17 +239,69 @@ void Server::updatePlayer(std::uint32_t id) {
     }
 }
 
+void Server::updateEnnemies(std::uint32_t id) {
+    // TODO : update ennemy
+    // mettre a jour la position du player
+    // faire le message (add ennemy id x y)
+    // bien le mettre dans _globalMessages
+
+    for (auto &ennemy : _ennemyEntities) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(ennemy.second)
+                              ->_components;
+        for (auto &component : components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                std::string msg = "add ennemy " + std::to_string(id) + " " +
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
+                _globalMessages.emplace(msg);
+            }
+        }
+    }
+}
+
+void Server::updateMissile(std::uint32_t id) {
+    // TODO : update missile
+    // mettre a jour la position du player
+    // faire le message (add missile id x y)
+    // bien le mettre dans _globalMessages
+    write(1, "update missile\n", 16);
+    for (auto &missile : _missileEntities) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(missile.second)
+                              ->_components;
+        for (auto &component : components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto position = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                std::string msg = "add missile " + std::to_string(id) + " " +
+                                  std::to_string(position->getValue().x + 1) +
+                                  " " + std::to_string(position->getValue().y);
+                _globalMessages.emplace(msg);
+            }
+        }
+    }
+}
+
 void Server::update() {
     // ? update all entities
     for (auto &entity : _playerEntities) {
         updatePlayer(entity.second);
     }
-    // for (auto &entity : _ennemyEntities) {
-    //     updateEnnemy(entity.second);
-    // }
-    // for (auto &entity : _missileEntities) {
-    //     updateMissile(entity.second);
-    // }
+    for (auto &entity : _ennemyEntities) {
+        updateEnnemies(entity.second);
+    }
+    for (auto &entity : _missileEntities) {
+        updateMissile(entity.second);
+    }
     // ? update all components
     // ? update all systems
 }
