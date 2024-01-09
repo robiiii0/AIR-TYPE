@@ -10,11 +10,13 @@
 
 #### Controls:
 
-- **Up Arrow**: Move up
-- **Down Arrow**: Move down
-- **Left Arrow**: Move left
-- **Right Arrow**: Move right
-- **Spacebar**: Shoot
+ Button        | Direction
+ --------------|-------------
+ Arrow Up      | Top
+ Arrow Down    | Down
+ Arrow Left    | Left
+ Arrow Right   | Right
+ Space         | Shoot
 
 ## Description
 

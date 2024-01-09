@@ -4,6 +4,8 @@
 
 The `PhysicModule` class is a component within the R-Type project designed to handle physics-related functionalities for entities. This class provides methods for updating the physics state and detecting collisions between entities.
 
+<img src="../../../assets/physic-module.png">
+
 ## Structure Explanation
 
 ### `PhysicModule` Class
@@ -14,7 +16,7 @@ class PhysicModule {
 public:
     // Constructor for initializing the PhysicModule.
     PhysicModule();
-    
+
     // Destructor for cleanup.
     ~PhysicModule();
 

@@ -18,18 +18,15 @@ Welcome to the Networking Module of the R-Type project! This section contains co
 
 Feel free to delve into the networking module's source code and contribute to its development or improvement. If you have any questions or suggestions regarding the networking module, please don't hesitate to reach out. Your contributions are invaluable to the success of the R-Type project. Happy coding!
 
-
 ## Get Started
 
 ### Prerequisites
 
-- [CMake](https://cmake.org/download/) (version >= 3.17)
-- [Conan](https://docs.conan.io/en/latest/installation.html)
+No dependencies required.
 
 ### Client side
 
 <b>The CLIENT is the part of the project that will be used by the players to play the game. It will be the one that will communicate with the server.</b>
-
 
 [ENTITY](./EntityManager/README.md) - Read this file containing the documentation for the entity module. It's the module that will be used to manage the entities to display.
 
@@ -109,16 +106,16 @@ void createText(
     Engine::Entity::Component::GenericComponents::Vector2f position,
     Engine::Entity::Component::GenericComponents::Vector2f scale,
     sf::Color color, float rotation) {
+    // Create an entity.
     uint32_t text_entity = _gameEngine.getEntityManager()->createEntity();
 
-    Engine::RendererModule::Components::TextData tmp_text = {
-        text, font, color, position, scale, rotation};
+    // Define text data.
+    Engine::RendererModule::Components::TextData tmp_text = {text, font, color, position, scale, rotation};
 
-    std::shared_ptr<Engine::RendererModule::Components::TextComponent>
-        textComponent =
-            std::make_shared<Engine::RendererModule::Components::TextComponent>(
-                tmp_text);
+    // Create a text component.
+    std::shared_ptr<Engine::RendererModule::Components::TextComponent> textComponent = std::make_shared<Engine::RendererModule::Components::TextComponent>(tmp_text);
 
+    // Add the text component and the entity to the renderer module.
     _gameEngine.getEntityManager()->addComponent(text_entity, textComponent);
     addEntity(text_entity);
 }
