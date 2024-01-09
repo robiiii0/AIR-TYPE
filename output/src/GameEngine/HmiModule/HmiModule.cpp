@@ -37,6 +37,9 @@ std::string Engine::HmiModule::keyEvent(int key) {
 
             return "right";
             break;
+        case 10000:
+            return "exit";
+            break;
         default:
             return "nothing";
             break;

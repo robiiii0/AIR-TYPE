@@ -97,6 +97,10 @@ void Client::run() {
         std::string eventKey = _hmiModule->keyEvent(
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
+        if (eventKey == "exit") {
+            _networkingModule->~NetworkingModule();
+            _gameEngine.getRendererModule()->getWindow().close();
+        }
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update

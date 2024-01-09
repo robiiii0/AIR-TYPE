@@ -59,8 +59,8 @@ void Server::applyTickrate() {
         if (tickrate / SERVER_TICKRATE < 0.9) color = "\033[1;33m";
         if (tickrate / SERVER_TICKRATE < 0.8) color = "\033[1;31m";
         std::string color_end = "\033[0m";
-        std::cout << "Server Tickrate: " << color << tickrate << color_end
-                  << " / " << SERVER_TICKRATE << std::endl;
+        // std::cout << "Server Tickrate: " << color << tickrate << color_end
+        //           << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 

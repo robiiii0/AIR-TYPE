@@ -148,6 +148,10 @@ Engine::Network::Serializer::serialized_data_t
 std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     const Engine::Network::Serializer::serialized_data_t &data) {
     std::string binaryString;
+    std::cout << data.players[0].id << std::endl;
+    std::cout << data.players[1].id << std::endl;
+    std::cout << data.players[2].id << std::endl;
+    std::cout << data.players[3].id << std::endl;
     std::copy(reinterpret_cast<const char *>(&data),
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
