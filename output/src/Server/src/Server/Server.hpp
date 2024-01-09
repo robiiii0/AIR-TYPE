@@ -51,6 +51,7 @@ class Server {
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
         std::map<std::uint32_t, std::uint32_t> _missileEntities;
+        std::map<std::uint32_t, std::uint32_t> _ennemyEntities;
         std::uint32_t                          _missileID;
 };
 
