@@ -15,7 +15,7 @@ Engine::Network::CouldNotSendException::~CouldNotSendException() {}
 
 const char *Engine::Network::CouldNotSendException::what() const throw() {
     std::string str = "Could not send data to ";
-    str += _client.getAddress().sin_addr.s_addr;
+    str += _client.getAddress().toString();
     str += "!";
 
     return str.c_str();

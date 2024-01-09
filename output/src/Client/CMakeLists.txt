@@ -74,7 +74,7 @@ add_executable(r-type_client
 link_directories(${CMAKE_SOURCE_DIR}/GameEngine/NetworkingModule)
 
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE engine_networking sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
+target_link_libraries(r-type_client PRIVATE sfml-network sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

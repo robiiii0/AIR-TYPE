@@ -105,8 +105,8 @@ namespace Engine {
             protected:
                 void run();
                 void addClient(sf::IpAddress ip_address, unsigned short port);
-                void runTCP(Engine::Network::Messager &messager);
-                void runUDP(Engine::Network::Messager &messager);
+                void runTCP();
+                void runUDP();
                 bool isNewClient(const sf::IpAddress  &client_address,
                                  const unsigned short &client_port);
                 void addMessageToClientBuffer(

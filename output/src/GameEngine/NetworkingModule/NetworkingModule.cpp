@@ -83,12 +83,12 @@ Engine::Network::NetworkingModule::~NetworkingModule() {
 }
 
 void Engine::Network::NetworkingModule::run() {
-    Engine::Network::Messager messager(_type);
+    // Engine::Network::Messager messager(_type);
     while (true) {
         if (_type == TCP) {
-            runTCP(messager);
+            runTCP();
         } else {
-            runUDP(messager);
+            runUDP();
         }
     }
 }
@@ -100,8 +100,7 @@ void Engine::Network::NetworkingModule::addClient(sf::IpAddress  client_address,
     _clients.push_back(client);
 }
 
-void Engine::Network::NetworkingModule::runTCP(
-    Engine::Network::Messager &messager) {
+void Engine::Network::NetworkingModule::runTCP() {
     // struct sockaddr_in client_address;
     // socklen_t          client_address_size = sizeof(client_address);
     // int                client_socket_fd = accept(
@@ -116,8 +115,7 @@ void Engine::Network::NetworkingModule::runTCP(
     // }
 }
 
-void Engine::Network::NetworkingModule::runUDP(
-    Engine::Network::Messager &messager) {
+void Engine::Network::NetworkingModule::runUDP() {
     char buffer[16384];
     // struct sockaddr_in client_address;
     // socklen_t          client_address_size = sizeof(client_address);
@@ -142,7 +140,8 @@ void Engine::Network::NetworkingModule::runUDP(
             _clients.push_back(client);  // TODO: décoder base64
             client.getBuffer()->write(buffer, bytesReceived);
         } else {
-            addMessageToClientBuffer(buffer, bytesReceived, client_address, client_port);
+            addMessageToClientBuffer(buffer, bytesReceived, client_address,
+                                     client_port);
         }
     }
 }
@@ -206,7 +205,7 @@ std::string Engine::Network::NetworkingModule::encodeBase64(
 
 void Engine::Network::NetworkingModule::sendMessage(
     const std::string &message, const std::size_t &client_id) {
-    Engine::Network::Messager messager(_type);
+    // Engine::Network::Messager messager(_type);
     int                       index = 0;
     if (client_id >= _clients.size()) {
         throw ClientIdOutOfRangeException();
@@ -225,14 +224,14 @@ void Engine::Network::NetworkingModule::sendMessage(
     packet += _protocol_prefix;
     packet += message;
     packet += _protocol_suffix;  // TODO: encoder en base64
-    _udp_socket->send(packet.c_str(), packet.size() + 1, _clients[index].getAddress(),
-                      _clients[index].getPort());
+    _udp_socket->send(packet.c_str(), packet.size() + 1,
+                      _clients[index].getAddress(), _clients[index].getPort());
     // messager.sendMessage(packet, _clients[index], _socket_fd);
 }
 
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
-    Engine::Network::Messager messager(_type);
+    // Engine::Network::Messager messager(_type);
     std::string               packet = "";
     packet += message;
     for (auto &client : _clients) {
