@@ -51,6 +51,10 @@ Engine::Network::Serializer::serialized_data_t
             if (tokens[1] == "player") {
                 int last_player = -1;
                 for (int i = 0; i < MAX_PLAYERS; i++) {
+                    if (data.players[i].id == entity.id) {
+                        last_player = i;
+                        break;
+                    }
                     if (data.players[i].id == -1) {
                         last_player = i;
                         break;
