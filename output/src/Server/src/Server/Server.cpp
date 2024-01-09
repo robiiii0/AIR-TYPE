@@ -157,6 +157,8 @@ void Server::networkLoop() {
         auto &client = _networkingModule->getClients().back();
         std::cout << "Welcoming Client " << client.getId() << std::endl;
         _clientMessages[client.getId()] = std::queue<std::string>();
+        _networkingModule->sendMessage(
+            "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
     }
