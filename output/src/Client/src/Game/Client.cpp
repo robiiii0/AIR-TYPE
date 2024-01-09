@@ -38,8 +38,8 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
 }
 
-
-void Client::CommandManagerForPlayer(Engine::Network::Serializer::entity_t &player) {
+void Client::CommandManagerForPlayer(
+    Engine::Network::Serializer::entity_t &player) {
     // todo faire une boucle pour checker tout les players
     if (player.id > -1) {
         if (_ClientId == 8) {
@@ -81,7 +81,9 @@ void Client::run() {
                             msg);
                     for (auto &player : data.players) {
                         CommandManagerForPlayer(player);
-                        // TODO: check le player.id, mettre le _CliendId > 4 pour l'init, crée le player si player.id > -1 et que _ClientID != player.id sinon update pos
+                        // TODO: check le player.id, mettre le _CliendId > 4
+                        // pour l'init, crée le player si player.id > -1 et que
+                        // _ClientID != player.id sinon update pos
                     }
                 }
             }

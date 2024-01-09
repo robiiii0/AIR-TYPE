@@ -94,7 +94,8 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
 
-        void CommandManagerForPlayer(Engine::Network::Serializer::entity_t &player);
+        void CommandManagerForPlayer(
+            Engine::Network::Serializer::entity_t &player);
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
         void LoadTextureParallax(std::string paths);

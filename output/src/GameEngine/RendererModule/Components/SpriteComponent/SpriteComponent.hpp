@@ -28,9 +28,7 @@ namespace Engine {
             class SpriteComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    SpriteComponent(
-                        SpriteData  &value,
-                        sf::Texture &texture);
+                    SpriteComponent(SpriteData &value, sf::Texture &texture);
                     ~SpriteComponent();
 
                     void execute() override;
