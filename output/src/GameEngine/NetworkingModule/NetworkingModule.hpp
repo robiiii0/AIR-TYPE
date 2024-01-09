@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <SFML/Network.hpp>
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -61,7 +62,8 @@ namespace Engine {
                  */
                 NetworkingModule(int port, NetworkingTypeEnum type,
                                  const std::string &server_address,
-                                 int server_port, int max_clients = 4);
+                                 unsigned short     server_port,
+                                 int                max_clients = 4);
                 ~NetworkingModule();
 
                 /*
@@ -102,19 +104,23 @@ namespace Engine {
 
             protected:
                 void run();
-                void addClient(const struct sockaddr_in &client_address);
+                void addClient(sf::IpAddress ip_address, unsigned short port);
                 void runTCP(Engine::Network::Messager &messager);
                 void runUDP(Engine::Network::Messager &messager);
-                bool isNewClient(const struct sockaddr_in &client_address);
+                bool isNewClient(const sf::IpAddress  &client_address,
+                                 const unsigned short &client_port);
                 void addMessageToClientBuffer(
                     const char *buffer, std::size_t &bytesReceived,
-                    const struct sockaddr_in &client_address);
+                    const sf::IpAddress  &client_address,
+                    const unsigned short &client_port);
                 std::string encodeBase64(const std::string &message);
 
             private:
-                NetworkingTypeEnum                   _type;
-                int                                  _socket_fd;
-                struct sockaddr_in                   _server_address;
+                NetworkingTypeEnum _type;
+                // int                            _socket_fd;
+                std::unique_ptr<sf::UdpSocket> _udp_socket;
+                std::unique_ptr<sf::TcpSocket> _tcp_socket;
+                // struct sockaddr_in                   _server_address;
                 std::vector<Engine::Network::Client> _clients;
                 int                                  _max_clients;
                 const std::string _protocol_prefix = "PACKET_START";
