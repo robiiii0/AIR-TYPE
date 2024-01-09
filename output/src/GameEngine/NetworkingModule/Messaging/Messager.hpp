@@ -11,6 +11,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <thread>
+#include <SFML/Network.hpp>
 
 #include "../Client/Client.hpp"
 #include "../enums/NetworkingTypeEnum.hpp"
@@ -25,8 +26,7 @@ namespace Engine {
                 ~Messager();
 
                 void sendMessage(const std::string       &message,
-                                 Engine::Network::Client &client,
-                                 int                      socket_fd);
+                                 Engine::Network::Client &client);
                 void startReceiving(Engine::Network::Client &client);
 
             protected:
