@@ -22,9 +22,13 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
     Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
     while (_window.pollEvent(_event)) {
-        if (_event.type == sf::Event::Closed) return 10000;
+        if (_event.type == sf::Event::Closed) {
+            _window.close();
+            return 10000;
+        } 
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape) {
+                _window.close();
                 return 10000;
         }
 
