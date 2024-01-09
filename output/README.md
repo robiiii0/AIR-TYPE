@@ -1,8 +1,8 @@
 # R-Type
 
-## How to play
+<img src="./assets/rtype-logo.png">
 
-<img src="./src/Client/assets/new_assets/player/sprites/player1_yellow.png">
+## How to play
 
 #### Game Objective:
 
