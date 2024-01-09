@@ -26,7 +26,6 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     _sprite.setRotation(_data.rotation);
     _data.pos.x = value.pos.x;
     _data.pos.y = value.pos.y;
-    std::cout << "ClickableCompoent created" << std::endl;
 }
 
 sf::Drawable &

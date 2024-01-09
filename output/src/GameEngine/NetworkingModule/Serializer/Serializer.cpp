@@ -169,6 +169,6 @@ std::string Engine::Network::Serializer::Serializer::serializeToPacket(
     std::string       packet;
 
     packet += structToBinaryString(data);
-    std::cout << "Sending " << packet.length() << " bytes" << std::endl;
+    // std::cout << "Sending " << packet.length() << " bytes" << std::endl;
     return packet;
 }
