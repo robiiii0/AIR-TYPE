@@ -12,47 +12,79 @@ jobs:
         strategy:
             matrix:
                 config:
+                    - os: ubuntu-latest
+                      arch: 'x64'
+                      ext: ''
+                      triplet: 'x64-linux'
                     # - os: ubuntu-latest
+                    #   arch: 'x86_64'
                     #   ext: ''
+                    #   triplet: 'x86-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-linux'
                     # - os: macos-latest
+                    #   arch: 'x64'
                     #   ext: ''
+                    #   triplet: 'x64-osx'
+                    # - os: macos-latest
+                    #   arch: 'x86_64'
+                    #   ext: ''
+                    #   triplet: 'x86-osx'
+                    # - os: macos-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-osx'
                     - os: windows-latest
+                      arch: 'x64'
                       ext: '.exe'
+                      triplet: 'x64-windows'
+                    # - os: windows-latest
+                    #   arch: 'x86'
+                    #   ext: '.exe'
+                    #   triplet: 'x86-windows'
+                    # - os: windows-latest
+                    #   arch: 'arm'
+                    #   ext: '.exe'
+                    #   triplet: 'arm-windows'
+
+        env:
+            VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.triplet }}
+            ARCH: ${{ matrix.config.arch }}
         steps:
             - name: 'Checkout'
               uses: actions/checkout@v4
-            - name: 'Setup vcpkg'
-              run: bash install_vcpkg.sh
-            - name: 'Binary build x86'
-              run: 'set VCPKG_TARGET_ARCHITECTURE=x86 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_x86-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_x86-${{ matrix.config.os }}${{ matrix.config.ext }}'
-            - name: 'Binary build x64'
-              run: 'set VCPKG_TARGET_ARCHITECTURE=x64 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_x64-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_x64-${{ matrix.config.os }}${{ matrix.config.ext }}'
-            - name: 'Binary build aarch64'
-              run: 'set VCPKG_TARGET_ARCHITECTURE=arm64 && cd output && bash build_release.sh && cd release && mv r-type_client${{ matrix.config.ext }} r-type_client_aarch64-${{ matrix.config.os }}${{ matrix.config.ext }} && mv r-type_server${{ matrix.config.ext }} r-type_server_aarch64-${{ matrix.config.os }}${{ matrix.config.ext }}'
+            - name: 'Install vcpkg'
+              run: 'bash install_vcpkg.sh'
+            - name: 'Install dependencies'
+              run: './vcpkg/vcpkg install sfml:${{ matrix.config.triplet }}'
+            - name: 'Build'
+              run: 'cd output && bash build_release.sh'
             - name: 'Upload binaries'
               uses: actions/upload-artifact@v3
               with:
                   path: output/release
 
-    upload:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - name: 'Checkout'
-              uses: actions/checkout@v4
-            - name: 'Download built binaries'
-              uses: actions/download-artifact@v3
-              with:
-                  path: 'output/release'
-            - name: 'Pack binaries'
-              run: 'cd output/release && tar -czf release.tar.gz *'
-            - name: 'Publish Release'
-              uses: softprops/action-gh-release@v1
-              with:
-                token: ${{ secrets.API_TOKEN_GITHUB }}
-                files: 'output/release/release.tar.gz'
-                tag_name: ${{ github.ref }}
-                body: |
-                    Release ${{ github.ref }}
-                    ---
-                    Automatic release by GitHub Actions
+    # upload:
+    #     needs: build
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: 'Checkout'
+    #           uses: actions/checkout@v4
+    #         - name: 'Download built binaries'
+    #           uses: actions/download-artifact@v3
+    #           with:
+    #               path: 'output/release'
+    #         - name: 'Pack binaries'
+    #           run: 'cd output/release && tar -czf release.tar.gz *'
+    #         - name: 'Publish Release'
+    #           uses: softprops/action-gh-release@v1
+    #           with:
+    #             token: ${{ secrets.API_TOKEN_GITHUB }}
+    #             files: 'output/release/release.tar.gz'
+    #             tag_name: ${{ github.ref }}
+    #             body: |
+    #                 Release ${{ github.ref }}
+    #                 ---
+    #                 Automatic release by GitHub Actions

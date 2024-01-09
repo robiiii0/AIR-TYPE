@@ -44,3 +44,5 @@ else
     print_red "Error installing SFML!"
     exit 1
 fi
+
+./vcpkg integrate install
