@@ -30,8 +30,7 @@ namespace Engine {
                 public:
                     SpriteComponent(
                         SpriteData  &value,
-                        sf::Texture &texture);  // TODO changer le std::string
-                                                // pour le sprite c'est pas bien
+                        sf::Texture &texture);
                     ~SpriteComponent();
 
                     void execute() override;

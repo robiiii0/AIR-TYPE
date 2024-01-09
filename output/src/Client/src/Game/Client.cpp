@@ -7,7 +7,7 @@ Client::Client() {
                                           "Air Typing", 60);
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
-    _ClientId = 0;
+    _ClientId = 8;
     _gameState = MENU;
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/Menu/earth.png");
@@ -38,6 +38,25 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
 }
 
+
+void Client::CommandManagerForPlayer(Engine::Network::Serializer::entity_t &player) {
+    // todo faire une boucle pour checker tout les players
+    if (player.id > -1) {
+        if (_ClientId == 8) {
+            _ClientId = player.id;
+            std::cout << "yes" << std::endl;
+            createPlayer(_texturePlayer);
+            _player.push_back(player);
+        } else if (_ClientId == player.id) {
+            _player[0] = player;
+            // TODO update les pos ici
+        }
+    }
+    // std::cout << player.id << std::endl;
+    // std::cout << player.x << std::endl;
+    // std::cout << player.y << std::endl;
+}
+
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
@@ -61,9 +80,7 @@ void Client::run() {
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
                     for (auto &player : data.players) {
-                        std::cout << player.id << std::endl;
-                        std::cout << player.x << std::endl;
-                        std::cout << player.y << std::endl;
+                        CommandManagerForPlayer(player);
                         // TODO: check le player.id, mettre le _CliendId > 4 pour l'init, crée le player si player.id > -1 et que _ClientID != player.id sinon update pos
                     }
                 }

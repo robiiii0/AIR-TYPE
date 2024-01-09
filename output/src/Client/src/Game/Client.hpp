@@ -87,12 +87,14 @@ class Client {
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
+
         void createText(
             std::string text, sf::Font &font,
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
 
+        void CommandManagerForPlayer(Engine::Network::Serializer::entity_t &player);
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
         void LoadTextureParallax(std::string paths);

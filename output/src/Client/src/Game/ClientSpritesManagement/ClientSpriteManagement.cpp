@@ -102,33 +102,26 @@ void Client::CreateBoss(
 }
 
 void Client::createPlayer(std::vector<sf::Texture> &Textures) {
-    std::cout << " Texture size " << Textures.size() << "Client id "
-              << _ClientId << std::endl;
-    // for (int i = _ClientId; i < Textures.size(); i++) {
-    //     uint32_t spritePlayerEntity =
-    //         _gameEngine.getEntityManager()->createEntity();
+    uint32_t spritePlayerEntity = _gameEngine.getEntityManager()->createEntity();
+        Engine::Entity::Component::GenericComponents::Vector2f position = {250.0,
+                                                                       250.0};
+        std::shared_ptr<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>
+        posComponent = std::make_shared<
+            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+            position);
+    Engine::RendererModule::Components::SpriteData sprite_temp = {
+        position, {2.0, 2.0}, sf::Color::White, 0, true};
 
-    //     Engine::Entity::Component::GenericComponents::Vector2f pos =
-    //     position;
+        std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent =
+            std::make_shared<Engine::RendererModule::Components::SpriteComponent>(
+                sprite_temp, Textures[0]);
 
-    //     std::shared_ptr<
-    //         Engine::Entity::Component::GenericComponents::Vector2fComponent>
-    //         posComponent =
-    //             std::make_shared<Engine::Entity::Component::GenericComponents::
-    //                                  Vector2fComponent>(pos);
-    //     Engine::RendererModule::Components::SpriteData sprite_temp = {
-    //         pos, {2, 2}, sf::Color::White, 0, false};
-
-    //     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-    //         spriteComponent = std::make_shared<
-    //             Engine::RendererModule::Components::SpriteComponent>(
-    //             sprite_temp, Textures);
-    //     _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
-    //                                                  spriteComponent);
-    //     _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
-    //                                                  posComponent);
-    //     addEntity(spritePlayerEntity);
-    // }
+    _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
+                                                 spriteComponent);
+    _gameEngine.getEntityManager()->addComponent(spritePlayerEntity, posComponent);
+    addEntity(spritePlayerEntity);
 }
 
 void Client::LoadTexturePlayer(std::string paths) {
