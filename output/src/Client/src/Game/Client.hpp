@@ -80,7 +80,7 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
-        void createPlayer(std::vector<sf::Texture> &Textures);
+        void createPlayer(sf::Texture &Textures,  Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
 
         void createButton(std::function<void()> func, std::string text,
@@ -95,7 +95,8 @@ class Client {
             sf::Color color, float rotation);
 
         void CommandManagerForPlayer(
-            Engine::Network::Serializer::entity_t &player);
+           Engine::Network::Serializer::serialized_data_t data);
+        void GetClientId(Engine::Network::Serializer::serialized_data_t data); 
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
         void LoadTextureParallax(std::string paths);

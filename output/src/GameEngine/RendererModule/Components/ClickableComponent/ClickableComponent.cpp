@@ -68,7 +68,6 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) {
-    std::cout << "is clicked" << std::endl;
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {

@@ -101,11 +101,10 @@ void Client::CreateBoss(
     addEntity(BossEntity);
 }
 
-void Client::createPlayer(std::vector<sf::Texture> &Textures) {
+void Client::createPlayer(sf::Texture &Textures,  Engine::Entity::Component::GenericComponents::Vector2f pos) {
     uint32_t spritePlayerEntity =
         _gameEngine.getEntityManager()->createEntity();
-    Engine::Entity::Component::GenericComponents::Vector2f position = {250.0,
-                                                                       250.0};
+    Engine::Entity::Component::GenericComponents::Vector2f position = pos;
     std::shared_ptr<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>
         posComponent = std::make_shared<
@@ -117,7 +116,7 @@ void Client::createPlayer(std::vector<sf::Texture> &Textures) {
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
             Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
-                                                                 Textures[0]);
+                                                                 Textures);
 
     _gameEngine.getEntityManager()->addComponent(spritePlayerEntity,
                                                  spriteComponent);
