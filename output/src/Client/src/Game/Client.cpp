@@ -44,24 +44,39 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
 }
 
+std::vector<std::string> Client::ParseCommande(std::string str)
+{
+    std::istringstream iss(str);
+
+    std::vector<std::string> words;
+
+    do {
+        std::string word;
+        iss >> word;
+        words.push_back(word);
+    } while (iss);
+
+    return words;
+}
+
+
 void Client::CommandManagerForPlayer(
     std::string msg) {
     // todo faire une boucle pour checker tout les players
-    std::cout << msg << std::endl;
-    // int size = _player.size();
-    // int taille = 0;
-    // for (auto &player : data.players) {
-    //     if (player.id > -1 && player.id < 4) {
-    //         if (size <= player.id) {
-    //             std::cout << _player.size() << "and " <<  player.id << "at :" << player.x  <<" " <<player.y << std::endl;
-    //             taille++;
-    //             createPlayer(_texturePlayer[player.id], { static_cast<float>(20 + (player.id * 200)),  static_cast<float>(20 + (player.id * 200))});
-    //             _player.push_back(player);
-    //         }
-    //     }
-    // }
-    // if (taille > 0)
-    //     std::cout << "la taille est de " << taille << std::endl;
+    
+    if (msg.length() > 35) {
+    std::vector<std::string> words = ParseCommande(msg);
+        std::cout << msg << std::endl;
+    std::cout << words[2] << std::endl;
+        int nbClient = std::stoi(words[2]);
+        if (nbClient + 1 > _player.size()) {
+            std::cout << "creation" << std::endl;
+            createPlayer(_texturePlayer[nbClient], {std::stof(words[3]), std::stof(words[4])});
+            _player.push_back(nbClient);
+        } else {
+            std::cout << "update" << std::endl;
+        }
+    }
 }
 
 void Client::GetClientId(Engine::Network::Serializer::serialized_data_t data) {
@@ -76,7 +91,6 @@ void Client::ConnectionWithServer() {
     _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
-
 }
 
 void Client::run() {

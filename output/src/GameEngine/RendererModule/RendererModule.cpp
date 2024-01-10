@@ -143,14 +143,6 @@ void Engine::RendererModule::RendererModule::update(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});
                 }
-                if (auto clickableComp = std::dynamic_pointer_cast<
-                        Engine::RendererModule::Components::
-                            RoundedClickableComponent>(component)) {
-                    // If it is, update the component
-                    clickableComp->isHovered(
-                        {sf::Mouse::getPosition(_window).x,
-                         sf::Mouse::getPosition(_window).y});
-                }
                 if (auto spriteComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::SpriteComponent>(
                         component)) {
@@ -158,8 +150,8 @@ void Engine::RendererModule::RendererModule::update(
                         if (auto posComp = std::dynamic_pointer_cast<
                                 Engine::Entity::Component::GenericComponents::
                                     PositionComponent>(component2)) {
-                            spriteComp->setPosition(posComp->getValue().x,
-                                                    posComp->getValue().y);
+                            spriteComp->setPosition(posComp->getValue().x / 2,
+                                                    posComp->getValue().y / 2);
                         }
                     }
                 }

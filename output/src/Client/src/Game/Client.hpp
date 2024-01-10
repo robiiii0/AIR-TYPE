@@ -11,6 +11,9 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/HmiModule/HmiModule.hpp"
@@ -118,6 +121,9 @@ class Client {
         void ChangeKeyBinding();
         void ConnectionWithServer();
 
+
+        std::vector<std::string> ParseCommande(std::string str);
+
         // Gamestate handling
         void changeState(GameState state);
         void clearCurrentState();
@@ -134,7 +140,7 @@ class Client {
         int _screenHeight;
         int _gameState;
 
-        std::vector<Engine::Network::Serializer::entity_t> _player;
+        std::vector<int> _player;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
