@@ -84,7 +84,7 @@ void Server::sendGameStatus(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "create player " +
+                std::string msg = "add player " +
                                   std::to_string(entity.first) + " " +
                                   std::to_string(position->getValue().x + 2) +
                                   " " + std::to_string(position->getValue().y);
