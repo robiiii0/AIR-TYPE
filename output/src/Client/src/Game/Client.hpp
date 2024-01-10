@@ -134,7 +134,7 @@ class Client {
         void playerInit();
 
 
-        void createSpriteTest(Engine::Network::Serializer::entity_t &player, int place);
+        void HandlePlayerManagement(Engine::Network::Serializer::entity_t &player, int place);
 
     private:
         Engine::GameEngine         _gameEngine;

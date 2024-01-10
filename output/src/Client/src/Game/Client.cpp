@@ -10,7 +10,6 @@ Client::Client() {
     _ClientId = 8;
     _gameState = MENU;
     playerInit();
-    std::cout << "ici" << std::endl;
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
@@ -53,16 +52,7 @@ void Client::ConnectionWithServer() {
 }
 
 
-void Client::playerInit()
-{
-    Engine::Network::Serializer::entity_t entityTemp = {-1,{static_cast<bool>(false)}, {static_cast<float>(0.0)}, {static_cast<float>(0.0)}};
-    for (int i = 0; i < 4; i++) {
-        _player.push_back(entityTemp);
-    }
-}
-
-
-void Client::createSpriteTest(Engine::Network::Serializer::entity_t &player, int place) {
+void Client::HandlePlayerManagement(Engine::Network::Serializer::entity_t &player, int place) {
     if (player.id > -1 && player.id < 4) {
         if (_player[place].id == -1) {
             _player[place].id = player.id;
@@ -96,7 +86,7 @@ void Client::run() {
                             msg);
                     int place = 0;
                     for (auto &player : data.players) {
-                        createSpriteTest(player, place);
+                        HandlePlayerManagement(player, place);
                         place++;
                     }
                 }

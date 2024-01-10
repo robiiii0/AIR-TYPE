@@ -1,5 +1,16 @@
 #include "../Client.hpp"
 
+
+void Client::LoadTextureParallax(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturesParallax.push_back(texture);
+}
+
 void Client::createParallax(std::vector<sf::Texture> &Textures) {
     for (int i = 0; i < Textures.size(); i++) {
         uint32_t spriteParallaxEntity =
@@ -17,6 +28,21 @@ void Client::createParallax(std::vector<sf::Texture> &Textures) {
                                                      parallaxComponent);
         addEntity(spriteParallaxEntity);
     }
+}
+
+
+void Client::LoadBackground() {
+    sf::Texture texture;
+    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/"
+                             "background.png") == false) {
+        std::cerr
+            << "Error: could not load texture "
+            << "src/Client/assets/new_assets/background/Menu/background.png"
+            << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _backgroundTexture = texture;
 }
 
 void Client::createBackground(sf::Texture &texture) {
@@ -40,6 +66,16 @@ void Client::createBackground(sf::Texture &texture) {
     _gameEngine.getEntityManager()->addComponent(spriteBackgroundEntity,
                                                  spriteComponent);
     addEntity(spriteBackgroundEntity);
+}
+
+void Client::LoadTextureEnemies(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturesEnemies.push_back(texture);
 }
 
 void Client::createEnemy(std::vector<sf::Texture> &Textures) {
@@ -101,6 +137,18 @@ void Client::CreateBoss(
     addEntity(BossEntity);
 }
 
+
+void Client::LoadTexturePlayer(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texturePlayer.push_back(texture);
+}
+
+
 void Client::createPlayer(sf::Texture &Textures, Engine::Entity::Component::GenericComponents::Vector2f pos) {
     uint32_t PlayerEntity = _gameEngine.getEntityManager()->createEntity();
 
@@ -124,39 +172,7 @@ void Client::createPlayer(sf::Texture &Textures, Engine::Entity::Component::Gene
     addEntity(PlayerEntity);
 }
 
-void Client::LoadTexturePlayer(std::string paths) {
-    sf::Texture texture;
-    if (texture.loadFromFile(paths) == false) {
-        std::cerr << "Error: could not load texture " << paths << std::endl;
-        exit(84);
-    }
-    texture.setSmooth(true);
-    _texturePlayer.push_back(texture);
-}
 
-void Client::LoadTextureEnemies(std::string paths) {
-    sf::Texture texture;
-    if (texture.loadFromFile(paths) == false) {
-        std::cerr << "Error: could not load texture " << paths << std::endl;
-        exit(84);
-    }
-    texture.setSmooth(true);
-    _texturesEnemies.push_back(texture);
-}
-
-void Client::LoadBackground() {
-    sf::Texture texture;
-    if (texture.loadFromFile("src/Client/assets/new_assets/background/Menu/"
-                             "background.png") == false) {
-        std::cerr
-            << "Error: could not load texture "
-            << "src/Client/assets/new_assets/background/Menu/background.png"
-            << std::endl;
-        exit(84);
-    }
-    texture.setSmooth(true);
-    _backgroundTexture = texture;
-}
 
 void Client::LoadSettingsKeyBindings(std::string paths) {
     sf::Texture texture;
@@ -168,15 +184,7 @@ void Client::LoadSettingsKeyBindings(std::string paths) {
     _textureSetting.push_back(texture);
 }
 
-void Client::LoadTextureParallax(std::string paths) {
-    sf::Texture texture;
-    if (texture.loadFromFile(paths) == false) {
-        std::cerr << "Error: could not load texture " << paths << std::endl;
-        exit(84);
-    }
-    texture.setSmooth(true);
-    _texturesParallax.push_back(texture);
-}
+
 
 void Client::createMissile(std::uint32_t id, float x, float y) {
     uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();
