@@ -17,6 +17,7 @@ Game::Game() : _gameEngine() {
     _gameState = GameState::GAME;
 
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
+    LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
 }
 
