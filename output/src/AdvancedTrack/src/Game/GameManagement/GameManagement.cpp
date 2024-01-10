@@ -7,4 +7,6 @@
 
 #include "../Game.hpp"
 
-void Game::setGame() {}
+void Game::setGame() {
+    createSprite({static_cast<float>(100), static_cast<float>(100)}, {static_cast<float>(1), static_cast<float>(1)}, _textures[0], "");
+}

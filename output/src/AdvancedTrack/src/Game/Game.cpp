@@ -14,9 +14,10 @@ Game::Game() : _gameEngine() {
                                           "PokeHunter", 60);
 
     _hmiModule = std::make_shared<Engine::HmiModule>();
-    _gameState = GameState::MENU;
+    _gameState = GameState::GAME;
 
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
+    LoadTexture("assets/Sprite/pokeball.png");
 }
 
 void Game::run() {
