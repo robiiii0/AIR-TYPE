@@ -60,7 +60,7 @@ std::vector<std::string> Client::ParseCommande(std::string str)
 }
 
 
-void Client::CommandManagerForPlayer(
+void Client::CommandManager(
     std::string msg) {
     // todo faire une boucle pour checker tout les players
     
@@ -110,7 +110,7 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    CommandManagerForPlayer(msg);
+                    CommandManager(msg);
                 }
             }
         }
