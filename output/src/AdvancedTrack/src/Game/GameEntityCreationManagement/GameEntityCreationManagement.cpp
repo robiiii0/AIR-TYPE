@@ -87,3 +87,12 @@ void Game::createButton(std::function<void()> func, std::string text,
                    color, rotation);
     }
 }
+
+void Game::addEntity(std::uint32_t entity) { _entities.push_back(entity); }
+
+void Game::removeEntity(std::uint32_t entity) {
+    _entities.erase(std::remove(_entities.begin(), _entities.end(), entity),
+                    _entities.end());
+}
+
+std::vector<std::uint32_t> &Game::getEntities() { return _entities; }
