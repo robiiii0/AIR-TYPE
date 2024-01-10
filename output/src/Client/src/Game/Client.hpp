@@ -131,6 +131,7 @@ class Client {
         void handleExit();
 
         void playerInit();
+        void HandleMovementManager(std::string command);
 
         void HandlePlayerManagement(
             Engine::Network::Serializer::entity_t &player, int place);

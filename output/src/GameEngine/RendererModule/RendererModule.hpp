@@ -37,9 +37,8 @@ namespace Engine {
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();
-                int               UpdateForServer(
-                                  Engine::Entity::EntityManager &entityManager,
-                                  std::vector<uint32_t>          id_list);
+                int HandleEvent(Engine::Entity::EntityManager &entityManager,
+                                std::vector<uint32_t>          id_list);
 
             protected:
             private:

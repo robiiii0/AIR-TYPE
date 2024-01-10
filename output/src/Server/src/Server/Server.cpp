@@ -105,9 +105,10 @@ void Server::createPlayer(std::uint32_t id) {
         position_data);
     _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
                                                   position);
-    std::string msg = "add player " + std::to_string(id) + " " +
-                      std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
-                      std::to_string(position->getValue().y);
+    std::string msg =
+        "add player " + std::to_string(id) + " " +
+        std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
+        std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
     // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + "
@@ -207,11 +208,12 @@ void Server::networkLoop() {
         }
         if (messages.size() > 0)
             // for (int i = 0; i < msg_client.size(); i++) {
-            //     _networkingModule->sendMessage(msg_client[i], client.getId());
+            //     _networkingModule->sendMessage(msg_client[i],
+            //     client.getId());
             // }
-        _networkingModule->sendMessage(
-            _networkingModule->getSerializer().serializeToPacket(messages),
-            client.getId());
+            _networkingModule->sendMessage(
+                _networkingModule->getSerializer().serializeToPacket(messages),
+                client.getId());
     }
 }
 
