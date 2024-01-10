@@ -75,6 +75,8 @@ class Game {
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                                            _sounds;
         std::shared_ptr<Engine::HmiModule> _hmiModule;
+
+        sf::Vector2f _playerPos;
 };
 
 #endif /* !GAME_HPP_ */

@@ -27,6 +27,7 @@ void Game::setUpState() {
             setMenu();
             break;
         case GameState::GAME:
+            _playerPos = {static_cast<float>(100), static_cast<float>(100)};
             setGame();
             break;
         default:

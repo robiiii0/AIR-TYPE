@@ -30,6 +30,8 @@ void Game::run() {
             _gameEngine.getRendererModule()->UpdateForServer(
                 *_gameEngine.getEntityManager(), getEntities()));
 
+        _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
+                                              getEntities(), 0.5);
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
     }
