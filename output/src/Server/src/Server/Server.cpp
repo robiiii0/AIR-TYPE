@@ -206,12 +206,12 @@ void Server::networkLoop() {
             _clientMessages[client.getId()].pop();
         }
         if (messages.size() > 0)
-            for (int i = 0; i < msg_client.size(); i++) {
-                _networkingModule->sendMessage(msg_client[i], client.getId());
-            }
-        // _networkingModule->sendMessage(
-        //     _networkingModule->getSerializer().serializeToPacket(messages),
-        //     client.getId());
+            // for (int i = 0; i < msg_client.size(); i++) {
+            //     _networkingModule->sendMessage(msg_client[i], client.getId());
+            // }
+        _networkingModule->sendMessage(
+            _networkingModule->getSerializer().serializeToPacket(messages),
+            client.getId());
     }
 }
 
@@ -232,7 +232,7 @@ void Server::updatePlayer(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "update player " + std::to_string(id) + " " +
+                std::string msg = "add player " + std::to_string(id) + " " +
                                   std::to_string(position->getValue().x + 3) +
                                   " " + std::to_string(position->getValue().y);
                 // position->setValue({static_cast<float>(position->getValue().x

@@ -157,7 +157,7 @@ void Client::createPlayer(
         Engine::Entity::Component::GenericComponents::Vector2fComponent>
         posComponent = std::make_shared<
             Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-            pos);
+            position);
     Engine::RendererModule::Components::SpriteData sprite_temp = {
         position, {1, 1}, sf::Color::White, 0, false};
 

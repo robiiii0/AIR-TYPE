@@ -54,12 +54,16 @@ void Client::ConnectionWithServer() {
 void Client::HandlePlayerManagement(
     Engine::Network::Serializer::entity_t &player, int place) {
     if (player.id > -1 && player.id < 4) {
-        if (_player[place].id == -1) {
+        if (_player[place].id == -1 && player.id 
+        != _player[0].id && player.id != _player[1].id && player.id != _player[2].id && player.id != _player[3].id
+        && player.x < 1920 && player.x >= 0 && player.y < 1080 && player.y >= 0
+        ) {
             _player[place].id = player.id;
             _player[place].x = player.x;
             _player[place].y = player.y;
             _player[place].direction = player.direction;
-            createPlayer(_texturePlayer[player.id], {player.x, player.y});
+            std::cout << "oe oe" << player.id  << "at " << player.x << " " << player.y << std::endl;
+            createPlayer(_texturePlayer[place], {player.x, player.y});
         }
     }
 }
@@ -87,6 +91,7 @@ void Client::run() {
                     int place = 0;
                     for (auto &player : data.players) {
                         HandlePlayerManagement(player, place);
+                        
                         place++;
                     }
                 }
