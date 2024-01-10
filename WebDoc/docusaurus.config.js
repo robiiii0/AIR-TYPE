@@ -9,7 +9,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'R-Type',
-  tagline: 'R-type and Dinosaurs are cool',
+  tagline: 'R-type, a game made by Epitech students!',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
