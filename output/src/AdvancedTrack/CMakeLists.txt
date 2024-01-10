@@ -43,6 +43,8 @@ add_executable(game-advanced_track
         ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
         ../GameEngine/HmiModule/HmiModule.cpp
         ../GameEngine/HmiModule/HmiModule.hpp
+
+        src/Game/Game.cpp
 )
 
 # Link the libraries from RendererModule and EntityManager
