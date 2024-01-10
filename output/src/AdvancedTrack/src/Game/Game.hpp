@@ -14,10 +14,10 @@
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
+#include "../../../GameEngine/HmiModule/HmiModule.hpp"
+#include "../../../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/TextComponent/TextComponent.hpp"
-#include "../../../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.hpp"
-#include "../../../GameEngine/HmiModule/HmiModule.hpp"
 #include "./GameEnum.hpp"
 
 class Game {
@@ -73,8 +73,8 @@ class Game {
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
-                                                           _sounds;
-        std::shared_ptr<Engine::HmiModule>                 _hmiModule;
+                                           _sounds;
+        std::shared_ptr<Engine::HmiModule> _hmiModule;
 };
 
 #endif /* !GAME_HPP_ */

@@ -8,9 +8,9 @@
 #include "../Game.hpp"
 
 void Game::createSprite(
-            Engine::Entity::Component::GenericComponents::Vector2f pos,
-            Engine::Entity::Component::GenericComponents::Vector2f scale,
-            sf::Texture &texture, std::string name) {
+    Engine::Entity::Component::GenericComponents::Vector2f pos,
+    Engine::Entity::Component::GenericComponents::Vector2f scale,
+    sf::Texture &texture, std::string name) {
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
     std::shared_ptr<
@@ -61,9 +61,9 @@ void Game::createText(
 }
 
 void Game::createButton(std::function<void()> func, std::string text,
-                          sf::Texture &texture, sf::Font &font,
-                          sf::Vector2f position, sf::Vector2f scale,
-                          sf::Color color, float rotation) {
+                        sf::Texture &texture, sf::Font &font,
+                        sf::Vector2f position, sf::Vector2f scale,
+                        sf::Color color, float rotation) {
     uint32_t button_entity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::RendererModule::Components::ClickableData tmp_clickable = {

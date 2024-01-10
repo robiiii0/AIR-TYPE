@@ -7,6 +7,4 @@
 
 #include "../Game.hpp"
 
-void Game::setGame() {
-
-}
+void Game::setGame() {}

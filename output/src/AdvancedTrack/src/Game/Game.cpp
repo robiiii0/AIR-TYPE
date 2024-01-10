@@ -22,17 +22,15 @@ Game::Game() : _gameEngine() {
 void Game::run() {
     setUpState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-        _gameEngine.getRendererModule()->update(
-            *_gameEngine.getEntityManager(), getEntities());
+        _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+                                                getEntities());
         std::string eventKey = _hmiModule->keyEvent(
-        _gameEngine.getRendererModule()->UpdateForServer(
-            *_gameEngine.getEntityManager(), getEntities()));
+            _gameEngine.getRendererModule()->UpdateForServer(
+                *_gameEngine.getEntityManager(), getEntities()));
 
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
-                                    getEntities());
+                                                getEntities());
     }
 }
 
-void Game::handleExit() {
-    _gameState = GameState::EXIT;
-}
+void Game::handleExit() { _gameState = GameState::EXIT; }

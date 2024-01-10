@@ -14,14 +14,15 @@ void Game::changeGameState(GameState state) {
 }
 
 void Game::clearCurrentState() {
-        _entities.clear();
+    _entities.clear();
     for (auto entity : _entities) {
         std::cout << "destruction de l'entitée " << entity << std::endl;
         _gameEngine.getEntityManager()->destroyEntity(entity);
     }
 }
+
 void Game::setUpState() {
-    switch(_gameState) {
+    switch (_gameState) {
         case GameState::MENU:
             setMenu();
             break;

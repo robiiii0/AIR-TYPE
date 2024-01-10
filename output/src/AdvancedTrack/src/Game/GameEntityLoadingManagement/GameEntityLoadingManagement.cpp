@@ -7,8 +7,7 @@
 
 #include "../Game.hpp"
 
-void Game::LoadFont(std::string paths)
-{
+void Game::LoadFont(std::string paths) {
     sf::Font font;
     if (font.loadFromFile(paths) == false) {
         std::cerr << "Error: could not load font " << paths << std::endl;
@@ -17,8 +16,7 @@ void Game::LoadFont(std::string paths)
     _fonts.push_back(font);
 }
 
-void Game::LoadTexture(std::string paths)
-{
+void Game::LoadTexture(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {
         std::cerr << "Error: could not load texture " << paths << std::endl;
