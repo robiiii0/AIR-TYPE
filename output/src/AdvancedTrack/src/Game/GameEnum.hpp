@@ -29,4 +29,9 @@ enum Key {
     ESCAPE = sf::Keyboard::Escape,
 };
 
+enum Textures {
+    BACKGROUND,
+    PLAYER,
+};
+
 #endif /* !GAMEENUM_HPP_ */
