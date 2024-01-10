@@ -83,7 +83,7 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
-        void createPlayer(sf::Texture &Textures,  Engine::Entity::Component::GenericComponents::Vector2f);
+        void createPlayer(sf::Texture &Textures, Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
 
         void createButton(std::function<void()> func, std::string text,
@@ -131,6 +131,11 @@ class Client {
 
         void handleExit();
 
+        void playerInit();
+
+
+        void createSpriteTest(Engine::Network::Serializer::entity_t &player, int place);
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
@@ -140,7 +145,6 @@ class Client {
         int _screenHeight;
         int _gameState;
 
-        std::vector<int> _player;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _texturesParallax;
@@ -151,6 +155,7 @@ class Client {
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
         sf::Texture              _textureBoss;
+        std::vector<Engine::Network::Serializer::entity_t> _player;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

@@ -9,6 +9,8 @@ Client::Client() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 8;
     _gameState = MENU;
+    playerInit();
+    std::cout << "ici" << std::endl;
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/Menu/earth.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
@@ -44,53 +46,32 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
 }
 
-std::vector<std::string> Client::ParseCommande(std::string str)
-{
-    std::istringstream iss(str);
-
-    std::vector<std::string> words;
-
-    do {
-        std::string word;
-        iss >> word;
-        words.push_back(word);
-    } while (iss);
-
-    return words;
-}
-
-
-void Client::CommandManager(
-    std::string msg) {
-    // todo faire une boucle pour checker tout les players
-    
-    if (msg.length() > 35) {
-    std::vector<std::string> words = ParseCommande(msg);
-        std::cout << msg << std::endl;
-    std::cout << words[2] << std::endl;
-        int nbClient = std::stoi(words[2]);
-        if (nbClient + 1 > _player.size()) {
-            std::cout << "creation" << std::endl;
-            createPlayer(_texturePlayer[nbClient], {std::stof(words[3]), std::stof(words[4])});
-            _player.push_back(nbClient);
-        } else {
-            std::cout << "update" << std::endl;
-        }
-    }
-}
-
-void Client::GetClientId(Engine::Network::Serializer::serialized_data_t data) {
-    for (auto &player : data.players) {
-        if (player.id > -1) {
-            _ClientId = player.id;
-        }
-    }
-}
-
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
+}
+
+
+void Client::playerInit()
+{
+    Engine::Network::Serializer::entity_t entityTemp = {-1,{static_cast<bool>(false)}, {static_cast<float>(0.0)}, {static_cast<float>(0.0)}};
+    for (int i = 0; i < 4; i++) {
+        _player.push_back(entityTemp);
+    }
+}
+
+
+void Client::createSpriteTest(Engine::Network::Serializer::entity_t &player, int place) {
+    if (player.id > -1 && player.id < 4) {
+        if (_player[place].id == -1) {
+            _player[place].id = player.id;
+            _player[place].x = player.x;
+            _player[place].y = player.y;
+            _player[place].direction = player.direction;
+            createPlayer(_texturePlayer[player.id], {player.x, player.y});
+        }
+    }
 }
 
 void Client::run() {
@@ -110,7 +91,14 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    CommandManager(msg);
+                    Engine::Network::Serializer::serialized_data_t data =
+                        _networkingModule->getSerializer().binaryStringToStruct(
+                            msg);
+                    int place = 0;
+                    for (auto &player : data.players) {
+                        createSpriteTest(player, place);
+                        place++;
+                    }
                 }
             }
         }

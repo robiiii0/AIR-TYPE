@@ -155,6 +155,15 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     std::copy(reinterpret_cast<const char *>(&data),
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
+    serialized_data_t data2 = binaryStringToStruct(binaryString);
+    std::cout << "serialized_data_t {" << std::endl;
+    for (int i = 0; i < MAX_PLAYERS; i++) {
+        std::cout << "\tplayers[" << i << "].id: " << data2.players[i].id << std::endl;
+        std::cout << "\tplayers[" << i << "].direction: " << data2.players[i].direction << std::endl;
+        std::cout << "\tplayers[" << i << "].x: " << data2.players[i].x << std::endl;
+        std::cout << "\tplayers[" << i << "].y: " << data2.players[i].y << std::endl;
+    }
+    std::cout << "}" << std::endl;
     return binaryString;
 }
 
