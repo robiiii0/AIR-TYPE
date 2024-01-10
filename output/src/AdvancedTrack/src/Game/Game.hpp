@@ -27,7 +27,6 @@ class Game {
 
         Engine::GameEngine &getGameEngine();
 
-        // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();

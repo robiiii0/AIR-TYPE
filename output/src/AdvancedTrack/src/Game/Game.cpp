@@ -7,7 +7,13 @@
 
 #include "Game.hpp"
 
-Game::Game()
-{
+Game::Game() : _gameEngine() {
+    _gameState = GameState::MENU;
 }
 
+void Game::run() {
+}
+
+void Game::handleExit() {
+    _gameState = GameState::EXIT;
+}
