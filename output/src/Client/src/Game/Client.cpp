@@ -45,23 +45,23 @@ Client::Client() {
 }
 
 void Client::CommandManagerForPlayer(
-    Engine::Network::Serializer::serialized_data_t data) {
+    std::string msg) {
     // todo faire une boucle pour checker tout les players
-
-    int size = _player.size();
-    int taille = 0;
-    for (auto &player : data.players) {
-        if (player.id > -1 && player.id < 4) {
-            if (size <= player.id) {
-                std::cout << _player.size() << "and " <<  player.id << "at :" << player.x  <<" " <<player.y << std::endl;
-                taille++;
-                createPlayer(_texturePlayer[player.id], { static_cast<float>(20 + (player.id * 200)),  static_cast<float>(20 + (player.id * 200))});
-                _player.push_back(player);
-            }
-        }
-    }
-    if (taille > 0)
-        std::cout << "la taille est de " << taille << std::endl;
+    std::cout << msg << std::endl;
+    // int size = _player.size();
+    // int taille = 0;
+    // for (auto &player : data.players) {
+    //     if (player.id > -1 && player.id < 4) {
+    //         if (size <= player.id) {
+    //             std::cout << _player.size() << "and " <<  player.id << "at :" << player.x  <<" " <<player.y << std::endl;
+    //             taille++;
+    //             createPlayer(_texturePlayer[player.id], { static_cast<float>(20 + (player.id * 200)),  static_cast<float>(20 + (player.id * 200))});
+    //             _player.push_back(player);
+    //         }
+    //     }
+    // }
+    // if (taille > 0)
+    //     std::cout << "la taille est de " << taille << std::endl;
 }
 
 void Client::GetClientId(Engine::Network::Serializer::serialized_data_t data) {
@@ -77,16 +77,6 @@ void Client::ConnectionWithServer() {
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
 
-    for (auto &client :
-        _networkingModule->getClients()) {  // ? client update
-        while (client.getBuffer()->hasPacket()) {
-            std::string msg = client.getBuffer()->readNextPacket();
-            Engine::Network::Serializer::serialized_data_t data =
-                _networkingModule->getSerializer().binaryStringToStruct(
-                    msg);
-            GetClientId(data);
-        }
-    }
 }
 
 void Client::run() {
@@ -106,10 +96,7 @@ void Client::run() {
                  _networkingModule->getClients()) {  // ? client update
                 while (client.getBuffer()->hasPacket()) {
                     std::string msg = client.getBuffer()->readNextPacket();
-                    Engine::Network::Serializer::serialized_data_t data =
-                        _networkingModule->getSerializer().binaryStringToStruct(
-                            msg);
-                    CommandManagerForPlayer(data);
+                    CommandManagerForPlayer(msg);
                 }
             }
         }

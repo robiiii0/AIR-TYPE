@@ -205,10 +205,11 @@ void Server::networkLoop() {
             _clientMessages[client.getId()].pop();
         }
         if (messages.size() > 0)
-            _networkingModule->sendMessage(
-                _networkingModule->getSerializer().serializeToPacket(
-                    msg_client),
-                client.getId());
+            for (int i = 0; i < msg_client.size(); i++) {
+                _networkingModule->sendMessage(
+                        msg_client[i],
+                    client.getId());
+            }
         // _networkingModule->sendMessage(
         //     _networkingModule->getSerializer().serializeToPacket(messages),
         //     client.getId());

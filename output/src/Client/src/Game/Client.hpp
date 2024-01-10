@@ -95,7 +95,7 @@ class Client {
             sf::Color color, float rotation);
 
         void CommandManagerForPlayer(
-           Engine::Network::Serializer::serialized_data_t data);
+           std::string msg);
         void GetClientId(Engine::Network::Serializer::serialized_data_t data); 
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
