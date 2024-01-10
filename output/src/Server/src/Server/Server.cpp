@@ -106,7 +106,7 @@ void Server::createPlayer(std::uint32_t id) {
     _gameEngine->getEntityManager()->addComponent(_playerEntities[id],
                                                   position);
     std::string msg = "add player " + std::to_string(id) + " " +
-                      std::to_string(position->getValue().x) + " " +
+                      std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
                       std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
