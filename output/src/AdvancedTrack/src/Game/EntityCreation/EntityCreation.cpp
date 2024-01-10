@@ -19,6 +19,14 @@ void Game::createSprite(
             Engine::Entity::Component::GenericComponents::Vector2fComponent>(
             pos);
 
+    Engine::RendererModule::Components::SpriteData tmp_sprite = {
+        pos, scale, sf::Color::White, 0, false};
+
+    std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(tmp_sprite,
+                                                                 texture);
+
     Engine::RendererModule::Components::TextData tmp_text = {
         name, _fonts[0], sf::Color::White, {pos.x, pos.y}, {1, 1}, 0};
 
@@ -27,17 +35,10 @@ void Game::createSprite(
             std::make_shared<Engine::RendererModule::Components::TextComponent>(
                 tmp_text);
 
-    Engine::RendererModule::Components::ClickableData tmp_clickable = {
-        {pos.x, pos.y}, {scale.x, scale.y}, sf::Color::White, 0};
-
-    std::shared_ptr<Engine::RendererModule::Components::ClickableComponent>
-        clickableComponent = std::make_shared<
-            Engine::RendererModule::Components::ClickableComponent>(
-            tmp_clickable, texture, [this]() {});
-
-    _gameEngine.getEntityManager()->addComponent(spriteEntity,
-                                                 clickableComponent);
+    _gameEngine.getEntityManager()->addComponent(spriteEntity, posComponent);
+    _gameEngine.getEntityManager()->addComponent(spriteEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(spriteEntity, textComponent);
+
     addEntity(spriteEntity);
 }
 
