@@ -35,6 +35,7 @@ class Game {
         void LoadFont(std::string paths);
         void LoadTexture(std::string paths);
         void LoadTextureButton(std::string paths);
+        void LoadSound(std::string paths, bool loop, bool play, float volume);
 
         void createSprite(
             Engine::Entity::Component::GenericComponents::Vector2f pos,
