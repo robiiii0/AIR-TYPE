@@ -8,8 +8,10 @@
 #include <iostream>
 
 #include "../../GameEngine/GameEngine.hpp"
+#include "./Game/Game.hpp"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Game game;
+    game.run();
     return 0;
 }

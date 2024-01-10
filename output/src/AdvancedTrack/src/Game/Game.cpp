@@ -15,6 +15,8 @@ Game::Game() : _gameEngine() {
 
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _gameState = GameState::MENU;
+
+    LoadFont("assets/Fonts/Roboto-Bold.ttf");
 }
 
 void Game::run() {
