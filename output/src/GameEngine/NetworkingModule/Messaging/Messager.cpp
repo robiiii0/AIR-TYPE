@@ -7,7 +7,8 @@
 
 // #include "Messager.hpp"
 
-// Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type) {
+// Engine::Network::Messager::Messager(Engine::Network::NetworkingTypeEnum type)
+// {
 //     if (type == Engine::Network::NetworkingTypeEnum::TCP)
 //         _mode = true;
 //     else
@@ -43,7 +44,8 @@
 //     receiveThread.detach();
 // }
 
-// void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client) {
+// void Engine::Network::Messager::receiveLoop(Engine::Network::Client &client)
+// {
 //     char        buffer[1024];
 //     std::size_t bytesReceived = 0;
 //     int         socket_fd = client.getSocketFd();

@@ -1,6 +1,5 @@
 #include "../Client.hpp"
 
-
 void Client::LoadTextureParallax(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {
@@ -29,7 +28,6 @@ void Client::createParallax(std::vector<sf::Texture> &Textures) {
         addEntity(spriteParallaxEntity);
     }
 }
-
 
 void Client::LoadBackground() {
     sf::Texture texture;
@@ -137,7 +135,6 @@ void Client::CreateBoss(
     addEntity(BossEntity);
 }
 
-
 void Client::LoadTexturePlayer(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {
@@ -148,8 +145,9 @@ void Client::LoadTexturePlayer(std::string paths) {
     _texturePlayer.push_back(texture);
 }
 
-
-void Client::createPlayer(sf::Texture &Textures, Engine::Entity::Component::GenericComponents::Vector2f pos) {
+void Client::createPlayer(
+    sf::Texture                                           &Textures,
+    Engine::Entity::Component::GenericComponents::Vector2f pos) {
     uint32_t PlayerEntity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::Entity::Component::GenericComponents::Vector2f position = {pos.x,
@@ -164,15 +162,13 @@ void Client::createPlayer(sf::Texture &Textures, Engine::Entity::Component::Gene
         position, {1, 1}, sf::Color::White, 0, false};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
-        spriteComponent =
-            std::make_shared<Engine::RendererModule::Components::SpriteComponent>(
-                sprite_temp, Textures);
+        spriteComponent = std::make_shared<
+            Engine::RendererModule::Components::SpriteComponent>(sprite_temp,
+                                                                 Textures);
     _gameEngine.getEntityManager()->addComponent(PlayerEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(PlayerEntity, posComponent);
     addEntity(PlayerEntity);
 }
-
-
 
 void Client::LoadSettingsKeyBindings(std::string paths) {
     sf::Texture texture;
@@ -183,8 +179,6 @@ void Client::LoadSettingsKeyBindings(std::string paths) {
     texture.setSmooth(true);
     _textureSetting.push_back(texture);
 }
-
-
 
 void Client::createMissile(std::uint32_t id, float x, float y) {
     uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();

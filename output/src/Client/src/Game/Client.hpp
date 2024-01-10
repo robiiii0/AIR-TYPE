@@ -9,10 +9,9 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <functional>
-#include <string>
-#include <vector>
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
@@ -83,7 +82,9 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
-        void createPlayer(sf::Texture &Textures, Engine::Entity::Component::GenericComponents::Vector2f);
+        void createPlayer(
+            sf::Texture &Textures,
+            Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
 
         void createButton(std::function<void()> func, std::string text,
@@ -97,9 +98,8 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
 
-        void CommandManager(
-           std::string msg);
-        void GetClientId(Engine::Network::Serializer::serialized_data_t data); 
+        void CommandManager(std::string msg);
+        void GetClientId(Engine::Network::Serializer::serialized_data_t data);
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);
         void LoadTextureParallax(std::string paths);
@@ -121,7 +121,6 @@ class Client {
         void ChangeKeyBinding();
         void ConnectionWithServer();
 
-
         std::vector<std::string> ParseCommande(std::string str);
 
         // Gamestate handling
@@ -133,8 +132,8 @@ class Client {
 
         void playerInit();
 
-
-        void HandlePlayerManagement(Engine::Network::Serializer::entity_t &player, int place);
+        void HandlePlayerManagement(
+            Engine::Network::Serializer::entity_t &player, int place);
 
     private:
         Engine::GameEngine         _gameEngine;
@@ -145,16 +144,15 @@ class Client {
         int _screenHeight;
         int _gameState;
 
-
-        std::vector<sf::Font>    _fonts;
-        std::vector<sf::Texture> _texturesParallax;
-        std::vector<sf::Texture> _texturePlayer;
-        std::vector<sf::Texture> _texturesEnemies;
-        std::vector<sf::Texture> _textureSetting;
-        std::vector<sf::Texture> _texturesButton;
-        sf::Texture              _backgroundTexture;
-        sf::Texture              _textureMissile;
-        sf::Texture              _textureBoss;
+        std::vector<sf::Font>                              _fonts;
+        std::vector<sf::Texture>                           _texturesParallax;
+        std::vector<sf::Texture>                           _texturePlayer;
+        std::vector<sf::Texture>                           _texturesEnemies;
+        std::vector<sf::Texture>                           _textureSetting;
+        std::vector<sf::Texture>                           _texturesButton;
+        sf::Texture                                        _backgroundTexture;
+        sf::Texture                                        _textureMissile;
+        sf::Texture                                        _textureBoss;
         std::vector<Engine::Network::Serializer::entity_t> _player;
 
         std::vector<

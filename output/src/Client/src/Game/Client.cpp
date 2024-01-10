@@ -51,8 +51,8 @@ void Client::ConnectionWithServer() {
     _networkingModule->sendMessage("Connecting to server", 0);
 }
 
-
-void Client::HandlePlayerManagement(Engine::Network::Serializer::entity_t &player, int place) {
+void Client::HandlePlayerManagement(
+    Engine::Network::Serializer::entity_t &player, int place) {
     if (player.id > -1 && player.id < 4) {
         if (_player[place].id == -1) {
             _player[place].id = player.id;

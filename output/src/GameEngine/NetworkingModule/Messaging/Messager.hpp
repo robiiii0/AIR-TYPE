@@ -8,10 +8,10 @@
 #ifndef MESSAGER_HPP_
 #define MESSAGER_HPP_
 
+#include <SFML/Network.hpp>
 #include <condition_variable>
 #include <mutex>
 #include <thread>
-#include <SFML/Network.hpp>
 
 #include "../Client/Client.hpp"
 #include "../enums/NetworkingTypeEnum.hpp"

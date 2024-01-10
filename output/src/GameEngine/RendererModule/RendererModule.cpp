@@ -25,11 +25,11 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
         if (_event.type == sf::Event::Closed) {
             _window.close();
             return 10000;
-        } 
+        }
         if (_event.type == sf::Event::KeyPressed &&
             _event.key.code == sf::Keyboard::Escape) {
-                _window.close();
-                return 10000;
+            _window.close();
+            return 10000;
         }
 
         // if (_event.type == sf::Event::KeyPressed) {

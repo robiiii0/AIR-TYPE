@@ -206,7 +206,7 @@ std::string Engine::Network::NetworkingModule::encodeBase64(
 void Engine::Network::NetworkingModule::sendMessage(
     const std::string &message, const std::size_t &client_id) {
     // Engine::Network::Messager messager(_type);
-    int                       index = 0;
+    int index = 0;
     if (client_id >= _clients.size()) {
         throw ClientIdOutOfRangeException();
     }
@@ -232,7 +232,7 @@ void Engine::Network::NetworkingModule::sendMessage(
 void Engine::Network::NetworkingModule::broadcastMessage(
     const std::string &message) {
     // Engine::Network::Messager messager(_type);
-    std::string               packet = "";
+    std::string packet = "";
     packet += message;
     for (auto &client : _clients) {
         if (!client.isConnected()) {

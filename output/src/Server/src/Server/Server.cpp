@@ -84,8 +84,9 @@ void Server::sendGameStatus(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "create player " + std::to_string(entity.first) +
-                                  " " + std::to_string(position->getValue().x + 2) +
+                std::string msg = "create player " +
+                                  std::to_string(entity.first) + " " +
+                                  std::to_string(position->getValue().x + 2) +
                                   " " + std::to_string(position->getValue().y);
                 _clientMessages[id].emplace(msg);
             }
@@ -206,9 +207,7 @@ void Server::networkLoop() {
         }
         if (messages.size() > 0)
             for (int i = 0; i < msg_client.size(); i++) {
-                _networkingModule->sendMessage(
-                        msg_client[i],
-                    client.getId());
+                _networkingModule->sendMessage(msg_client[i], client.getId());
             }
         // _networkingModule->sendMessage(
         //     _networkingModule->getSerializer().serializeToPacket(messages),
@@ -234,9 +233,10 @@ void Server::updatePlayer(std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 std::string msg = "update player " + std::to_string(id) + " " +
-                                  std::to_string(position->getValue().x + 3) + " " +
-                                  std::to_string(position->getValue().y);
-                // position->setValue({static_cast<float>(position->getValue().x + 3.0)}, position->getValue().y);
+                                  std::to_string(position->getValue().x + 3) +
+                                  " " + std::to_string(position->getValue().y);
+                // position->setValue({static_cast<float>(position->getValue().x
+                // + 3.0)}, position->getValue().y);
                 _globalMessages.emplace(msg);
             }
         }
