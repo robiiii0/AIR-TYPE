@@ -8,10 +8,10 @@
 #include "../Game.hpp"
 
 void Game::setGame() {
-    createSprite({static_cast<float>(0), static_cast<float>(0)},
-                 {static_cast<float>(2), static_cast<float>(2)}, _textures[0],
-                 "");
-    createSprite({static_cast<float>(100), static_cast<float>(100)},
-                 {static_cast<float>(1), static_cast<float>(1)}, _textures[1],
-                 "");
+    createSprite({0.0, 0.0}, {3, 2.5}, _textures[0], "");
+    createButton(std::bind(&Game::changeGameState, this, GameState::MENU), "Go Back",
+                 _textures[1], _fonts[0],
+                 {static_cast<float>(_screenWidth / 1.05),
+                  static_cast<float>(_screenHeight / 1.05)},
+                 {0.3, 0.3}, sf::Color::White, 0);
 }
