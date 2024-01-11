@@ -4,6 +4,8 @@
 
 Welcome to the Mobile Module of the R-Type project! This section contains comprehensive documentation for the mobile-related components.
 
+<img src="../../../assets/mob-module.png">
+
 - **MobModule**: This directory encompasses the source code and resources related to the mobile module of the R-Type project.
 
 - **README.md**: This document provides detailed information about the mobile module. It covers the functionality, features, and the role of the mobile module in the overall architecture.

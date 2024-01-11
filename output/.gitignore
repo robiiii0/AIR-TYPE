@@ -12,6 +12,8 @@
 *.idb
 *.pdb
 
+output.txt
+serverOutput.txt
 # Fichiers de sauvegarde
 *~
 *.swp

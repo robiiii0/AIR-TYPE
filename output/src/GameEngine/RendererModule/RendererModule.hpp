@@ -37,9 +37,12 @@ namespace Engine {
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();
-                int               UpdateForServer(
-                                  Engine::Entity::EntityManager &entityManager,
-                                  std::vector<uint32_t>          id_list);
+                int  HandleEvent(Engine::Entity::EntityManager &entityManager,
+                                 std::vector<uint32_t>          id_list);
+                void UpdatePosition(
+                    Engine::Entity::EntityManager &entityManager,
+                    std::vector<uint32_t>          id_list,
+                    Engine::Entity::Component::GenericComponents::Vector2f pos);
 
             protected:
             private:

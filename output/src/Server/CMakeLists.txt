@@ -58,7 +58,6 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
-
 if (APPLE)
     find_library(COREAUDIO_LIBRARY CoreAudio)
     find_library(AUDIOTOOLBOX_LIBRARY AudioToolbox)

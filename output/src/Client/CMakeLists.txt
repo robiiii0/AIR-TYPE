@@ -27,6 +27,7 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
         src/Game/Client.cpp
+        src/Game/Tools.cpp
         src/Game/ClientSettingManagement/ClientSettingManagement.cpp
         src/Game/ClientEntityManagement/ClientEntityManagement.cpp
         src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
@@ -49,6 +50,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
         ../GameEngine/NetworkingModule/NetworkingModule.cpp
         ../GameEngine/NetworkingModule/Client/Client.cpp
+        
         ../GameEngine/NetworkingModule/Buffer/Buffer.cpp
         ../GameEngine/NetworkingModule/Messaging/Messager.cpp
         ../GameEngine/NetworkingModule/exceptions/ClientDisconnectedException/ClientDisconnectedException.cpp
@@ -85,6 +87,7 @@ target_link_libraries(r-type_client PRIVATE sfml-system sfml-network sfml-graphi
 
 
 # Link the libraries from RendererModule and EntityManager
+target_link_libraries(r-type_client PRIVATE sfml-network sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

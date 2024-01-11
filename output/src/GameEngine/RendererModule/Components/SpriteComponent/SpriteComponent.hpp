@@ -28,10 +28,7 @@ namespace Engine {
             class SpriteComponent :
                 public Engine::RendererModule::IRendererComponent {
                 public:
-                    SpriteComponent(
-                        SpriteData  &value,
-                        sf::Texture &texture);  // TODO changer le std::string
-                                                // pour le sprite c'est pas bien
+                    SpriteComponent(SpriteData &value, sf::Texture &texture);
                     ~SpriteComponent();
 
                     void execute() override;
