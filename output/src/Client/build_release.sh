@@ -10,20 +10,20 @@ cmake --build "$CURRENT_DIR/release"
 
 built=0
 
-if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
+if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client" ]; then
   echo "Linux/Mac Client binary is missing"
 else
   echo "Linux/Mac Client binary is present"
   built=built+1
-  mv "$CURRENT_DIR/release/r-type_client" "$CURRENT_DIR../../release/r-type_client"
+  mv "$CURRENT_DIR/release/Debug/r-type_client" "$CURRENT_DIR../../release/r-type_client"
 fi
 
-if [ ! -e "$CURRENT_DIR/r-type_server.exe" ]; then
+if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client.exe" ]; then
   echo "Windows Server binary is missing"
 else
   echo "Windows Server binary is present"
   built=built+1
-  mv "$CURRENT_DIR/r-type_server.exe" "$CURRENT_DIR../../release/r-type_server.exe"
+  mv "$CURRENT_DIR/release/Debug/r-type_client.exe" "$CURRENT_DIR../../release/r-type_client.exe"
 fi
 
 if [ $built -eq 0 ]; then

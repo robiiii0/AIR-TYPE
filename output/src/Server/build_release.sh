@@ -8,10 +8,25 @@ cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRE
 
 cmake --build "$CURRENT_DIR/release"
 
-if [ ! -e "$CURRENT_DIR/release/r-type_server" ] && [ ! -e "$CURRENT_DIR/release/r-type_server.exe" ]; then
-  echo "Client binary is missing"
-  exit 1
+built=0
+
+if [ ! -e "$CURRENT_DIR/release/Debug/r-type_server" ]; then
+  echo "Linux/Mac Client binary is missing"
 else
-  echo "Client binary is present"
-  mv "$CURRENT_DIR/release/r-type_server" "$CURRENT_DIR../../release/r-type_server"
+  echo "Linux/Mac Client binary is present"
+  built=built+1
+  mv "$CURRENT_DIR/release/Debug/r-type_server" "$CURRENT_DIR../../release/r-type_server"
+fi
+
+if [ ! -e "$CURRENT_DIR/release/Debug/r-type_server.exe" ]; then
+  echo "Windows Server binary is missing"
+else
+  echo "Windows Server binary is present"
+  built=built+1
+  mv "$CURRENT_DIR/release/Debug/r-type_server.exe" "$CURRENT_DIR../../release/r-type_server.exe"
+fi
+
+if [ $built -eq 0 ]; then
+  echo "Client Compilation failed"
+  exit 1
 fi
