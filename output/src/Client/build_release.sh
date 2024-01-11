@@ -8,7 +8,7 @@ cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRE
 
 cmake --build "$CURRENT_DIR/release"
 
-ls -la
+ls -laR
 
 built=0
 
