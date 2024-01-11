@@ -123,6 +123,20 @@ Engine::Network::Serializer::serialized_data_t
             std::cerr << "Serializer: Invalid argument: " << arg << std::endl;
         }
     }
+
+    // std::cout << "data : {" << std::endl;
+    // for (int i = 0; i < MAX_PLAYERS; i++) {
+    //     std::cout << "\tplayers[" << i << "].id: " << data.players[i].id
+    //               << std::endl;
+    //     std::cout << "\tplayers[" << i
+    //               << "].direction: " << data.players[i].direction <<
+    //               std::endl;
+    //     std::cout << "\tplayers[" << i << "].x: " << data.players[i].x
+    //               << std::endl;
+    //     std::cout << "\tplayers[" << i << "].y: " << data.players[i].y
+    //               << std::endl;
+    // }
+    // std::cout << "}" << std::endl;
     return data;
 }
 

@@ -52,9 +52,10 @@ void Client::ConnectionWithServer() {
 }
 
 void Client::updateSpritePosition(
-    int id, Engine::Entity::Component::GenericComponents::Vector2f pos) {
+    int id, Engine::Entity::Component::GenericComponents::Vector2f pos,
+    uint32_t id_sprite) {
     _gameEngine.getRendererModule()->UpdatePosition(
-        *_gameEngine.getEntityManager(), getEntities(), pos);
+        *_gameEngine.getEntityManager(), getEntities(), pos, id_sprite);
 }
 
 void Client::HandlePlayerManagement(
@@ -71,46 +72,59 @@ void Client::HandlePlayerManagement(
             _player[place].x = player.x;
             _player[place].y = player.y;
             _player[place].direction = player.direction;
-            createPlayer(_texturePlayer[place], {player.x, player.y});
+            std::cout << "Player created" << _player[place].id << " at "
+                      << _player[place].x << " " << _player[place].y
+                      << std::endl;
+            uint32_t id_sprite =
+                createPlayer(_texturePlayer[place], {player.x, player.y});
+            _player[place].idSprite = id_sprite;
         } else if (_player[place].id > -1 && _player[place].id < 4 &&
                    player.x <= 1920 && player.x >= 0 && player.y <= 1080 &&
                    player.y >= 0 &&
                    (player.x != _player[place].x ||
                     player.y != _player[place].y) &&
                    _player[place].id == player.id) {
-            updateSpritePosition(_player[place].id, {player.x, player.y});
+            std::cout << "oe chef" << std::endl;
+            updateSpritePosition(_player[place].id, {player.x, player.y},
+                                 _player[place].idSprite);
+            std::cout << "new pos for " << player.id << " " << player.x << " "
+                      << player.y << std::endl;
             _player[place].x = player.x;
             _player[place].y = player.y;
         }
     }
 }
 
-void Client::HandleMissileManager(Engine::Network::Serializer::entity_t &missile, int place) {
+void Client::HandleMissileManager(
+    Engine::Network::Serializer::entity_t &missile, int place) {
     std::cout << "Missile " << missile.id << " at " << missile.x << " "
               << missile.y << std::endl;
 
-        if (missile.id > -1 && missile.id < MAX_MISSILES) {
-            std::cout << "missile " << missile.id << " at " << missile.x << " "
-                    << missile.y << std::endl;
-            if (_missile[place].id == -1 && missile.id != _missile[0].id && missile.x < 1920 && missile.x >= 0 &&
-                missile.y < 1080 && missile.y >= 0) {
-                _missile[place].id = missile.id;
-                _missile[place].x = missile.x;
-                _missile[place].y = missile.y;
-                _missile[place].direction = missile.direction;
-                createMissile(_missile[place].id, _missile[place].x, _missile[place].y);
-            } else if (_missile[place].id > -1 && _missile[place].id < MAX_MISSILES &&
-                   missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080 &&
-                   missile.y >= 0 &&
-                   (missile.x != _missile[place].x ||
-                    missile.y != _missile[place].y) &&
-                   _missile[place].id == missile.id) {
-            updateSpritePosition(_missile[place].id, {missile.x, missile.y});
+    if (missile.id > -1 && missile.id < MAX_MISSILES) {
+        std::cout << "missile " << missile.id << " at " << missile.x << " "
+                  << missile.y << std::endl;
+        if (_missile[place].id == -1 && missile.id != _missile[0].id &&
+            missile.x < 1920 && missile.x >= 0 && missile.y < 1080 &&
+            missile.y >= 0) {
+            _missile[place].id = missile.id;
             _missile[place].x = missile.x;
             _missile[place].y = missile.y;
+            _missile[place].direction = missile.direction;
+            createMissile(_missile[place].id, _missile[place].x,
+                          _missile[place].y);
         }
-        }
-            // createmissile(_texturemissile[place], {missile.x, missile.y});
+        //     else if (_missile[place].id > -1 && _missile[place].id <
+        //     MAX_MISSILES &&
+        //            missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080
+        //            && missile.y >= 0 && (missile.x != _missile[place].x ||
+        //             missile.y != _missile[place].y) &&
+        //            _missile[place].id == missile.id) {
+        //     updateSpritePosition(_missile[place].id, {missile.x, missile.y});
+        //     _missile[place].x = missile.x;
+        //     _missile[place].y = missile.y;
+        // }
+    }
+    // createmissile(_texturemissile[place], {missile.x, missile.y});
 }
 
 void Client::run() {
@@ -132,14 +146,25 @@ void Client::run() {
                             msg);
                     int placePlayer = 0;
                     int placeMissiles = 0;
+                    std::cout << "data : {" << std::endl;
+                    for (auto &player : data.players) {
+                        std::cout << "    {" << std::endl;
+                        std::cout << "        id : " << player.id << std::endl;
+                        std::cout << "        x : " << player.x << std::endl;
+                        std::cout << "        y : " << player.y << std::endl;
+                        std::cout << "        direction : " << player.direction
+                                  << std::endl;
+                        std::cout << "    }" << std::endl;
+                    }
+                    std::cout << "}" << std::endl;
                     for (auto &player : data.players) {
                         HandlePlayerManagement(player, placePlayer);
                         placePlayer++;
                     }
-                    for (auto &missile : data.missiles) {
-                        HandleMissileManager(missile, placeMissiles);
-                        placeMissiles++;
-                    }
+                    // for (auto &missile : data.missiles) {
+                    //     HandleMissileManager(missile, placeMissiles);
+                    //     placeMissiles++;
+                    // }
                 }
             }
         }

@@ -145,7 +145,7 @@ void Client::LoadTexturePlayer(std::string paths) {
     _texturePlayer.push_back(texture);
 }
 
-void Client::createPlayer(
+uint32_t Client::createPlayer(
     sf::Texture                                           &Textures,
     Engine::Entity::Component::GenericComponents::Vector2f pos) {
     uint32_t PlayerEntity = _gameEngine.getEntityManager()->createEntity();
@@ -159,7 +159,7 @@ void Client::createPlayer(
             Engine::Entity::Component::GenericComponents::Vector2fComponent>(
             position);
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        position, {1, 1}, sf::Color::White, 0, false};
+        position, {1, 1}, sf::Color::White, 0, false, PlayerEntity};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<
@@ -168,6 +168,7 @@ void Client::createPlayer(
     _gameEngine.getEntityManager()->addComponent(PlayerEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(PlayerEntity, posComponent);
     addEntity(PlayerEntity);
+    return PlayerEntity;
 }
 
 void Client::LoadSettingsKeyBindings(std::string paths) {

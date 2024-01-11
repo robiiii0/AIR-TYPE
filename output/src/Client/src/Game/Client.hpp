@@ -56,6 +56,14 @@ class Client {
             ESCAPE_TEXTURE = 6,
         };
 
+        typedef struct player_s {
+                int      id;
+                bool     direction;
+                float    x;
+                float    y;
+                uint32_t idSprite;
+        } player_t;
+
     public:
         Client();
         void run();
@@ -78,7 +86,7 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
-        void createPlayer(
+        uint32_t createPlayer(
             sf::Texture &Textures,
             Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
@@ -121,9 +129,11 @@ class Client {
         void playerInit();
         void HandleMovementManager(std::string command);
         void updateSpritePosition(
-            int id, Engine::Entity::Component::GenericComponents::Vector2f pos);
+            int id, Engine::Entity::Component::GenericComponents::Vector2f pos,
+            uint32_t id_sprite);
 
-        void HandleMissileManager(Engine::Network::Serializer::entity_t &player, int place);
+        void HandleMissileManager(Engine::Network::Serializer::entity_t &player,
+                                  int                                    place);
         void HandlePlayerManagement(
             Engine::Network::Serializer::entity_t &player, int place);
 
@@ -145,8 +155,8 @@ class Client {
         sf::Texture                                        _backgroundTexture;
         sf::Texture                                        _textureMissile;
         sf::Texture                                        _textureBoss;
-        std::vector<Engine::Network::Serializer::entity_t> _player;
-                std::vector<Engine::Network::Serializer::entity_t> _missile;
+        std::vector<player_t>                              _player;
+        std::vector<Engine::Network::Serializer::entity_t> _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

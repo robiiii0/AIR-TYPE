@@ -42,7 +42,8 @@ namespace Engine {
                 void UpdatePosition(
                     Engine::Entity::EntityManager &entityManager,
                     std::vector<uint32_t>          id_list,
-                    Engine::Entity::Component::GenericComponents::Vector2f pos);
+                    Engine::Entity::Component::GenericComponents::Vector2f pos,
+                    uint32_t                                               id);
 
             protected:
             private:
