@@ -61,6 +61,8 @@ jobs:
               run: './vcpkg/vcpkg install sfml:${{ matrix.config.triplet }}'
             - name: 'Build'
               run: 'cd output && bash build_release.sh'
+            - name: 'Rename binaries'
+              run: 'cd output/release && for f in *; do mv "$f" "${f%.*}${{ matrix.config.os }}.${{ matrix.config.ext }}"; done'
             - name: 'Upload binaries'
               uses: actions/upload-artifact@v3
               with:
