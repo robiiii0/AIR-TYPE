@@ -4,6 +4,8 @@
 
 The `RendererModule` directory in the R-Type project contains the `RendererModule` class, which is responsible for handling rendering tasks using the Simple and Fast Multimedia Library (SFML). This class manages the initialization of the rendering window, updates rendering content, and performs rendering operations.
 
+<img src="../../../assets/renderer-module.png">
+
 ## Structure Explanation
 
 ### `RendererModule` Class

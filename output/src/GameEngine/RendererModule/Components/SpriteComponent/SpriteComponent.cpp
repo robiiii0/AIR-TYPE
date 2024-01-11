@@ -67,7 +67,7 @@ void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
                                                                       float y) {
-    _sprite.setPosition(x + _pos.x, y + _pos.y);
+    _sprite.setPosition(x, y);
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setTextureRect(

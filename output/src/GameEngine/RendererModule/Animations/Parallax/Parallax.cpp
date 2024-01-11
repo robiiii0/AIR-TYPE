@@ -20,7 +20,6 @@ Engine::RendererModule::Components::parallaxComponent::parallaxComponent(
     _sprite = Sprite;
 
     _sprite.setTexture(texture);
-    std::cout << "texture loaded" << std::endl;
     if (!value.isAnimated) {
         isAnimated = false;
         rect.width = texture.getSize().x;

@@ -26,7 +26,6 @@ Engine::RendererModule::Components::ClickableComponent::ClickableComponent(
     _sprite.setRotation(_data.rotation);
     _data.pos.x = value.pos.x;
     _data.pos.y = value.pos.y;
-    std::cout << "ClickableCompoent created" << std::endl;
 }
 
 sf::Drawable &
@@ -69,7 +68,6 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
 
 bool Engine::RendererModule::Components::ClickableComponent::isClicked(
     std::pair<float, float> mousePos) {
-    std::cout << "is clicked" << std::endl;
     sf::FloatRect bounds = _sprite.getGlobalBounds();
 
     if (bounds.contains(mousePos.first, mousePos.second)) {

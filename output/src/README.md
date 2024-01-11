@@ -12,6 +12,8 @@ Welcome to the source code of the R-Type project! The project is organized into 
 
 - **README.md**: Documentation file providing details about the contents and structure of each directory.
 
+<img src="../assets/project-structure.png">
+
 ## Directory Descriptions
 
 - **Client**: This directory holds the source code for the R-Type client. Explore this space to understand how the client-side functionality is implemented.

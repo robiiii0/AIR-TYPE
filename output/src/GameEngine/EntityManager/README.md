@@ -3,6 +3,8 @@
 ## Description
 The EntityManager is a component of the GameEngine that manages the creation, deletion, and retrieval of entities within the game. It provides a centralized interface for managing the game's entities and their associated components.
 
+<img src="../../../assets/entity-manager.png">
+
 ## Usage
 To use the EntityManager in your game, follow these steps:
 

@@ -15,7 +15,6 @@ Engine::RendererModule::Components::SoundComponent::SoundComponent(
     _sound.setLoop(_data.loop);
     _sound.setVolume(_data.volume);
     if (_data.play) _sound.play();
-    std::cout << "sound created with volume at " << _data.volume << std::endl;
 }
 
 Engine::RendererModule::Components::SoundComponent::~SoundComponent() {

@@ -8,6 +8,7 @@
 #ifndef MESSAGER_HPP_
 #define MESSAGER_HPP_
 
+#include <SFML/Network.hpp>
 #include <condition_variable>
 #include <mutex>
 #include <thread>
@@ -25,8 +26,7 @@ namespace Engine {
                 ~Messager();
 
                 void sendMessage(const std::string       &message,
-                                 Engine::Network::Client &client,
-                                 int                      socket_fd);
+                                 Engine::Network::Client &client);
                 void startReceiving(Engine::Network::Client &client);
 
             protected:

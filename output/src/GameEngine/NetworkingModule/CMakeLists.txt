@@ -4,6 +4,8 @@ project(Networking)
 
 set(CMAKE_CXX_STANDARD 20)
 
+find_package(SFML 2.5 COMPONENTS system CONFIG REQUIRED)
+
 include_directories(./)
 
 add_library(engine_networking
@@ -21,6 +23,7 @@ add_library(engine_networking
     Serializer/Serializer.cpp
     )
 
+target_link_libraries(engine_networking PRIVATE sfml-system sfml-network)
 
 add_custom_command(TARGET engine_networking POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
