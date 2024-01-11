@@ -23,5 +23,7 @@ void Client::HandleMovementManager(std::string command) {
         _networkingModule->sendMessage("move left", _ClientId);
     } else if (command == "right") {
         _networkingModule->sendMessage("move right", _ClientId);
+    } else if (command == "attack") {
+        _networkingModule->sendMessage("attack", _ClientId);
     }
 }

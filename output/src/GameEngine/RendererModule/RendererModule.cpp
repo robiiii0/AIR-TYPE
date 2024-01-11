@@ -58,8 +58,6 @@ int Engine::RendererModule::RendererModule::HandleEvent(
     return 0;
 }
 
-// TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
-
 void Engine::RendererModule::RendererModule::UpdatePosition(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
     Engine::Entity::Component::GenericComponents::Vector2f pos) {
@@ -96,13 +94,11 @@ void Engine::RendererModule::RendererModule::update(
                 if (auto parallaxComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::parallaxComponent>(
                         component)) {
-                    // If it is, update the component
                     parallaxComp->runParallax();
                 }
                 if (auto clickableComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::ClickableComponent>(
                         component)) {
-                    // If it is, update the component
                     clickableComp->isHovered(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});

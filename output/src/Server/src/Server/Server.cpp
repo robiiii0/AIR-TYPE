@@ -237,7 +237,7 @@ void Server::networkLoop() {
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
 
-            if (packet == "ATTACK") {
+            if (packet == "attack") {
                 std::cout << "Creating missile" << std::endl;
                 createMissile(_missileID);
                 _missileID++;
