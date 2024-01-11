@@ -33,11 +33,12 @@ void Game::gameLoop() {
             *std::max_element(getEntities().begin(), getEntities().end()) + 1;
         createButton(
             [this]() {
+                _sounds[1]->play();
                 removeEntity(_lastId);
                 updateScore();
             },
             "", _textures[Textures::PLAYER], _fonts[0],
-            {randomFloat(0.0, 1200.0), randomFloat(0.0, 720.0)}, {0.3, 0.3},
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
             sf::Color::White, 0);
     }
 }

@@ -16,6 +16,8 @@ Game::Game() : _gameEngine() {
     _gameState = GameState::MENU;
     _score = 0;
 
+    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 10.0);
+    LoadSound("assets/Sounds/click.wav", false, false, 50.0);
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
@@ -40,9 +42,9 @@ void Game::run() {
 }
 
 float Game::randomFloat(float min, float max) {
-    std::random_device rd;         // obtain a random number from hardware
-    std::mt19937       gen(rd());  // seed the generator
-    std::uniform_real_distribution<> distr(min, max);  // define the range
+    std::random_device               rd;
+    std::mt19937                     gen(rd());
+    std::uniform_real_distribution<> distr(min, max);
     return distr(gen);
 }
 
