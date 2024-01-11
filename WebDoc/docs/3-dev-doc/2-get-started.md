@@ -1,24 +1,4 @@
-# R-Type - Game Engine
-
-## Project Documentation
-
-Welcome to the Networking Module of the R-Type project! This section contains comprehensive documentation for the networking-related components.
-
-- **GameEngine**: This directory encompasses the source code and resources related to the game engine of the R-Type project.
-
-- **README.md**: This document provides detailed information about the game engine. It covers the implementation of engine, and game engine's role in the overall architecture.
-
-## Directory Descriptions
-
-- **GameEngine**: Within this directory, you'll find the source code for the game engine. This module is vital for facilitating communication between different components of the R-Type project, such as the client and server.
-
-- **README.md**: This documentation file offers insights into the game engine, serving as a guide for developers working on or exploring the engine aspects of the R-Type project.
-
-## Contribution and Exploration
-
-Feel free to delve into the game engine's source code and contribute to its development or improvement. If you have any questions or suggestions regarding the game engine, please don't hesitate to reach out. Your contributions are invaluable to the success of the R-Type project. Happy coding!
-
-## Get Started
+# Get Started
 
 ### Prerequisites
 
@@ -28,17 +8,17 @@ No dependencies required.
 
 <b>The CLIENT is the part of the project that will be used by the players to play the game. It will be the one that will communicate with the server.</b>
 
-[ENTITY](./EntityManager/README.md) - Read this file containing the documentation for the entity module. It's the module that will be used to manage the entities to display.
+[ENTITY](http://localhost:3000/docs/dev-doc/game-engine/modules/entity-manager) - Read this file containing the documentation for the entity module. It's the module that will be used to manage the entities to display.
 
-[RENDERER](./RendererModule/README.md) - Read this file containing the documentation for the renderer module. It's the module that will be used to display the entities.
+[RENDERER](http://localhost:3000/docs/dev-doc/game-engine/modules/renderer-module) - Read this file containing the documentation for the renderer module. It's the module that will be used to display the entities.
 
-[PHYSIC](./PhysicModule/README.md) - Read this file containing the documentation for the physic module. It's the module that will be used to manage the entities' positions.
+[PHYSIC](http://localhost:3000/docs/dev-doc/game-engine/modules/physic-module) - Read this file containing the documentation for the physic module. It's the module that will be used to manage the entities' positions.
 
-[HMI](./HmiModule/README.md) - Read this file containing the documentation for the HMI module. It's the module that will be used to detect the user inputs.
+[HMI](http://localhost:3000/docs/dev-doc/game-engine/modules/hmi) - Read this file containing the documentation for the HMI module. It's the module that will be used to detect the user inputs.
 
-[NETWORKING](./NetworkingModule/README.md) - Read this file containing the documentation for the networking module. It's the module that will be used to communicate with the server.
+[NETWORKING](http://localhost:3000/docs/dev-doc/game-engine/modules/networking-module) - Read this file containing the documentation for the networking module. It's the module that will be used to communicate with the server.
 
-[LOCALSTORAGE](./LocalStorageModule/README.md) - Read this file containing the documentation for the local storage module. It's the module that will be used to store the user preferences.
+[LOCALSTORAGE](http://localhost:3000/docs/dev-doc/game-engine/modules/local-storage) - Read this file containing the documentation for the local storage module. It's the module that will be used to store the user preferences.
 
 #### Example
 
@@ -177,7 +157,7 @@ class Server {
 
 In your constructor, you can create a new instance of the networking module using UDP like this:
 
-``` cpp
+```cpp
 // Server.cpp
 
 Server::Server() {

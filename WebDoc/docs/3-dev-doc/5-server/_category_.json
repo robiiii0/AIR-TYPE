@@ -1,0 +1,8 @@
+{
+    "label": "Server",
+    "position": 5,
+    "link": {
+      "type": "generated-index",
+      "description": "Server Developer Guide"
+    }
+  }

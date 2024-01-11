@@ -1,17 +1,21 @@
-# ENTITY MANAGER
+# Entity Manager
 
 ## Description
+
 The EntityManager is a component of the GameEngine that manages the creation, deletion, and retrieval of entities within the game. It provides a centralized interface for managing the game's entities and their associated components.
 
-<img src="../../../assets/entity-manager.png">
+<img src={require("../../../../assets/entity-manager.png").default} />
 
 ## Usage
+
 To use the EntityManager in your game, follow these steps:
 
 1. Initialize the EntityManager by creating an instance of it.
+
 ```cpp
 Engine::Entity::EntityManager manager;
 ```
+
 2. Create entities using the `createEntity()` method, which returns a unique entity ID.
 
 ```cpp
@@ -82,8 +86,8 @@ int main() {
 ```cpp
 EntityManager();
 ```
-This constructor will init all the possible entities
 
+This constructor will init all the possible entities
 
 ```cpp
 std::uint32_t CreateEntity();
@@ -91,7 +95,6 @@ std::uint32_t CreateEntity();
 
 This method will create an entity and return the ID of the created entity
 it will also pop an entity ID from the available entities pool and increment the living entity count.
-
 
 ```cpp
 Entity& getEntity(std::uint32_t id);
