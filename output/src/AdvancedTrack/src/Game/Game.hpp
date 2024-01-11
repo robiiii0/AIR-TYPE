@@ -10,6 +10,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -50,9 +51,10 @@ class Game {
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
 
-        void setMenu();
-        void setGame();
-        void gameLoop();
+        void  setMenu();
+        void  setGame();
+        void  gameLoop();
+        float randomFloat(float min, float max);
 
         void changeGameState(GameState state);
         void clearCurrentState();

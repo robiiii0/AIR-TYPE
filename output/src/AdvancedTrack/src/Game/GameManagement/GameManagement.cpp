@@ -23,24 +23,19 @@ void Game::setGame() {
 
     _lastId = *std::max_element(getEntities().begin(), getEntities().end()) + 1;
     createButton([this]() { removeEntity(_lastId); }, "",
-                 _textures[Textures::PLAYER], _fonts[0], {100, 100}, {0.3, 0.3},
-                 sf::Color::White, 0);
+                 _textures[Textures::PLAYER], _fonts[0],
+                 {randomFloat(0.0, 1200.0), randomFloat(0.0, 720.0)},
+                 {0.3, 0.3}, sf::Color::White, 0);
 }
 
 void Game::gameLoop() {
-    // std::cout << "GameLoop" << std::endl;
-    // std::cout << "LastId : " << _lastId << std::endl;
-    // std::cout << "MaxElement : "
-    //           << *std::max_element(getEntities().begin(),
-    //           getEntities().end())
-    //           << std::endl;
     if (_gameState == GameState::GAME &&
         _lastId >
             *std::max_element(getEntities().begin(), getEntities().end())) {
-        // std::cout << "GameLoop Condition" << std::endl;
         _lastId++;
         createButton([this]() { removeEntity(_lastId); }, "",
-                     _textures[Textures::PLAYER], _fonts[0], {100, 100},
+                     _textures[Textures::PLAYER], _fonts[0],
+                     {randomFloat(0.0, 1200.0), randomFloat(0.0, 720.0)},
                      {0.3, 0.3}, sf::Color::White, 0);
     }
 }
