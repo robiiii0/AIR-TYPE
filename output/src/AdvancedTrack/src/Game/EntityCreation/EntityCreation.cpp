@@ -35,7 +35,8 @@ void Game::createSprite(
             std::make_shared<Engine::RendererModule::Components::TextComponent>(
                 tmp_text);
 
-    Engine::Physic::Components::MovementData tmp_movement = {{0, 0}, {0, 0}, 0};
+    Engine::Physic::Components::MovementData tmp_movement = {
+        {0.2, 0}, {0.2, 0}, 5.0};
 
     _gameEngine.getEntityManager()->addComponent(spriteEntity, posComponent);
     _gameEngine.getEntityManager()->addComponent(spriteEntity, spriteComponent);

@@ -8,10 +8,6 @@
 #include "../Game.hpp"
 
 void Game::setGame() {
-    createSprite({static_cast<float>(0), static_cast<float>(0)},
-                 {static_cast<float>(2), static_cast<float>(2)},
-                 _textures[Textures::BACKGROUND], "");
-    createSprite({static_cast<float>(100), static_cast<float>(100)},
-                 {static_cast<float>(1), static_cast<float>(1)},
-                 _textures[Textures::PLAYER], "");
+    createSprite({0.0, 0.0}, {2.0, 2.0}, _textures[Textures::BACKGROUND], "");
+    createSprite({100.0, 100.0}, {1.0, 1.0}, _textures[Textures::PLAYER], "");
 }
