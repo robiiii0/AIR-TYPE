@@ -13,12 +13,6 @@ void Game::createSprite(
     sf::Texture &texture, std::string name) {
     uint32_t spriteEntity = _gameEngine.getEntityManager()->createEntity();
 
-    std::shared_ptr<
-        Engine::Entity::Component::GenericComponents::Vector2fComponent>
-        posComponent = std::make_shared<
-            Engine::Entity::Component::GenericComponents::Vector2fComponent>(
-            pos);
-
     Engine::RendererModule::Components::SpriteData tmp_sprite = {
         pos, scale, sf::Color::White, 0, false};
 
@@ -38,7 +32,6 @@ void Game::createSprite(
     Engine::Physic::Components::MovementData tmp_movement = {
         {0.2, 0}, {0.2, 0}, 5.0};
 
-    _gameEngine.getEntityManager()->addComponent(spriteEntity, posComponent);
     _gameEngine.getEntityManager()->addComponent(spriteEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(spriteEntity, textComponent);
 
