@@ -360,6 +360,7 @@ void Server::updateMissile() {
     // mettre a jour la position du player
     // faire le message (add missile id x y)
     // bien le mettre dans _globalMessages
+    std::cout << _missileEntities.size() << std::endl;
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(missile.second)
@@ -372,12 +373,17 @@ void Server::updateMissile() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x += 1;
-                position->setValue(new_position);
-                std::string msg = "add missile " + std::to_string(missile.second) + " " +
-                                  std::to_string(position->getValue().x) + " " +
-                                  std::to_string(position->getValue().y);
-                _globalMessages.emplace(msg);
+                if (new_position.x > 30000) {
+                    // _gameEngine->getEntityManager()->removeEntity(missile.second);
+                    // continue;
+                } else {
+                    new_position.x += 1;
+                    position->setValue(new_position);
+                    std::string msg = "add missile " + std::to_string(missile.second) + " " +
+                                    std::to_string(position->getValue().x) + " " +
+                                    std::to_string(position->getValue().y);
+                    _globalMessages.emplace(msg);
+                }
             }
         }
     }
@@ -389,7 +395,7 @@ void Server::update() {
     // for (auto &entity : _ennemyEntities) {
     //     updateEnnemies(entity.second);
     // }
-    // updateMissile();
+    updateMissile();
     // ? update all components
     // ? update all systems
 }
