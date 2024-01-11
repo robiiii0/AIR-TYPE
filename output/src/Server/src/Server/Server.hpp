@@ -38,6 +38,7 @@ class Server {
         void updateMissile(std::uint32_t id);
         void updateEnnemies(std::uint32_t id);
         void update();
+        void movePlayer(int, std::uint32_t);
 
     private:
         void                                               networkLoop();

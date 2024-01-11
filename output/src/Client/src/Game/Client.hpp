@@ -132,6 +132,8 @@ class Client {
 
         void playerInit();
         void HandleMovementManager(std::string command);
+        void updateSpritePosition(
+            int id, Engine::Entity::Component::GenericComponents::Vector2f pos);
 
         void HandlePlayerManagement(
             Engine::Network::Serializer::entity_t &player, int place);

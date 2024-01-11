@@ -16,16 +16,12 @@ void Client::HandleMovementManager(std::string command) {
         _networkingModule->~NetworkingModule();
         _gameEngine.getRendererModule()->getWindow().close();
     } else if (command == "up") {
-        std::cout << "Updating player position" << std::endl;
         _networkingModule->sendMessage("move up", _ClientId);
     } else if (command == "down") {
-        std::cout << "Updating player position" << std::endl;
-                _networkingModule->sendMessage("move down", _ClientId);
+        _networkingModule->sendMessage("move down", _ClientId);
     } else if (command == "left") {
-        std::cout << "Updating player position" << std::endl;
-                _networkingModule->sendMessage("move left", _ClientId);
+        _networkingModule->sendMessage("move left", _ClientId);
     } else if (command == "right") {
-        std::cout << "Updating player position" << std::endl;
         _networkingModule->sendMessage("move right", _ClientId);
     }
 }

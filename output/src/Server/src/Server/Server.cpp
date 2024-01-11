@@ -84,8 +84,8 @@ void Server::sendGameStatus(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add player " +
-                                  std::to_string(entity.first) + " " +
+                std::string msg = "add player " + std::to_string(entity.first) +
+                                  " " +
                                   std::to_string(position->getValue().x + 2) +
                                   " " + std::to_string(position->getValue().y);
                 _clientMessages[id].emplace(msg);
@@ -153,6 +153,73 @@ void Server::createMissile(std::uint32_t id) {
     //     }
 }
 
+void Server::movePlayer(int type, std::uint32_t id) {
+    if (type == 1) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(_playerEntities[id])
+                              ->_components;
+        for (auto &component2 : components) {
+            if (auto posComp = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component2)) {
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    NewPosition = {{posComp->getValue().x},
+                                   {posComp->getValue().y + float(-3.0)}};
+                posComp->setValue(NewPosition);
+                std::cout << "new position set" << std::endl;
+            }
+        }
+    }
+    if (type == 2) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(_playerEntities[id])
+                              ->_components;
+        for (auto &component2 : components) {
+            if (auto posComp = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component2)) {
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    NewPosition = {{posComp->getValue().x},
+                                   {posComp->getValue().y + float(3.0)}};
+                posComp->setValue(NewPosition);
+                std::cout << "new position set" << std::endl;
+            }
+        }
+    }
+    if (type == 3) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(_playerEntities[id])
+                              ->_components;
+        for (auto &component2 : components) {
+            if (auto posComp = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component2)) {
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    NewPosition = {{posComp->getValue().x + float(3.0)},
+                                   {posComp->getValue().y}};
+                posComp->setValue(NewPosition);
+                std::cout << "new position set" << std::endl;
+            }
+        }
+    }
+    if (type == 4) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(_playerEntities[id])
+                              ->_components;
+        for (auto &component2 : components) {
+            if (auto posComp = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component2)) {
+                Engine::Entity::Component::GenericComponents::Vector2f
+                    NewPosition = {{posComp->getValue().x + float(-3.0)},
+                                   {posComp->getValue().y}};
+                posComp->setValue(NewPosition);
+                std::cout << "new position set" << std::endl;
+            }
+        }
+    }
+}
+
 void Server::networkLoop() {
     if (_networkingModule->getClients().size() > _nb_clients) {  // ? new client
         std::cout << "New Client connected" << std::endl;
@@ -176,8 +243,25 @@ void Server::networkLoop() {
                 _missileID++;
             }
 
-            if (packet.find("Move") != std::string::npos) {
+            if (packet.find("move") != std::string::npos) {
                 if (packet.find("up") != std::string::npos) {
+                    std::cout << "j'ai recu un mess" << std::endl;
+                    movePlayer(1, client.getId());
+                    // movePlayer
+                }
+                if (packet.find("down") != std::string::npos) {
+                    std::cout << "j'ai recu un mess" << std::endl;
+                    movePlayer(2, client.getId());
+                    // movePlayer
+                }
+                if (packet.find("right") != std::string::npos) {
+                    std::cout << "j'ai recu un mess" << std::endl;
+                    movePlayer(3, client.getId());
+                    // movePlayer
+                }
+                if (packet.find("left") != std::string::npos) {
+                    std::cout << "j'ai recu un mess" << std::endl;
+                    movePlayer(4, client.getId());
                     // movePlayer
                 }
             }
@@ -235,8 +319,8 @@ void Server::updatePlayer(std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 std::string msg = "add player " + std::to_string(id) + " " +
-                                  std::to_string(position->getValue().x + 3) +
-                                  " " + std::to_string(position->getValue().y);
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
                 // position->setValue({static_cast<float>(position->getValue().x
                 // + 3.0)}, position->getValue().y);
                 _globalMessages.emplace(msg);

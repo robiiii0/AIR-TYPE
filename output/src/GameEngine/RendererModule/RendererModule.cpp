@@ -60,6 +60,31 @@ int Engine::RendererModule::RendererModule::HandleEvent(
 
 // TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
 
+void Engine::RendererModule::RendererModule::UpdatePosition(
+    Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
+    Engine::Entity::Component::GenericComponents::Vector2f pos) {
+    for (auto id : id_list) {
+        try {
+            auto components = entityManager.getAllComponents(id);
+            for (auto &component : components) {
+                if (auto spriteComp = std::dynamic_pointer_cast<
+                        Engine::RendererModule::Components::SpriteComponent>(
+                        component)) {
+                    for (auto &component2 : components) {
+                        if (auto posComp = std::dynamic_pointer_cast<
+                                Engine::Entity::Component::GenericComponents::
+                                    PositionComponent>(component2)) {
+                            spriteComp->setPosition(pos.x, pos.y);
+                        }
+                    }
+                }
+            }
+        } catch (const Engine::EntityManager::NoComponent &e) {
+            std::cerr << e.what() << '\n';
+        }
+    }
+}
+
 void Engine::RendererModule::RendererModule::update(
     Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
@@ -82,18 +107,7 @@ void Engine::RendererModule::RendererModule::update(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});
                 }
-                if (auto spriteComp = std::dynamic_pointer_cast<
-                        Engine::RendererModule::Components::SpriteComponent>(
-                        component)) {
-                    for (auto &component2 : components) {
-                        if (auto posComp = std::dynamic_pointer_cast<
-                                Engine::Entity::Component::GenericComponents::
-                                    PositionComponent>(component2)) {
-                            spriteComp->setPosition(posComp->getValue().x / 2,
-                                                    posComp->getValue().y / 2);
-                        }
-                    }
-                }
+
                 if (auto textComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::TextComponent>(
                         component)) {
