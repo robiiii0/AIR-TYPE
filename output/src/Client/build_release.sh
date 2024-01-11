@@ -15,15 +15,15 @@ if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client" ]; then
 else
   echo "Linux/Mac Client binary is present"
   built=built+1
-  mv "$CURRENT_DIR/release/Debug/r-type_client" "$CURRENT_DIR../../release/r-type_client"
+  mv "$CURRENT_DIR/release/Debug/r-type_client" "$CURRENT_DIR/../../release/r-type_client"
 fi
 
 if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client.exe" ]; then
-  echo "Windows Server binary is missing"
+  echo "Windows Client binary is missing"
 else
-  echo "Windows Server binary is present"
+  echo "Windows Client binary is present"
   built=built+1
-  mv "$CURRENT_DIR/release/Debug/r-type_client.exe" "$CURRENT_DIR../../release/r-type_client.exe"
+  mv "$CURRENT_DIR/release/Debug/r-type_client.exe" "$CURRENT_DIR/../../release/r-type_client.exe"
 fi
 
 if [ $built -eq 0 ]; then

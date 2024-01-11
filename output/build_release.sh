@@ -3,7 +3,7 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Current directory: $CURRENT_DIR"
 
-mkdir -p "$CURRENT_DIR/release"
+mkdir "$CURRENT_DIR/release"
 
 bash "$CURRENT_DIR/src/Client/build_release.sh" && bash "$CURRENT_DIR/src/Server/build_release.sh"
 

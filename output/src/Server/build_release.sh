@@ -11,9 +11,9 @@ cmake --build "$CURRENT_DIR/release"
 built=0
 
 if [ ! -e "$CURRENT_DIR/release/Debug/r-type_server" ]; then
-  echo "Linux/Mac Client binary is missing"
+  echo "Linux/Mac Server binary is missing"
 else
-  echo "Linux/Mac Client binary is present"
+  echo "Linux/Mac Server binary is present"
   built=built+1
   mv "$CURRENT_DIR/release/Debug/r-type_server" "$CURRENT_DIR../../release/r-type_server"
 fi
@@ -27,6 +27,6 @@ else
 fi
 
 if [ $built -eq 0 ]; then
-  echo "Client Compilation failed"
+  echo "Server Compilation failed"
   exit 1
 fi
