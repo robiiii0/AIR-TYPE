@@ -58,7 +58,7 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
-target_link_libraries(r-type_server ${LIBS} sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(r-type_server ${LIBS} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
 add_custom_command(TARGET r-type_server POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
