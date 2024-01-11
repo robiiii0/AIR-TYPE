@@ -6,7 +6,7 @@ cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRE
 
 cmake --build "$CURRENT_DIR/release"
 
-if [ ! -e "$CURRENT_DIR/release/r-type_client" ]; then
+if [ ! -e "$CURRENT_DIR/release/r-type_client" ] && [ ! -e "$CURRENT_DIR/build/Debug/r-type_client.exe" ]; then
   echo "Client binary is missing"
   exit 1
 else
