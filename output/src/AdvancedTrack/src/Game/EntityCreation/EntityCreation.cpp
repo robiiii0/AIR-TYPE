@@ -92,17 +92,4 @@ void Game::removeEntity(std::uint32_t entity) {
                     _entities.end());
 }
 
-void Game::addScore(std::uint32_t entity) {
-    _score += 1;
-    auto component =
-        _gameEngine.getEntityManager()
-            ->getEntity(entity)
-            ->getComponent<Engine::Entity::Component::IComponent>();
-
-    auto textComponent = std::dynamic_pointer_cast<
-        Engine::RendererModule::Components::TextComponent>(component);
-
-    textComponent->setText("Score : " + std::to_string(_score));
-}
-
 std::vector<std::uint32_t> &Game::getEntities() { return _entities; }

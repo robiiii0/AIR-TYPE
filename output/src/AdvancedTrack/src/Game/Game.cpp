@@ -12,10 +12,9 @@ Game::Game() : _gameEngine() {
     _screenHeight = 720;
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "PokeHunter", 60);
-
-    _score = 0;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _gameState = GameState::MENU;
+    _score = 0;
 
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
@@ -27,8 +26,8 @@ void Game::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
-        std::string eventKey = _hmiModule->keyEvent(
-            _gameEngine.getRendererModule()->HandleEvent(
+        std::string eventKey =
+            _hmiModule->keyEvent(_gameEngine.getRendererModule()->HandleEvent(
                 *_gameEngine.getEntityManager(), getEntities()));
 
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
