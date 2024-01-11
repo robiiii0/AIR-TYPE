@@ -4,7 +4,7 @@ sidebar-position: 2
 
 # Presentation
 
-<img src="../../assets/rtype-logo.png" />
+<img src={require("../../assets/rtype-logo.png").default} />
 
 ## Description
 

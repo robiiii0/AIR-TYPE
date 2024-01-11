@@ -4,7 +4,7 @@
 
 The `RendererModule` directory in the R-Type project contains the `RendererModule` class, which is responsible for handling rendering tasks using the Simple and Fast Multimedia Library (SFML). This class manages the initialization of the rendering window, updates rendering content, and performs rendering operations.
 
-<img src="../../../../assets/renderer-module.png" />
+<img src={require("../../../../assets/renderer-module.png").default} />
 
 ## Structure Explanation
 
@@ -42,13 +42,16 @@ namespace Engine {
 #### Public Methods
 
 - **Constructor (`RendererModule()`) and Destructor (`~RendererModule()`)**
+
   - The constructor initializes the `RendererModule` instance.
   - The destructor is responsible for any necessary cleanup when the `RendererModule` is no longer needed.
 
 - **`void init()`**
+
   - Method to initialize the rendering module. This may include setting up the rendering window, configuring rendering options, or loading initial assets.
 
 - **`void update()`**
+
   - Method to update the rendering content. This could involve handling user input, managing animations, or updating other aspects of the rendering process.
 
 - **`void render()`**

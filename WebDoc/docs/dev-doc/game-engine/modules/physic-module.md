@@ -4,7 +4,7 @@
 
 The `PhysicModule` class is a component within the R-Type project designed to handle physics-related functionalities for entities. This class provides methods for updating the physics state and detecting collisions between entities.
 
-<img src="../../../../assets/physic-module.png" />
+<img src={require("../../../../assets/physic-module.png").default} />
 
 ## Structure Explanation
 
@@ -34,10 +34,12 @@ private:
 #### Public Methods
 
 - **Constructor (`PhysicModule()`) and Destructor (`~PhysicModule()`)**
+
   - The constructor initializes the `PhysicModule`.
   - The destructor is responsible for any necessary cleanup when the `PhysicModule` is no longer needed.
 
 - **`void update()`**
+
   - Method to update the physics state. This method is likely responsible for advancing the physics simulation, applying forces, and handling other physics-related tasks.
 
 - **`bool isColliding(Entity::Entity &entity1, Entity::Entity &entity2)`**
