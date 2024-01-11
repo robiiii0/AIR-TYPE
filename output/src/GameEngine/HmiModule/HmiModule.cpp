@@ -5,7 +5,6 @@
 #include "HmiModule.hpp"
 
 Engine::HmiModule::HmiModule() {
-    keyboard.reset();
     std::cout << "HmiModule created" << std::endl;
 }
 
