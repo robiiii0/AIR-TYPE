@@ -181,7 +181,7 @@ void Client::LoadSettingsKeyBindings(std::string paths) {
     _textureSetting.push_back(texture);
 }
 
-void Client::createMissile(std::uint32_t id, float x, float y) {
+uint32_t Client::createMissile(std::uint32_t id, float x, float y) {
     uint32_t missileEntity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::Entity::Component::GenericComponents::Vector2f pos = {x, y};
@@ -203,4 +203,5 @@ void Client::createMissile(std::uint32_t id, float x, float y) {
                                                  spriteComponent);
     _gameEngine.getEntityManager()->addComponent(missileEntity, posComponent);
     addEntity(missileEntity);
+    return missileEntity;
 }

@@ -72,7 +72,7 @@ class Client {
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        void createMissile(std::uint32_t id, float x, float y);
+        uint32_t createMissile(std::uint32_t id, float x, float y);
 
         void CreateSprite(
             Engine::Entity::Component::GenericComponents::Vector2f pos,
@@ -156,7 +156,7 @@ class Client {
         sf::Texture                                        _textureMissile;
         sf::Texture                                        _textureBoss;
         std::vector<player_t>                              _player;
-        std::vector<Engine::Network::Serializer::entity_t> _missile;
+        std::vector<player_t> _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

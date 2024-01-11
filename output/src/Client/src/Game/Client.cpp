@@ -110,19 +110,21 @@ void Client::HandleMissileManager(
             _missile[place].x = missile.x;
             _missile[place].y = missile.y;
             _missile[place].direction = missile.direction;
-            createMissile(_missile[place].id, _missile[place].x,
+            uint32_t idMissile = createMissile(_missile[place].id, _missile[place].x,
                           _missile[place].y);
+            _missile[place].idSprite = idMissile;
         }
-        //     else if (_missile[place].id > -1 && _missile[place].id <
-        //     MAX_MISSILES &&
-        //            missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080
-        //            && missile.y >= 0 && (missile.x != _missile[place].x ||
-        //             missile.y != _missile[place].y) &&
-        //            _missile[place].id == missile.id) {
-        //     updateSpritePosition(_missile[place].id, {missile.x, missile.y});
-        //     _missile[place].x = missile.x;
-        //     _missile[place].y = missile.y;
-        // }
+            else if (_missile[place].id > -1 && _missile[place].id <
+            MAX_MISSILES &&
+                   missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080
+                   && missile.y >= 0 && (missile.x != _missile[place].x ||
+                    missile.y != _missile[place].y) &&
+                   _missile[place].id == missile.id) {
+                std::cout << "je suis dedans" << std::endl;
+            updateSpritePosition(_missile[place].id, {missile.x, missile.y}, _missile[place].idSprite);
+            _missile[place].x = missile.x;
+            _missile[place].y = missile.y;
+        }
     }
     // createmissile(_texturemissile[place], {missile.x, missile.y});
 }
@@ -146,7 +148,7 @@ void Client::run() {
                             msg);
                     int placePlayer = 0;
                     int placeMissiles = 0;
-                    std::cout << "data : {" << std::endl;
+                    std::cout << "data player : {" << std::endl;
                     for (auto &player : data.players) {
                         std::cout << "    {" << std::endl;
                         std::cout << "        id : " << player.id << std::endl;
@@ -157,14 +159,26 @@ void Client::run() {
                         std::cout << "    }" << std::endl;
                     }
                     std::cout << "}" << std::endl;
+
+                    std::cout << "data missiles : " << std::endl;
+                    for (auto &missile : data.missiles) {
+                        std::cout << "    {" << std::endl;
+                        std::cout << "        id : " << missile.id << std::endl;
+                        std::cout << "        x : " << missile.x << std::endl;
+                        std::cout << "        y : " << missile.y << std::endl;
+                        std::cout << "        direction : " << missile.direction
+                                  << std::endl;
+                        std::cout << "    }" << std::endl;
+                    }
+                    std::cout << "}" << std::endl;
                     for (auto &player : data.players) {
                         HandlePlayerManagement(player, placePlayer);
                         placePlayer++;
                     }
-                    // for (auto &missile : data.missiles) {
-                    //     HandleMissileManager(missile, placeMissiles);
-                    //     placeMissiles++;
-                    // }
+                    for (auto &missile : data.missiles) {
+                        HandleMissileManager(missile, placeMissiles);
+                        placeMissiles++;
+                    }
                 }
             }
         }

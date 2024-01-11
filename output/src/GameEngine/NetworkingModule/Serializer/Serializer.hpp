@@ -14,7 +14,7 @@
 #include <vector>
 
 #define MAX_PLAYERS  4
-#define MAX_MISSILES 200
+#define MAX_MISSILES 5
 
 namespace Engine {
     namespace Network {

@@ -1,12 +1,6 @@
 #include "Client.hpp"
 
 void Client::playerInit() {
-    Engine::Network::Serializer::entity_t entityTemp = {
-        -1,
-        {static_cast<bool>(false)},
-        {static_cast<float>(0.0)},
-        {static_cast<float>(0.0)}};
-
     player_t player_temp = {-1,
                             {static_cast<bool>(false)},
                             {static_cast<float>(0.0)},
@@ -18,7 +12,7 @@ void Client::playerInit() {
     }
 
     for (int i = 0; i < MAX_MISSILES; i++) {
-        _missile.push_back(entityTemp);
+        _missile.push_back(player_temp);
     }
 }
 
