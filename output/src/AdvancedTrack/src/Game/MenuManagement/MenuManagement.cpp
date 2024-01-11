@@ -8,7 +8,7 @@
 #include "../Game.hpp"
 
 void Game::setMenu() {
-    createSprite({0.0, 0.0}, {3, 2.5}, _textures[0], "");
+    createSprite({0.0, 0.0}, {2, 1.7}, _textures[0], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::GAME), "",
                  _textures[1], _fonts[0],
                  {static_cast<float>(_screenWidth / 2),

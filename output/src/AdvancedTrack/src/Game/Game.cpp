@@ -27,7 +27,7 @@ void Game::run() {
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         std::string eventKey = _hmiModule->keyEvent(
-            _gameEngine.getRendererModule()->UpdateForServer(
+            _gameEngine.getRendererModule()->HandleEvent(
                 *_gameEngine.getEntityManager(), getEntities()));
 
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
