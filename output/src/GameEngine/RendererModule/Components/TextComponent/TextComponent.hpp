@@ -33,6 +33,7 @@ namespace Engine {
                     ~TextComponent();
                     void          execute() override;
                     sf::Drawable &getDrawable() override;
+                    void          setText(std::string text);
                     void          setTextData(TextData &data);
                     void          setPosition(float x, float y);
                     TextData      getTextData() const;

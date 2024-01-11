@@ -58,6 +58,11 @@ Engine::RendererModule::Components::TextData
     return _data;
 }
 
+void Engine::RendererModule::Components::TextComponent::setText(
+    std::string text) {
+    _text.setString(text);
+}
+
 sf::Text Engine::RendererModule::Components::TextComponent::getText() const {
     return _text;
 }

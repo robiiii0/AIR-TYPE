@@ -50,6 +50,7 @@ class Game {
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
 
+        void addScore(std::uint32_t score);
         void setMenu();
         void setGame();
 
@@ -66,6 +67,8 @@ class Game {
         int _screenWidth;
         int _screenHeight;
         int _gameState;
+
+        int _score;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;

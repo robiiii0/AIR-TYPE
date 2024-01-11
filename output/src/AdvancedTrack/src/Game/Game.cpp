@@ -13,6 +13,7 @@ Game::Game() : _gameEngine() {
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "PokeHunter", 60);
 
+    _score = 0;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _gameState = GameState::MENU;
 
