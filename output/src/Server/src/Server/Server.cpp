@@ -360,7 +360,7 @@ void Server::updateMissile(std::uint32_t id) {
     // mettre a jour la position du player
     // faire le message (add missile id x y)
     // bien le mettre dans _globalMessages
-    write(1, "update missile\n", 16);
+    // write(1, "update missile\n", 16);
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(missile.second)
