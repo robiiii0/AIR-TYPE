@@ -9,6 +9,10 @@ void Client::playerInit() {
     for (int i = 0; i < 4; i++) {
         _player.push_back(entityTemp);
     }
+
+    for (int i = 0; i < MAX_MISSILES ; i++) {
+        _missile.push_back(entityTemp);
+    }
 }
 
 void Client::HandleMovementManager(std::string command) {

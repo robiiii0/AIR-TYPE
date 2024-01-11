@@ -85,6 +85,34 @@ void Client::HandlePlayerManagement(
     }
 }
 
+void Client::HandleMissileManager(Engine::Network::Serializer::entity_t &missile, int place) {
+    std::cout << "Missile " << missile.id << " at " << missile.x << " "
+              << missile.y << std::endl;
+
+        if (missile.id > -1 && missile.id < MAX_MISSILES) {
+            std::cout << "missile " << missile.id << " at " << missile.x << " "
+                    << missile.y << std::endl;
+            if (_missile[place].id == -1 && missile.id != _missile[0].id && missile.x < 1920 && missile.x >= 0 &&
+                missile.y < 1080 && missile.y >= 0) {
+                _missile[place].id = missile.id;
+                _missile[place].x = missile.x;
+                _missile[place].y = missile.y;
+                _missile[place].direction = missile.direction;
+                createMissile(_missile[place].id, _missile[place].x, _missile[place].y);
+            } else if (_missile[place].id > -1 && _missile[place].id < MAX_MISSILES &&
+                   missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080 &&
+                   missile.y >= 0 &&
+                   (missile.x != _missile[place].x ||
+                    missile.y != _missile[place].y) &&
+                   _missile[place].id == missile.id) {
+            updateSpritePosition(_missile[place].id, {missile.x, missile.y});
+            _missile[place].x = missile.x;
+            _missile[place].y = missile.y;
+        }
+        }
+            // createmissile(_texturemissile[place], {missile.x, missile.y});
+}
+
 void Client::run() {
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
@@ -102,10 +130,15 @@ void Client::run() {
                     Engine::Network::Serializer::serialized_data_t data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    int place = 0;
+                    int placePlayer = 0;
+                    int placeMissiles = 0;
                     for (auto &player : data.players) {
-                        HandlePlayerManagement(player, place);
-                        place++;
+                        HandlePlayerManagement(player, placePlayer);
+                        placePlayer++;
+                    }
+                    for (auto &missile : data.missiles) {
+                        HandleMissileManager(missile, placeMissiles);
+                        placeMissiles++;
                     }
                 }
             }

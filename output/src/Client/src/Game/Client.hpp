@@ -59,15 +59,11 @@ class Client {
     public:
         Client();
         void run();
-        void applyStatus(Engine::Network::Client &client);
-
-        Engine::GameEngine &getGameEngine();
         // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        void attack();
         void createMissile(std::uint32_t id, float x, float y);
 
         void CreateSprite(
@@ -91,17 +87,11 @@ class Client {
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
-
         void createText(
             std::string text, sf::Font &font,
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
-
-        void CommandManager(std::string msg);
-        void GetClientId(Engine::Network::Serializer::serialized_data_t data);
-        // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
-        // paths);
         void LoadTextureParallax(std::string paths);
         void LoadTexturePlayer(std::string paths);
         void LoadBackground();
@@ -121,8 +111,6 @@ class Client {
         void ChangeKeyBinding();
         void ConnectionWithServer();
 
-        std::vector<std::string> ParseCommande(std::string str);
-
         // Gamestate handling
         void changeState(GameState state);
         void clearCurrentState();
@@ -135,6 +123,7 @@ class Client {
         void updateSpritePosition(
             int id, Engine::Entity::Component::GenericComponents::Vector2f pos);
 
+        void HandleMissileManager(Engine::Network::Serializer::entity_t &player, int place);
         void HandlePlayerManagement(
             Engine::Network::Serializer::entity_t &player, int place);
 
@@ -157,6 +146,7 @@ class Client {
         sf::Texture                                        _textureMissile;
         sf::Texture                                        _textureBoss;
         std::vector<Engine::Network::Serializer::entity_t> _player;
+                std::vector<Engine::Network::Serializer::entity_t> _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
