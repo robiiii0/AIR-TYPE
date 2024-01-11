@@ -8,6 +8,8 @@ cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRE
 
 cmake --build "$CURRENT_DIR/release"
 
+ls -la
+
 built=0
 
 if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client" ]; then
