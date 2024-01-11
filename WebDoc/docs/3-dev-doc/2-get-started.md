@@ -8,17 +8,17 @@ No dependencies required.
 
 <b>The CLIENT is the part of the project that will be used by the players to play the game. It will be the one that will communicate with the server.</b>
 
-[ENTITY](./EntityManager/README.md) - Read this file containing the documentation for the entity module. It's the module that will be used to manage the entities to display.
+[ENTITY](http://localhost:3000/docs/dev-doc/game-engine/modules/entity-manager) - Read this file containing the documentation for the entity module. It's the module that will be used to manage the entities to display.
 
-[RENDERER](./RendererModule/README.md) - Read this file containing the documentation for the renderer module. It's the module that will be used to display the entities.
+[RENDERER](http://localhost:3000/docs/dev-doc/game-engine/modules/renderer-module) - Read this file containing the documentation for the renderer module. It's the module that will be used to display the entities.
 
-[PHYSIC](./PhysicModule/README.md) - Read this file containing the documentation for the physic module. It's the module that will be used to manage the entities' positions.
+[PHYSIC](http://localhost:3000/docs/dev-doc/game-engine/modules/physic-module) - Read this file containing the documentation for the physic module. It's the module that will be used to manage the entities' positions.
 
-[HMI](./HmiModule/README.md) - Read this file containing the documentation for the HMI module. It's the module that will be used to detect the user inputs.
+[HMI](http://localhost:3000/docs/dev-doc/game-engine/modules/hmi) - Read this file containing the documentation for the HMI module. It's the module that will be used to detect the user inputs.
 
-[NETWORKING](./NetworkingModule/README.md) - Read this file containing the documentation for the networking module. It's the module that will be used to communicate with the server.
+[NETWORKING](http://localhost:3000/docs/dev-doc/game-engine/modules/networking-module) - Read this file containing the documentation for the networking module. It's the module that will be used to communicate with the server.
 
-[LOCALSTORAGE](./LocalStorageModule/README.md) - Read this file containing the documentation for the local storage module. It's the module that will be used to store the user preferences.
+[LOCALSTORAGE](http://localhost:3000/docs/dev-doc/game-engine/modules/local-storage) - Read this file containing the documentation for the local storage module. It's the module that will be used to store the user preferences.
 
 #### Example
 
