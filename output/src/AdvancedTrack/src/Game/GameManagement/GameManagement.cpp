@@ -14,4 +14,6 @@ void Game::setGame() {
                  {static_cast<float>(_screenWidth / 1.05),
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.3, 0.3}, sf::Color::White, 0);
+    createSprite({0.0, 0.0}, {2.0, 2.0}, _textures[Textures::BACKGROUND], "");
+    createSprite({300.0, 300.0}, {1.0, 1.0}, _textures[Textures::PLAYER], "");
 }

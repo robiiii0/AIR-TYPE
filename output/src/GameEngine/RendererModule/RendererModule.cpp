@@ -27,6 +27,7 @@ int Engine::RendererModule::RendererModule::UpdateForServer(
             _event.key.code == sf::Keyboard::Escape) {
             _window.close();
         }
+        if (_event.type == sf::Event::KeyPressed) return _event.key.code;
 
         // if (_event.type == sf::Event::KeyPressed) {
         //     for (auto id : id_list) {
