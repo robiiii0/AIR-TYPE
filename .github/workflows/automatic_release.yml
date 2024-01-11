@@ -12,10 +12,10 @@ jobs:
         strategy:
             matrix:
                 config:
-                    # - os: ubuntu-latest
-                    #   arch: 'x64'
-                    #   ext: ''
-                    #   triplet: 'x64-linux'
+                    - os: ubuntu-latest
+                      arch: 'x64'
+                      ext: ''
+                      triplet: 'x64-linux'
                     # - os: ubuntu-latest
                     #   arch: 'x86_64'
                     #   ext: ''
@@ -66,25 +66,25 @@ jobs:
               with:
                   path: output/release
 
-    # upload:
-    #     needs: build
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - name: 'Checkout'
-    #           uses: actions/checkout@v4
-    #         - name: 'Download built binaries'
-    #           uses: actions/download-artifact@v3
-    #           with:
-    #               path: 'output/release'
-    #         - name: 'Pack binaries'
-    #           run: 'cd output/release && tar -czf release.tar.gz *'
-    #         - name: 'Publish Release'
-    #           uses: softprops/action-gh-release@v1
-    #           with:
-    #             token: ${{ secrets.API_TOKEN_GITHUB }}
-    #             files: 'output/release/release.tar.gz'
-    #             tag_name: ${{ github.ref }}
-    #             body: |
-    #                 Release ${{ github.ref }}
-    #                 ---
-    #                 Automatic release by GitHub Actions
+    upload:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Checkout'
+              uses: actions/checkout@v4
+            - name: 'Download built binaries'
+              uses: actions/download-artifact@v3
+              with:
+                  path: 'output/release'
+            - name: 'Pack binaries'
+              run: 'cd output/release && tar -czf release.tar.gz *'
+            - name: 'Publish Release'
+              uses: softprops/action-gh-release@v1
+              with:
+                token: ${{ secrets.API_TOKEN_GITHUB }}
+                files: 'output/release/release.tar.gz'
+                tag_name: ${{ github.ref }}
+                body: |
+                    Release ${{ github.ref }}
+                    ---
+                    Automatic release by GitHub Actions
