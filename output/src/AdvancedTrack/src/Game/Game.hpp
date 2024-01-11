@@ -51,9 +51,11 @@ class Game {
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
 
-        void  setMenu();
-        void  setGame();
-        void  gameLoop();
+        void setMenu();
+        void setGame();
+        void gameLoop();
+
+        void  updateScore();
         float randomFloat(float min, float max);
 
         void changeGameState(GameState state);
@@ -71,6 +73,7 @@ class Game {
         int _gameState;
 
         int _score;
+        int _scoreId;
         int _lastId;
 
         std::vector<sf::Font>    _fonts;
@@ -81,8 +84,6 @@ class Game {
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
                                            _sounds;
         std::shared_ptr<Engine::HmiModule> _hmiModule;
-
-        sf::Vector2f _playerPos;
 };
 
 #endif /* !GAME_HPP_ */
