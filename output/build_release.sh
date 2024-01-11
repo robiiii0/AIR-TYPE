@@ -5,7 +5,9 @@ echo "Current directory: $CURRENT_DIR"
 
 mkdir "$CURRENT_DIR/release"
 
-bash "$CURRENT_DIR/src/Client/build_release.sh" && bash "$CURRENT_DIR/src/Server/build_release.sh"
+bash "$CURRENT_DIR/src/Client/build_release.sh"
+
+bash "$CURRENT_DIR/src/Server/build_release.sh"
 
 # # cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"   -DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake
 # # echo "building cmake $CURRENT_DIR/CMakeLists"
