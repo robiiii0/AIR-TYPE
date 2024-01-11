@@ -1,7 +1,3 @@
----
-sidebar-position: 1
----
-
 # Get Started
 
 ### Prerequisites
@@ -161,7 +157,7 @@ class Server {
 
 In your constructor, you can create a new instance of the networking module using UDP like this:
 
-``` cpp
+```cpp
 // Server.cpp
 
 Server::Server() {

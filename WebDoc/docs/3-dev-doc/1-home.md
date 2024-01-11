@@ -1,7 +1,3 @@
----
-sidebar-position: 2
----
-
 # Presentation
 
 <img src={require("../../assets/rtype-logo.png").default} />
