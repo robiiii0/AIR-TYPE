@@ -24,5 +24,5 @@ jobs:
     steps:
       - uses: 'actions/checkout@v3'
       - name: 'Check Compilation'
-        run: 'sudo apt install libudev libx11 libxrandr libxcursor opengl && bash install_vcpkg.sh && cd output && bash compile.sh'
+        run: 'sudo apt install libsfml-dev && bash install_vcpkg.sh && cd output && bash compile.sh'
         timeout-minutes: 5
