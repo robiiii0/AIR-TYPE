@@ -9,7 +9,7 @@
 
 void Game::setGame() {
     _score = 0;
-    uint32_t scoreId, maxId = 0;
+    uint32_t scoreId = 0;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -21,14 +21,26 @@ void Game::setGame() {
                {1, 1}, sf::Color::White, 0);
     scoreId = *std::max_element(getEntities().begin(), getEntities().end());
 
-    std::cout << "maxId : " << maxId << std::endl;
+    _lastId = *std::max_element(getEntities().begin(), getEntities().end()) + 1;
+    createButton([this]() { removeEntity(_lastId); }, "",
+                 _textures[Textures::PLAYER], _fonts[0], {100, 100}, {0.3, 0.3},
+                 sf::Color::White, 0);
+}
 
-    maxId = *std::max_element(getEntities().begin(), getEntities().end()) + 1;
-    createButton(
-        [this, maxId]() {
-            removeEntity(maxId);
-            std::cout << maxId << std::endl;
-        },
-        "", _textures[Textures::PLAYER], _fonts[0], {100, 100}, {0.3, 0.3},
-        sf::Color::White, 0);
+void Game::gameLoop() {
+    // std::cout << "GameLoop" << std::endl;
+    // std::cout << "LastId : " << _lastId << std::endl;
+    // std::cout << "MaxElement : "
+    //           << *std::max_element(getEntities().begin(),
+    //           getEntities().end())
+    //           << std::endl;
+    if (_gameState == GameState::GAME &&
+        _lastId >
+            *std::max_element(getEntities().begin(), getEntities().end())) {
+        // std::cout << "GameLoop Condition" << std::endl;
+        _lastId++;
+        createButton([this]() { removeEntity(_lastId); }, "",
+                     _textures[Textures::PLAYER], _fonts[0], {100, 100},
+                     {0.3, 0.3}, sf::Color::White, 0);
+    }
 }
