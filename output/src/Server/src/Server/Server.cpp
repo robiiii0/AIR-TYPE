@@ -117,7 +117,7 @@ void Server::createPlayer(std::uint32_t id) {
     sendGameStatus(id);
 }
 
-void Server::createEnemy(std::uint32_t id) {
+void Server::createEnnemy(std::uint32_t id) {
     std::cout << "Creating ennemy " << id << std::endl;
     _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
@@ -348,6 +348,9 @@ void Server::updateEnnemies() {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
+                auto new_position = position->getValue();
+                new_position.x -= 1;
+                position->setValue(new_position);
                 std::string msg = "add ennemy " + std::to_string(ennemy.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
