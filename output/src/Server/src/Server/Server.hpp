@@ -16,7 +16,7 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
-#define SERVER_TICKRATE 256
+#define SERVER_TICKRATE 128
 
 class Server {
     public:

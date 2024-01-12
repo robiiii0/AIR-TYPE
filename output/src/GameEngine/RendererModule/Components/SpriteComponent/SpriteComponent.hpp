@@ -23,6 +23,7 @@ namespace Engine {
                     sf::Color color;
                     float     rotation;
                     bool      Playable;
+                    uint32_t  id;
             };
 
             class SpriteComponent :
@@ -31,8 +32,8 @@ namespace Engine {
                     SpriteComponent(SpriteData &value, sf::Texture &texture);
                     ~SpriteComponent();
 
-                    void execute() override;
-
+                    void     execute() override;
+                    uint32_t getId();
                     // Sprite
                     void          setRotation(float rotation);
                     void          setScale(float x, float y);
@@ -50,6 +51,7 @@ namespace Engine {
                     float      _rotation;
                     bool       _Playable;
                     sf::Sprite _sprite;
+                    uint32_t   _id;
             };
         };  // namespace Components
     };      // namespace RendererModule

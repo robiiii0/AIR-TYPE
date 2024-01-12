@@ -56,19 +56,23 @@ class Client {
             ESCAPE_TEXTURE = 6,
         };
 
+        typedef struct player_s {
+                int      id;
+                bool     direction;
+                float    x;
+                float    y;
+                uint32_t idSprite;
+        } player_t;
+
     public:
         Client();
         void run();
-        void applyStatus(Engine::Network::Client &client);
-
-        Engine::GameEngine &getGameEngine();
         // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        void attack();
-        void createMissile(std::uint32_t id, float x, float y);
+        uint32_t createMissile(std::uint32_t id, float x, float y);
 
         void CreateSprite(
             Engine::Entity::Component::GenericComponents::Vector2f pos,
@@ -82,7 +86,7 @@ class Client {
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
 
-        void createPlayer(
+        uint32_t createPlayer(
             sf::Texture &Textures,
             Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
@@ -91,7 +95,6 @@ class Client {
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
-
         void createText(
             std::string text, sf::Font &font,
             Engine::Entity::Component::GenericComponents::Vector2f position,
@@ -121,8 +124,6 @@ class Client {
         void ChangeKeyBinding();
         void ConnectionWithServer();
 
-        std::vector<std::string> ParseCommande(std::string str);
-
         // Gamestate handling
         void changeState(GameState state);
         void clearCurrentState();
@@ -133,8 +134,11 @@ class Client {
         void playerInit();
         void HandleMovementManager(std::string command);
         void updateSpritePosition(
-            int id, Engine::Entity::Component::GenericComponents::Vector2f pos);
+            int id, Engine::Entity::Component::GenericComponents::Vector2f pos,
+            uint32_t id_sprite);
 
+        void HandleMissileManager(Engine::Network::Serializer::entity_t &player,
+                                  int                                    place);
         void HandlePlayerManagement(
             Engine::Network::Serializer::entity_t &player, int place);
 
@@ -147,16 +151,17 @@ class Client {
         int _screenHeight;
         int _gameState;
 
-        std::vector<sf::Font>                              _fonts;
-        std::vector<sf::Texture>                           _texturesParallax;
-        std::vector<sf::Texture>                           _texturePlayer;
-        std::vector<sf::Texture>                           _texturesEnemies;
-        std::vector<sf::Texture>                           _textureSetting;
-        std::vector<sf::Texture>                           _texturesButton;
-        sf::Texture                                        _backgroundTexture;
-        sf::Texture                                        _textureMissile;
-        sf::Texture                                        _textureBoss;
-        std::vector<Engine::Network::Serializer::entity_t> _player;
+        std::vector<sf::Font>    _fonts;
+        std::vector<sf::Texture> _texturesParallax;
+        std::vector<sf::Texture> _texturePlayer;
+        std::vector<sf::Texture> _texturesEnemies;
+        std::vector<sf::Texture> _textureSetting;
+        std::vector<sf::Texture> _texturesButton;
+        sf::Texture              _backgroundTexture;
+        sf::Texture              _textureMissile;
+        sf::Texture              _textureBoss;
+        std::vector<player_t>    _player;
+        std::vector<player_t>    _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

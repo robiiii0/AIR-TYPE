@@ -16,6 +16,7 @@
 #define MAX_PLAYERS  4
 #define MAX_MISSILES 200
 #define MAX_ENEMIES 20
+#define MAX_MISSILES 100
 
 namespace Engine {
     namespace Network {
