@@ -18,7 +18,20 @@ void Game::setGame() {
                  {static_cast<float>(_screenWidth / 1.05),
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.3, 0.3}, sf::Color::White, 0);
-    createText("Score : " + std::to_string(_score), _fonts[0], {100, 100},
+
+    // LIFE
+    createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(
+        *std::max_element(getEntities().begin(), getEntities().end()));
+    createSprite({60.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(
+        *std::max_element(getEntities().begin(), getEntities().end()));
+    createSprite({110.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(
+        *std::max_element(getEntities().begin(), getEntities().end()));
+
+    // SCORE
+    createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
     _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
 }
@@ -46,7 +59,7 @@ void Game::gameLoop() {
 void Game::updateScore() {
     removeEntity(_scoreId);
     _score++;
-    createText("Score : " + std::to_string(_score), _fonts[0], {100, 100},
+    createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
     _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
 }

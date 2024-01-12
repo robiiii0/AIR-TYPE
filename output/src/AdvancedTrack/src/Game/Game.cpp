@@ -16,11 +16,12 @@ Game::Game() : _gameEngine() {
     _gameState = GameState::MENU;
     _score = 0;
 
-    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 10.0);
+    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
+    LoadTexture("assets/Sprite/heart.png");
 }
 
 void Game::run() {

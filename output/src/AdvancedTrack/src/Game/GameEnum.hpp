@@ -32,6 +32,7 @@ enum Key {
 enum Textures {
     BACKGROUND,
     PLAYER,
+    LIFE,
 };
 
 #endif /* !GAMEENUM_HPP_ */

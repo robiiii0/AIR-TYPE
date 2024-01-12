@@ -72,9 +72,11 @@ class Game {
         int _screenHeight;
         int _gameState;
 
-        int _score;
-        int _scoreId;
-        int _lastId;
+        int              _life;
+        std::vector<int> _lifeId;
+        int              _score;
+        int              _scoreId;
+        int              _lastId;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
