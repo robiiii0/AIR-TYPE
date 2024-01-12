@@ -80,6 +80,7 @@ class Game {
         int              _score;
         int              _scoreId;
         int              _lastId;
+        int              _tick;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;

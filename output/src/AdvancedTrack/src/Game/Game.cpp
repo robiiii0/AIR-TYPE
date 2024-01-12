@@ -15,6 +15,7 @@ Game::Game() : _gameEngine() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _gameState = GameState::MENU;
     _score = 0;
+    _tick = 0;
 
     LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
@@ -27,6 +28,7 @@ Game::Game() : _gameEngine() {
 void Game::run() {
     setUpState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        // Game engine functions.
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         std::string eventKey =
@@ -37,6 +39,7 @@ void Game::run() {
         gameLoop();
         checkLife();
 
+        // Game engine functions.
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 0.5);
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),

@@ -12,6 +12,7 @@ void Game::setGame() {
     _scoreId = 0;
     _score = 0;
     _life = 3;
+    _tick = 0;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -41,28 +42,51 @@ void Game::gameLoop() {
     if (_gameState == GameState::GAME &&
         (_lastId !=
              *std::max_element(getEntities().begin(), getEntities().end()) ||
-         _lastId == 0)) {
-        _lastId++;
+         _lastId == 0) &&
+        _tick == 0) {
+        std::cout << "BEFORE CREATE: " << _lastId << " "
+                  << *std::max_element(getEntities().begin(),
+                                       getEntities().end())
+                  << std::endl;
         _lastId =
             *std::max_element(getEntities().begin(), getEntities().end()) + 1;
+
+        std::cout << "CREATE: " << _lastId << " "
+                  << *std::max_element(getEntities().begin(),
+                                       getEntities().end())
+                  << std::endl;
+
         createButton(
             [this]() {
                 _sounds[1]->play();
                 removeEntity(_lastId);
                 updateScore();
+                _tick = 0;
             },
             "", _textures[Textures::PLAYER], _fonts[0],
             {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
             sf::Color::White, 0);
-    }
+    } else if (_gameState == GameState::GAME && _tick == 100) {
+        if (_tick == 100) {
+            _life--;
+            _tick = 0;
+            std::cout << "BEFORE REMOVE -> LastId: " << _lastId << " Max: "
+                      << *std::max_element(getEntities().begin(),
+                                           getEntities().end())
+                      << std::endl;
+            removeEntity(_lastId);
+        }
+    } else
+        _tick++;
+
+    // std::cout << "CONDITION: " << _lastId << " " <<
+    // *std::max_element(getEntities().begin(), getEntities().end()) <<
+    // std::endl;
 }
 
 void Game::updateScore() {
     removeEntity(_scoreId);
     _score++;
-
-    _life--;
-
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
     _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
@@ -73,6 +97,6 @@ void Game::checkLife() {
         removeEntity(_lifeId[_life]);
         _lifeId.erase(_lifeId.begin() + _life);
     }
-    if (_life == 0 && _gameState == GameState::GAME) changeGameState(GameState::GAMEOVER
-    );
+    if (_life == 0 && _gameState == GameState::GAME)
+        changeGameState(GameState::GAMEOVER);
 }
