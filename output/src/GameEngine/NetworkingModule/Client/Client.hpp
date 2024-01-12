@@ -8,9 +8,9 @@
 #ifndef CLIENT_HPP_
 #define CLIENT_HPP_
 
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <unistd.h>
+// #include <arpa/inet.h>
+// #include <netinet/in.h>
+// #include <unistd.h>
 
 #include <SFML/Network.hpp>
 #include <memory>

@@ -18,13 +18,11 @@ jobs:
             fallback-style: 'Mozilla'
 
   test_compilation:
-    name: 'Test Compilation EPITECH Docker'
+    name: 'Test Compilation Linux'
     needs: formatting_check
     runs-on: ubuntu-latest
-    container:
-      image: epitechcontent/epitest-docker:latest
     steps:
       - uses: 'actions/checkout@v3'
       - name: 'Check Compilation'
-        run: 'cd output && bash compile.sh'
+        run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev && bash install_vcpkg.sh && cd output && bash compile.sh'
         timeout-minutes: 5

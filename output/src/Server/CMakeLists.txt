@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(LIBS -lpthread)
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 # Specify the source file
 set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
@@ -58,7 +58,15 @@ set(SERVER_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 add_executable(r-type_server ${SERVER_SRC})
 
 # Link libraries if needed
-target_link_libraries(r-type_server ${LIBS} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
+if (APPLE)
+    find_library(COREAUDIO_LIBRARY CoreAudio)
+    find_library(AUDIOTOOLBOX_LIBRARY AudioToolbox)
+    find_library(AUDIOUNIT_LIBRARY AudioUnit)
+
+    target_link_libraries(r-type_server PRIVATE ${COREAUDIO_LIBRARY} ${AUDIOTOOLBOX_LIBRARY} ${AUDIOUNIT_LIBRARY})
+endif()
+
+target_link_libraries(r-type_server PRIVATE ${LIBS}  sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
 
 add_custom_command(TARGET r-type_server POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

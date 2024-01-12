@@ -11,6 +11,8 @@
 #include <stdlib.h>
 
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <vector>
 
 #define MAX_PLAYERS  4
