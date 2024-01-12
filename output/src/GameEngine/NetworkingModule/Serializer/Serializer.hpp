@@ -15,6 +15,7 @@
 
 #define MAX_PLAYERS  4
 #define MAX_MISSILES 200
+#define MAX_ENEMIES 20
 
 namespace Engine {
     namespace Network {
@@ -39,6 +40,7 @@ namespace Engine {
                     // game_objects_t to_update;
                     entity_t players[MAX_PLAYERS];
                     entity_t missiles[MAX_MISSILES];
+                    entity_t enemies[MAX_ENEMIES];
             } serialized_data_t;
 
             class Serializer {

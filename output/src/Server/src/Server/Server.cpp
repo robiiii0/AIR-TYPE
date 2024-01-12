@@ -120,6 +120,31 @@ void Server::createPlayer(std::uint32_t id) {
     sendGameStatus(id);
 }
 
+void Server::createEnemy(std::uint32_t id) {
+    std::cout << "Creating ennemy " << id << std::endl;
+    _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{
+        500.0, static_cast<float>(700.0 + (50 * id))};
+    auto position = std::make_shared<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+        position_data);
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id],
+                                                  position);
+    std::string msg =
+        "add ennemy " + std::to_string(id) + " " +
+        std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
+        std::to_string(position->getValue().y);
+
+    std::vector<std::string> message;
+    // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + "
+    // 10 " + std::to_string(10 + (5  * _nb_clients));
+    // _globalMessages.emplace(msg);
+    message.push_back(msg);
+    sendToAllExcept(
+        id, _networkingModule->getSerializer().serializeToPacket(message));
+    sendGameStatus(id);
+}
+
 void Server::createMissile(std::uint32_t id) {
     //     std::cout << "Creating missile " << id << std::endl;
     //     _missileEntities[id] =

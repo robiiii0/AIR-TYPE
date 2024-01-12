@@ -68,6 +68,10 @@ Engine::Network::Serializer::serialized_data_t
             } else if (tokens[1] == "missile") {
                 int last_missile = -1;
                 for (int i = 0; i < MAX_MISSILES; i++) {
+                    if (data.missiles[i].id == entity.id) {
+                        last_missile = i;
+                        break;
+                    }
                     if (data.missiles[i].id == -1) {
                         last_missile = i;
                         break;
@@ -78,7 +82,25 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.missiles[last_missile] = entity;
-            } else {
+            } else if (tokens[1] == "enemy") {
+                int last_enemy = -1;
+                for (int i = 0; i < MAX_ENEMIES; i++) {
+                    if (data.enemies[i].id == entity.id) {
+                        last_enemy = i;
+                        break;
+                    }
+                    if (data.enemies[i].id == -1) {
+                        last_enemy = i;
+                        break;
+                    }
+                }
+                if (last_enemy == -1) {
+                    std::cerr << "Serializer: Too many enemies" << std::endl;
+                    continue;
+                }
+                data.enemies[last_enemy] = entity;
+            }
+            else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }
@@ -142,33 +164,23 @@ Engine::Network::Serializer::serialized_data_t
         data.missiles[i].x = 0;
         data.missiles[i].y = 0;
     }
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        data.enemies[i].id = -1;
+        data.enemies[i].direction = false;
+        data.enemies[i].x = 0;
+        data.enemies[i].y = 0;
+    }
     return data;
 }
 
 std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     const Engine::Network::Serializer::serialized_data_t &data) {
     std::string binaryString;
-    // std::cout << data.players[0].id << std::endl;
-    // std::cout << data.players[1].id << std::endl;
-    // std::cout << data.players[2].id << std::endl;
-    // std::cout << data.players[3].id << std::endl;
+
     std::copy(reinterpret_cast<const char *>(&data),
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
     serialized_data_t data2 = binaryStringToStruct(binaryString);
-    // std::cout << "serialized_data_t {" << std::endl;
-    // for (int i = 0; i < MAX_PLAYERS; i++) {
-    //     std::cout << "\tplayers[" << i << "].id: " << data2.players[i].id
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i
-    //               << "].direction: " << data2.players[i].direction <<
-    //               std::endl;
-    //     std::cout << "\tplayers[" << i << "].x: " << data2.players[i].x
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i << "].y: " << data2.players[i].y
-    //               << std::endl;
-    // }
-    // std::cout << "}" << std::endl;
     return binaryString;
 }
 
