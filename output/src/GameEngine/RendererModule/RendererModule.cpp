@@ -58,11 +58,10 @@ int Engine::RendererModule::RendererModule::HandleEvent(
     return 0;
 }
 
-// TODO : refaire tout le fichier là ça va pas le code omg bande de cochons
-
 void Engine::RendererModule::RendererModule::UpdatePosition(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
-    Engine::Entity::Component::GenericComponents::Vector2f pos) {
+    Engine::Entity::Component::GenericComponents::Vector2f pos,
+    uint32_t                                               id_sprite) {
     for (auto id : id_list) {
         try {
             auto components = entityManager.getAllComponents(id);
@@ -70,11 +69,17 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
                 if (auto spriteComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::SpriteComponent>(
                         component)) {
-                    for (auto &component2 : components) {
-                        if (auto posComp = std::dynamic_pointer_cast<
-                                Engine::Entity::Component::GenericComponents::
-                                    PositionComponent>(component2)) {
-                            spriteComp->setPosition(pos.x, pos.y);
+                    std::cout << "tema xd: " << std::endl;
+                    std::cout << spriteComp->getId() << std::endl;
+                    std::cout << id_sprite << std::endl;
+                    if (id_sprite == spriteComp->getId()) {
+                        for (auto &component2 : components) {
+                            if (auto posComp = std::dynamic_pointer_cast<
+                                    Engine::Entity::Component::
+                                        GenericComponents::PositionComponent>(
+                                    component2)) {
+                                spriteComp->setPosition(pos.x, pos.y);
+                            }
                         }
                     }
                 }
@@ -96,13 +101,11 @@ void Engine::RendererModule::RendererModule::update(
                 if (auto parallaxComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::parallaxComponent>(
                         component)) {
-                    // If it is, update the component
                     parallaxComp->runParallax();
                 }
                 if (auto clickableComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::ClickableComponent>(
                         component)) {
-                    // If it is, update the component
                     clickableComp->isHovered(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});

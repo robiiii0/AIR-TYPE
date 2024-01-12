@@ -20,6 +20,7 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     this->_color = value.color;
     this->_rotation = value.rotation;
     this->_Playable = value.Playable;
+    this->_id = value.id;
 
     this->_sprite.setScale({this->_scale.x, this->_scale.y});
     sf::FloatRect texture_bounds = _sprite.getGlobalBounds();
@@ -68,6 +69,10 @@ void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
                                                                       float y) {
     _sprite.setPosition(x, y);
+}
+
+uint32_t Engine::RendererModule::Components::SpriteComponent::getId() {
+    return _id;
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setTextureRect(

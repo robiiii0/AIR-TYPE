@@ -25,12 +25,6 @@ namespace Engine {
             std::string keyEvent(int keycode);
 
         private:
-            /**
-             * @brief up = 0, down = 1, left = 2, right = 3, space = 4,
-             * escape = 5
-             *
-             */
-            std::bitset<8> keyboard;
     };
 }  // namespace Engine
 

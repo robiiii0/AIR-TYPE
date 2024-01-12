@@ -96,7 +96,6 @@ void Server::sendGameStatus(std::uint32_t id) {
 }
 
 void Server::createPlayer(std::uint32_t id) {
-    std::cout << "Creating player " << id << std::endl;
     _playerEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
         500.0, static_cast<float>(700.0 + (50 * id))};
@@ -111,9 +110,7 @@ void Server::createPlayer(std::uint32_t id) {
         std::to_string(position->getValue().y);
 
     std::vector<std::string> message;
-    // std::string msg_to_send = "add player " + std::to_string(_nb_clients) + "
-    // 10 " + std::to_string(10 + (5  * _nb_clients));
-    // _globalMessages.emplace(msg);
+
     message.push_back(msg);
     sendToAllExcept(
         id, _networkingModule->getSerializer().serializeToPacket(message));
@@ -121,36 +118,35 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createMissile(std::uint32_t id) {
-    //     std::cout << "Creating missile " << id << std::endl;
-    //     _missileEntities[id] =
-    //     _gameEngine->getEntityManager()->createEntity(); std::cout <<
-    //     "Missile " << id << " created" << std::endl;
+    _missileEntities[_missileID] =
+        _gameEngine->getEntityManager()->createEntity();
+    _missileID++;
 
-    //     for (auto &entity : _playerEntities) {
-    //         auto player =
-    //         _gameEngine->getEntityManager()->getEntity(entity.second); for
-    //         (auto &component : player->_components) {
-    //             if (typeid(*component) ==
-    //                 typeid(Engine::Entity::Component::GenericComponents::
-    //                            Vector2fComponent)) {
-    //                 auto position = std::dynamic_pointer_cast<
-    //                     Engine::Entity::Component::GenericComponents::
-    //                         Vector2fComponent>(component);
-
-    //                 Engine::Entity::Component::GenericComponents::Vector2f
-    //                     position_data(position->getValue());
-    //                 _gameEngine->getEntityManager()->addComponent(
-    //                     _missileEntities[id], position);
-    //                 std::string msg = "add missile " + std::to_string(id) + "
-    //                 " +
-    //                                   std::to_string(position->getValue().x)
-    //                                   + " " +
-    //                                   std::to_string(position->getValue().y);
-    //                 std::cout << msg << std::endl;
-    //                 _globalMessages.emplace(msg);
-    //             }
-    //         }
-    //     }
+    uint32_t entity_id = _playerEntities[id];
+    auto     components =
+        _gameEngine->getEntityManager()->getEntity(entity_id)->_components;
+    for (auto component : components) {
+        if (typeid(*component) ==
+            typeid(Engine::Entity::Component::GenericComponents::
+                       Vector2fComponent)) {
+            auto position = std::dynamic_pointer_cast<
+                Engine::Entity::Component::GenericComponents::
+                    Vector2fComponent>(component);
+            Engine::Entity::Component::GenericComponents::Vector2f
+                 position_data = {position->getValue().x + 25,
+                                  position->getValue().y + 10};
+            auto position_missile =
+                std::make_shared<Engine::Entity::Component::GenericComponents::
+                                     Vector2fComponent>(position_data);
+            _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
+                                                          position_missile);
+            std::string msg = "add missile " + std::to_string(id) + " " +
+                              std::to_string(position_data.x) + " " +
+                              std::to_string(position_data.y);
+            std::cout << msg << std::endl;
+            _globalMessages.emplace(msg);
+        }
+    }
 }
 
 void Server::movePlayer(int type, std::uint32_t id) {
@@ -166,7 +162,6 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     NewPosition = {{posComp->getValue().x},
                                    {posComp->getValue().y + float(-3.0)}};
                 posComp->setValue(NewPosition);
-                std::cout << "new position set" << std::endl;
             }
         }
     }
@@ -182,7 +177,6 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     NewPosition = {{posComp->getValue().x},
                                    {posComp->getValue().y + float(3.0)}};
                 posComp->setValue(NewPosition);
-                std::cout << "new position set" << std::endl;
             }
         }
     }
@@ -198,7 +192,6 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     NewPosition = {{posComp->getValue().x + float(3.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
-                std::cout << "new position set" << std::endl;
             }
         }
     }
@@ -214,7 +207,6 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     NewPosition = {{posComp->getValue().x + float(-3.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
-                std::cout << "new position set" << std::endl;
             }
         }
     }
@@ -237,32 +229,22 @@ void Server::networkLoop() {
             std::cout << "Client " << client.getId() << " sent: " << packet
                       << std::endl;  // TODO: handle packet
 
-            if (packet == "ATTACK") {
-                std::cout << "Creating missile" << std::endl;
-                createMissile(_missileID);
-                _missileID++;
+            if (packet == "attack") {
+                createMissile(0);
             }
 
             if (packet.find("move") != std::string::npos) {
                 if (packet.find("up") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(1, client.getId());
-                    // movePlayer
                 }
                 if (packet.find("down") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(2, client.getId());
-                    // movePlayer
                 }
                 if (packet.find("right") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(3, client.getId());
-                    // movePlayer
                 }
                 if (packet.find("left") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(4, client.getId());
-                    // movePlayer
                 }
             }
         }
@@ -301,12 +283,7 @@ void Server::networkLoop() {
     }
 }
 
-void Server::updatePlayer(std::uint32_t id) {
-    // TODO : update player
-    // mettre a jour la position du player
-    // faire le message (add player id x y)
-    // bien le mettre dans _globalMessages
-
+void Server::updatePlayer() {
     for (auto &player : _playerEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(player.second)
@@ -318,11 +295,10 @@ void Server::updatePlayer(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add player " + std::to_string(id) + " " +
+                std::string msg = "add player " +
+                                  std::to_string(player.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
-                // position->setValue({static_cast<float>(position->getValue().x
-                // + 3.0)}, position->getValue().y);
                 _globalMessages.emplace(msg);
             }
         }
@@ -330,11 +306,6 @@ void Server::updatePlayer(std::uint32_t id) {
 }
 
 void Server::updateEnnemies(std::uint32_t id) {
-    // TODO : update ennemy
-    // mettre a jour la position du player
-    // faire le message (add ennemy id x y)
-    // bien le mettre dans _globalMessages
-
     for (auto &ennemy : _ennemyEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(ennemy.second)
@@ -355,12 +326,7 @@ void Server::updateEnnemies(std::uint32_t id) {
     }
 }
 
-void Server::updateMissile(std::uint32_t id) {
-    // TODO : update missile
-    // mettre a jour la position du player
-    // faire le message (add missile id x y)
-    // bien le mettre dans _globalMessages
-    // write(1, "update missile\n", 16);
+void Server::updateMissile() {
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(missile.second)
@@ -372,9 +338,13 @@ void Server::updateMissile(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add missile " + std::to_string(id) + " " +
-                                  std::to_string(position->getValue().x + 1) +
-                                  " " + std::to_string(position->getValue().y);
+                auto new_position = position->getValue();
+                new_position.x += 1;
+                position->setValue(new_position);
+                std::string msg = "add missile " +
+                                  std::to_string(missile.second) + " " +
+                                  std::to_string(position->getValue().x) + " " +
+                                  std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
             }
         }
@@ -383,15 +353,9 @@ void Server::updateMissile(std::uint32_t id) {
 
 void Server::update() {
     // ? update all entities
-    for (auto &entity : _playerEntities) {
-        updatePlayer(entity.second);
-    }
-    for (auto &entity : _ennemyEntities) {
-        updateEnnemies(entity.second);
-    }
-    for (auto &entity : _missileEntities) {
-        updateMissile(entity.second);
-    }
+    updatePlayer();
+    // updateEnnemies(entity.second);
+    updateMissile();
     // ? update all components
     // ? update all systems
 }

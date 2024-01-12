@@ -1,13 +1,18 @@
 #include "Client.hpp"
 
 void Client::playerInit() {
-    Engine::Network::Serializer::entity_t entityTemp = {
-        -1,
-        {static_cast<bool>(false)},
-        {static_cast<float>(0.0)},
-        {static_cast<float>(0.0)}};
+    player_t player_temp = {-1,
+                            {static_cast<bool>(false)},
+                            {static_cast<float>(0.0)},
+                            {static_cast<float>(0.0)},
+                            0};
+
     for (int i = 0; i < 4; i++) {
-        _player.push_back(entityTemp);
+        _player.push_back(player_temp);
+    }
+
+    for (int i = 0; i < MAX_MISSILES; i++) {
+        _missile.push_back(player_temp);
     }
 }
 
@@ -16,12 +21,19 @@ void Client::HandleMovementManager(std::string command) {
         _networkingModule->~NetworkingModule();
         _gameEngine.getRendererModule()->getWindow().close();
     } else if (command == "up") {
-        _networkingModule->sendMessage("move up", _ClientId);
+        std::cout << "Updating player to the up " << _ClientId << std::endl;
+        _networkingModule->sendMessage("move up", 0);
     } else if (command == "down") {
-        _networkingModule->sendMessage("move down", _ClientId);
+        std::cout << "Updating player to the down " << _ClientId << std::endl;
+        _networkingModule->sendMessage("move down", 0);
     } else if (command == "left") {
-        _networkingModule->sendMessage("move left", _ClientId);
+        std::cout << "Updating player to the left " << _ClientId << std::endl;
+        _networkingModule->sendMessage("move left", 0);
     } else if (command == "right") {
-        _networkingModule->sendMessage("move right", _ClientId);
+        std::cout << "Updating player to the right " << _ClientId << std::endl;
+        _networkingModule->sendMessage("move right", 0);
+    } else if (command == "attack") {
+        std::cout << "Updating player to attack " << _ClientId << std::endl;
+        _networkingModule->sendMessage("attack", 0);
     }
 }
