@@ -77,6 +77,8 @@ void Client::HandlePlayerManagement(
                       << std::endl;
             uint32_t id_sprite =
                 createPlayer(_texturePlayer[place], {player.x, player.y});
+
+            std::cout << "'id de player =" << id_sprite << std::endl;
             _player[place].idSprite = id_sprite;
         } else if (_player[place].id > -1 && _player[place].id < 4 &&
                    player.x <= 1920 && player.x >= 0 && player.y <= 1080 &&
@@ -112,6 +114,7 @@ void Client::HandleMissileManager(
             _missile[place].direction = missile.direction;
             uint32_t idMissile = createMissile(_missile[place].id, _missile[place].x,
                           _missile[place].y);
+            std::cout << "'id de missile =" << idMissile << std::endl;
             _missile[place].idSprite = idMissile;
         }
             else if (_missile[place].id > -1 && _missile[place].id <

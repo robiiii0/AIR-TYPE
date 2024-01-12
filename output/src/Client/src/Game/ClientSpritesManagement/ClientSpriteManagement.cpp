@@ -193,7 +193,7 @@ uint32_t Client::createMissile(std::uint32_t id, float x, float y) {
             pos);
 
     Engine::RendererModule::Components::SpriteData sprite_temp = {
-        pos, {1, 1}, sf::Color::White, 0, false};
+        pos, {1, 1}, sf::Color::White, 0, false, missileEntity};
 
     std::shared_ptr<Engine::RendererModule::Components::SpriteComponent>
         spriteComponent = std::make_shared<

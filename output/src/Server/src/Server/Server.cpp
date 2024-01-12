@@ -246,22 +246,18 @@ void Server::networkLoop() {
 
             if (packet.find("move") != std::string::npos) {
                 if (packet.find("up") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(1, client.getId());
                     // movePlayer
                 }
                 if (packet.find("down") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(2, client.getId());
                     // movePlayer
                 }
                 if (packet.find("right") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(3, client.getId());
                     // movePlayer
                 }
                 if (packet.find("left") != std::string::npos) {
-                    std::cout << "j'ai recu un mess" << std::endl;
                     movePlayer(4, client.getId());
                     // movePlayer
                 }
@@ -389,7 +385,7 @@ void Server::update() {
     // for (auto &entity : _ennemyEntities) {
     //     updateEnnemies(entity.second);
     // }
-    // updateMissile();
+    updateMissile();
     // ? update all components
     // ? update all systems
 }
