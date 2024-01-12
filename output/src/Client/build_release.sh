@@ -18,6 +18,14 @@ else
   mv "$CURRENT_DIR/release/Debug/r-type_client" "$CURRENT_DIR/../../release/r-type_client"
 fi
 
+if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
+  echo "Linux/Mac Client binary is missing"
+else
+  echo "Linux/Mac Client binary is present"
+  built=built+1
+  mv "$CURRENT_DIR/r-type_client" "$CURRENT_DIR/../../release/r-type_client"
+fi
+
 if [ ! -e "$CURRENT_DIR/release/Debug/r-type_client.exe" ]; then
   echo "Windows Client binary is missing"
 else

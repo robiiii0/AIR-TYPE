@@ -18,6 +18,14 @@ else
   mv "$CURRENT_DIR/release/Debug/r-type_server" "$CURRENT_DIR/../../release/r-type_server"
 fi
 
+if [ ! -e "$CURRENT_DIR/r-type_server" ]; then
+  echo "Linux/Mac Server binary is missing"
+else
+  echo "Linux/Mac Server binary is present"
+  built=built+1
+  mv "$CURRENT_DIR/r-type_server" "$CURRENT_DIR/../../release/r-type_server"
+fi
+
 if [ ! -e "$CURRENT_DIR/release/Debug/r-type_server.exe" ]; then
   echo "Windows Server binary is missing"
 else
