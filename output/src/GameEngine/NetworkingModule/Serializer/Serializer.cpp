@@ -82,7 +82,7 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.missiles[last_missile] = entity;
-            } else if (tokens[1] == "enemy") {
+            } else if (tokens[1] == "ennemy") {
                 int last_enemy = -1;
                 for (int i = 0; i < MAX_ENEMIES; i++) {
                     if (data.enemies[i].id == entity.id) {
@@ -104,43 +104,6 @@ Engine::Network::Serializer::serialized_data_t
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }
-            // if (tokens[1] == "player") {
-            //     if (data.to_add.nb_players >= MAX_PLAYERS) {
-            //         std::cerr << "Serializer: Too many players" << std::endl;
-            //         continue;
-            //     }
-            //     data.to_add.players[data.to_add.nb_players] = entity;
-            //     data.to_add.nb_players++;
-            // } else if (tokens[1] == "missile") {
-            //     if (data.to_add.nb_missiles >= MAX_MISSILES) {
-            //         std::cerr << "Serializer: Too many missiles" <<
-            //         std::endl; continue;
-            //     }
-            //     data.to_add.missiles[data.to_add.nb_missiles] = entity;
-            //     data.to_add.nb_missiles++;
-            // } else {
-            //     std::cerr << "Serializer: Invalid argument: " << arg
-            //               << std::endl;
-            // }
-            // } else if (tokens[0] == "update") {
-            //     if (tokens[1] == "player") {
-            //         if (data.to_update.nb_players >= MAX_PLAYERS) {
-            //             std::cerr << "Serializer: Too many players" <<
-            //             std::endl; continue;
-            //         }
-            //         data.to_update.players[data.to_update.nb_players] =
-            //         entity; data.to_update.nb_players++;
-            //     } else if (tokens[1] == "missile") {
-            //         if (data.to_update.nb_missiles >= MAX_MISSILES) {
-            //             std::cerr << "Serializer: Too many missiles" <<
-            //             std::endl; continue;
-            //         }
-            //         data.to_update.missiles[data.to_update.nb_missiles] =
-            //         entity; data.to_update.nb_missiles++;
-            //     } else {
-            //         std::cerr << "Serializer: Invalid argument: " << arg
-            //                   << std::endl;
-            //     }
         } else {
             std::cerr << "Serializer: Invalid argument: " << arg << std::endl;
         }

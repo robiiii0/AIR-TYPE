@@ -34,9 +34,9 @@ class Server {
         void sendGameStatus(std::uint32_t id);
         void createPlayer(std::uint32_t id);
         void createMissile(std::uint32_t id);
-        void updatePlayer(std::uint32_t id);
-        void updateMissile(std::uint32_t id);
-        void updateEnnemies(std::uint32_t id);
+        void updatePlayer();
+        void updateMissile();
+        void updateEnnemies();
         void update();
         void movePlayer(int, std::uint32_t);
         void createEnemy(std::uint32_t id);
