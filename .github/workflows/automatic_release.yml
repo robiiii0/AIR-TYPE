@@ -55,13 +55,13 @@ jobs:
         steps:
             - name: 'Checkout'
               uses: actions/checkout@v4
+            - if: ${{ matrix.config.os == 'ubuntu-latest' }}
+              name: 'Install dependencies (Ubuntu)'
+              run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev'
             - name: 'Install vcpkg'
               run: 'bash install_vcpkg.sh'
             - name: 'Install dependencies'
               run: './vcpkg/vcpkg install sfml'
-            - if: ${{ matrix.config.os == 'ubuntu-latest' }}
-              name: 'Install dependencies (Ubuntu)'
-              run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev'
             - name: 'Build'
               run: 'cd output && bash build_release.sh'
             - name: 'Placing binaries'
