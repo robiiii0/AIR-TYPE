@@ -123,6 +123,20 @@ Engine::Network::Serializer::serialized_data_t
             std::cerr << "Serializer: Invalid argument: " << arg << std::endl;
         }
     }
+
+    // std::cout << "data : {" << std::endl;
+    // for (int i = 0; i < MAX_PLAYERS; i++) {
+    //     std::cout << "\tplayers[" << i << "].id: " << data.players[i].id
+    //               << std::endl;
+    //     std::cout << "\tplayers[" << i
+    //               << "].direction: " << data.players[i].direction <<
+    //               std::endl;
+    //     std::cout << "\tplayers[" << i << "].x: " << data.players[i].x
+    //               << std::endl;
+    //     std::cout << "\tplayers[" << i << "].y: " << data.players[i].y
+    //               << std::endl;
+    // }
+    // std::cout << "}" << std::endl;
     return data;
 }
 
@@ -166,9 +180,24 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     //     std::cout << "\tplayers[" << i << "].x: " << data2.players[i].x
     //               << std::endl;
     //     std::cout << "\tplayers[" << i << "].y: " << data2.players[i].y
-    //               << std::endl;
+    //               << std::endl;<
     // }
     // std::cout << "}" << std::endl;
+
+    std::cout << "serialized data : {" << std::endl;
+    for (int i = 0; i < MAX_MISSILES; i++) {
+        std::cout << "missile[" << i << "].id: " << data2.missiles[i].id
+                  << std::endl;
+        std::cout << "missile[" << i
+                  << "].direction: " << data2.missiles[i].direction
+                  << std::endl;
+        std::cout << "missile[" << i << "].x: " << data2.missiles[i].x
+                  << std::endl;
+        std::cout << "missile[" << i << "].y: " << data2.missiles[i].y
+                  << std::endl;
+    }
+    std::cout << "}" << std::endl;
+
     return binaryString;
 }
 
