@@ -118,10 +118,16 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createEnnemy(std::uint32_t id) {
-    std::cout << "Creating ennemy " << id << std::endl;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    float randomFloat = dis(gen);
+    std::uniform_real_distribution<float> dis(100.0, 1000.0);
     _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        1800.0, static_cast<float>(700.0 + (50 * id))};
+        1800.0, randomFloat};
+
+
+
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
@@ -139,7 +145,6 @@ void Server::createEnnemy(std::uint32_t id) {
         id, _networkingModule->getSerializer().serializeToPacket(message));
     sendGameStatus(id);
 }
-
 
 void Server::createMissile(std::uint32_t id) {
     _missileEntities[_missileID] =
