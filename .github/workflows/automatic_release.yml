@@ -12,10 +12,10 @@ jobs:
         strategy:
             matrix:
                 config:
-                    # - os: ubuntu-latest
-                    #   arch: 'x64'
-                    #   ext: ''
-                    #   triplet: 'x64-linux'
+                    - os: ubuntu-latest
+                      arch: 'x64'
+                      ext: ''
+                      triplet: 'x64-linux'
                     # - os: ubuntu-latest
                     #   arch: 'x86_64'
                     #   ext: ''
@@ -59,6 +59,9 @@ jobs:
               run: 'bash install_vcpkg.sh'
             - name: 'Install dependencies'
               run: './vcpkg/vcpkg install sfml:${{ matrix.config.triplet }}'
+            - if: ${{ matrix.config.os == 'ubuntu-latest' }}
+              name: 'Install dependencies (Ubuntu)'
+              run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev'
             - name: 'Build'
               run: 'cd output && bash build_release.sh'
             - name: 'Placing binaries'
