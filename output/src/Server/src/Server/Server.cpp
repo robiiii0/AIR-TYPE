@@ -14,6 +14,7 @@ Server::~Server() {}
 int Server::run() {
     _running = true;
     _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+    _update_time = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
     while (_running) {
         loop();
@@ -391,8 +392,11 @@ void Server::updateMissile() {
 void Server::update() {
     // ? update all entities
         updatePlayer();
-        updateEnnemies();
-        updateMissile();
+        if (_update_time + std::chrono::microseconds(750) < std::chrono::high_resolution_clock::now()) {
+            _update_time = std::chrono::high_resolution_clock::now();
+            updateEnnemies();
+            updateMissile();
+        }
         if (_ennemy_spawn_clock + std::chrono::seconds(4) < std::chrono::high_resolution_clock::now()) {
             _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
             createEnnemy(0);
