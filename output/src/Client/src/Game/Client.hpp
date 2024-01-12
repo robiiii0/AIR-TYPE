@@ -98,7 +98,7 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
 
-        void CommandManager(std::string msg);
+        void HandleEnemiesManagement(Engine::Network::Serializer::entity_t &enemy, int place);
         void GetClientId(Engine::Network::Serializer::serialized_data_t data);
         // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
         // paths);

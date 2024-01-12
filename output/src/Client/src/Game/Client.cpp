@@ -85,6 +85,11 @@ void Client::HandlePlayerManagement(
     }
 }
 
+void Client::HandleEnemiesManagement(Engine::Network::Serializer::entity_t &enemy, int place)
+{
+
+}
+
 void Client::run() {
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {

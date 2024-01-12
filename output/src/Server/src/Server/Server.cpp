@@ -347,7 +347,7 @@ void Server::updatePlayer() {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add player " + std::to_string(id) + " " +
+                std::string msg = "add player " + std::to_string(player.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 // position->setValue({static_cast<float>(position->getValue().x
@@ -375,7 +375,7 @@ void Server::updateEnnemies() {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add ennemy " + std::to_string(id) + " " +
+                std::string msg = "add ennemy " + std::to_string(ennemy.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
