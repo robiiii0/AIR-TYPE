@@ -112,19 +112,19 @@ void Client::HandleMissileManager(
             _missile[place].x = missile.x;
             _missile[place].y = missile.y;
             _missile[place].direction = missile.direction;
-            uint32_t idMissile = createMissile(_missile[place].id, _missile[place].x,
-                          _missile[place].y);
+            uint32_t idMissile = createMissile(
+                _missile[place].id, _missile[place].x, _missile[place].y);
             std::cout << "'id de missile =" << idMissile << std::endl;
             _missile[place].idSprite = idMissile;
-        }
-            else if (_missile[place].id > -1 && _missile[place].id <
-            MAX_MISSILES &&
-                   missile.x <= 1920 && missile.x >= 0 && missile.y <= 1080
-                   && missile.y >= 0 && (missile.x != _missile[place].x ||
+        } else if (_missile[place].id > -1 &&
+                   _missile[place].id < MAX_MISSILES && missile.x <= 1920 &&
+                   missile.x >= 0 && missile.y <= 1080 && missile.y >= 0 &&
+                   (missile.x != _missile[place].x ||
                     missile.y != _missile[place].y) &&
                    _missile[place].id == missile.id) {
-                std::cout << "je suis dedans" << std::endl;
-            updateSpritePosition(_missile[place].id, {missile.x, missile.y}, _missile[place].idSprite);
+            std::cout << "je suis dedans" << std::endl;
+            updateSpritePosition(_missile[place].id, {missile.x, missile.y},
+                                 _missile[place].idSprite);
             _missile[place].x = missile.x;
             _missile[place].y = missile.y;
         }

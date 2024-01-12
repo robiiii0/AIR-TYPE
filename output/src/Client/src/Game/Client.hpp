@@ -146,17 +146,17 @@ class Client {
         int _screenHeight;
         int _gameState;
 
-        std::vector<sf::Font>                              _fonts;
-        std::vector<sf::Texture>                           _texturesParallax;
-        std::vector<sf::Texture>                           _texturePlayer;
-        std::vector<sf::Texture>                           _texturesEnemies;
-        std::vector<sf::Texture>                           _textureSetting;
-        std::vector<sf::Texture>                           _texturesButton;
-        sf::Texture                                        _backgroundTexture;
-        sf::Texture                                        _textureMissile;
-        sf::Texture                                        _textureBoss;
-        std::vector<player_t>                              _player;
-        std::vector<player_t> _missile;
+        std::vector<sf::Font>    _fonts;
+        std::vector<sf::Texture> _texturesParallax;
+        std::vector<sf::Texture> _texturePlayer;
+        std::vector<sf::Texture> _texturesEnemies;
+        std::vector<sf::Texture> _textureSetting;
+        std::vector<sf::Texture> _texturesButton;
+        sf::Texture              _backgroundTexture;
+        sf::Texture              _textureMissile;
+        sf::Texture              _textureBoss;
+        std::vector<player_t>    _player;
+        std::vector<player_t>    _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

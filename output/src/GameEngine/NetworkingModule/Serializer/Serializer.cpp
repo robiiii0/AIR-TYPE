@@ -184,14 +184,17 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     // }
     // std::cout << "}" << std::endl;
 
-
-
     std::cout << "serialized data : {" << std::endl;
-    for (int i = 0; i < MAX_MISSILES ; i++) {
-        std::cout << "missile[" << i << "].id: " << data2.missiles[i].id << std::endl;
-        std::cout << "missile[" << i << "].direction: " << data2.missiles[i].direction << std::endl;
-        std::cout << "missile[" << i << "].x: " << data2.missiles[i].x << std::endl;
-        std::cout << "missile[" << i << "].y: " << data2.missiles[i].y << std::endl;
+    for (int i = 0; i < MAX_MISSILES; i++) {
+        std::cout << "missile[" << i << "].id: " << data2.missiles[i].id
+                  << std::endl;
+        std::cout << "missile[" << i
+                  << "].direction: " << data2.missiles[i].direction
+                  << std::endl;
+        std::cout << "missile[" << i << "].x: " << data2.missiles[i].x
+                  << std::endl;
+        std::cout << "missile[" << i << "].y: " << data2.missiles[i].y
+                  << std::endl;
     }
     std::cout << "}" << std::endl;
 
