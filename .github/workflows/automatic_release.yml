@@ -12,10 +12,10 @@ jobs:
         strategy:
             matrix:
                 config:
-                    - os: ubuntu-latest
-                      arch: 'x64'
-                      ext: ''
-                      triplet: 'x64-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'x64'
+                    #   ext: ''
+                    #   triplet: 'x64-linux'
                     # - os: ubuntu-latest
                     #   arch: 'x86_64'
                     #   ext: ''
