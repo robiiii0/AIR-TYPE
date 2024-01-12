@@ -13,6 +13,8 @@ Server::~Server() {}
 
 int Server::run() {
     _running = true;
+    _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+    srand(time(NULL));
     while (_running) {
         loop();
     }
@@ -118,15 +120,11 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createEnnemy(std::uint32_t id) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    float randomFloat = dis(gen);
-    std::uniform_real_distribution<float> dis(100.0, 1000.0);
+    float randomFloat = static_cast<float>(rand() % 800 + 1);
+
     _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
         1800.0, randomFloat};
-
-
 
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
@@ -251,8 +249,8 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
-        for (int i = 0; i < 5; i++)
-        createEnemy(i);
+        // for (int i = 0; i < 5; i++)
+        // createEnemy(i);
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
@@ -395,6 +393,10 @@ void Server::update() {
         updatePlayer();
         updateEnnemies();
         updateMissile();
+        if (_ennemy_spawn_clock + std::chrono::seconds(4) < std::chrono::high_resolution_clock::now()) {
+            _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+            createEnnemy(0);
+        }
     // ? update all components
     // ? update all systems
 }

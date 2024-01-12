@@ -52,6 +52,7 @@ class Server {
         std::queue<std::string>                            _globalMessages;
         std::map<std::uint32_t, std::queue<std::string>>   _clientMessages;
         std::chrono::high_resolution_clock::time_point     _clock;
+        std::chrono::high_resolution_clock::time_point     _ennemy_spawn_clock;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
         std::map<std::uint32_t, std::uint32_t> _missileEntities;
