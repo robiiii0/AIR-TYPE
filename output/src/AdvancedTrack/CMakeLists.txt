@@ -50,6 +50,7 @@ add_executable(game-advanced_track
         src/Game/EntityCreation/EntityCreation.cpp
         src/Game/GameManagement/GameManagement.cpp
         src/Game/MenuManagement/MenuManagement.cpp
+        src/Game/GameOverManagement/GameOverManagement.cpp
 )
 
 # Link the libraries from RendererModule and EntityManager

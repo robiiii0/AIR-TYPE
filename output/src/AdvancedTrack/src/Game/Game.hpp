@@ -53,7 +53,10 @@ class Game {
 
         void setMenu();
         void setGame();
+        void setGameOver();
+
         void gameLoop();
+        void checkLife();
 
         void  updateScore();
         float randomFloat(float min, float max);

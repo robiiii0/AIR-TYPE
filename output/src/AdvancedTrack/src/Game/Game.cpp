@@ -33,7 +33,9 @@ void Game::run() {
             _hmiModule->keyEvent(_gameEngine.getRendererModule()->HandleEvent(
                 *_gameEngine.getEntityManager(), getEntities()));
 
+        // Game functionnal functions.
         gameLoop();
+        checkLife();
 
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 0.5);

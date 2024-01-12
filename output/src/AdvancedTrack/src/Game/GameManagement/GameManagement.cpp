@@ -11,6 +11,7 @@ void Game::setGame() {
     _lastId = 0;
     _scoreId = 0;
     _score = 0;
+    _life = 3;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -59,7 +60,19 @@ void Game::gameLoop() {
 void Game::updateScore() {
     removeEntity(_scoreId);
     _score++;
+
+    _life--;
+
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
     _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
+}
+
+void Game::checkLife() {
+    if (_life < _lifeId.size()) {
+        removeEntity(_lifeId[_life]);
+        _lifeId.erase(_lifeId.begin() + _life);
+    }
+    if (_life == 0 && _gameState == GameState::GAME) changeGameState(GameState::GAMEOVER
+    );
 }

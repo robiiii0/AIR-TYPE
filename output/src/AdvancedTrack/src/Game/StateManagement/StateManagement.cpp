@@ -29,6 +29,9 @@ void Game::setUpState() {
         case GameState::GAME:
             setGame();
             break;
+        case GameState::GAMEOVER:
+            setGameOver();
+            break;
         default:
             break;
     }
