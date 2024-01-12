@@ -32,7 +32,9 @@ void Engine::RendererModule::Components::RoundedClickableComponent::update() {}
 
 sf::Vector2f
     Engine::RendererModule::Components::RoundedClickableComponent::getPosition()
-        const {}
+        const {
+    return _buttonShape.getPosition();
+}
 
 bool Engine::RendererModule::Components::RoundedClickableComponent::isHovered(
     std::pair<float, float> mousePos) {

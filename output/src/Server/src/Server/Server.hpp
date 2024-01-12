@@ -16,7 +16,7 @@
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
 
-#define SERVER_TICKRATE 64
+#define SERVER_TICKRATE 128
 
 class Server {
     public:
@@ -34,6 +34,11 @@ class Server {
         void sendGameStatus(std::uint32_t id);
         void createPlayer(std::uint32_t id);
         void createMissile(std::uint32_t id);
+        void updatePlayer();
+        void updateMissile();
+        void updateEnnemies(std::uint32_t id);
+        void update();
+        void movePlayer(int, std::uint32_t);
 
     private:
         void                                               networkLoop();
@@ -47,6 +52,7 @@ class Server {
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
         std::map<std::uint32_t, std::uint32_t> _missileEntities;
+        std::map<std::uint32_t, std::uint32_t> _ennemyEntities;
         std::uint32_t                          _missileID;
 };
 

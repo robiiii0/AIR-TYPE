@@ -8,12 +8,64 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.config.os }}
+        strategy:
+            matrix:
+                config:
+                    # - os: ubuntu-latest
+                    #   arch: 'x64'
+                    #   ext: ''
+                    #   triplet: 'x64-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'x86_64'
+                    #   ext: ''
+                    #   triplet: 'x86-linux'
+                    # - os: ubuntu-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-linux'
+                    # - os: macos-latest
+                    #   arch: 'x64'
+                    #   ext: ''
+                    #   triplet: 'x64-osx'
+                    # - os: macos-latest
+                    #   arch: 'x86_64'
+                    #   ext: ''
+                    #   triplet: 'x86-osx'
+                    # - os: macos-latest
+                    #   arch: 'arm'
+                    #   ext: ''
+                    #   triplet: 'arm-osx'
+                    - os: windows-latest
+                      arch: 'x64'
+                      ext: '.exe'
+                      triplet: 'x64-windows'
+                    # - os: windows-latest
+                    #   arch: 'x86'
+                    #   ext: '.exe'
+                    #   triplet: 'x86-windows'
+                    # - os: windows-latest
+                    #   arch: 'arm'
+                    #   ext: '.exe'
+                    #   triplet: 'arm-windows'
+
+        env:
+            VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.triplet }}
+            ARCH: ${{ matrix.config.arch }}
         steps:
             - name: 'Checkout'
               uses: actions/checkout@v4
-            - name: 'Binary build'
+            - if: ${{ matrix.config.os == 'ubuntu-latest' }}
+              name: 'Install dependencies (Ubuntu)'
+              run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev'
+            - name: 'Install vcpkg'
+              run: 'bash install_vcpkg.sh'
+            - name: 'Install dependencies'
+              run: './vcpkg/vcpkg install sfml'
+            - name: 'Build'
               run: 'cd output && bash build_release.sh'
+            - name: 'Placing binaries'
+              run: 'mkdir output/release/${{ matrix.config.triplet }} && cd output/release && mv *${{ matrix.config.ext }} ${{matrix.config.triplet}}/'
             - name: 'Upload binaries'
               uses: actions/upload-artifact@v3
               with:

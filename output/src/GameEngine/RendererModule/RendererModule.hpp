@@ -14,6 +14,7 @@
 #include "../EntityManager/EntityManager.hpp"
 #include "Animations/Parallax/Parallax.hpp"
 #include "Components/AnimationComponent/AnimationComponent.hpp"
+#include "Components/BossComponent/BossComponent.hpp"
 #include "Components/ClickableComponent/ClickableComponent.hpp"
 #include "Components/ClickableComponent/RoundedClickableComponent.hpp"
 #include "Components/EnemyComponent/EnemyComponent.hpp"
@@ -36,9 +37,13 @@ namespace Engine {
                 void render(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t>          id_list);
                 sf::RenderWindow &getWindow();
-                int               UpdateForServer(
-                                  Engine::Entity::EntityManager &entityManager,
-                                  std::vector<uint32_t>          id_list);
+                int  HandleEvent(Engine::Entity::EntityManager &entityManager,
+                                 std::vector<uint32_t>          id_list);
+                void UpdatePosition(
+                    Engine::Entity::EntityManager &entityManager,
+                    std::vector<uint32_t>          id_list,
+                    Engine::Entity::Component::GenericComponents::Vector2f pos,
+                    uint32_t                                               id);
 
             protected:
             private:

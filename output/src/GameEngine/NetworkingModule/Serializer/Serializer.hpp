@@ -11,10 +11,12 @@
 #include <stdlib.h>
 
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <vector>
 
 #define MAX_PLAYERS  4
-#define MAX_MISSILES 200
+#define MAX_MISSILES 100
 
 namespace Engine {
     namespace Network {
@@ -35,8 +37,10 @@ namespace Engine {
             } game_objects_t;
 
             typedef struct serialized_data_s {
-                    game_objects_t to_add;
-                    game_objects_t to_update;
+                    // game_objects_t to_add;
+                    // game_objects_t to_update;
+                    entity_t players[MAX_PLAYERS];
+                    entity_t missiles[MAX_MISSILES];
             } serialized_data_t;
 
             class Serializer {

@@ -3,35 +3,47 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Current directory: $CURRENT_DIR"
 
-mkdir -p "$CURRENT_DIR/release"
+mkdir "$CURRENT_DIR/release"
 
-cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"
-echo "building cmake $CURRENT_DIR/CMakeLists"
+bash "$CURRENT_DIR/src/Client/build_release.sh"
 
-make
+bash "$CURRENT_DIR/src/Server/build_release.sh"
 
-not_compiled=0
+# # cmake -DCMAKE_BUILD_TYPE=Release "$CURRENT_DIR/CMakeLists.txt"   -DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake
+# # echo "building cmake $CURRENT_DIR/CMakeLists"
 
-if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
-  echo "Client binary is missing"
-  not_compiled=1
-else
-  echo "Client binary is present"
-fi
+# # cmake -B "$CURRENT_DIR/release" -S "$CURRENT_DIR" "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake"
+# cmake "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../vcpkg/scripts/buildsystems/vcpkg.cmake" "$CURRENT_DIR/CMakeLists.txt"
+# # cd "$CURRENT_DIR/release"
+# # cmake "$CURRENT_DIR/.." "-DCMAKE_TOOLCHAIN_FILE=$CURRENT_DIR/../../vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release
+# # cmake --build "$CURRENT_DIR/release"
 
-if [ ! -e "$CURRENT_DIR/r-type_server" ]; then
-  echo "Server binary is missing"
-  not_compiled=1
-else
-  echo "Server binary is present"
-fi
+# make
 
-if [ $not_compiled -eq 1 ]; then
-  echo "One or more compilation(s) failed"
-  exit 1
-fi
+# not_compiled=0
 
-mv "$CURRENT_DIR/r-type_client" "$CURRENT_DIR/release/r-type_client"
-mv "$CURRENT_DIR/r-type_server" "$CURRENT_DIR/release/r-type_server"
+# if [ ! -e "$CURRENT_DIR/r-type_client" ]; then
+#   echo "Client binary is missing"
+#   not_compiled=1
+# else
+#   echo "Client binary is present"
+#   mv "$CURRENT_DIR/r-type_client" "$CURRENT_DIR/release/r-type_client"
+# fi
 
-echo "Compilation succeeded"
+# if [ ! -e "$CURRENT_DIR/r-type_server" ]; then
+#   echo "Server binary is missing"
+#   not_compiled=1
+# else
+#   echo "Server binary is present"
+#   mv "$CURRENT_DIR/r-type_server" "$CURRENT_DIR/release/r-type_server"
+# fi
+
+# if [ $not_compiled -eq 1 ]; then
+#   echo "One or more compilation(s) failed"
+#   exit 1
+# fi
+
+# mv "$CURRENT_DIR/r-type_client" "$CURRENT_DIR/release/r-type_client"
+# mv "$CURRENT_DIR/r-type_server" "$CURRENT_DIR/release/r-type_server"
+
+# echo "Compilation succeeded"

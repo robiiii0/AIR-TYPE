@@ -15,7 +15,7 @@ Engine::Network::Buffer::~Buffer() {}
 
 void Engine::Network::Buffer::write(const char        *message,
                                     const std::size_t &length) {
-    // std::lock_guard<std::mutex> lock(_mutex);
+    std::lock_guard<std::mutex> lock(_mutex);
     for (std::size_t i = 0; i < length; i++) {
         _buffer[_write_head++] = message[i];
         _write_head %= __circular_buffer_size;
@@ -53,21 +53,21 @@ std::string Engine::Network::Buffer::readNextPacket() {
     bool                        isPacket = false;
 
     while (_read_head != _write_head) {
-        char c = _buffer[_read_head++];
+        char c = _buffer[_read_head];
         if (isPrefix(_read_head)) {
-            _read_head += _protocol_prefix.length();
+            _read_head += _protocol_prefix.length() - 1;
             isPacket = true;
-        } else if (isSuffix(_read_head) && isPacket) {
-            _read_head += _protocol_suffix.length();
-            packet += c;
+        } else if (isSuffix(_read_head) && isPacket == true) {
+            _read_head += _protocol_suffix.length() - 1;
             break;
         } else if (isPacket) {
             packet += c;
         }
+        _read_head++;
         _read_head %= __circular_buffer_size;
     }
     if (_read_head == _write_head) {
-        // clear();
+        clear();
     }
     return packet;
 }

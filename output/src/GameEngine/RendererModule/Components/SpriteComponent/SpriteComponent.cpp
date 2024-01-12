@@ -20,15 +20,13 @@ Engine::RendererModule::Components::SpriteComponent::SpriteComponent(
     this->_color = value.color;
     this->_rotation = value.rotation;
     this->_Playable = value.Playable;
+    this->_id = value.id;
 
     this->_sprite.setScale({this->_scale.x, this->_scale.y});
     sf::FloatRect texture_bounds = _sprite.getGlobalBounds();
     _sprite.setPosition({this->_pos.x, this->_pos.y});
     _sprite.setColor(_color);
     _sprite.setRotation(_rotation);
-    std::cout << "SpriteComponent created" << std::endl;
-    std::cout << this->_scale.x << this->_scale.y << std::endl;
-    std::cout << this->_pos.x << this->_pos.y << std::endl;
 }
 
 void Engine::RendererModule::Components::SpriteComponent::handleEvent(int key) {
@@ -70,7 +68,11 @@ void Engine::RendererModule::Components::SpriteComponent::setScale(float x,
 
 void Engine::RendererModule::Components::SpriteComponent::setPosition(float x,
                                                                       float y) {
-    _sprite.setPosition(x + _pos.x, y + _pos.y);
+    _sprite.setPosition(x, y);
+}
+
+uint32_t Engine::RendererModule::Components::SpriteComponent::getId() {
+    return _id;
 }
 
 void Engine::RendererModule::Components::SpriteComponent::setTextureRect(

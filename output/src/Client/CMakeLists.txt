@@ -4,8 +4,7 @@ project(r-type_client)
 
 set(CMAKE_CXX_STANDARD 20)
 
-
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 add_executable(r-type_client
         src/main.cpp
@@ -15,6 +14,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/AnimationComponent/AnimationComponent.cpp
         ../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.cpp
         ../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.cpp
+        ../GameEngine/RendererModule/Components/BossComponent/BossComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/ClickableComponent.cpp
         ../GameEngine/RendererModule/Components/ClickableComponent/RoundedClickableComponent.cpp
         ../GameEngine/RendererModule/Animations/Parallax/Parallax.cpp
@@ -27,6 +27,7 @@ add_executable(r-type_client
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/StringComponent/StringComponent.cpp
         ../GameEngine/EntityManager/ComponentManager/GenericComponents/Vector2fComponent/Vector2fComponent.cpp
         src/Game/Client.cpp
+        src/Game/Tools.cpp
         src/Game/ClientSettingManagement/ClientSettingManagement.cpp
         src/Game/ClientEntityManagement/ClientEntityManagement.cpp
         src/Game/ClientSpritesManagement/ClientSpriteManagement.cpp
@@ -49,6 +50,7 @@ add_executable(r-type_client
         ../GameEngine/RendererModule/Components/InputComponent/InputComponent.cpp
         ../GameEngine/NetworkingModule/NetworkingModule.cpp
         ../GameEngine/NetworkingModule/Client/Client.cpp
+        
         ../GameEngine/NetworkingModule/Buffer/Buffer.cpp
         ../GameEngine/NetworkingModule/Messaging/Messager.cpp
         ../GameEngine/NetworkingModule/exceptions/ClientDisconnectedException/ClientDisconnectedException.cpp
@@ -72,8 +74,20 @@ add_executable(r-type_client
 
 link_directories(${CMAKE_SOURCE_DIR}/GameEngine/NetworkingModule)
 
+if (APPLE)
+    find_library(COREAUDIO_LIBRARY CoreAudio)
+    find_library(AUDIOTOOLBOX_LIBRARY AudioToolbox)
+    find_library(AUDIOUNIT_LIBRARY AudioUnit)
+
+    target_link_libraries(r-type_client PRIVATE ${COREAUDIO_LIBRARY} ${AUDIOTOOLBOX_LIBRARY} ${AUDIOUNIT_LIBRARY})
+endif()
+
+target_link_libraries(r-type_client PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
+
+
+
 # Link the libraries from RendererModule and EntityManager
-target_link_libraries(r-type_client PRIVATE engine_networking sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
+target_link_libraries(r-type_client PRIVATE sfml-network sfml-graphics sfml-window sfml-system sfml-audio ${LIBS})
 
 add_custom_command(TARGET r-type_client POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy

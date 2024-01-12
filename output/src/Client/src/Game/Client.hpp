@@ -9,14 +9,18 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <functional>
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/HmiModule/HmiModule.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
+#include "../../../GameEngine/NetworkingModule/Serializer/Serializer.hpp"
 #include "../../../GameEngine/PhysicModule/Components/MovementComponent/MovementComponent.hpp"
 #include "../../../GameEngine/PhysicModule/Components/TransformComponent/TransformComponent.hpp"
+#include "../../../GameEngine/RendererModule/Components/BossComponent/BossComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/EnemyComponent/EnemyComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/InputComponent/InputComponent.hpp"
 #include "../../../GameEngine/RendererModule/Components/SpriteComponent/SpriteComponent.hpp"
@@ -52,28 +56,41 @@ class Client {
             ESCAPE_TEXTURE = 6,
         };
 
+        typedef struct player_s {
+                int      id;
+                bool     direction;
+                float    x;
+                float    y;
+                uint32_t idSprite;
+        } player_t;
+
     public:
         Client();
         void run();
-        void applyStatus(Engine::Network::Client &client);
-
-        Engine::GameEngine &getGameEngine();
         // Manage Entities
         void                        addEntity(std::uint32_t entity);
         void                        removeEntity(std::uint32_t entity);
         std::vector<std::uint32_t> &getEntities();
 
-        void attack();
-        void createMissile(std::uint32_t id, float x, float y);
+        uint32_t createMissile(std::uint32_t id, float x, float y);
 
         void CreateSprite(
             Engine::Entity::Component::GenericComponents::Vector2f pos,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Texture &texture, std::string name);
+
+        void CreateBoss(
+            Engine::Entity::Component::GenericComponents::Vector2f pos,
+            Engine::Entity::Component::GenericComponents::Vector2f scale,
+            sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
-        void createPlayer(std::vector<sf::Texture> &Textures);
+
+        uint32_t createPlayer(
+            sf::Texture &Textures,
+            Engine::Entity::Component::GenericComponents::Vector2f);
         void createEnemy(std::vector<sf::Texture> &Textures);
+
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
@@ -83,15 +100,14 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
-
-        // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
-        // paths);
         void LoadTextureParallax(std::string paths);
         void LoadTexturePlayer(std::string paths);
         void LoadBackground();
         void LoadSettingsKeyBindings(std::string paths);
         void LoadFont(std::string paths);
         void LoadTextureButton(std::string paths);
+
+        void LoadTextureBoss(std::string paths);
 
         void LoadTextureMissile(std::string paths);
         void LoadTextureEnemies(std::string paths);
@@ -110,6 +126,17 @@ class Client {
 
         void handleExit();
 
+        void playerInit();
+        void HandleMovementManager(std::string command);
+        void updateSpritePosition(
+            int id, Engine::Entity::Component::GenericComponents::Vector2f pos,
+            uint32_t id_sprite);
+
+        void HandleMissileManager(Engine::Network::Serializer::entity_t &player,
+                                  int                                    place);
+        void HandlePlayerManagement(
+            Engine::Network::Serializer::entity_t &player, int place);
+
     private:
         Engine::GameEngine         _gameEngine;
         std::vector<std::uint32_t> _entities;
@@ -127,6 +154,9 @@ class Client {
         std::vector<sf::Texture> _texturesButton;
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
+        sf::Texture              _textureBoss;
+        std::vector<player_t>    _player;
+        std::vector<player_t>    _missile;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
