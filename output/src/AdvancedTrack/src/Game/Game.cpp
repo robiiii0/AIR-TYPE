@@ -13,7 +13,7 @@ Game::Game() : _gameEngine() {
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "PokeHunter", 60);
     _hmiModule = std::make_shared<Engine::HmiModule>();
-    _gameState = GameState::MENU;
+    _gameState = GameState::GAME;
     _score = 0;
 
     LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
@@ -22,6 +22,7 @@ Game::Game() : _gameEngine() {
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
     LoadTexture("assets/Sprite/heart.png");
+    LoadTexture("assets/Sprite/pokeEpitech.png");
 }
 
 void Game::run() {
