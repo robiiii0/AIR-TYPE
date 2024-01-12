@@ -121,7 +121,7 @@ void Server::createEnnemy(std::uint32_t id) {
     std::cout << "Creating ennemy " << id << std::endl;
     _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        500.0, static_cast<float>(700.0 + (50 * id))};
+        1800.0, static_cast<float>(700.0 + (50 * id))};
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
