@@ -49,7 +49,7 @@ void Game::gameLoop() {
             {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
             sf::Color::White, 0);
 
-        _lastId = getLastId() + 1;
+        _lastId = getLastId();
         _pokeball = true;
     }
     // Pokeball removal.
@@ -69,7 +69,7 @@ void Game::updateScore() {
     _score++;
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
-    _scoreId = _lastId = getLastId() + 1;
+    _scoreId = getLastId();
 }
 
 void Game::checkLife() {
