@@ -390,6 +390,54 @@ void Server::updateMissile() {
     }
 }
 
+void Server::isColliding() {
+    for (auto &missile : _missileEntities) {
+        auto components = _gameEngine->getEntityManager()
+                              ->getEntity(missile.second)
+                              ->_components;
+        for (auto &component : components) {
+            if (typeid(*component) ==
+                typeid(Engine::Entity::Component::GenericComponents::
+                           Vector2fComponent)) {
+                auto missile_pos = std::dynamic_pointer_cast<
+                    Engine::Entity::Component::GenericComponents::
+                        Vector2fComponent>(component);
+                
+
+
+                for (auto &ennemy : _ennemyEntities) {
+                    auto components = _gameEngine->getEntityManager()
+                                          ->getEntity(ennemy.second)
+                                          ->_components;
+                    for (auto &component : components) {
+                        if (typeid(*component) ==
+                            typeid(Engine::Entity::Component::GenericComponents::
+                                       Vector2fComponent)) {
+                            auto enemy_pos = std::dynamic_pointer_cast<
+                                Engine::Entity::Component::GenericComponents::
+                                    Vector2fComponent>(component);
+                            
+                            if (
+                                (missile_pos->getValue().x >=
+                                 enemy_pos->getValue().x) &&
+                                (missile_pos->getValue().x <=
+                                 enemy_pos->getValue().x + 25) &&
+                                (missile_pos->getValue().y >=
+                                 enemy_pos->getValue().y) &&
+                                (missile_pos->getValue().y <=
+                                 enemy_pos->getValue().y + 25)
+                            ) {
+                                // ennemy is hit
+                                _gameEngine->getEntityManager()->removeEntity(ennemy.second);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 void Server::update() {
     // ? update all entities
     updatePlayer();
