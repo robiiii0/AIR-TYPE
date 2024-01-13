@@ -12,6 +12,7 @@ void Game::setGame() {
     _scoreId = 0;
     _score = 0;
     _life = 3;
+    _tick = 0;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -46,50 +47,54 @@ void Game::setGame() {
 
     // LIFE
     createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
-    _lifeId.push_back(
-        *std::max_element(getEntities().begin(), getEntities().end()));
+    _lifeId.push_back(getLastId());
     createSprite({60.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
-    _lifeId.push_back(
-        *std::max_element(getEntities().begin(), getEntities().end()));
+    _lifeId.push_back(getLastId());
     createSprite({110.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
-    _lifeId.push_back(
-        *std::max_element(getEntities().begin(), getEntities().end()));
+    _lifeId.push_back(getLastId());
 
     // SCORE
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
-    _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
+    _scoreId = getLastId();
 }
 
 void Game::gameLoop() {
-    if (_gameState == GameState::GAME &&
-        (_lastId !=
-             *std::max_element(getEntities().begin(), getEntities().end()) ||
-         _lastId == 0)) {
-        _lastId++;
-        _lastId =
-            *std::max_element(getEntities().begin(), getEntities().end()) + 1;
+    // Pokeball creation.
+    if (_gameState == GameState::GAME && !_pokeball && _tick == 0) {
         createButton(
             [this]() {
                 _sounds[1]->play();
                 removeEntity(_lastId);
                 updateScore();
+                _tick = 0;
+                _pokeball = false;
             },
             "", _textures[Textures::PLAYER], _fonts[0],
             {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
             sf::Color::White, 0);
+
+        _lastId = getLastId();
+        _pokeball = true;
     }
+    // Pokeball removal.
+    else if (_gameState == GameState::GAME && _tick == 100) {
+        if (_tick == 100) {
+            removeEntity(_lastId);
+            _life--;
+            _tick = 0;
+            _pokeball = false;
+        }
+    } else
+        _tick++;
 }
 
 void Game::updateScore() {
     removeEntity(_scoreId);
     _score++;
-
-    _life--;
-
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
-    _scoreId = *std::max_element(getEntities().begin(), getEntities().end());
+    _scoreId = getLastId();
 }
 
 void Game::checkLife() {
@@ -97,6 +102,6 @@ void Game::checkLife() {
         removeEntity(_lifeId[_life]);
         _lifeId.erase(_lifeId.begin() + _life);
     }
-    if (_life == 0 && _gameState == GameState::GAME) changeGameState(GameState::GAMEOVER
-    );
+    if (_life == 0 && _gameState == GameState::GAME)
+        changeGameState(GameState::GAMEOVER);
 }

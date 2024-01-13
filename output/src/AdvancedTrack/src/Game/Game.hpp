@@ -57,6 +57,7 @@ class Game {
 
         void gameLoop();
         void checkLife();
+        int  getLastId();
 
         void  updateScore();
         float randomFloat(float min, float max);
@@ -81,6 +82,8 @@ class Game {
         int              _scoreId;
         int              _lastId;
         bool             _captured;
+        int              _tick;
+        bool             _pokeball = false;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;

@@ -16,10 +16,11 @@ Game::Game() : _gameEngine() {
     _gameState = GameState::MENU;
     _score = 0;
     _captured = false;
+    _tick = 0;
 
-//    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
+    //    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
-    //vrai musique de pokemon
+    // vrai musique de pokemon
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
@@ -38,6 +39,7 @@ Game::Game() : _gameEngine() {
 void Game::run() {
     setUpState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        // Game engine functions.
         _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
                                                 getEntities());
         std::string eventKey =
@@ -48,6 +50,7 @@ void Game::run() {
         gameLoop();
         checkLife();
 
+        // Game engine functions.
         _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
                                               getEntities(), 0.5);
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
@@ -63,3 +66,7 @@ float Game::randomFloat(float min, float max) {
 }
 
 void Game::handleExit() { _gameState = GameState::EXIT; }
+
+int Game::getLastId() {
+    return *std::max_element(getEntities().begin(), getEntities().end());
+}
