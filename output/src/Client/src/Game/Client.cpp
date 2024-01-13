@@ -132,18 +132,19 @@ void Client::HandleMissileManager(
     // createmissile(_texturemissile[place], {missile.x, missile.y});
 }
 
-void Client::HandleEnemiesManagement(Engine::Network::Serializer::entity_t &enemy, int place)
-{
+void Client::HandleEnemiesManagement(
+    Engine::Network::Serializer::entity_t &enemy, int place) {
     if (enemy.id > -1 && enemy.id < MAX_ENEMIES) {
-        std::cout << "enemy " << enemy.id << " at " << enemy.x << " "
-                  << enemy.y << std::endl;
+        std::cout << "enemy " << enemy.id << " at " << enemy.x << " " << enemy.y
+                  << std::endl;
         if (_enemy[place].id == -1 && enemy.id != _enemy[0].id &&
             enemy.x < 1920 && enemy.x >= 0 && enemy.y < 1080 && enemy.y >= 0) {
             _enemy[place].id = enemy.id;
             _enemy[place].x = enemy.x;
             _enemy[place].y = enemy.y;
             _enemy[place].direction = enemy.direction;
-            uint32_t idEnemy = createPlayer(_texturesEnemies[0],{enemy.x, enemy.y});
+            uint32_t idEnemy =
+                createPlayer(_texturesEnemies[0], {enemy.x, enemy.y});
             std::cout << "'id de enemy =" << idEnemy << std::endl;
             _enemy[place].idSprite = idEnemy;
         } else if (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&

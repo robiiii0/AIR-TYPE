@@ -355,7 +355,8 @@ void Server::updateEnnemies() {
                 auto new_position = position->getValue();
                 new_position.x -= 1;
                 position->setValue(new_position);
-                std::string msg = "add ennemy " + std::to_string(ennemy.second) + " " +
+                std::string msg = "add ennemy " +
+                                  std::to_string(ennemy.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
@@ -391,16 +392,18 @@ void Server::updateMissile() {
 
 void Server::update() {
     // ? update all entities
-        updatePlayer();
-        if (_update_time + std::chrono::microseconds(750) < std::chrono::high_resolution_clock::now()) {
-            _update_time = std::chrono::high_resolution_clock::now();
-            updateEnnemies();
-            updateMissile();
-        }
-        if (_ennemy_spawn_clock + std::chrono::seconds(4) < std::chrono::high_resolution_clock::now()) {
-            _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-            createEnnemy(0);
-        }
+    updatePlayer();
+    if (_update_time + std::chrono::microseconds(750) <
+        std::chrono::high_resolution_clock::now()) {
+        _update_time = std::chrono::high_resolution_clock::now();
+        updateEnnemies();
+        updateMissile();
+    }
+    if (_ennemy_spawn_clock + std::chrono::seconds(4) <
+        std::chrono::high_resolution_clock::now()) {
+        _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+        createEnnemy(0);
+    }
     // ? update all components
     // ? update all systems
 }

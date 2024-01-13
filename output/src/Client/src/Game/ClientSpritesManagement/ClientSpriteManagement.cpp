@@ -171,7 +171,6 @@ uint32_t Client::createPlayer(
     return PlayerEntity;
 }
 
-
 void Client::LoadSettingsKeyBindings(std::string paths) {
     sf::Texture texture;
     if (texture.loadFromFile(paths) == false) {

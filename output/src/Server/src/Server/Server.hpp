@@ -8,12 +8,12 @@
 #ifndef SERVER_HPP_
 #define SERVER_HPP_
 
-#include <iostream>
-#include <random>
 #include <cstdint>
 #include <ctime>
+#include <iostream>
 #include <map>
 #include <queue>
+#include <random>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"

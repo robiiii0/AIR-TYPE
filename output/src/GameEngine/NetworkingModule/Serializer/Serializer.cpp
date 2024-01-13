@@ -99,8 +99,7 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.enemies[last_enemy] = entity;
-            }
-            else {
+            } else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }
