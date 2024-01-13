@@ -86,6 +86,16 @@ void Client::HandlePlayerManagement(
                    (player.x != _player[place].x ||
                     player.y != _player[place].y) &&
                    _player[place].id == player.id) {
+                if (_player[place].id > -1 && _player[place].id < MAX_PLAYERS && player.id == -1) {
+                    std::cout << "je supprime id : " << _player[place].id << std::endl;
+                    _gameEngine.getEntityManager()->destroyEntity(_player[place].id);
+                    _player[place].id = -1;
+                    _player[place].x = 0;
+                    _player[place].y = 0;
+                    _player[place].direction = 0;
+                    _player[place].idSprite = 0;
+                }
+                else {
             std::cout << "oe chef" << std::endl;
             updateSpritePosition(_player[place].id, {player.x, player.y},
                                  _player[place].idSprite);
@@ -94,6 +104,7 @@ void Client::HandlePlayerManagement(
             _player[place].x = player.x;
             _player[place].y = player.y;
         }
+                   }
     }
 }
 
@@ -123,8 +134,7 @@ void Client::HandleMissileManager(
                     missile.y != _missile[place].y) &&
                    _missile[place].id == missile.id) {
 
-
-                if ((_missile[place].x == 0 && _missile[place].y == 0 ) || (_missile[place].x == missile.x && _missile[place].y == missile.y)) {
+                if ((_missile[place].x == 0 && _missile[place].y == 0 ) || (_missile[place].x == missile.x && _missile[place].y == missile.y) || (_missile[place].id > -1 && _missile[place].id < MAX_MISSILES && missile.id == -1)) {
                     std::cout << "je supprime id : " << _missile[place].id << std::endl;
                     _gameEngine.getEntityManager()->destroyEntity(_missile[place].id);
                     _missile[place].id = -1;
@@ -161,11 +171,11 @@ void Client::HandleEnemiesManagement(
             std::cout << "'id de enemy =" << idEnemy << std::endl;
             _enemy[place].idSprite = idEnemy;
         } else if (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&
-                   enemy.x <= 1920 && enemy.x >= 0 && enemy.y <= 1080 &&
+                   enemy.x <= 1920 && enemy.y <= 1080 &&
                    enemy.y >= 0 &&
                    (enemy.x != _enemy[place].x || enemy.y != _enemy[place].y) &&
                    _enemy[place].id == enemy.id) {
-            if ((_enemy[place].x == 0 && _enemy[place].y == 0 ) || (_enemy[place].x == enemy.x && _enemy[place].y == enemy.y)) {
+            if ((_enemy[place].x == 0 && _enemy[place].y == 0 ) || (_enemy[place].x == enemy.x && _enemy[place].y == enemy.y) || (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES && enemy.id == -1) || (_enemy[place].x < 0 ) || (enemy.x < 0 )) {
                 std::cout << "je supprime id : " << _enemy[place].id << std::endl;
                 _gameEngine.getEntityManager()->destroyEntity(_enemy[place].id);
                 _enemy[place].id = -1;
@@ -180,7 +190,7 @@ void Client::HandleEnemiesManagement(
                 _enemy[place].x = enemy.x;
                 _enemy[place].y = enemy.y;
             }
-        }
+        } 
     }
 }
 
