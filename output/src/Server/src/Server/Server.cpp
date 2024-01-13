@@ -353,7 +353,7 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x -= 0.1;
+                new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " +
                                   std::to_string(ennemy.second) + " " +
@@ -378,7 +378,8 @@ void Server::updateMissile() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x += 0.1;
+                std::cout << "ya r l'ekip" << std::endl;
+                new_position.x += 0.02;
                 position->setValue(new_position);
                 std::string msg = "add missile " +
                                   std::to_string(missile.second) + " " +
@@ -393,12 +394,12 @@ void Server::updateMissile() {
 void Server::update() {
     // ? update all entities
     updatePlayer();
-    if (_update_time + std::chrono::microseconds(750) <
-        std::chrono::high_resolution_clock::now()) {
-        _update_time = std::chrono::high_resolution_clock::now();
+    // if (_update_time + std::chrono::microseconds(750) <
+    //     std::chrono::high_resolution_clock::now()) {
+    //     _update_time = std::chrono::high_resolution_clock::now();
         updateEnnemies();
         updateMissile();
-    }
+    // }
     if (_ennemy_spawn_clock + std::chrono::seconds(4) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
