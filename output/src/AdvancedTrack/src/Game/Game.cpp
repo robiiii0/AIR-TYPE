@@ -26,6 +26,10 @@ Game::Game() : _gameEngine() {
     LoadTexture("assets/Sprite/pokeEpitech.png");
     LoadTexture("assets/Sprite/Lugia.png");
     LoadTexture("assets/Sprite/Zavant.png");
+    LoadTexture("assets/Sprite/Glace Ball.png");
+    LoadTexture("assets/Sprite/Master Ball.png");
+    LoadTexture("assets/Sprite/Net Ball.png");
+    LoadTexture("assets/Sprite/Ultra Ball.png");
 }
 
 void Game::run() {

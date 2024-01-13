@@ -32,7 +32,11 @@ enum Textures {
     LIFE,
     POKEPITECH,
     LUGIA,
-    INFERNIX
+    INFERNIX,
+    GLACE,
+    MASTER,
+    NET,
+    ULTRA
 };
 
 #endif /* !GAMEENUM_HPP_ */
