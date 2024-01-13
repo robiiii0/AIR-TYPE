@@ -55,3 +55,7 @@ float Game::randomFloat(float min, float max) {
 }
 
 void Game::handleExit() { _gameState = GameState::EXIT; }
+
+int Game::getLastId() {
+    return *std::max_element(getEntities().begin(), getEntities().end());
+}
