@@ -13,6 +13,7 @@ void Game::setGame() {
     _score = 0;
     _life = 3;
     _tick = 0;
+    _pokeball = false;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -21,7 +22,6 @@ void Game::setGame() {
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.3, 0.3}, sf::Color::White, 0);
 
-    //    ------------------------------------------------------------
     uint32_t id_celebi =
         *std::max_element(getEntities().begin(), getEntities().end()) + 1;
     createButton(
@@ -43,8 +43,6 @@ void Game::setGame() {
         {static_cast<float>(_screenWidth - 200), static_cast<float>(50)},
         {0.05, 0.05}, sf::Color::White, 0);
 
-    //    ------------------------------------------------------------
-
     // LIFE
     createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
     _lifeId.push_back(getLastId());
@@ -61,7 +59,7 @@ void Game::setGame() {
 
 void Game::gameLoop() {
     // Pokeball creation.
-    if (_gameState == GameState::GAME && !_pokeball && _tick == 0) {
+    if (_gameState == GameState::GAME && !_pokeball) {
         createButton(
             [this]() {
                 _sounds[1]->play();
@@ -78,13 +76,11 @@ void Game::gameLoop() {
         _pokeball = true;
     }
     // Pokeball removal.
-    else if (_gameState == GameState::GAME && _tick == 100) {
-        if (_tick == 100) {
-            removeEntity(_lastId);
-            _life--;
-            _tick = 0;
-            _pokeball = false;
-        }
+    else if (_gameState == GameState::GAME && _tick == 100 && _pokeball) {
+        removeEntity(_lastId);
+        _life--;
+        _tick = 0;
+        _pokeball = false;
     } else
         _tick++;
 }

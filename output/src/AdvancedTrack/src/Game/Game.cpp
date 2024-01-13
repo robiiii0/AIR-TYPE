@@ -19,9 +19,9 @@ Game::Game() : _gameEngine() {
     _pokeball = false;
     _tick = 0;
 
-    //    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
+    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
-    // vrai musique de pokemon
+    // TODO: Add pokemon music.
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
