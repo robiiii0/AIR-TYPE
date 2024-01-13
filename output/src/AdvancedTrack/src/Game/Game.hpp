@@ -83,7 +83,7 @@ class Game {
         int              _lastId;
         bool             _captured;
         int              _tick;
-        bool             _pokeball = false;
+        bool             _pokeball;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;

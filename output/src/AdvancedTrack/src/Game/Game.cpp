@@ -16,6 +16,7 @@ Game::Game() : _gameEngine() {
     _gameState = GameState::MENU;
     _score = 0;
     _captured = false;
+    _pokeball = false;
     _tick = 0;
 
     //    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);

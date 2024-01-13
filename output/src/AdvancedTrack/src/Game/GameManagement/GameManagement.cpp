@@ -21,7 +21,7 @@ void Game::setGame() {
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.3, 0.3}, sf::Color::White, 0);
 
-//    ------------------------------------------------------------
+    //    ------------------------------------------------------------
     uint32_t id_celebi =
         *std::max_element(getEntities().begin(), getEntities().end()) + 1;
     createButton(
@@ -43,7 +43,7 @@ void Game::setGame() {
         {static_cast<float>(_screenWidth - 200), static_cast<float>(50)},
         {0.05, 0.05}, sf::Color::White, 0);
 
-//    ------------------------------------------------------------
+    //    ------------------------------------------------------------
 
     // LIFE
     createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
