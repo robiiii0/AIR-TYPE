@@ -44,6 +44,7 @@ void Game::gameLoop() {
                 removeEntity(_lastId);
                 updateScore();
                 _tick = 0;
+                _pokeball = false;
             },
             "", _textures[Textures::PLAYER], _fonts[0],
             {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
