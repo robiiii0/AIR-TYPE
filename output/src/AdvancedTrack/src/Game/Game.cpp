@@ -13,16 +13,19 @@ Game::Game() : _gameEngine() {
     _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
                                           "PokeHunter", 60);
     _hmiModule = std::make_shared<Engine::HmiModule>();
-    _gameState = GameState::GAME;
+    _gameState = GameState::MENU;
     _score = 0;
 
     LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
+    //vrai musique de pokemon
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
     LoadTexture("assets/Sprite/background.jpg");
     LoadTexture("assets/Sprite/pokeball.png");
     LoadTexture("assets/Sprite/heart.png");
     LoadTexture("assets/Sprite/pokeEpitech.png");
+    LoadTexture("assets/Sprite/Lugia.png");
+    LoadTexture("assets/Sprite/Zavant.png");
 }
 
 void Game::run() {

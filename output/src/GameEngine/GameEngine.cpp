@@ -33,7 +33,6 @@ void Engine::GameEngine::run() {
                      currentTime - lastTime)
                      .count();
         }
-
         lastTime = currentTime;
     }
 }

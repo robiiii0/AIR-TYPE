@@ -30,6 +30,9 @@ enum Textures {
     BACKGROUND,
     PLAYER,
     LIFE,
+    POKEPITECH,
+    LUGIA,
+    INFERNIX
 };
 
 #endif /* !GAMEENUM_HPP_ */
