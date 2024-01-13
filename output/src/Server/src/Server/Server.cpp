@@ -397,13 +397,13 @@ void Server::update() {
     // if (_update_time + std::chrono::microseconds(750) <
     //     std::chrono::high_resolution_clock::now()) {
     //     _update_time = std::chrono::high_resolution_clock::now();
-        updateEnnemies();
-        updateMissile();
+    updateEnnemies();
+    updateMissile();
     // }
     if (_ennemy_spawn_clock + std::chrono::seconds(5) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        for (int i = 0 ; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             createEnnemy(i);
         }
     }
