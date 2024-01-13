@@ -132,6 +132,35 @@ void Client::HandleMissileManager(
     // createmissile(_texturemissile[place], {missile.x, missile.y});
 }
 
+void Client::HandleEnemiesManagement(
+    Engine::Network::Serializer::entity_t &enemy, int place) {
+    if (enemy.id > -1 && enemy.id < MAX_ENEMIES) {
+        std::cout << "enemy " << enemy.id << " at " << enemy.x << " " << enemy.y
+                  << std::endl;
+        if (_enemy[place].id == -1 && enemy.id != _enemy[0].id &&
+            enemy.x < 1920 && enemy.x >= 0 && enemy.y < 1080 && enemy.y >= 0) {
+            _enemy[place].id = enemy.id;
+            _enemy[place].x = enemy.x;
+            _enemy[place].y = enemy.y;
+            _enemy[place].direction = enemy.direction;
+            uint32_t idEnemy =
+                createPlayer(_texturesEnemies[0], {enemy.x, enemy.y});
+            std::cout << "'id de enemy =" << idEnemy << std::endl;
+            _enemy[place].idSprite = idEnemy;
+        } else if (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&
+                   enemy.x <= 1920 && enemy.x >= 0 && enemy.y <= 1080 &&
+                   enemy.y >= 0 &&
+                   (enemy.x != _enemy[place].x || enemy.y != _enemy[place].y) &&
+                   _enemy[place].id == enemy.id) {
+            std::cout << "je suis dedans" << std::endl;
+            updateSpritePosition(_enemy[place].id, {enemy.x, enemy.y},
+                                 _enemy[place].idSprite);
+            _enemy[place].x = enemy.x;
+            _enemy[place].y = enemy.y;
+        }
+    }
+}
+
 void Client::run() {
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
@@ -151,29 +180,7 @@ void Client::run() {
                             msg);
                     int placePlayer = 0;
                     int placeMissiles = 0;
-                    std::cout << "data player : {" << std::endl;
-                    for (auto &player : data.players) {
-                        std::cout << "    {" << std::endl;
-                        std::cout << "        id : " << player.id << std::endl;
-                        std::cout << "        x : " << player.x << std::endl;
-                        std::cout << "        y : " << player.y << std::endl;
-                        std::cout << "        direction : " << player.direction
-                                  << std::endl;
-                        std::cout << "    }" << std::endl;
-                    }
-                    std::cout << "}" << std::endl;
-
-                    std::cout << "data missiles : " << std::endl;
-                    for (auto &missile : data.missiles) {
-                        std::cout << "    {" << std::endl;
-                        std::cout << "        id : " << missile.id << std::endl;
-                        std::cout << "        x : " << missile.x << std::endl;
-                        std::cout << "        y : " << missile.y << std::endl;
-                        std::cout << "        direction : " << missile.direction
-                                  << std::endl;
-                        std::cout << "    }" << std::endl;
-                    }
-                    std::cout << "}" << std::endl;
+                    int placeEnemies = 0;
                     for (auto &player : data.players) {
                         HandlePlayerManagement(player, placePlayer);
                         placePlayer++;
@@ -181,6 +188,10 @@ void Client::run() {
                     for (auto &missile : data.missiles) {
                         HandleMissileManager(missile, placeMissiles);
                         placeMissiles++;
+                    }
+                    for (auto &enemy : data.enemies) {
+                        HandleEnemiesManagement(enemy, placeEnemies);
+                        placeEnemies++;
                     }
                 }
             }

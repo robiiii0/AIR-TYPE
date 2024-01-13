@@ -13,6 +13,9 @@ Server::~Server() {}
 
 int Server::run() {
     _running = true;
+    _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+    _update_time = std::chrono::high_resolution_clock::now();
+    srand(time(NULL));
     while (_running) {
         loop();
     }
@@ -106,6 +109,31 @@ void Server::createPlayer(std::uint32_t id) {
                                                   position);
     std::string msg =
         "add player " + std::to_string(id) + " " +
+        std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
+        std::to_string(position->getValue().y);
+
+    std::vector<std::string> message;
+
+    message.push_back(msg);
+    sendToAllExcept(
+        id, _networkingModule->getSerializer().serializeToPacket(message));
+    sendGameStatus(id);
+}
+
+void Server::createEnnemy(std::uint32_t id) {
+    float randomFloat = static_cast<float>(rand() % 800 + 1);
+
+    _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    Engine::Entity::Component::GenericComponents::Vector2f position_data{
+        1800.0, randomFloat};
+
+    auto position = std::make_shared<
+        Engine::Entity::Component::GenericComponents::Vector2fComponent>(
+        position_data);
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id],
+                                                  position);
+    std::string msg =
+        "add ennemy " + std::to_string(id) + " " +
         std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
         std::to_string(position->getValue().y);
 
@@ -222,6 +250,8 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
+        // for (int i = 0; i < 5; i++)
+        // createEnemy(i);
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
@@ -305,7 +335,12 @@ void Server::updatePlayer() {
     }
 }
 
-void Server::updateEnnemies(std::uint32_t id) {
+void Server::updateEnnemies() {
+    // TODO : update ennemy
+    // mettre a jour la position du player
+    // faire le message (add ennemy id x y)
+    // bien le mettre dans _globalMessages
+
     for (auto &ennemy : _ennemyEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(ennemy.second)
@@ -317,7 +352,11 @@ void Server::updateEnnemies(std::uint32_t id) {
                 auto position = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                std::string msg = "add ennemy " + std::to_string(id) + " " +
+                auto new_position = position->getValue();
+                new_position.x -= 1;
+                position->setValue(new_position);
+                std::string msg = "add ennemy " +
+                                  std::to_string(ennemy.second) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
@@ -354,8 +393,17 @@ void Server::updateMissile() {
 void Server::update() {
     // ? update all entities
     updatePlayer();
-    // updateEnnemies(entity.second);
-    updateMissile();
+    if (_update_time + std::chrono::microseconds(750) <
+        std::chrono::high_resolution_clock::now()) {
+        _update_time = std::chrono::high_resolution_clock::now();
+        updateEnnemies();
+        updateMissile();
+    }
+    if (_ennemy_spawn_clock + std::chrono::seconds(4) <
+        std::chrono::high_resolution_clock::now()) {
+        _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+        createEnnemy(0);
+    }
     // ? update all components
     // ? update all systems
 }

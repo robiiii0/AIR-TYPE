@@ -89,7 +89,7 @@ class Client {
         uint32_t createPlayer(
             sf::Texture &Textures,
             Engine::Entity::Component::GenericComponents::Vector2f);
-        void createEnemy(std::vector<sf::Texture> &Textures);
+        void createEnemy(sf::Texture &Textures);
 
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
@@ -100,6 +100,12 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
+
+        void HandleEnemiesManagement(
+            Engine::Network::Serializer::entity_t &enemy, int place);
+        void GetClientId(Engine::Network::Serializer::serialized_data_t data);
+        // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
+        // paths);
         void LoadTextureParallax(std::string paths);
         void LoadTexturePlayer(std::string paths);
         void LoadBackground();
@@ -157,6 +163,7 @@ class Client {
         sf::Texture              _textureBoss;
         std::vector<player_t>    _player;
         std::vector<player_t>    _missile;
+        std::vector<player_t>    _enemy;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

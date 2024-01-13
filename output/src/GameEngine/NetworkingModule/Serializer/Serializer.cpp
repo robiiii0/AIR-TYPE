@@ -68,6 +68,10 @@ Engine::Network::Serializer::serialized_data_t
             } else if (tokens[1] == "missile") {
                 int last_missile = -1;
                 for (int i = 0; i < MAX_MISSILES; i++) {
+                    if (data.missiles[i].id == entity.id) {
+                        last_missile = i;
+                        break;
+                    }
                     if (data.missiles[i].id == -1) {
                         last_missile = i;
                         break;
@@ -78,47 +82,27 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.missiles[last_missile] = entity;
+            } else if (tokens[1] == "ennemy") {
+                int last_enemy = -1;
+                for (int i = 0; i < MAX_ENEMIES; i++) {
+                    if (data.enemies[i].id == entity.id) {
+                        last_enemy = i;
+                        break;
+                    }
+                    if (data.enemies[i].id == -1) {
+                        last_enemy = i;
+                        break;
+                    }
+                }
+                if (last_enemy == -1) {
+                    std::cerr << "Serializer: Too many enemies" << std::endl;
+                    continue;
+                }
+                data.enemies[last_enemy] = entity;
             } else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }
-            // if (tokens[1] == "player") {
-            //     if (data.to_add.nb_players >= MAX_PLAYERS) {
-            //         std::cerr << "Serializer: Too many players" << std::endl;
-            //         continue;
-            //     }
-            //     data.to_add.players[data.to_add.nb_players] = entity;
-            //     data.to_add.nb_players++;
-            // } else if (tokens[1] == "missile") {
-            //     if (data.to_add.nb_missiles >= MAX_MISSILES) {
-            //         std::cerr << "Serializer: Too many missiles" <<
-            //         std::endl; continue;
-            //     }
-            //     data.to_add.missiles[data.to_add.nb_missiles] = entity;
-            //     data.to_add.nb_missiles++;
-            // } else {
-            //     std::cerr << "Serializer: Invalid argument: " << arg
-            //               << std::endl;
-            // }
-            // } else if (tokens[0] == "update") {
-            //     if (tokens[1] == "player") {
-            //         if (data.to_update.nb_players >= MAX_PLAYERS) {
-            //             std::cerr << "Serializer: Too many players" <<
-            //             std::endl; continue;
-            //         }
-            //         data.to_update.players[data.to_update.nb_players] =
-            //         entity; data.to_update.nb_players++;
-            //     } else if (tokens[1] == "missile") {
-            //         if (data.to_update.nb_missiles >= MAX_MISSILES) {
-            //             std::cerr << "Serializer: Too many missiles" <<
-            //             std::endl; continue;
-            //         }
-            //         data.to_update.missiles[data.to_update.nb_missiles] =
-            //         entity; data.to_update.nb_missiles++;
-            //     } else {
-            //         std::cerr << "Serializer: Invalid argument: " << arg
-            //                   << std::endl;
-            //     }
         } else {
             std::cerr << "Serializer: Invalid argument: " << arg << std::endl;
         }
@@ -156,16 +140,19 @@ Engine::Network::Serializer::serialized_data_t
         data.missiles[i].x = 0;
         data.missiles[i].y = 0;
     }
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        data.enemies[i].id = -1;
+        data.enemies[i].direction = false;
+        data.enemies[i].x = 0;
+        data.enemies[i].y = 0;
+    }
     return data;
 }
 
 std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     const Engine::Network::Serializer::serialized_data_t &data) {
     std::string binaryString;
-    // std::cout << data.players[0].id << std::endl;
-    // std::cout << data.players[1].id << std::endl;
-    // std::cout << data.players[2].id << std::endl;
-    // std::cout << data.players[3].id << std::endl;
+
     std::copy(reinterpret_cast<const char *>(&data),
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
@@ -180,24 +167,9 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
     //     std::cout << "\tplayers[" << i << "].x: " << data2.players[i].x
     //               << std::endl;
     //     std::cout << "\tplayers[" << i << "].y: " << data2.players[i].y
-    //               << std::endl;<
+    //               << std::endl;
     // }
     // std::cout << "}" << std::endl;
-
-    std::cout << "serialized data : {" << std::endl;
-    for (int i = 0; i < MAX_MISSILES; i++) {
-        std::cout << "missile[" << i << "].id: " << data2.missiles[i].id
-                  << std::endl;
-        std::cout << "missile[" << i
-                  << "].direction: " << data2.missiles[i].direction
-                  << std::endl;
-        std::cout << "missile[" << i << "].x: " << data2.missiles[i].x
-                  << std::endl;
-        std::cout << "missile[" << i << "].y: " << data2.missiles[i].y
-                  << std::endl;
-    }
-    std::cout << "}" << std::endl;
-
     return binaryString;
 }
 

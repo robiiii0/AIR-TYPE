@@ -10,8 +10,10 @@
 
 #include <cstdint>
 #include <ctime>
+#include <iostream>
 #include <map>
 #include <queue>
+#include <random>
 
 #include "../../../GameEngine/GameEngine.hpp"
 #include "../../../GameEngine/NetworkingModule/NetworkingModule.hpp"
@@ -36,9 +38,10 @@ class Server {
         void createMissile(std::uint32_t id);
         void updatePlayer();
         void updateMissile();
-        void updateEnnemies(std::uint32_t id);
+        void updateEnnemies();
         void update();
         void movePlayer(int, std::uint32_t);
+        void createEnnemy(std::uint32_t id);
 
     private:
         void                                               networkLoop();
@@ -49,6 +52,8 @@ class Server {
         std::queue<std::string>                            _globalMessages;
         std::map<std::uint32_t, std::queue<std::string>>   _clientMessages;
         std::chrono::high_resolution_clock::time_point     _clock;
+        std::chrono::high_resolution_clock::time_point     _ennemy_spawn_clock;
+        std::chrono::high_resolution_clock::time_point     _update_time;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
         std::map<std::uint32_t, std::uint32_t> _missileEntities;

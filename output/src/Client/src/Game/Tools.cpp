@@ -14,6 +14,9 @@ void Client::playerInit() {
     for (int i = 0; i < MAX_MISSILES; i++) {
         _missile.push_back(player_temp);
     }
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        _enemy.push_back(player_temp);
+    }
 }
 
 void Client::HandleMovementManager(std::string command) {
