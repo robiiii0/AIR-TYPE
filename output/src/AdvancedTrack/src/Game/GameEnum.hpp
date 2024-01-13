@@ -36,7 +36,9 @@ enum Textures {
     GLACE,
     MASTER,
     NET,
-    ULTRA
+    ULTRA,
+    CELEBI,
+    CAPTURE
 };
 
 #endif /* !GAMEENUM_HPP_ */

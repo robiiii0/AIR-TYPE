@@ -20,6 +20,30 @@ void Game::setGame() {
                   static_cast<float>(_screenHeight / 1.05)},
                  {0.3, 0.3}, sf::Color::White, 0);
 
+//    ------------------------------------------------------------
+    uint32_t id_celebi =
+        *std::max_element(getEntities().begin(), getEntities().end()) + 1;
+    createButton(
+        [this, id_celebi]() {
+            createSprite({static_cast<float>(-20),
+                          static_cast<float>(_screenHeight - 150)},
+                         {0.2, 0.2}, _textures[CAPTURE], "");
+            createSprite({static_cast<float>(40),
+                          static_cast<float>(_screenHeight - 130)},
+                         {0.07, 0.07}, _textures[CELEBI], "");
+            createText("Celebi captured !", _fonts[0],
+                       {static_cast<float>(120),
+                        static_cast<float>(_screenHeight - 130)},
+                       {1, 1}, sf::Color::White, 0);
+            _captured = true;
+            removeEntity(id_celebi);
+        },
+        "", _textures[CELEBI], _fonts[0],
+        {static_cast<float>(_screenWidth - 200), static_cast<float>(50)},
+        {0.05, 0.05}, sf::Color::White, 0);
+
+//    ------------------------------------------------------------
+
     // LIFE
     createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
     _lifeId.push_back(

@@ -15,8 +15,9 @@ Game::Game() : _gameEngine() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _gameState = GameState::MENU;
     _score = 0;
+    _captured = false;
 
-    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
+//    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
     LoadSound("assets/Sounds/click.wav", false, false, 50.0);
     //vrai musique de pokemon
     LoadFont("assets/Fonts/Roboto-Bold.ttf");
@@ -30,6 +31,8 @@ Game::Game() : _gameEngine() {
     LoadTexture("assets/Sprite/Master Ball.png");
     LoadTexture("assets/Sprite/Net Ball.png");
     LoadTexture("assets/Sprite/Ultra Ball.png");
+    LoadTexture("assets/Sprite/Celebi.png");
+    LoadTexture("assets/Sprite/capture.png");
 }
 
 void Game::run() {

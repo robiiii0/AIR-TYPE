@@ -28,5 +28,4 @@ void Game::setMenu() {
                {static_cast<float>(_screenWidth / 2),
                 static_cast<float>(_screenHeight / 3)},
                {1.5, 1.5}, sf::Color::Black, 0);
-
 }
