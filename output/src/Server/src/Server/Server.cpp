@@ -400,10 +400,12 @@ void Server::update() {
         updateEnnemies();
         updateMissile();
     // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(4) <
+    if (_ennemy_spawn_clock + std::chrono::seconds(5) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        createEnnemy(0);
+        for (int i = 0 ; i < 5; i++) {
+            createEnnemy(i);
+        }
     }
     // ? update all components
     // ? update all systems

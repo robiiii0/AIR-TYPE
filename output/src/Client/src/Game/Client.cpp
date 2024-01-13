@@ -86,25 +86,27 @@ void Client::HandlePlayerManagement(
                    (player.x != _player[place].x ||
                     player.y != _player[place].y) &&
                    _player[place].id == player.id) {
-                if (_player[place].id > -1 && _player[place].id < MAX_PLAYERS && player.id == -1) {
-                    std::cout << "je supprime id : " << _player[place].id << std::endl;
-                    _gameEngine.getEntityManager()->destroyEntity(_player[place].id);
-                    _player[place].id = -1;
-                    _player[place].x = 0;
-                    _player[place].y = 0;
-                    _player[place].direction = 0;
-                    _player[place].idSprite = 0;
-                }
-                else {
-            std::cout << "oe chef" << std::endl;
-            updateSpritePosition(_player[place].id, {player.x, player.y},
-                                 _player[place].idSprite);
-            std::cout << "new pos for " << player.id << " " << player.x << " "
-                      << player.y << std::endl;
-            _player[place].x = player.x;
-            _player[place].y = player.y;
+            if (_player[place].id > -1 && _player[place].id < MAX_PLAYERS &&
+                player.id == -1) {
+                std::cout << "je supprime id : " << _player[place].id
+                          << std::endl;
+                _gameEngine.getEntityManager()->destroyEntity(
+                    _player[place].id);
+                _player[place].id = -1;
+                _player[place].x = 0;
+                _player[place].y = 0;
+                _player[place].direction = 0;
+                _player[place].idSprite = 0;
+            } else {
+                std::cout << "oe chef" << std::endl;
+                updateSpritePosition(_player[place].id, {player.x, player.y},
+                                     _player[place].idSprite);
+                std::cout << "new pos for " << player.id << " " << player.x
+                          << " " << player.y << std::endl;
+                _player[place].x = player.x;
+                _player[place].y = player.y;
+            }
         }
-                   }
     }
 }
 
@@ -133,24 +135,28 @@ void Client::HandleMissileManager(
                    (missile.x != _missile[place].x ||
                     missile.y != _missile[place].y) &&
                    _missile[place].id == missile.id) {
-
-                if ((_missile[place].x == 0 && _missile[place].y == 0 ) || (_missile[place].x == missile.x && _missile[place].y == missile.y) || (_missile[place].id > -1 && _missile[place].id < MAX_MISSILES && missile.id == -1)) {
-                    std::cout << "je supprime id : " << _missile[place].id << std::endl;
-                    _gameEngine.getEntityManager()->destroyEntity(_missile[place].id);
-                    _missile[place].id = -1;
-                    _missile[place].x = 0;
-                    _missile[place].y = 0;
-                    _missile[place].direction = 0;
-                    _missile[place].idSprite = 0;
-                }
-                else {
+            if ((_missile[place].x == 0 && _missile[place].y == 0) ||
+                (_missile[place].x == missile.x &&
+                 _missile[place].y == missile.y) ||
+                (_missile[place].id > -1 && _missile[place].id < MAX_MISSILES &&
+                 missile.id == -1)) {
+                std::cout << "je supprime id : " << _missile[place].id
+                          << std::endl;
+                _gameEngine.getEntityManager()->destroyEntity(
+                    _missile[place].id);
+                _missile[place].id = -1;
+                _missile[place].x = 0;
+                _missile[place].y = 0;
+                _missile[place].direction = 0;
+                _missile[place].idSprite = 0;
+            } else {
                 std::cout << "je suis dedans" << std::endl;
                 updateSpritePosition(_missile[place].id, {missile.x, missile.y},
-                                    _missile[place].idSprite);
+                                     _missile[place].idSprite);
                 _missile[place].x = missile.x;
                 _missile[place].y = missile.y;
-                }
             }
+        }
     }
     // createmissile(_texturemissile[place], {missile.x, missile.y});
 }
@@ -170,27 +176,33 @@ void Client::HandleEnemiesManagement(
                 createPlayer(_texturesEnemies[0], {enemy.x, enemy.y});
             std::cout << "'id de enemy =" << idEnemy << std::endl;
             _enemy[place].idSprite = idEnemy;
-        } else if (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&
-                   enemy.x <= 1920 && enemy.y <= 1080 &&
-                   enemy.y >= 0 &&
-                   (enemy.x != _enemy[place].x || enemy.y != _enemy[place].y) &&
-                   _enemy[place].id == enemy.id) {
-            if ((_enemy[place].x == 0 && _enemy[place].y == 0 ) || (_enemy[place].x == enemy.x && _enemy[place].y == enemy.y) || (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES && enemy.id == -1) || (_enemy[place].x < 0 ) || (enemy.x < 0 )) {
-                std::cout << "je supprime id : " << _enemy[place].id << std::endl;
-                _gameEngine.getEntityManager()->destroyEntity(_enemy[place].id);
-                _enemy[place].id = -1;
-                _enemy[place].x = 0;
-                _enemy[place].y = 0;
-                _enemy[place].direction = 0;
-                _enemy[place].idSprite = 0;
-            } else {
+        } 
+        // else if (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&
+        //            enemy.x <= 1920 && enemy.y <= 1080 && enemy.y >= 0 &&
+        //            (enemy.x != _enemy[place].x || enemy.y != _enemy[place].y) &&
+        //            _enemy[place].id == enemy.id) {
+        //     if ((_enemy[place].x == 0 && _enemy[place].y == 0) ||
+        //         (_enemy[place].x == enemy.x && _enemy[place].y == enemy.y) ||
+        //         (_enemy[place].id > -1 && _enemy[place].id < MAX_ENEMIES &&
+        //          enemy.id == -1) ||
+        //         (_enemy[place].x < 0) || (enemy.x < 0)) {
+        //         std::cout << "je supprime id : " << _enemy[place].id
+        //                   << std::endl;
+        //         _gameEngine.getEntityManager()->destroyEntity(_enemy[place].id);
+        //         _enemy[place].id = -1;
+        //         _enemy[place].x = 0;
+        //         _enemy[place].y = 0;
+        //         _enemy[place].direction = 0;
+        //         _enemy[place].idSprite = 0;
+        //     }
+            //  else {
                 std::cout << "je suis dedans" << std::endl;
                 updateSpritePosition(_enemy[place].id, {enemy.x, enemy.y},
-                                    _enemy[place].idSprite);
+                                     _enemy[place].idSprite);
                 _enemy[place].x = enemy.x;
                 _enemy[place].y = enemy.y;
-            }
-        } 
+            // }
+        // }
     }
 }
 
@@ -214,7 +226,58 @@ void Client::run() {
                     int placePlayer = 0;
                     int placeMissiles = 0;
                     int placeEnemies = 0;
-                    for (auto &player : data.players) {
+
+                    // int placePlayertemp = 0;
+                    // int placeMissilestemp = 0;
+                    // int placeEnemiestemp = 0;
+                    // std::cout << "data player : {" << std::endl;
+                    // for (auto &player : data.players) {
+                    //     std::cout << "\tplayers[" << placePlayertemp << "].id: "
+                    //               << player.id << std::endl;
+                    //     std::cout << "\tplayers[" << placePlayertemp
+                    //               << "].direction: " << player.direction
+                    //               << std::endl;
+                    //     std::cout << "\tplayers[" << placePlayertemp << "].x: "
+                    //               << player.x << std::endl;
+                    //     std::cout << "\tplayers[" << placePlayertemp << "].y: "
+                    //               << player.y << std::endl;
+                    //     placePlayertemp++;
+                    // }
+                    // std::cout << "}" << std::endl;
+
+
+                    // std::cout << "data missile : {" << std::endl;
+                    // for (auto &missile : data.missiles) {
+                    //     std::cout << "\tmissiles[" << placeMissilestemp << "].id: "
+                    //               << missile.id << std::endl;
+                    //     std::cout << "\tmissiles[" << placeMissilestemp
+                    //                 << "].direction: " << missile.direction
+                    //                 << std::endl;
+                    //     std::cout << "\tmissiles[" << placeMissilestemp << "].x: "
+                    //                 << missile.x << std::endl;
+                    //     std::cout << "\tmissiles[" << placeMissilestemp << "].y: "
+                    //                 << missile.y << std::endl;
+                    //     placeMissilestemp++;
+                    // }
+
+                    // std::cout << "}" << std::endl;
+
+                    // std::cout << "data enemy : {" << std::endl;
+                    // for (auto &enemy : data.enemies) {
+                    //     std::cout << "\tenemies[" << placeEnemiestemp << "].id: "
+                    //               << enemy.id << std::endl;
+                    //     std::cout << "\tenemies[" << placeEnemiestemp
+                    //                 << "].direction: " << enemy.direction
+                    //                 << std::endl;
+                    //     std::cout << "\tenemies[" << placeEnemiestemp << "].x: "
+                    //                 << enemy.x << std::endl;
+                    //     std::cout << "\tenemies[" << placeEnemiestemp << "].y: "
+                    //                 << enemy.y << std::endl;
+                    //     placeEnemiestemp++;
+                    // }
+                    // std::cout << "}" << std::endl;
+
+                        for (auto &player : data.players) {
                         HandlePlayerManagement(player, placePlayer);
                         placePlayer++;
                     }
