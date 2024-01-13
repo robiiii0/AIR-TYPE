@@ -76,7 +76,7 @@ void Client::LoadTextureEnemies(std::string paths) {
     _texturesEnemies.push_back(texture);
 }
 
-void Client::createEnemy(std::vector<sf::Texture> &Textures) {
+void Client::createEnemy(sf::Texture &Textures) {
     uint32_t EnemyEntity = _gameEngine.getEntityManager()->createEntity();
 
     Engine::Entity::Component::GenericComponents::Vector2f pos = {500.0, 500.0};
@@ -93,7 +93,7 @@ void Client::createEnemy(std::vector<sf::Texture> &Textures) {
     std::shared_ptr<Engine::RendererModule::Components::EnemyComponent>
         spriteComponent = std::make_shared<
             Engine::RendererModule::Components::EnemyComponent>(sprite_temp,
-                                                                Textures[0]);
+                                                                Textures);
     _gameEngine.getEntityManager()->addComponent(EnemyEntity, spriteComponent);
     _gameEngine.getEntityManager()->addComponent(EnemyEntity, posComponent);
     addEntity(EnemyEntity);

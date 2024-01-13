@@ -89,7 +89,7 @@ class Client {
         uint32_t createPlayer(
             sf::Texture &Textures,
             Engine::Entity::Component::GenericComponents::Vector2f);
-        void createEnemy(std::vector<sf::Texture> &Textures);
+        void createEnemy(sf::Texture &Textures);
 
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,

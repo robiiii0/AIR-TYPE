@@ -247,7 +247,7 @@ void Server::networkLoop() {
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
         for (int i = 0; i < 5; i++)
-        createEnemy(i);
+        createEnnemy(i);
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
