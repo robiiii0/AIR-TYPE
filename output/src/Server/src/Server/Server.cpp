@@ -13,6 +13,9 @@ Server::~Server() {}
 
 int Server::run() {
     _running = true;
+    _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+    _update_time = std::chrono::high_resolution_clock::now();
+    srand(time(NULL));
     while (_running) {
         loop();
     }
@@ -118,10 +121,12 @@ void Server::createPlayer(std::uint32_t id) {
 }
 
 void Server::createEnnemy(std::uint32_t id) {
-    std::cout << "Creating ennemy " << id << std::endl;
+    float randomFloat = static_cast<float>(rand() % 800 + 1);
+
     _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        1800.0, static_cast<float>(700.0 + (50 * id))};
+        1800.0, randomFloat};
+
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
@@ -139,7 +144,6 @@ void Server::createEnnemy(std::uint32_t id) {
         id, _networkingModule->getSerializer().serializeToPacket(message));
     sendGameStatus(id);
 }
-
 
 void Server::createMissile(std::uint32_t id) {
     _missileEntities[_missileID] =
@@ -246,8 +250,8 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
-        for (int i = 0; i < 5; i++)
-        createEnnemy(i);
+        // for (int i = 0; i < 5; i++)
+        // createEnemy(i);
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
@@ -388,8 +392,15 @@ void Server::updateMissile() {
 void Server::update() {
     // ? update all entities
         updatePlayer();
-        updateEnnemies();
-        updateMissile();
+        if (_update_time + std::chrono::microseconds(750) < std::chrono::high_resolution_clock::now()) {
+            _update_time = std::chrono::high_resolution_clock::now();
+            updateEnnemies();
+            updateMissile();
+        }
+        if (_ennemy_spawn_clock + std::chrono::seconds(4) < std::chrono::high_resolution_clock::now()) {
+            _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
+            createEnnemy(0);
+        }
     // ? update all components
     // ? update all systems
 }
