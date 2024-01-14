@@ -15,6 +15,7 @@ void Game::setGame() {
     _tick = 0;
     _time_limit = 100;
     _pokeball = false;
+    _epiball = false;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
     createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
@@ -69,8 +70,8 @@ void Game::gameLoop() {
     // Pokeball removal.
     else if (_gameState == GameState::GAME && _tick == _time_limit &&
              _pokeball) {
+        _epiball ? _epiball = false : _life--;
         removeEntity(_lastId);
-        _life--;
         _tick = 0;
         _pokeball = false;
     } else
@@ -145,5 +146,6 @@ void Game::randomPokeball() {
             "", _textures[Textures::POKEPITECH], _fonts[0],
             {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.5, 0.5},
             sf::Color::White, 0);
+        _epiball = true;
     }
 }

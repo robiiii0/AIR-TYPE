@@ -86,6 +86,7 @@ class Game {
         int              _tick;
         int              _time_limit;
         bool             _pokeball;
+        bool             _epiball;
 
         std::vector<sf::Font>    _fonts;
         std::vector<sf::Texture> _textures;
