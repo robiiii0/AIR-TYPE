@@ -10,6 +10,8 @@ if (WIN32)
     set(SFML_STATIC_LIBRARIES TRUE)
     # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
     # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MT")
+    set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static")
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static/share/sfml")
 endif()
 
 
