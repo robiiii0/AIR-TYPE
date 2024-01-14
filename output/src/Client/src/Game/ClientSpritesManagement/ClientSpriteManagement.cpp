@@ -10,22 +10,31 @@ void Client::LoadTextureParallax(std::string paths) {
     _texturesParallax.push_back(texture);
 }
 
-void Client::createParallax(std::vector<sf::Texture> &Textures) {
-    for (int i = 0; i < Textures.size(); i++) {
+
+void Client::DuplicateParalax(sf::Texture &Texture, int i)
+{
+
         uint32_t spriteParallaxEntity =
-            _gameEngine.getEntityManager()->createEntity();
+        _gameEngine.getEntityManager()->createEntity();
 
         Engine::RendererModule::Components::parallaxData parallaxData = {
-            {950 + 1980 * i, 1080}, {1.3, 0.5}, {1, 1}, true,
-            {0, 0, 1000, 1000},     sf::Clock()};
+            {i * 1940, 500}, {float(1920 / Texture.getSize().x + 0.5), float(1080 / Texture.getSize().y + 0.5)}, {-10, 0}, false,
+            {0, 0, 0, 0},     sf::Clock()};
 
         std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
             parallaxComponent = std::make_shared<
                 Engine::RendererModule::Components::parallaxComponent>(
-                parallaxData, Textures[i]);
+                parallaxData, Texture);
         _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
                                                      parallaxComponent);
         addEntity(spriteParallaxEntity);
+}
+
+void Client::createParallax(std::vector<sf::Texture> &Textures) {
+    for (int i = 0; i < Textures.size(); i++) {
+        for (int j = 0 ; j < 3; j++) {
+            DuplicateParalax(Textures[i], j);
+        }
     }
 }
 

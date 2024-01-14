@@ -17,7 +17,7 @@ void Client::setMenu() {
 void Client::setGame() {
     ConnectionWithServer();
     // createBackground(_backgroundTexture);
-    // createParallax(_texturesParallax);
+    createParallax(_texturesParallax);
     createButton(std::bind(&Client::changeState, this, MENU), "",
                  _texturesButton[0], _fonts[0],
                  {static_cast<float>(_screenWidth / 1.05),

@@ -85,6 +85,7 @@ class Client {
             sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
+        void DuplicateParalax(sf::Texture &Texture, int i);
 
         uint32_t createPlayer(
             sf::Texture &Textures,

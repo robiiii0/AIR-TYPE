@@ -11,9 +11,9 @@ Client::Client() {
     _gameState = MENU;
     playerInit();
     LoadTextureParallax(
-        "src/Client/assets/new_assets/background/Menu/earth.png");
-    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/gaz.png");
-    LoadTextureParallax("src/Client/assets/new_assets/background/Menu/ice.png");
+        "src/Client/assets/new_assets/background/1.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/2.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/3.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
     LoadTextureButton(
         "src/Client/assets/assetsRefacto/settings/emptyButton.png");
