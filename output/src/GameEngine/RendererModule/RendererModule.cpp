@@ -14,8 +14,8 @@ Engine::RendererModule::RendererModule::~RendererModule() {}
 void Engine::RendererModule::RendererModule::init(int width, int height,
                                                   std::string title,
                                                   int         framerate) {
-    _window.create(sf::VideoMode(width, height), title);
-    _window.setFramerateLimit(framerate);
+    _window.create(sf::VideoMode((unsigned int)width, (unsigned int)height), title);
+    _window.setFramerateLimit((unsigned int)framerate);
 }
 
 int Engine::RendererModule::RendererModule::HandleEvent(
@@ -44,8 +44,8 @@ int Engine::RendererModule::RendererModule::HandleEvent(
                                     Engine::RendererModule::Components::
                                         ClickableComponent>(component)
                                     ->isClicked(
-                                        std::make_pair(_event.mouseButton.x,
-                                                       _event.mouseButton.y));
+                                        std::make_pair((float)_event.mouseButton.x,
+                                                       (float)_event.mouseButton.y));
                         }
                     }
                 } catch (const Engine::EntityManager::NoComponent &e) {
@@ -75,7 +75,7 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
                                     Engine::Entity::Component::
                                         GenericComponents::PositionComponent>(
                                     component2)) {
-                                spriteComp->setPosition(pos.x, pos.y);
+                                spriteComp->setPosition((float)pos.x, (float)pos.y);
                             }
                         }
                     }
@@ -104,8 +104,8 @@ void Engine::RendererModule::RendererModule::update(
                         Engine::RendererModule::Components::ClickableComponent>(
                         component)) {
                     clickableComp->isHovered(
-                        {sf::Mouse::getPosition(_window).x,
-                         sf::Mouse::getPosition(_window).y});
+                        {(float)sf::Mouse::getPosition(_window).x,
+                         (float)sf::Mouse::getPosition(_window).y});
                 }
 
                 if (auto textComp = std::dynamic_pointer_cast<
@@ -115,8 +115,8 @@ void Engine::RendererModule::RendererModule::update(
                         if (auto posComp = std::dynamic_pointer_cast<
                                 Engine::Entity::Component::GenericComponents::
                                     PositionComponent>(component2)) {
-                            textComp->setPosition(posComp->getValue().x,
-                                                  posComp->getValue().y);
+                            textComp->setPosition((float)posComp->getValue().x,
+                                                  (float)posComp->getValue().y);
                         }
                     }
                 }
