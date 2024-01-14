@@ -428,7 +428,7 @@ void Server::isColliding() {
                                  enemy_pos->getValue().y + 25)
                             ) {
                                 // ennemy is hit
-                                _gameEngine->getEntityManager()->removeEntity(ennemy.second);
+                                _gameEngine->getEntityManager()->destroyEntity(ennemy.second);
                             }
                         }
                     }
