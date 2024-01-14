@@ -92,8 +92,33 @@ void Game::checkLife() {
 }
 
 void Game::randomPokeball() {
-    int random = randomFloat(0.0, 6.0);
-    if (random >= 3) {
+    int random = randomFloat(0.0, 8.0);
+
+    if (random <= 3) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(1);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::PLAYER], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.6, 0.6},
+            sf::Color::White, 0);
+    } else if (random <= 5) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(3);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::MASTER], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.35, 0.35},
+            sf::Color::White, 0);
+    } else if (random <= 6) {
         createButton(
             [this]() {
                 _sounds[1]->play();
@@ -102,8 +127,8 @@ void Game::randomPokeball() {
                 _tick = 0;
                 _pokeball = false;
             },
-            "", _textures[Textures::PLAYER], _fonts[0],
-            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
+            "", _textures[Textures::ULTRA], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.2, 0.2},
             sf::Color::White, 0);
     } else {
         createButton(
