@@ -13,6 +13,7 @@ void Game::setGame() {
     _score = 0;
     _life = 3;
     _tick = 0;
+    _time_limit = 100;
     _pokeball = false;
 
     createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
@@ -63,9 +64,11 @@ void Game::gameLoop() {
         randomPokeball();
         _lastId = getLastId();
         _pokeball = true;
+        _time_limit--;
     }
     // Pokeball removal.
-    else if (_gameState == GameState::GAME && _tick == 100 && _pokeball) {
+    else if (_gameState == GameState::GAME && _tick == _time_limit &&
+             _pokeball) {
         removeEntity(_lastId);
         _life--;
         _tick = 0;

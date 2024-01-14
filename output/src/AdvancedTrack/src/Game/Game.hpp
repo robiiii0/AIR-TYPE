@@ -84,6 +84,7 @@ class Game {
         int              _lastId;
         bool             _captured;
         int              _tick;
+        int              _time_limit;
         bool             _pokeball;
 
         std::vector<sf::Font>    _fonts;
