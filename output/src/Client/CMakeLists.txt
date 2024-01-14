@@ -12,6 +12,8 @@ if (WIN32)
     # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MT")
     set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static")
     set(SFML_DIR "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static/share/sfml")
+    set(CMAKE_CXX_FLAGS "/DUNICODE /W4 /WX /MDd /EHsc")
+    set(CMAKE_EXE_LINKER_FLAGS "-W1,--subsystem,windows --enable-stdcall-fixup")
 endif()
 
 
