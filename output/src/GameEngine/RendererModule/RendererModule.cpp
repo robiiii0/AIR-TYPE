@@ -39,7 +39,7 @@ int Engine::RendererModule::RendererModule::HandleEvent(
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
                                        ClickableComponent)) {
-                            bool isClicked =
+                            
                                 std::dynamic_pointer_cast<
                                     Engine::RendererModule::Components::
                                         ClickableComponent>(component)
