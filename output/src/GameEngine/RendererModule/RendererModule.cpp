@@ -69,9 +69,6 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
                 if (auto spriteComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::SpriteComponent>(
                         component)) {
-                    std::cout << "tema xd: " << std::endl;
-                    std::cout << spriteComp->getId() << std::endl;
-                    std::cout << id_sprite << std::endl;
                     if (id_sprite == spriteComp->getId()) {
                         for (auto &component2 : components) {
                             if (auto posComp = std::dynamic_pointer_cast<

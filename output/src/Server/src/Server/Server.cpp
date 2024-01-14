@@ -188,7 +188,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(-3.0)}};
+                                   {posComp->getValue().y + float(-10.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -203,7 +203,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(3.0)}};
+                                   {posComp->getValue().y + float(10.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -217,7 +217,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(3.0)},
+                    NewPosition = {{posComp->getValue().x + float(10.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -232,7 +232,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(-3.0)},
+                    NewPosition = {{posComp->getValue().x + float(-10.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -353,7 +353,7 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x -= 1;
+                new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " +
                                   std::to_string(ennemy.second) + " " +
@@ -378,7 +378,8 @@ void Server::updateMissile() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x += 1;
+                std::cout << "ya r l'ekip" << std::endl;
+                new_position.x += 0.02;
                 position->setValue(new_position);
                 std::string msg = "add missile " +
                                   std::to_string(missile.second) + " " +
@@ -441,16 +442,18 @@ void Server::isColliding() {
 void Server::update() {
     // ? update all entities
     updatePlayer();
-    if (_update_time + std::chrono::microseconds(750) <
-        std::chrono::high_resolution_clock::now()) {
-        _update_time = std::chrono::high_resolution_clock::now();
-        updateEnnemies();
-        updateMissile();
-    }
-    if (_ennemy_spawn_clock + std::chrono::seconds(4) <
+    // if (_update_time + std::chrono::microseconds(750) <
+    //     std::chrono::high_resolution_clock::now()) {
+    //     _update_time = std::chrono::high_resolution_clock::now();
+    updateEnnemies();
+    updateMissile();
+    // }
+    if (_ennemy_spawn_clock + std::chrono::seconds(5) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        createEnnemy(0);
+        for (int i = 0; i < 5; i++) {
+            createEnnemy(i);
+        }
     }
     // ? update all components
     // ? update all systems
