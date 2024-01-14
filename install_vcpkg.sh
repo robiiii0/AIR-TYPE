@@ -35,8 +35,8 @@ fi
 print_blue "cd vcpkg/"
 cd vcpkg/
 
-print_blue "Installing sfml..."
-./vcpkg install sfml
+# print_blue "Installing sfml..."
+# ./vcpkg install sfml
 
 if [ $? -eq 0 ]; then
     print_green "SFML installed successfully."

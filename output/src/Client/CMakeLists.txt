@@ -6,6 +6,17 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(BUILD_SHARED_LIBS OFF)
 
+if (WIN32)
+    set(SFML_STATIC_LIBRARIES TRUE)
+    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+    # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MT")
+    set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static")
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/../../../vcpkg/installed/x64-windows-static/share/sfml")
+    set(CMAKE_CXX_FLAGS "/DUNICODE /W4 /WX /MDd /EHsc")
+    set(CMAKE_EXE_LINKER_FLAGS "-W1,--subsystem,windows --enable-stdcall-fixup")
+endif()
+
+
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 add_executable(r-type_client
