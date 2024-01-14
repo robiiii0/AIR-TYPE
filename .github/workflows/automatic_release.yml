@@ -60,8 +60,12 @@ jobs:
               run: 'sudo apt-get install libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev libsfml-dev'
             - name: 'Install vcpkg'
               run: 'bash install_vcpkg.sh'
-            - name: 'Install dependencies'
+            - if: ${{ matrix.config.os != 'windows-latest' }}
+              name: 'Install dependencies'
               run: './vcpkg/vcpkg install sfml'
+            - if: ${{ matrix.config.os == 'windows-latest' }}
+              name: 'Install dependencies (Windows)'
+              run: './vcpkg/vcpkg install sfml:x64-windows-static'
             - name: 'Build'
               run: 'cd output && bash build_release.sh'
             - name: 'Placing binaries'
