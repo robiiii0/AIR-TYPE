@@ -4,6 +4,8 @@ project(r-type_client)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(BUILD_SHARED_LIBS OFF)
+
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 add_executable(r-type_client
