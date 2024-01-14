@@ -58,8 +58,9 @@ class Game {
         void gameLoop();
         void checkLife();
         int  getLastId();
+        void randomPokeball();
 
-        void  updateScore();
+        void  updateScore(int addScore);
         float randomFloat(float min, float max);
 
         void changeGameState(GameState state);

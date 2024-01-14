@@ -60,18 +60,7 @@ void Game::setGame() {
 void Game::gameLoop() {
     // Pokeball creation.
     if (_gameState == GameState::GAME && !_pokeball) {
-        createButton(
-            [this]() {
-                _sounds[1]->play();
-                removeEntity(_lastId);
-                updateScore();
-                _tick = 0;
-                _pokeball = false;
-            },
-            "", _textures[Textures::PLAYER], _fonts[0],
-            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
-            sf::Color::White, 0);
-
+        randomPokeball();
         _lastId = getLastId();
         _pokeball = true;
     }
@@ -85,9 +74,9 @@ void Game::gameLoop() {
         _tick++;
 }
 
-void Game::updateScore() {
+void Game::updateScore(int addScore) {
     removeEntity(_scoreId);
-    _score++;
+    _score += addScore;
     createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
                {1, 1}, sf::Color::White, 0);
     _scoreId = getLastId();
@@ -100,4 +89,33 @@ void Game::checkLife() {
     }
     if (_life == 0 && _gameState == GameState::GAME)
         changeGameState(GameState::GAMEOVER);
+}
+
+void Game::randomPokeball() {
+    int random = randomFloat(0.0, 6.0);
+    if (random >= 3) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(5);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::PLAYER], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.3, 0.3},
+            sf::Color::White, 0);
+    } else {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(-2);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::POKEPITECH], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.5, 0.5},
+            sf::Color::White, 0);
+    }
 }
