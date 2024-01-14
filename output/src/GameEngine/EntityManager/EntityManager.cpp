@@ -107,6 +107,7 @@ void Engine::Entity::EntityManager::addComponent(
             return;
         }
     }
+
     throw Engine::EntityManager::CouldNotFindEntity();
 }
 
@@ -159,5 +160,6 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
             return _componentManager.getAllComponents(_entities[i]);
         }
     }
+    
     throw Engine::EntityManager::CouldNotFindEntity();
 }

@@ -32,9 +32,9 @@ int Engine::RendererModule::RendererModule::HandleEvent(
             return 10000;
         }
         if (_event.type == sf::Event::MouseButtonPressed) {
-            for (auto id : id_list) {
+            for (int i = 0; i < entityManager.getNbEntites(); i++) {
                 try {
-                    auto components = entityManager.getAllComponents(id);
+                    auto components = entityManager.getAllComponents(i);
                     for (auto &component : components) {
                         if (typeid(*component) ==
                             typeid(Engine::RendererModule::Components::
@@ -62,9 +62,9 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
     Engine::Entity::Component::GenericComponents::Vector2f pos,
     uint32_t                                               id_sprite) {
-    for (auto id : id_list) {
+    for (int i = 0; i < entityManager.getNbEntites(); i++) {
         try {
-            auto components = entityManager.getAllComponents(id);
+            auto components = entityManager.getAllComponents(i);
             for (auto &component : components) {
                 if (auto spriteComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::SpriteComponent>(
@@ -90,9 +90,17 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
 void Engine::RendererModule::RendererModule::update(
     Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
+
+
+
+
+    
     for (auto id : id_list) {
         try {
+            std::cout << "peut etre la  " << id << " "<< entityManager.getNbEntites() << "ou " <<id_list.size() << std::endl;
+            
             auto components = entityManager.getAllComponents(id);
+            std::cout << "oe cest la" << std::endl;
             for (auto &component : components) {
                 // Check if the component is of type parallaxComponent
                 if (auto parallaxComp = std::dynamic_pointer_cast<
@@ -107,7 +115,6 @@ void Engine::RendererModule::RendererModule::update(
                         {sf::Mouse::getPosition(_window).x,
                          sf::Mouse::getPosition(_window).y});
                 }
-
                 if (auto textComp = std::dynamic_pointer_cast<
                         Engine::RendererModule::Components::TextComponent>(
                         component)) {
@@ -136,9 +143,9 @@ void Engine::RendererModule::RendererModule::render(
     std::vector<uint32_t>          id_list) {
     _window.clear();
 
-    for (auto id : id_list) {
+    for (int i = 0; i < entityManager.getNbEntites(); i++) {
         try {
-            auto components = entityManager.getAllComponents(id);
+            auto components = entityManager.getAllComponents(i);
             for (auto &component : components) {
                 std::shared_ptr<IRendererComponent> to_render =
                     std::dynamic_pointer_cast<

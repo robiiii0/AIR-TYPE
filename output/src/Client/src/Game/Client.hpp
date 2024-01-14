@@ -165,6 +165,7 @@ class Client {
         std::vector<player_t>    _player;
         std::vector<player_t>    _missile;
         std::vector<player_t>    _enemy;
+        std::vector<int> _destructible_entities;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

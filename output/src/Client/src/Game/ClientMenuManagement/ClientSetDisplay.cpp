@@ -15,14 +15,21 @@ void Client::setMenu() {
 }
 
 void Client::setGame() {
+    std::cout << "on passe au game" << std::endl;
+    for (auto entities : _entities) {
+        _gameEngine.getEntityManager()->destroyEntity(
+                entities);
+
+    }
+    _entities.clear();
     ConnectionWithServer();
-    // createBackground(_backgroundTexture);
+    createBackground(_backgroundTexture);
     createParallax(_texturesParallax);
-    createButton(std::bind(&Client::changeState, this, MENU), "",
-                 _texturesButton[0], _fonts[0],
-                 {static_cast<float>(_screenWidth / 1.05),
-                  static_cast<float>(_screenHeight / 1.05)},
-                 {0.10, 0.10}, sf::Color::White, 0);
+    // createButton(std::bind(&Client::changeState, this, MENU), "",
+    //              _texturesButton[0], _fonts[0],
+    //              {static_cast<float>(_screenWidth / 1.05),
+    //               static_cast<float>(_screenHeight / 1.05)},
+    //              {0.10, 0.10}, sf::Color::White, 0);
 }
 
 void Client::ChangeKeyBinding() {
