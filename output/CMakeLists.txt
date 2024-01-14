@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD 20)
 # Add any additional libraries here
 set(LIBS pthread)
 
+set(VCPKG_ROOT "../vcpkg")
+
+include(${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake)
+
 add_subdirectory(src/Client)
 add_subdirectory(src/Server)
 add_subdirectory(src/GameEngine/NetworkingModule)
@@ -41,4 +45,3 @@ execute_process(
 if(result)
     message(FATAL_ERROR "CMake step for /src/GameEngine/NetworkingModule failed: ${result}")
 endif()
-
