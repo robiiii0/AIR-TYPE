@@ -37,7 +37,6 @@ namespace Engine {
                     void handleEvent(sf::Event event);
 
                     sf::Vector2f getPos() const;
-                    bool         isHovered(std::pair<float, float> mousePos);
                     bool         isClicked(std::pair<float, float> mousePos);
 
                 protected:
