@@ -16,7 +16,6 @@ Engine::RendererModule::Components::SoundComponent::SoundComponent(
     _sound.setVolume(_data.volume);
     if (_data.play) {
         _sound.play();
-        std::cout << "play: " << _data.path << std::endl;
     }
 }
 

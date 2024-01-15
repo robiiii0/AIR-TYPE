@@ -22,7 +22,6 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
         case UDP:
             _udp_socket = std::make_unique<sf::UdpSocket>();
             _udp_socket->bind((unsigned short)port);
-            std::cout << "udp selected" << std::endl;
             // _socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
             break;
     }
@@ -38,10 +37,8 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
     //          sizeof(_server_address)) < 0) {
     //     throw CouldNotBindAddressException();
     // }
-    std::cout << "ask for thread" << std::endl;
     _running_thread =
         std::thread(&Engine::Network::NetworkingModule::run, this);
-    std::cout << "thread joined" << std::endl;
 }
 
 Engine::Network::NetworkingModule::NetworkingModule(
@@ -93,7 +90,6 @@ void Engine::Network::NetworkingModule::run() {
         if (_type == TCP) {
             runTCP();
         } else {
-            std::cout << "je tourne ici" << std::endl;
             runUDP();
         }
     }
