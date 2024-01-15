@@ -22,13 +22,10 @@ void Client::setGame() {
     while (_networkingModule == nullptr) {
         ConnectionWithServer();
     }
-       std::cout << "caca 2" << std::endl;
 
     createBackground(_backgroundTexture);
-       std::cout << "caca 3" << std::endl;
 
     createParallax(_texturesParallax);
-       std::cout << "caca 4" << std::endl;
 }
 
 void Client::winMenu() {

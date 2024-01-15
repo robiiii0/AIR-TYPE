@@ -11,7 +11,7 @@
 int main() {
     Client client;
     client.setupState();
-    
+
     client.run();
     return 0;
 }

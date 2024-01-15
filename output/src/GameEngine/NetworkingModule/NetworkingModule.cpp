@@ -6,6 +6,7 @@
 */
 
 #include "NetworkingModule.hpp"
+
 #include <iostream>
 
 Engine::Network::NetworkingModule::NetworkingModule(int                port,

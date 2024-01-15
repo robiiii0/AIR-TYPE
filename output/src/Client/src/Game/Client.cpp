@@ -56,9 +56,7 @@ Client::Client() {
 void Client::ConnectionWithServer() {
     _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
-        std::cout << "trololo" << std::endl;
     _networkingModule->sendMessage("Connecting to server", 0);
-    std::cout << "caca" << std::endl;
 }
 
 void Client::updateSpritePosition(
@@ -105,10 +103,10 @@ void Client::HandleEnemiesManagement(
 
 void Client::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-       std::cout << "test 6" << std::endl;
+        std::cout << "test 6" << std::endl;
 
         if (_networkingModule != nullptr) {
-       std::cout << "test 7" << std::endl;
+            std::cout << "test 7" << std::endl;
 
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
@@ -145,7 +143,7 @@ void Client::run() {
                             _entities.end());
             _destructible_entities.pop_back();
         }
-    std::cout << "test" << std::endl;
+        std::cout << "test" << std::endl;
     }
     handleExit();
 }
