@@ -29,7 +29,6 @@ void Client::setGame() {
 }
 
 void Client::winMenu() {
-
     _entities.clear();
     _sounds[Client::Music::WIN]->play();
     createBackground(_backgroundTexture);
@@ -41,7 +40,6 @@ void Client::winMenu() {
 }
 
 void Client::loseMenu() {
-
     _sounds[Client::Music::LOSE]->play();
     createBackground(_backgroundTexture);
     createPlayer(_texture_end_menu[1], {500, 250});

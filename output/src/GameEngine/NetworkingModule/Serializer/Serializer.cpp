@@ -102,8 +102,7 @@ Engine::Network::Serializer::serialized_data_t
             } else if (tokens[1] == "gamestatus") {
                 data.game_status[0].win = std::stoi(tokens[2]);
                 data.game_status[0].score = std::stoi(tokens[3]);
-            } 
-            else {
+            } else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }

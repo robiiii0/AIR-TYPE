@@ -15,6 +15,7 @@ int Server::run() {
     _running = true;
     _win = 0;
     _score = 0;
+    _life = 3;
     _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
     _update_time = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
@@ -346,6 +347,16 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
+
+                if (new_position.x < 0) {
+                    _gameEngine->getEntityManager()->destroyEntity(ennemy);
+                    for (int i = 0; i < _ennemyEntities.size(); i++) {
+                        if (_ennemyEntities[i] == ennemy) {
+                            _ennemyEntities.erase(_ennemyEntities.begin() + i);
+                        }
+                    }
+                    _life--;
+                }
                 new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " + std::to_string(ennemy) + " " +
@@ -423,16 +434,14 @@ uint32_t Server::isColliding() {
     return 10000;
 }
 
-
-void Server::updateGameState()
-{
-    if (_score > 1) {
+void Server::updateGameState() {
+    if (_score > 3) {
         _win = 1;
-
-        std::cout << "here" << std::endl;
-
     }
-    std::string msg = "add gamestatus " + std::to_string(_win) + " " + std::to_string(_score) + " " + std::to_string(0);
+    if (_life < 0)
+        _win = 2;
+    std::string msg = "add gamestatus " + std::to_string(_win) + " " +
+                      std::to_string(_score) + " " + std::to_string(0);
     _globalMessages.emplace(msg);
 }
 
@@ -447,10 +456,9 @@ void Server::update() {
         for (int i = 0; i < _ennemyEntities.size(); i++) {
             if (_ennemyEntities[i] == ennemy) {
                 _ennemyEntities.erase(_ennemyEntities.begin() + i);
-                _score++;
+                _score += 1;
             }
         }
-        // createEnnemy(ennemy);
     }
     // }
     if (_ennemy_spawn_clock + std::chrono::seconds(5) <
