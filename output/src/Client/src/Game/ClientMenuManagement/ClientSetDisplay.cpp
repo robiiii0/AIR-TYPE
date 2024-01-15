@@ -19,14 +19,16 @@ void Client::setGame() {
         _gameEngine.getEntityManager()->destroyEntity(entities);
     }
     _entities.clear();
-    ConnectionWithServer();
+    while (_networkingModule == nullptr) {
+        ConnectionWithServer();
+    }
+       std::cout << "caca 2" << std::endl;
+
     createBackground(_backgroundTexture);
+       std::cout << "caca 3" << std::endl;
+
     createParallax(_texturesParallax);
-    // createButton(std::bind(&Client::changeState, this, MENU), "",
-    //              _texturesButton[0], _fonts[0],
-    //              {static_cast<float>(_screenWidth / 1.05),
-    //               static_cast<float>(_screenHeight / 1.05)},
-    //              {0.10, 0.10}, sf::Color::White, 0);
+       std::cout << "caca 4" << std::endl;
 }
 
 void Client::winMenu() {

@@ -16,18 +16,24 @@ void Client::handleExit() {
 void Client::changeState(GameState state) {
     clearCurrentState();
     _gameState = state;
+    std::cout << "caca 11" << std::endl;
     setupState();
 }
 
 void Client::clearCurrentState() {
     _entities.clear();
+    std::cout << "caca 9" << std::endl;
+
     for (auto entity : _entities) {
         std::cout << "destruction de l'entitée " << entity << std::endl;
         _gameEngine.getEntityManager()->destroyEntity(entity);
     }
+    std::cout << "caca 10" << std::endl;
+
 }
 
 void Client::setupState() {
+    std::cout << "caca 8" << std::endl;
     switch (_gameState) {
         case GameState::MENU:
             setMenu();
