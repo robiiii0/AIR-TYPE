@@ -129,7 +129,7 @@ void Client::run() {
                             } else if (gameStatus.win == 2) {
                                 _gameState = GameState::GAMEOVER;
                             }
-                            _destructible_entities.push_back(createText("score: " + std::to_string(gameStatus.score),
+                            _destructible_entities.push_back(createText("time remaining: " + std::to_string(gameStatus.score),
                                        _fonts[0],
                                        {static_cast<float>(_screenWidth / 2),
                                         static_cast<float>(_screenHeight / 2)},
@@ -164,7 +164,6 @@ void Client::run() {
              _gameState == GameState::GAMEOVER) &&
             count < 1) {
             setupState();
-            std::cout << "je rentre a balle" << std::endl;
             count++;
         }
     }

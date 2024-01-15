@@ -132,10 +132,10 @@ void Server::createEnnemy(std::uint32_t id) {
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
-    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id],
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities.back(),
                                                   position);
     std::string msg =
-        "add ennemy " + std::to_string(id) + " " +
+        "add ennemy " + std::to_string(_ennemyEntities.back()) + " " +
         std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
         std::to_string(position->getValue().y);
 
@@ -439,14 +439,14 @@ uint32_t Server::isColliding() {
 }
 
 void Server::updateGameState() {
-    if (_score > 5) {
-        _win = 1;
+    if (_ennemy_spawn_clock + std::chrono::seconds(60) <
+        std::chrono::high_resolution_clock::now()) {
+            _win =  1;
     }
-    std::cout << "Score: " << _score << std::endl;
     if (_life <= 0) _win = 2;
+    auto remaining_time = _ennemy_spawn_clock + std::chrono::seconds(60) - std::chrono::high_resolution_clock::now();
     std::string msg = "add gamestatus " + std::to_string(_win) + " " +
-                      std::to_string(_score) + " " + std::to_string(_life);
-    std::cout << msg << std::endl;
+                      std::to_string(std::chrono::duration_cast<std::chrono::seconds>(remaining_time).count()) + " " + std::to_string(_life);
     _globalMessages.emplace(msg);
 }
 
@@ -456,16 +456,17 @@ void Server::update() {
     updateEnnemies();
     updateMissile();
     uint32_t ennemy = isColliding();
-    if (isColliding() != 10000) {
+    if (ennemy != 10000) {
         _gameEngine->getEntityManager()->destroyEntity(ennemy);
+        _score++;
         for (int i = 0; i < _ennemyEntities.size(); i++) {
             if (_ennemyEntities[i] == ennemy) {
                 _ennemyEntities.erase(_ennemyEntities.begin() + i);
-                _score += 1;
+                createEnnemy(_ennemyEntities.size());
+                break;
             }
         }
     }
-    // }
  
     updateGameState();
     // ? update all components
