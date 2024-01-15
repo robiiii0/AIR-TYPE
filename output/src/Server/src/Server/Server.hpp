@@ -28,20 +28,20 @@ class Server {
         int run();
 
     protected:
-        void init();
-        void loop();
-        void stop();
-        void applyTickrate();
-        void sendToAllExcept(std::uint32_t id, std::string message);
-        void sendGameStatus(std::uint32_t id);
-        void createPlayer(std::uint32_t id);
-        void createMissile(std::uint32_t id);
-        void updatePlayer();
-        void updateMissile();
-        void updateEnnemies();
-        void update();
-        void movePlayer(int, std::uint32_t);
-        void createEnnemy(std::uint32_t id);
+        void     init();
+        void     loop();
+        void     stop();
+        void     applyTickrate();
+        void     sendToAllExcept(std::uint32_t id, std::string message);
+        void     sendGameStatus(std::uint32_t id);
+        void     createPlayer(std::uint32_t id);
+        void     createMissile(std::uint32_t id);
+        void     updatePlayer();
+        void     updateMissile();
+        void     updateEnnemies();
+        void     update();
+        void     movePlayer(int, std::uint32_t);
+        void     createEnnemy(std::uint32_t id);
         uint32_t isColliding();
 
     private:
@@ -62,7 +62,7 @@ class Server {
 
         std::vector<std::uint32_t> _ennemyEntities;
 
-        std::uint32_t                          _missileID;
+        std::uint32_t _missileID;
 };
 
 #endif /* !SERVER_HPP_ */

@@ -20,29 +20,31 @@ void Client::loadTextureEnd(std::string paths) {
     _texture_end_menu.push_back(texture);
 }
 
-
-void Client::DuplicateParalax(sf::Texture &Texture, int i)
-{
-
-        uint32_t spriteParallaxEntity =
+void Client::DuplicateParalax(sf::Texture &Texture, int i) {
+    uint32_t spriteParallaxEntity =
         _gameEngine.getEntityManager()->createEntity();
 
-        Engine::RendererModule::Components::parallaxData parallaxData = {
-            {i * 1940, 500}, {float(1920 / Texture.getSize().x + 0.5), float(1080 / Texture.getSize().y + 0.5)}, {-10, 0}, false,
-            {0, 0, 0, 0},     sf::Clock()};
+    Engine::RendererModule::Components::parallaxData parallaxData = {
+        {i * 1940, 500},
+        {float(1920 / Texture.getSize().x + 0.5),
+         float(1080 / Texture.getSize().y + 0.5)},
+        {-10, 0},
+        false,
+        {0, 0, 0, 0},
+        sf::Clock()};
 
-        std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
-            parallaxComponent = std::make_shared<
-                Engine::RendererModule::Components::parallaxComponent>(
-                parallaxData, Texture);
-        _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
-                                                     parallaxComponent);
-        addEntity(spriteParallaxEntity);
+    std::shared_ptr<Engine::RendererModule::Components::parallaxComponent>
+        parallaxComponent = std::make_shared<
+            Engine::RendererModule::Components::parallaxComponent>(parallaxData,
+                                                                   Texture);
+    _gameEngine.getEntityManager()->addComponent(spriteParallaxEntity,
+                                                 parallaxComponent);
+    addEntity(spriteParallaxEntity);
 }
 
 void Client::createParallax(std::vector<sf::Texture> &Textures) {
     for (int i = 0; i < Textures.size(); i++) {
-        for (int j = 0 ; j < 3; j++) {
+        for (int j = 0; j < 3; j++) {
             DuplicateParalax(Textures[i], j);
         }
     }

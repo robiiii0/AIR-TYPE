@@ -17,7 +17,7 @@ Engine::RendererModule::Components::SoundComponent::SoundComponent(
     if (_data.play) {
         _sound.play();
         std::cout << "play: " << _data.path << std::endl;
-    } 
+    }
 }
 
 Engine::RendererModule::Components::SoundComponent::~SoundComponent() {

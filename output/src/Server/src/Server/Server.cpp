@@ -123,7 +123,7 @@ void Server::createPlayer(std::uint32_t id) {
 void Server::createEnnemy(std::uint32_t id) {
     float randomFloat = static_cast<float>(rand() % 800 + 1);
 
-    _ennemyEntities.push_back( _gameEngine->getEntityManager()->createEntity());
+    _ennemyEntities.push_back(_gameEngine->getEntityManager()->createEntity());
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
         1800.0, randomFloat};
 
@@ -342,9 +342,8 @@ void Server::updateEnnemies() {
     // bien le mettre dans _globalMessages
 
     for (auto &ennemy : _ennemyEntities) {
-        auto components = _gameEngine->getEntityManager()
-                              ->getEntity(ennemy)
-                              ->_components;
+        auto components =
+            _gameEngine->getEntityManager()->getEntity(ennemy)->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
                 typeid(Engine::Entity::Component::GenericComponents::
@@ -355,8 +354,7 @@ void Server::updateEnnemies() {
                 auto new_position = position->getValue();
                 new_position.x -= 0.01;
                 position->setValue(new_position);
-                std::string msg = "add ennemy " +
-                                  std::to_string(ennemy) + " " +
+                std::string msg = "add ennemy " + std::to_string(ennemy) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
@@ -402,8 +400,6 @@ uint32_t Server::isColliding() {
                 auto missile_pos = std::dynamic_pointer_cast<
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
-                
-
 
                 for (auto &ennemy : _ennemyEntities) {
                     auto components = _gameEngine->getEntityManager()
@@ -411,25 +407,22 @@ uint32_t Server::isColliding() {
                                           ->_components;
                     for (auto &component : components) {
                         if (typeid(*component) ==
-                            typeid(Engine::Entity::Component::GenericComponents::
-                                       Vector2fComponent)) {
+                            typeid(Engine::Entity::Component::
+                                       GenericComponents::Vector2fComponent)) {
                             auto enemy_pos = std::dynamic_pointer_cast<
                                 Engine::Entity::Component::GenericComponents::
                                     Vector2fComponent>(component);
-                            
-                            if (
-                                (missile_pos->getValue().x >=
+
+                            if ((missile_pos->getValue().x >=
                                  enemy_pos->getValue().x) &&
                                 (missile_pos->getValue().x <=
                                  enemy_pos->getValue().x + 25) &&
                                 (missile_pos->getValue().y >=
                                  enemy_pos->getValue().y) &&
                                 (missile_pos->getValue().y <=
-                                 enemy_pos->getValue().y + 25)
-                            ) {
-                                
+                                 enemy_pos->getValue().y + 25)) {
                                 return ennemy;
-                            }   
+                            }
                         }
                     }
                 }
@@ -458,7 +451,7 @@ void Server::update() {
         }
         // createEnnemy(ennemy);
         std::cout << "tema 2" << std::endl;
-    }  
+    }
     // }
     if (_ennemy_spawn_clock + std::chrono::seconds(12) <
         std::chrono::high_resolution_clock::now()) {

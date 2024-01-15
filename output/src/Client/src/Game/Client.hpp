@@ -129,7 +129,6 @@ class Client {
         void LoadTextureEnemies(std::string paths);
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
-
         void winMenu();
         void loseMenu();
         void setMenu();
@@ -180,7 +179,7 @@ class Client {
         std::vector<player_t>    _player;
         std::vector<player_t>    _missile;
         std::vector<player_t>    _enemy;
-        std::vector<int> _destructible_entities;
+        std::vector<int>         _destructible_entities;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>

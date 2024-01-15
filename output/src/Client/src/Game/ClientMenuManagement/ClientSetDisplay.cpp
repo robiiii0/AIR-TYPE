@@ -16,9 +16,7 @@ void Client::setMenu() {
 
 void Client::setGame() {
     for (auto entities : _entities) {
-        _gameEngine.getEntityManager()->destroyEntity(
-                entities);
-
+        _gameEngine.getEntityManager()->destroyEntity(entities);
     }
     _entities.clear();
     ConnectionWithServer();
@@ -31,9 +29,7 @@ void Client::setGame() {
     //              {0.10, 0.10}, sf::Color::White, 0);
 }
 
-
-void Client::winMenu()
-{
+void Client::winMenu() {
     _sounds[Client::Music::WIN]->play();
     createBackground(_backgroundTexture);
     createPlayer(_texture_end_menu[0], {500, 250});
@@ -41,12 +37,9 @@ void Client::winMenu()
                {static_cast<float>(_screenWidth / 2),
                 static_cast<float>(_screenHeight / 2)},
                {1, 1}, sf::Color::White, 0);
-
 }
 
-
-void Client::loseMenu()
-{
+void Client::loseMenu() {
     _sounds[Client::Music::LOSE]->play();
     createBackground(_backgroundTexture);
     createPlayer(_texture_end_menu[1], {500, 250});

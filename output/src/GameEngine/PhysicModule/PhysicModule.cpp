@@ -14,8 +14,8 @@
 // Engine::Physic::PhysicModule::~PhysicModule() {}
 
 // void Engine::Physic::PhysicModule::update(
-//     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t> id_list,
-//     float dt) {
+//     Engine::Entity::EntityManager &entityManager, std::vector<uint32_t>
+//     id_list, float dt) {
 //     //    std::cout << "UPDATE" << std::endl;
 //     for (int i = 0; i < entityManager.getNbEntites() ; i++) {
 //         auto components = entityManager.getAllComponents(i);
@@ -27,8 +27,9 @@
 //                     component);
 //                 for (auto &id2 : id_list) {
 //                     if (id2 != id) {
-//                         auto components2 = entityManager.getAllComponents(id2);
-//                         for (auto &component2 : components2) {
+//                         auto components2 =
+//                         entityManager.getAllComponents(id2); for (auto
+//                         &component2 : components2) {
 //                             if (typeid(*component2) ==
 //                                 typeid(Engine::Physic::Components::
 //                                            BoundingBoxComponent)) {
@@ -52,7 +53,8 @@
 //                 for (auto TransCompo : components) {
 //                     if (typeid(*TransCompo) ==
 //                         typeid(
-//                             Engine::Physic::Components::TransformComponent)) {
+//                             Engine::Physic::Components::TransformComponent))
+//                             {
 //                         auto transform = std::dynamic_pointer_cast<
 //                             Engine::Physic::Components::TransformComponent>(
 //                             TransCompo);

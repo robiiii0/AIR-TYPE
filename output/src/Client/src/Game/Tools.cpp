@@ -33,10 +33,10 @@ void Client::HandleMovementManager(std::string command) {
         std::cout << "Updating player to the left " << std::endl;
         _networkingModule->sendMessage("move left", 0);
     } else if (command == "right") {
-        std::cout << "Updating player to the right "  << std::endl;
+        std::cout << "Updating player to the right " << std::endl;
         _networkingModule->sendMessage("move right", 0);
     } else if (command == "attack") {
-        std::cout << "Updating player to attack "  << std::endl;
+        std::cout << "Updating player to attack " << std::endl;
         _networkingModule->sendMessage("attack", 0);
         _sounds[2]->play();
     }

@@ -90,14 +90,8 @@ void Engine::RendererModule::RendererModule::UpdatePosition(
 void Engine::RendererModule::RendererModule::update(
     Engine::Entity::EntityManager &entityManager,
     std::vector<uint32_t>          id_list) {
-
-
-
-
-    
     for (auto id : id_list) {
         try {
-            
             auto components = entityManager.getAllComponents(id);
             for (auto &component : components) {
                 // Check if the component is of type parallaxComponent

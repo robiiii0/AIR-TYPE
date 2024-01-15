@@ -14,8 +14,7 @@ Client::Client() {
     LoadBackground();
     loadTextureEnd("src/Client/assets/Background/Top_1.png");
     loadTextureEnd("src/Client/assets/Background/Game_Over_logo.png");
-    LoadTextureParallax(
-        "src/Client/assets/new_assets/background/1.png");
+    LoadTextureParallax("src/Client/assets/new_assets/background/1.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/2.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/3.png");
     LoadTextureButton("src/Client/assets/Buttons/Button.png");
@@ -48,9 +47,10 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/music.wav", true, false, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
     LoadSound("src/Client/assets/new_assets/shoot/shot.mp3", false, false, 50);
-    LoadSound("src/Client/assets/new_assets/shoot/Bloopin.mp3", false, false, 50);
-    LoadSound("src/Client/assets/new_assets/shoot/Sadsongmeme.mp3", false, false, 50);
-
+    LoadSound("src/Client/assets/new_assets/shoot/Bloopin.mp3", false, false,
+              50);
+    LoadSound("src/Client/assets/new_assets/shoot/Sadsongmeme.mp3", false,
+              false, 50);
 }
 
 void Client::ConnectionWithServer() {
@@ -69,24 +69,23 @@ void Client::updateSpritePosition(
 void Client::HandlePlayerManagement(
     Engine::Network::Serializer::entity_t &player, int place) {
     if (player.id > -1) {
-        if (player.x < 1920 && player.x > 0 &&
-            player.y < 1080 && player.y > 30) {
+        if (player.x < 1920 && player.x > 0 && player.y < 1080 &&
+            player.y > 30) {
             uint32_t id_sprite =
                 createPlayer(_texturePlayer[place], {player.x, player.y});
-                _destructible_entities.push_back(id_sprite);  
-        } 
+            _destructible_entities.push_back(id_sprite);
+        }
     }
 }
 
 void Client::HandleMissileManager(
     Engine::Network::Serializer::entity_t &missile, int place) {
     if (missile.id > -1 && missile.id < MAX_MISSILES) {
-        if (
-            missile.x < 1920 && missile.x > 0 && missile.y < 1080 &&
+        if (missile.x < 1920 && missile.x > 0 && missile.y < 1080 &&
             missile.y > 30) {
-            uint32_t idMissile = createMissile(
-                missile.id, missile.x, missile.y);
-            _destructible_entities.push_back(idMissile);  
+            uint32_t idMissile =
+                createMissile(missile.id, missile.x, missile.y);
+            _destructible_entities.push_back(idMissile);
         }
     }
 }
@@ -94,11 +93,10 @@ void Client::HandleMissileManager(
 void Client::HandleEnemiesManagement(
     Engine::Network::Serializer::entity_t &enemy, int place) {
     if (enemy.id > -1 && enemy.id < MAX_ENEMIES) {
-        if (
-            enemy.x < 1920 && enemy.x > 0 && enemy.y < 1080 && enemy.y > 30) {
+        if (enemy.x < 1920 && enemy.x > 0 && enemy.y < 1080 && enemy.y > 30) {
             uint32_t idEnemy =
                 createPlayer(_texturesEnemies[0], {enemy.x, enemy.y});
-                _destructible_entities.push_back(idEnemy);  
+            _destructible_entities.push_back(idEnemy);
         }
     }
 }
@@ -137,7 +135,9 @@ void Client::run() {
         for (int i = _destructible_entities.size(); i > 0; i--) {
             _gameEngine.getEntityManager()->destroyEntity(
                 _destructible_entities.back());
-            _entities.erase(std::remove(_entities.begin(), _entities.end(), _destructible_entities.back()), _entities.end());
+            _entities.erase(std::remove(_entities.begin(), _entities.end(),
+                                        _destructible_entities.back()),
+                            _entities.end());
             _destructible_entities.pop_back();
         }
     }
