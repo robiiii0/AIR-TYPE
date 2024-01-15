@@ -8,7 +8,7 @@ Client::Client() {
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 8;
-    _gameState = MENU;
+    _gameState = GAMEOVER;
 
     playerInit();
     LoadBackground();
@@ -48,6 +48,8 @@ Client::Client() {
     LoadSound("src/Client/assets/Sound/music.wav", true, false, 50);
     LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
     LoadSound("src/Client/assets/new_assets/shoot/shot.mp3", false, false, 50);
+    LoadSound("src/Client/assets/new_assets/shoot/Bloopin.mp3", false, false, 50);
+    LoadSound("src/Client/assets/new_assets/shoot/Sadsongmeme.mp3", false, false, 50);
 
 }
 

@@ -37,7 +37,6 @@ void Client::HandleMovementManager(std::string command) {
         _networkingModule->sendMessage("move right", 0);
     } else if (command == "attack") {
         std::cout << "Updating player to attack "  << std::endl;
-
         _networkingModule->sendMessage("attack", 0);
         _sounds[2]->play();
     }

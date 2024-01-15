@@ -57,6 +57,14 @@ class Client {
             ESCAPE_TEXTURE = 6,
         };
 
+        enum Music {
+            MUSIC = 0,
+            CLICK = 1,
+            SHOOT = 2,
+            WIN = 3,
+            LOSE = 4,
+        };
+
         typedef struct player_s {
                 int      id;
                 bool     direction;
