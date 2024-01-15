@@ -102,6 +102,7 @@ void Client::HandleEnemiesManagement(
 }
 
 void Client::run() {
+    int count = 0;
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         if (_networkingModule != nullptr) {
             for (auto &client :
@@ -111,14 +112,23 @@ void Client::run() {
                     Engine::Network::Serializer::serialized_data_t data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    for (auto &player : data.players) {
-                        HandlePlayerManagement(player, 0);
-                    }
-                    for (auto &missile : data.missiles) {
-                        HandleMissileManager(missile, 0);
-                    }
-                    for (auto &enemy : data.enemies) {
-                        HandleEnemiesManagement(enemy, 0);
+                    if (_gameState != WIN && _gameState != LOSE) {
+                        for (auto &player : data.players) {
+                            HandlePlayerManagement(player, 0);
+                        }
+                        for (auto &missile : data.missiles) {
+                            HandleMissileManager(missile, 0);
+                        }
+                        for (auto &enemy : data.enemies) {
+                            HandleEnemiesManagement(enemy, 0);
+                        }
+                        for (auto &gameStatus : data.game_status) {
+                            if (gameStatus.win == 1) {
+                                _gameState = WIN;
+                            } else if (gameStatus.win == 2) {
+                                _gameState = LOSE;
+                            }
+                        }
                     }
                 }
             }
@@ -138,6 +148,11 @@ void Client::run() {
                                         _destructible_entities.back()),
                             _entities.end());
             _destructible_entities.pop_back();
+        }
+        if ((_gameState == WIN || _gameState == LOSE)  && count < 1) {
+            setupState();
+            std::cout << "je rentre a balle" << std::endl;
+            count++;
         }
     }
     handleExit();

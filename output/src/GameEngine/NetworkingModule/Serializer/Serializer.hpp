@@ -30,6 +30,11 @@ namespace Engine {
                     float y;
             } entity_t;
 
+            typedef struct data_game_s {
+                int win;
+                int score;
+            } data_game_t;
+
             typedef struct game_objects_s {
                     entity_t players[MAX_PLAYERS];
                     int      nb_players;
@@ -43,6 +48,7 @@ namespace Engine {
                     entity_t players[MAX_PLAYERS];
                     entity_t missiles[MAX_MISSILES];
                     entity_t enemies[MAX_ENEMIES];
+                    data_game_t game_status[1];
             } serialized_data_t;
 
             class Serializer {
@@ -63,6 +69,7 @@ namespace Engine {
 
                     std::string serializeToPacket(
                         std::vector<std::string> args);
+                    
 
                 protected:
                     serialized_data_t initSerializedData();

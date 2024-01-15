@@ -99,7 +99,11 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.enemies[last_enemy] = entity;
-            } else {
+            } else if (tokens[1] == "gamestatus") {
+                data.game_status[0].win = std::stoi(tokens[2]);
+                data.game_status[0].score = std::stoi(tokens[3]);
+            } 
+            else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
             }
@@ -133,6 +137,8 @@ Engine::Network::Serializer::serialized_data_t
         data.enemies[i].x = 0;
         data.enemies[i].y = 0;
     }
+    data.game_status[0].win = 0;
+    data.game_status[0].score = 0;
     return data;
 }
 
