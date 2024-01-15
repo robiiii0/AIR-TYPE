@@ -15,7 +15,6 @@ void Client::setMenu() {
 }
 
 void Client::setGame() {
-    std::cout << "on passe au game" << std::endl;
     for (auto entities : _entities) {
         _gameEngine.getEntityManager()->destroyEntity(
                 entities);

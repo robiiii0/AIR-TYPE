@@ -123,7 +123,7 @@ void Server::createPlayer(std::uint32_t id) {
 void Server::createEnnemy(std::uint32_t id) {
     float randomFloat = static_cast<float>(rand() % 800 + 1);
 
-    _ennemyEntities[id] = _gameEngine->getEntityManager()->createEntity();
+    _ennemyEntities.push_back( _gameEngine->getEntityManager()->createEntity());
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
         1800.0, randomFloat};
 
@@ -353,7 +353,7 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x -= 0.02;
+                new_position.x -= 0.01;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " +
                                   std::to_string(ennemy) + " " +
@@ -378,7 +378,6 @@ void Server::updateMissile() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                std::cout << "ya r l'ekip" << std::endl;
                 new_position.x += 0.02;
                 position->setValue(new_position);
                 std::string msg = "add missile " +
@@ -391,7 +390,7 @@ void Server::updateMissile() {
     }
 }
 
-void Server::isColliding() {
+uint32_t Server::isColliding() {
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
                               ->getEntity(missile.second)
@@ -428,7 +427,8 @@ void Server::isColliding() {
                                 (missile_pos->getValue().y <=
                                  enemy_pos->getValue().y + 25)
                             ) {
-                                _gameEngine->getEntityManager()->destroyEntity(ennemy);
+                                
+                                return ennemy;
                             }   
                         }
                     }
@@ -436,6 +436,7 @@ void Server::isColliding() {
             }
         }
     }
+    return 10000;
 }
 
 void Server::update() {
@@ -446,8 +447,20 @@ void Server::update() {
     //     _update_time = std::chrono::high_resolution_clock::now();
     updateEnnemies();
     updateMissile();
+    uint32_t ennemy = isColliding();
+    if (isColliding() != 10000) {
+        std::cout << "tema" << std::endl;
+        _gameEngine->getEntityManager()->destroyEntity(ennemy);
+        for (int i = 0; i < _ennemyEntities.size(); i++) {
+            if (_ennemyEntities[i] == ennemy) {
+                _ennemyEntities.erase(_ennemyEntities.begin() + i);
+            }
+        }
+        // createEnnemy(ennemy);
+        std::cout << "tema 2" << std::endl;
+    }  
     // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(8) <
+    if (_ennemy_spawn_clock + std::chrono::seconds(12) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < 5; i++) {

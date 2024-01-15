@@ -8,7 +8,7 @@ Client::Client() {
     _networkingModule = nullptr;
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 8;
-    _gameState = GAMEOVER;
+    _gameState = MENU;
 
     playerInit();
     LoadBackground();
@@ -74,7 +74,6 @@ void Client::HandlePlayerManagement(
             uint32_t id_sprite =
                 createPlayer(_texturePlayer[place], {player.x, player.y});
                 _destructible_entities.push_back(id_sprite);  
-                std::cout << "je crée un player" << std::endl;
         } 
     }
 }
@@ -82,7 +81,6 @@ void Client::HandlePlayerManagement(
 void Client::HandleMissileManager(
     Engine::Network::Serializer::entity_t &missile, int place) {
     if (missile.id > -1 && missile.id < MAX_MISSILES) {
-        std::cout << "je passe ici" << std::endl;
         if (
             missile.x < 1920 && missile.x > 0 && missile.y < 1080 &&
             missile.y > 30) {
@@ -101,7 +99,6 @@ void Client::HandleEnemiesManagement(
             uint32_t idEnemy =
                 createPlayer(_texturesEnemies[0], {enemy.x, enemy.y});
                 _destructible_entities.push_back(idEnemy);  
-                std::cout << "je crée un enemie" << std::endl;
         }
     }
 }
@@ -109,7 +106,6 @@ void Client::HandleEnemiesManagement(
 void Client::run() {
     setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-        std::cout << "debut de boucle " << std::endl;
         if (_networkingModule != nullptr) {
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
@@ -139,14 +135,12 @@ void Client::run() {
         _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
                                                 getEntities());
         for (int i = _destructible_entities.size(); i > 0; i--) {
-            std::cout << "destroying entity " << _destructible_entities[i] << std::endl;
             _gameEngine.getEntityManager()->destroyEntity(
                 _destructible_entities.back());
             _entities.erase(std::remove(_entities.begin(), _entities.end(), _destructible_entities.back()), _entities.end());
             _destructible_entities.pop_back();
         }
     }
-    std::cout << "fin de boucle " << std::endl;
     handleExit();
 }
 
