@@ -102,6 +102,7 @@ void Client::HandleEnemiesManagement(
 }
 
 void Client::run() {
+    int count = 0;
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         if (_networkingModule != nullptr) {
             for (auto &client :
@@ -111,14 +112,37 @@ void Client::run() {
                     Engine::Network::Serializer::serialized_data_t data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    for (auto &player : data.players) {
-                        HandlePlayerManagement(player, 0);
-                    }
-                    for (auto &missile : data.missiles) {
-                        HandleMissileManager(missile, 0);
-                    }
-                    for (auto &enemy : data.enemies) {
-                        HandleEnemiesManagement(enemy, 0);
+                    if (_gameState != GameState::WIN &&
+                        _gameState != GameState::GAMEOVER) {
+                        for (auto &player : data.players) {
+                            HandlePlayerManagement(player, 0);
+                        }
+                        for (auto &missile : data.missiles) {
+                            HandleMissileManager(missile, 0);
+                        }
+                        for (auto &enemy : data.enemies) {
+                            HandleEnemiesManagement(enemy, 0);
+                        }
+                        for (auto &gameStatus : data.game_status) {
+                            if (gameStatus.win == 1) {
+                                _gameState = GameState::WIN;
+                            } else if (gameStatus.win == 2) {
+                                _gameState = GameState::GAMEOVER;
+                            }
+                            _destructible_entities.push_back(createText(
+                                "time remaining: " +
+                                    std::to_string(gameStatus.score),
+                                _fonts[0],
+                                {static_cast<float>(_screenWidth / 2),
+                                 static_cast<float>(_screenHeight / 2)},
+                                {1, 1}, sf::Color::White, 0));
+                            _destructible_entities.push_back(createText(
+                                "life: " + std::to_string(gameStatus.life),
+                                _fonts[0],
+                                {static_cast<float>(_screenWidth / 2),
+                                 static_cast<float>(_screenHeight / 2) + 50},
+                                {1, 1}, sf::Color::White, 0));
+                        }
                     }
                 }
             }
@@ -138,6 +162,12 @@ void Client::run() {
                                         _destructible_entities.back()),
                             _entities.end());
             _destructible_entities.pop_back();
+        }
+        if ((_gameState == GameState::WIN ||
+             _gameState == GameState::GAMEOVER) &&
+            count < 1) {
+            setupState();
+            count++;
         }
     }
     handleExit();

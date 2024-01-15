@@ -13,6 +13,9 @@ Server::~Server() {}
 
 int Server::run() {
     _running = true;
+    _win = 0;
+    _score = 0;
+    _life = 3;
     _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
     _update_time = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
@@ -120,18 +123,19 @@ void Server::createPlayer(std::uint32_t id) {
 
 void Server::createEnnemy(std::uint32_t id) {
     float randomFloat = static_cast<float>(rand() % 800 + 1);
+    float randomX = static_cast<float>(rand() % 400 + 1950);
 
     _ennemyEntities.push_back(_gameEngine->getEntityManager()->createEntity());
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        1800.0, randomFloat};
+        randomX, randomFloat};
 
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
-    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id],
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities.back(),
                                                   position);
     std::string msg =
-        "add ennemy " + std::to_string(id) + " " +
+        "add ennemy " + std::to_string(_ennemyEntities.back()) + " " +
         std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
         std::to_string(position->getValue().y);
 
@@ -185,7 +189,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(-10.0)}};
+                                   {posComp->getValue().y + float(-20.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -200,7 +204,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(10.0)}};
+                                   {posComp->getValue().y + float(20.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -214,7 +218,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(10.0)},
+                    NewPosition = {{posComp->getValue().x + float(20.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -229,7 +233,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(-10.0)},
+                    NewPosition = {{posComp->getValue().x + float(-20.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -247,6 +251,9 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
+        for (int i = 0; i < 2; i++) {
+            createEnnemy(i);
+        }
         // for (int i = 0; i < 5; i++)
         // createEnemy(i);
     }
@@ -344,7 +351,17 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x -= 0.01;
+
+                if (new_position.x < 0) {
+                    for (int i = 0; i < _ennemyEntities.size(); i++) {
+                        if (_ennemyEntities[i] == ennemy) {
+                            _ennemyEntities.erase(_ennemyEntities.begin() + i);
+                        }
+                    }
+                    _life--;
+                    createEnnemy(_ennemyEntities.size());
+                }
+                new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " + std::to_string(ennemy) + " " +
                                   std::to_string(position->getValue().x) + " " +
@@ -421,32 +438,42 @@ uint32_t Server::isColliding() {
     return 10000;
 }
 
+void Server::updateGameState() {
+    if (_ennemy_spawn_clock + std::chrono::seconds(60) <
+        std::chrono::high_resolution_clock::now()) {
+        _win = 1;
+    }
+    if (_life <= 0) _win = 2;
+    auto remaining_time = _ennemy_spawn_clock + std::chrono::seconds(60) -
+                          std::chrono::high_resolution_clock::now();
+    std::string msg =
+        "add gamestatus " + std::to_string(_win) + " " +
+        std::to_string(
+            std::chrono::duration_cast<std::chrono::seconds>(remaining_time)
+                .count()) +
+        " " + std::to_string(_life);
+    _globalMessages.emplace(msg);
+}
+
 void Server::update() {
     // ? update all entities
     updatePlayer();
-    // if (_update_time + std::chrono::microseconds(750) <
-    //     std::chrono::high_resolution_clock::now()) {
-    //     _update_time = std::chrono::high_resolution_clock::now();
     updateEnnemies();
     updateMissile();
     uint32_t ennemy = isColliding();
-    if (isColliding() != 10000) {
+    if (ennemy != 10000) {
         _gameEngine->getEntityManager()->destroyEntity(ennemy);
+        _score++;
         for (int i = 0; i < _ennemyEntities.size(); i++) {
             if (_ennemyEntities[i] == ennemy) {
                 _ennemyEntities.erase(_ennemyEntities.begin() + i);
+                createEnnemy(_ennemyEntities.size());
+                break;
             }
         }
-        // createEnnemy(ennemy);
     }
-    // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(12) <
-        std::chrono::high_resolution_clock::now()) {
-        _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < 5; i++) {
-            createEnnemy(i);
-        }
-    }
+
+    updateGameState();
     // ? update all components
     // ? update all systems
 }
