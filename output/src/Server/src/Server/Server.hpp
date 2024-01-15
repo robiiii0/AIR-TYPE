@@ -44,7 +44,7 @@ class Server {
         void     createEnnemy(std::uint32_t id);
         uint32_t isColliding();
         void     updateGameState();
-        void HandleEnnemiesPosition();
+        void     HandleEnnemiesPosition();
 
     private:
         void                                               networkLoop();

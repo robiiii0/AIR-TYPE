@@ -112,7 +112,8 @@ void Client::run() {
                     Engine::Network::Serializer::serialized_data_t data =
                         _networkingModule->getSerializer().binaryStringToStruct(
                             msg);
-                    if (_gameState != GameState::WIN && _gameState != GameState::GAMEOVER) {
+                    if (_gameState != GameState::WIN &&
+                        _gameState != GameState::GAMEOVER) {
                         for (auto &player : data.players) {
                             HandlePlayerManagement(player, 0);
                         }
@@ -149,7 +150,9 @@ void Client::run() {
                             _entities.end());
             _destructible_entities.pop_back();
         }
-        if ((_gameState == GameState::WIN || _gameState == GameState::GAMEOVER) && count < 1) {
+        if ((_gameState == GameState::WIN ||
+             _gameState == GameState::GAMEOVER) &&
+            count < 1) {
             setupState();
             std::cout << "je rentre a balle" << std::endl;
             count++;

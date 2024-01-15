@@ -438,8 +438,7 @@ void Server::updateGameState() {
     if (_score > 3) {
         _win = 1;
     }
-    if (_life < 0)
-        _win = 2;
+    if (_life < 0) _win = 2;
     std::string msg = "add gamestatus " + std::to_string(_win) + " " +
                       std::to_string(_score) + " " + std::to_string(0);
     _globalMessages.emplace(msg);
