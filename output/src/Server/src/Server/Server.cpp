@@ -251,7 +251,7 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             createEnnemy(i);
         }
         // for (int i = 0; i < 5; i++)
@@ -439,12 +439,14 @@ uint32_t Server::isColliding() {
 }
 
 void Server::updateGameState() {
-    if (_score > 3) {
+    if (_score > 5) {
         _win = 1;
     }
-    if (_life < 0) _win = 2;
+    std::cout << "Score: " << _score << std::endl;
+    if (_life <= 0) _win = 2;
     std::string msg = "add gamestatus " + std::to_string(_win) + " " +
                       std::to_string(_score) + " " + std::to_string(_life);
+    std::cout << msg << std::endl;
     _globalMessages.emplace(msg);
 }
 

@@ -129,6 +129,16 @@ void Client::run() {
                             } else if (gameStatus.win == 2) {
                                 _gameState = GameState::GAMEOVER;
                             }
+                            _destructible_entities.push_back(createText("score: " + std::to_string(gameStatus.score),
+                                       _fonts[0],
+                                       {static_cast<float>(_screenWidth / 2),
+                                        static_cast<float>(_screenHeight / 2)},
+                                       {1, 1}, sf::Color::White, 0));
+                            _destructible_entities.push_back(createText("life: " + std::to_string(gameStatus.life),
+                                        _fonts[0],
+                                        {static_cast<float>(_screenWidth / 2),
+                                         static_cast<float>(_screenHeight / 2) + 50},
+                                        {1, 1}, sf::Color::White, 0));
                         }
                     }
                 }

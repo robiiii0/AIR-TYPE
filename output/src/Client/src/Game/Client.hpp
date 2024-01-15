@@ -105,7 +105,7 @@ class Client {
                           sf::Texture &texture, sf::Font &font,
                           sf::Vector2f position, sf::Vector2f scale,
                           sf::Color color, float rotation);
-        void createText(
+        uint32_t createText(
             std::string text, sf::Font &font,
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
