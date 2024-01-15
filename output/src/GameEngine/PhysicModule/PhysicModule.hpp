@@ -22,6 +22,7 @@ namespace Engine {
                 ~PhysicModule();
                 void update(Engine::Entity::EntityManager &entityManager,
                             std::vector<uint32_t> id_list, float dt);
+
             protected:
             private:
         };
