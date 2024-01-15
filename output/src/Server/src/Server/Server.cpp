@@ -447,7 +447,7 @@ void Server::update() {
     updateEnnemies();
     updateMissile();
     // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(5) <
+    if (_ennemy_spawn_clock + std::chrono::seconds(8) <
         std::chrono::high_resolution_clock::now()) {
         _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < 5; i++) {

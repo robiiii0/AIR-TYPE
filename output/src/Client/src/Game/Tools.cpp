@@ -24,19 +24,20 @@ void Client::HandleMovementManager(std::string command) {
         _networkingModule->~NetworkingModule();
         _gameEngine.getRendererModule()->getWindow().close();
     } else if (command == "up") {
-        std::cout << "Updating player to the up " << _ClientId << std::endl;
+        std::cout << "Updating player to the up " << std::endl;
         _networkingModule->sendMessage("move up", 0);
     } else if (command == "down") {
-        std::cout << "Updating player to the down " << _ClientId << std::endl;
+        std::cout << "Updating player to the down " << std::endl;
         _networkingModule->sendMessage("move down", 0);
     } else if (command == "left") {
-        std::cout << "Updating player to the left " << _ClientId << std::endl;
+        std::cout << "Updating player to the left " << std::endl;
         _networkingModule->sendMessage("move left", 0);
     } else if (command == "right") {
-        std::cout << "Updating player to the right " << _ClientId << std::endl;
+        std::cout << "Updating player to the right "  << std::endl;
         _networkingModule->sendMessage("move right", 0);
     } else if (command == "attack") {
-        std::cout << "Updating player to attack " << _ClientId << std::endl;
+        std::cout << "Updating player to attack "  << std::endl;
         _networkingModule->sendMessage("attack", 0);
+        _sounds[2]->play();
     }
 }
