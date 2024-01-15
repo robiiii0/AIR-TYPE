@@ -57,7 +57,7 @@ class Server {
         std::chrono::high_resolution_clock::time_point     _update_time;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
-        std::vector<std::uint32_t> _missileEntities;
+        std::vector<std::uint32_t>             _missileEntities;
         // std::map<std::uint32_t, std::uint32_t> _ennemyEntities;
 
         std::vector<std::uint32_t> _ennemyEntities;

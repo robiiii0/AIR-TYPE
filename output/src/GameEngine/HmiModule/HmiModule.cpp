@@ -4,8 +4,7 @@
 
 #include "HmiModule.hpp"
 
-Engine::HmiModule::HmiModule() {
-}
+Engine::HmiModule::HmiModule() {}
 
 std::string Engine::HmiModule::keyEvent(int key) {
     switch (key) {

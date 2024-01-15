@@ -103,9 +103,7 @@ void Client::HandleEnemiesManagement(
 
 void Client::run() {
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
-
         if (_networkingModule != nullptr) {
-
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
                 if (client.getBuffer()->hasPacket()) {
