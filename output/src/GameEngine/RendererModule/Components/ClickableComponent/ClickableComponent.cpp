@@ -59,7 +59,7 @@ bool Engine::RendererModule::Components::ClickableComponent::isHovered(
         _isHovered = false;
 
     if (_isHovered)
-        _sprite.setColor(sf::Color::Magenta);
+        _sprite.setColor(sf::Color(23, 170, 255));
     else
         _sprite.setColor(sf::Color::White);
 

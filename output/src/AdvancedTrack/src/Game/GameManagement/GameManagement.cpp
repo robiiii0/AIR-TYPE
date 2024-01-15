@@ -1,0 +1,154 @@
+/*
+** EPITECH PROJECT, 2024
+** AIR-TYPE
+** File description:
+** GameGameManagement
+*/
+
+#include "../Game.hpp"
+
+void Game::setGame() {
+    _lastId = 0;
+    _scoreId = 0;
+    _score = 0;
+    _life = 3;
+    _tick = 0;
+    _time_limit = 100;
+    _pokeball = false;
+    _epiball = false;
+
+    createSprite({0.0, 0.0}, {2.0, 1.7}, _textures[Textures::BACKGROUND], "");
+    createButton(std::bind(&Game::changeGameState, this, GameState::MENU),
+                 "Go Menu", _textures[1], _fonts[0],
+                 {static_cast<float>(_screenWidth / 1.05),
+                  static_cast<float>(_screenHeight / 1.05)},
+                 {0.3, 0.3}, sf::Color::White, 0);
+
+    // LIFE
+    createSprite({10.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(getLastId());
+    createSprite({60.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(getLastId());
+    createSprite({110.0, 10.0}, {0.15, 0.15}, _textures[Textures::LIFE], "");
+    _lifeId.push_back(getLastId());
+
+    // SCORE
+    createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
+               {1, 1}, sf::Color::White, 0);
+    _scoreId = getLastId();
+}
+
+void Game::gameLoop() {
+    // Pokeball creation.
+    if (_gameState == GameState::GAME && !_pokeball) {
+        randomPokeball();
+        _lastId = getLastId();
+        _pokeball = true;
+        _time_limit--;
+    }
+    // Pokeball removal.
+    else if (_gameState == GameState::GAME && _tick == _time_limit &&
+             _pokeball) {
+        _epiball ? _epiball = false : _life--;
+        removeEntity(_lastId);
+        _tick = 0;
+        _pokeball = false;
+    } else
+        _tick++;
+
+    if (_time_limit == 89) {
+        uint32_t id_celebi =
+            *std::max_element(getEntities().begin(), getEntities().end()) + 1;
+        createButton(
+            [this, id_celebi]() {
+                createSprite({static_cast<float>(-20),
+                              static_cast<float>(_screenHeight - 150)},
+                             {0.2, 0.2}, _textures[CAPTURE], "");
+                createSprite({static_cast<float>(40),
+                              static_cast<float>(_screenHeight - 130)},
+                             {0.07, 0.07}, _textures[CELEBI], "");
+                createText("Celebi captured !", _fonts[0],
+                           {static_cast<float>(120),
+                            static_cast<float>(_screenHeight - 130)},
+                           {1, 1}, sf::Color::White, 0);
+                _captured = true;
+                removeEntity(id_celebi);
+                updateScore(10);
+            },
+            "", _textures[CELEBI], _fonts[0],
+            {static_cast<float>(_screenWidth - 200), static_cast<float>(50)},
+            {0.05, 0.05}, sf::Color::White, 0);
+    }
+}
+
+void Game::updateScore(int addScore) {
+    removeEntity(_scoreId);
+    _score += addScore;
+    createText("Score : " + std::to_string(_score), _fonts[0], {70.0, 70.0},
+               {1, 1}, sf::Color::White, 0);
+    _scoreId = getLastId();
+}
+
+void Game::checkLife() {
+    if (_life < _lifeId.size()) {
+        removeEntity(_lifeId[_life]);
+        _lifeId.erase(_lifeId.begin() + _life);
+    }
+    if (_life == 0 && _gameState == GameState::GAME)
+        changeGameState(GameState::GAMEOVER);
+}
+
+void Game::randomPokeball() {
+    int random = randomFloat(0.0, 8.0);
+
+    if (random <= 3) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(1);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::PLAYER], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.6, 0.6},
+            sf::Color::White, 0);
+    } else if (random <= 5) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(3);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::MASTER], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.35, 0.35},
+            sf::Color::White, 0);
+    } else if (random <= 6) {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(5);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::ULTRA], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.2, 0.2},
+            sf::Color::White, 0);
+    } else {
+        createButton(
+            [this]() {
+                _sounds[1]->play();
+                removeEntity(_lastId);
+                updateScore(-10);
+                _tick = 0;
+                _pokeball = false;
+            },
+            "", _textures[Textures::POKEPITECH], _fonts[0],
+            {randomFloat(25.0, 1175.0), randomFloat(25.0, 695.0)}, {0.5, 0.5},
+            sf::Color::White, 0);
+        _epiball = true;
+    }
+}

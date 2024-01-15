@@ -13,6 +13,7 @@ std::string Engine::HmiModule::keyEvent(int key) {
             break;
         case sf::Keyboard::Down:
             return "down";
+
             break;
         case sf::Keyboard::Left:
             return "left";

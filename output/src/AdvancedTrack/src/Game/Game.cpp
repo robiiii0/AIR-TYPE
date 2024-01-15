@@ -1,0 +1,73 @@
+/*
+** EPITECH PROJECT, 2024
+** AIR-TYPE
+** File description:
+** Game
+*/
+
+#include "Game.hpp"
+
+Game::Game() : _gameEngine() {
+    _screenWidth = 1280;
+    _screenHeight = 720;
+    _gameEngine.getRendererModule()->init(_screenWidth, _screenHeight,
+                                          "PokeHunter", 60);
+    _hmiModule = std::make_shared<Engine::HmiModule>();
+    _gameState = GameState::MENU;
+    _score = 0;
+    _captured = false;
+    _pokeball = false;
+    _tick = 0;
+
+    LoadSound("assets/Sounds/pokemon-music.wav", true, true, 20.0);
+    LoadSound("assets/Sounds/click.wav", false, false, 50.0);
+    // TODO: Add pokemon music.
+    LoadFont("assets/Fonts/Roboto-Bold.ttf");
+    LoadTexture("assets/Sprite/background.jpg");
+    LoadTexture("assets/Sprite/pokeball.png");
+    LoadTexture("assets/Sprite/heart.png");
+    LoadTexture("assets/Sprite/pokeEpitech.png");
+    LoadTexture("assets/Sprite/Lugia.png");
+    LoadTexture("assets/Sprite/Zavant.png");
+    LoadTexture("assets/Sprite/Glace Ball.png");
+    LoadTexture("assets/Sprite/Master Ball.png");
+    LoadTexture("assets/Sprite/Net Ball.png");
+    LoadTexture("assets/Sprite/Ultra Ball.png");
+    LoadTexture("assets/Sprite/Celebi.png");
+    LoadTexture("assets/Sprite/capture.png");
+}
+
+void Game::run() {
+    setUpState();
+    while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        // Game engine functions.
+        _gameEngine.getRendererModule()->update(*_gameEngine.getEntityManager(),
+                                                getEntities());
+        std::string eventKey =
+            _hmiModule->keyEvent(_gameEngine.getRendererModule()->HandleEvent(
+                *_gameEngine.getEntityManager(), getEntities()));
+
+        // Game functionnal functions.
+        gameLoop();
+        checkLife();
+
+        // Game engine functions.
+        _gameEngine.getPhysicModule()->update(*_gameEngine.getEntityManager(),
+                                              getEntities(), 0.5);
+        _gameEngine.getRendererModule()->render(*_gameEngine.getEntityManager(),
+                                                getEntities());
+    }
+}
+
+float Game::randomFloat(float min, float max) {
+    std::random_device               rd;
+    std::mt19937                     gen(rd());
+    std::uniform_real_distribution<> distr(min, max);
+    return distr(gen);
+}
+
+void Game::handleExit() { _gameState = GameState::EXIT; }
+
+int Game::getLastId() {
+    return *std::max_element(getEntities().begin(), getEntities().end());
+}
