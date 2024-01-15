@@ -19,7 +19,7 @@ Engine::Network::NetworkingModule::NetworkingModule(int                port,
             break;
         case UDP:
             _udp_socket = std::make_unique<sf::UdpSocket>();
-            _udp_socket->bind(port);
+            _udp_socket->bind((unsigned short)port);
             // _socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
             break;
     }
@@ -50,7 +50,7 @@ Engine::Network::NetworkingModule::NetworkingModule(
             break;
         case UDP:
             _udp_socket = std::make_unique<sf::UdpSocket>();
-            _udp_socket->bind(port);
+            _udp_socket->bind((unsigned short)port);
             // _socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
             break;
     }

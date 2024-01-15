@@ -70,7 +70,6 @@ std::vector<std::uint32_t> Engine::Entity::EntityManager::destroyEntity(
     std::vector<std::uint32_t> newList;
 
     for (std::uint32_t i = 0; i < _entities.size(); i++) {
-        std::cout << "existing entity: " << _entities[i]->_id << std::endl;
         newList.push_back(_entities[i]->_id);
     }
 
@@ -107,6 +106,7 @@ void Engine::Entity::EntityManager::addComponent(
             return;
         }
     }
+
     throw Engine::EntityManager::CouldNotFindEntity();
 }
 
@@ -159,5 +159,6 @@ std::vector<std::shared_ptr<Engine::Entity::Component::IComponent>>
             return _componentManager.getAllComponents(_entities[i]);
         }
     }
+
     throw Engine::EntityManager::CouldNotFindEntity();
 }

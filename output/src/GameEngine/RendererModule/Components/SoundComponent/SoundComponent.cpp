@@ -14,7 +14,10 @@ Engine::RendererModule::Components::SoundComponent::SoundComponent(
         std::cout << "cant load: " << _data.path << std::endl;
     _sound.setLoop(_data.loop);
     _sound.setVolume(_data.volume);
-    if (_data.play) _sound.play();
+    if (_data.play) {
+        _sound.play();
+        std::cout << "play: " << _data.path << std::endl;
+    }
 }
 
 Engine::RendererModule::Components::SoundComponent::~SoundComponent() {

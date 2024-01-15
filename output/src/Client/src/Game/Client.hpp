@@ -31,6 +31,7 @@ enum GameState {
     SETTINGS,
     KEYBINDING,
     PAUSE,
+    WIN,
     GAMEOVER,
     EXIT,
 };
@@ -54,6 +55,14 @@ class Client {
             ATTACK_TEXTURE = 4,
             ENTER_TEXTURE = 5,
             ESCAPE_TEXTURE = 6,
+        };
+
+        enum Music {
+            MUSIC = 0,
+            CLICK = 1,
+            SHOOT = 2,
+            WIN = 3,
+            LOSE = 4,
         };
 
         typedef struct player_s {
@@ -85,11 +94,12 @@ class Client {
             sf::Texture &texture, sf::IntRect &rect);
         void createBackground(sf::Texture &texture);
         void createParallax(std::vector<sf::Texture> &Textures);
+        void DuplicateParalax(sf::Texture &Texture, int i);
 
         uint32_t createPlayer(
             sf::Texture &Textures,
             Engine::Entity::Component::GenericComponents::Vector2f);
-        void createEnemy(std::vector<sf::Texture> &Textures);
+        void createEnemy(sf::Texture &Textures);
 
         void createButton(std::function<void()> func, std::string text,
                           sf::Texture &texture, sf::Font &font,
@@ -100,6 +110,12 @@ class Client {
             Engine::Entity::Component::GenericComponents::Vector2f position,
             Engine::Entity::Component::GenericComponents::Vector2f scale,
             sf::Color color, float rotation);
+
+        void HandleEnemiesManagement(
+            Engine::Network::Serializer::entity_t &enemy, int place);
+        void GetClientId(Engine::Network::Serializer::serialized_data_t data);
+        // std::vector<sf::Texture> LoadTextures(std::vector<std::string>
+        // paths);
         void LoadTextureParallax(std::string paths);
         void LoadTexturePlayer(std::string paths);
         void LoadBackground();
@@ -113,6 +129,8 @@ class Client {
         void LoadTextureEnemies(std::string paths);
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
+        void winMenu();
+        void loseMenu();
         void setMenu();
         void setSettings();
         void setGame();
@@ -125,6 +143,8 @@ class Client {
         void setupState();
 
         void handleExit();
+
+        void loadTextureEnd(std::string path);
 
         void playerInit();
         void HandleMovementManager(std::string command);
@@ -152,11 +172,14 @@ class Client {
         std::vector<sf::Texture> _texturesEnemies;
         std::vector<sf::Texture> _textureSetting;
         std::vector<sf::Texture> _texturesButton;
+        std::vector<sf::Texture> _texture_end_menu;
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
         sf::Texture              _textureBoss;
         std::vector<player_t>    _player;
         std::vector<player_t>    _missile;
+        std::vector<player_t>    _enemy;
+        std::vector<int>         _destructible_entities;
 
         std::vector<
             std::shared_ptr<Engine::RendererModule::Components::SoundComponent>>
