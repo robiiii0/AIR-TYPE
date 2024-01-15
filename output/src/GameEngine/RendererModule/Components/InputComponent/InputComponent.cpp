@@ -54,11 +54,6 @@ void Engine::RendererModule::Components::InputComponent::handleEvent(
     }
 }
 
-bool Engine::RendererModule::Components::InputComponent::isHovered(
-    std::pair<float, float> mousePos) {
-    return false;
-}
-
 bool Engine::RendererModule::Components::InputComponent::isClicked(
     std::pair<float, float> mousePos) {
     sf::FloatRect Bounds = _text.getGlobalBounds();
