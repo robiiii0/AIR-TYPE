@@ -343,7 +343,7 @@ void Server::updateEnnemies() {
 
     for (auto &ennemy : _ennemyEntities) {
         auto components = _gameEngine->getEntityManager()
-                              ->getEntity(ennemy.second)
+                              ->getEntity(ennemy)
                               ->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
@@ -356,7 +356,7 @@ void Server::updateEnnemies() {
                 new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " +
-                                  std::to_string(ennemy.second) + " " +
+                                  std::to_string(ennemy) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
@@ -408,7 +408,7 @@ void Server::isColliding() {
 
                 for (auto &ennemy : _ennemyEntities) {
                     auto components = _gameEngine->getEntityManager()
-                                          ->getEntity(ennemy.second)
+                                          ->getEntity(ennemy)
                                           ->_components;
                     for (auto &component : components) {
                         if (typeid(*component) ==
@@ -428,10 +428,8 @@ void Server::isColliding() {
                                 (missile_pos->getValue().y <=
                                  enemy_pos->getValue().y + 25)
                             ) {
-                                // ennemy is hit
-                                std::cout << "nique ta grand mere la pute anton" << std::endl;
-                                _gameEngine->getEntityManager()->destroyEntity(ennemy.second);
-                            }
+                                _gameEngine->getEntityManager()->destroyEntity(ennemy);
+                            }   
                         }
                     }
                 }
