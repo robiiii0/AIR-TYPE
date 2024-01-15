@@ -21,6 +21,7 @@ void Client::changeState(GameState state) {
 
 void Client::clearCurrentState() {
     _entities.clear();
+
     for (auto entity : _entities) {
         std::cout << "destruction de l'entitée " << entity << std::endl;
         _gameEngine.getEntityManager()->destroyEntity(entity);

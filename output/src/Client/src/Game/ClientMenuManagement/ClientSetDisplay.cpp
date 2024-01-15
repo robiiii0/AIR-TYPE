@@ -19,14 +19,13 @@ void Client::setGame() {
         _gameEngine.getEntityManager()->destroyEntity(entities);
     }
     _entities.clear();
-    ConnectionWithServer();
+    while (_networkingModule == nullptr) {
+        ConnectionWithServer();
+    }
+
     createBackground(_backgroundTexture);
+
     createParallax(_texturesParallax);
-    // createButton(std::bind(&Client::changeState, this, MENU), "",
-    //              _texturesButton[0], _fonts[0],
-    //              {static_cast<float>(_screenWidth / 1.05),
-    //               static_cast<float>(_screenHeight / 1.05)},
-    //              {0.10, 0.10}, sf::Color::White, 0);
 }
 
 void Client::winMenu() {

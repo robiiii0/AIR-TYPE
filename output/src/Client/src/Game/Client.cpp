@@ -54,7 +54,7 @@ Client::Client() {
 }
 
 void Client::ConnectionWithServer() {
-    _networkingModule = std::make_unique<Engine::Network::NetworkingModule>(
+    _networkingModule = std::make_shared<Engine::Network::NetworkingModule>(
         0, Engine::Network::NetworkingTypeEnum::UDP, "127.0.0.1", 4242, 10);
     _networkingModule->sendMessage("Connecting to server", 0);
 }
@@ -102,9 +102,12 @@ void Client::HandleEnemiesManagement(
 }
 
 void Client::run() {
-    setupState();
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
+        std::cout << "test 6" << std::endl;
+
         if (_networkingModule != nullptr) {
+            std::cout << "test 7" << std::endl;
+
             for (auto &client :
                  _networkingModule->getClients()) {  // ? client update
                 if (client.getBuffer()->hasPacket()) {
@@ -140,6 +143,7 @@ void Client::run() {
                             _entities.end());
             _destructible_entities.pop_back();
         }
+        std::cout << "test" << std::endl;
     }
     handleExit();
 }
