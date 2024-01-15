@@ -441,12 +441,17 @@ uint32_t Server::isColliding() {
 void Server::updateGameState() {
     if (_ennemy_spawn_clock + std::chrono::seconds(60) <
         std::chrono::high_resolution_clock::now()) {
-            _win =  1;
+        _win = 1;
     }
     if (_life <= 0) _win = 2;
-    auto remaining_time = _ennemy_spawn_clock + std::chrono::seconds(60) - std::chrono::high_resolution_clock::now();
-    std::string msg = "add gamestatus " + std::to_string(_win) + " " +
-                      std::to_string(std::chrono::duration_cast<std::chrono::seconds>(remaining_time).count()) + " " + std::to_string(_life);
+    auto remaining_time = _ennemy_spawn_clock + std::chrono::seconds(60) -
+                          std::chrono::high_resolution_clock::now();
+    std::string msg =
+        "add gamestatus " + std::to_string(_win) + " " +
+        std::to_string(
+            std::chrono::duration_cast<std::chrono::seconds>(remaining_time)
+                .count()) +
+        " " + std::to_string(_life);
     _globalMessages.emplace(msg);
 }
 
@@ -467,7 +472,7 @@ void Server::update() {
             }
         }
     }
- 
+
     updateGameState();
     // ? update all components
     // ? update all systems
