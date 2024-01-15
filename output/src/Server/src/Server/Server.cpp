@@ -123,10 +123,11 @@ void Server::createPlayer(std::uint32_t id) {
 
 void Server::createEnnemy(std::uint32_t id) {
     float randomFloat = static_cast<float>(rand() % 800 + 1);
+    float randomX = static_cast<float>(rand() % 400 + 1950);
 
     _ennemyEntities.push_back(_gameEngine->getEntityManager()->createEntity());
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        1800.0, randomFloat};
+        randomX, randomFloat};
 
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
@@ -250,6 +251,9 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
+        for (int i = 0; i < 3; i++) {
+            createEnnemy(i);
+        }
         // for (int i = 0; i < 5; i++)
         // createEnemy(i);
     }
@@ -349,13 +353,13 @@ void Server::updateEnnemies() {
                 auto new_position = position->getValue();
 
                 if (new_position.x < 0) {
-                    _gameEngine->getEntityManager()->destroyEntity(ennemy);
                     for (int i = 0; i < _ennemyEntities.size(); i++) {
                         if (_ennemyEntities[i] == ennemy) {
                             _ennemyEntities.erase(_ennemyEntities.begin() + i);
                         }
                     }
                     _life--;
+                    createEnnemy(_ennemyEntities.size());
                 }
                 new_position.x -= 0.02;
                 position->setValue(new_position);
@@ -440,7 +444,7 @@ void Server::updateGameState() {
     }
     if (_life < 0) _win = 2;
     std::string msg = "add gamestatus " + std::to_string(_win) + " " +
-                      std::to_string(_score) + " " + std::to_string(0);
+                      std::to_string(_score) + " " + std::to_string(_life);
     _globalMessages.emplace(msg);
 }
 
@@ -460,13 +464,7 @@ void Server::update() {
         }
     }
     // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(5) <
-        std::chrono::high_resolution_clock::now()) {
-        _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < 2; i++) {
-            createEnnemy(i);
-        }
-    }
+ 
     updateGameState();
     // ? update all components
     // ? update all systems
