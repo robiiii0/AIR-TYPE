@@ -26,8 +26,6 @@ Engine::RendererModule::Components::EnemyComponent::EnemyComponent(
     _sprite.setPosition({this->_pos.x, this->_pos.y});
     _sprite.setColor(_color);
     _sprite.setRotation(_rotation);
-    std::cout << this->_scale.x << this->_scale.y << std::endl;
-    std::cout << this->_pos.x << this->_pos.y << std::endl;
 }
 
 void Engine::RendererModule::Components::EnemyComponent::handleEvent(int key) {

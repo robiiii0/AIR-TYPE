@@ -43,6 +43,8 @@ class Server {
         void     movePlayer(int, std::uint32_t);
         void     createEnnemy(std::uint32_t id);
         uint32_t isColliding();
+        void     updateGameState();
+        void     HandleEnnemiesPosition();
 
     private:
         void                                               networkLoop();
@@ -57,10 +59,13 @@ class Server {
         std::chrono::high_resolution_clock::time_point     _update_time;
 
         std::map<std::uint32_t, std::uint32_t> _playerEntities;
-        std::map<std::uint32_t, std::uint32_t> _missileEntities;
+        std::vector<std::uint32_t>             _missileEntities;
         // std::map<std::uint32_t, std::uint32_t> _ennemyEntities;
 
         std::vector<std::uint32_t> _ennemyEntities;
+        int                        _score;
+        int                        _win;
+        int                        _life;
 
         std::uint32_t _missileID;
 };

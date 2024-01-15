@@ -99,6 +99,10 @@ Engine::Network::Serializer::serialized_data_t
                     continue;
                 }
                 data.enemies[last_enemy] = entity;
+            } else if (tokens[1] == "gamestatus") {
+                data.game_status[0].win = std::stoi(tokens[2]);
+                data.game_status[0].score = std::stoi(tokens[3]);
+                data.game_status[0].life = std::stoi(tokens[4]);
             } else {
                 std::cerr << "Serializer: Invalid argument: " << arg
                           << std::endl;
@@ -108,19 +112,6 @@ Engine::Network::Serializer::serialized_data_t
         }
     }
 
-    // std::cout << "data : {" << std::endl;
-    // for (int i = 0; i < MAX_PLAYERS; i++) {
-    //     std::cout << "\tplayers[" << i << "].id: " << data.players[i].id
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i
-    //               << "].direction: " << data.players[i].direction <<
-    //               std::endl;
-    //     std::cout << "\tplayers[" << i << "].x: " << data.players[i].x
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i << "].y: " << data.players[i].y
-    //               << std::endl;
-    // }
-    // std::cout << "}" << std::endl;
     return data;
 }
 
@@ -146,6 +137,9 @@ Engine::Network::Serializer::serialized_data_t
         data.enemies[i].x = 0;
         data.enemies[i].y = 0;
     }
+    data.game_status[0].win = 0;
+    data.game_status[0].score = 0;
+    data.game_status[1].life = 0;
     return data;
 }
 
@@ -157,19 +151,6 @@ std::string Engine::Network::Serializer::Serializer::structToBinaryString(
               reinterpret_cast<const char *>(&data) + sizeof(data),
               std::back_inserter(binaryString));
     serialized_data_t data2 = binaryStringToStruct(binaryString);
-    // std::cout << "serialized_data_t {" << std::endl;
-    // for (int i = 0; i < MAX_PLAYERS; i++) {
-    //     std::cout << "\tplayers[" << i << "].id: " << data2.players[i].id
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i
-    //               << "].direction: " << data2.players[i].direction <<
-    //               std::endl;
-    //     std::cout << "\tplayers[" << i << "].x: " << data2.players[i].x
-    //               << std::endl;
-    //     std::cout << "\tplayers[" << i << "].y: " << data2.players[i].y
-    //               << std::endl;
-    // }
-    // std::cout << "}" << std::endl;
     return binaryString;
 }
 
@@ -192,6 +173,5 @@ std::string Engine::Network::Serializer::Serializer::serializeToPacket(
     std::string       packet;
 
     packet += structToBinaryString(data);
-    // std::cout << "Sending " << packet.length() << " bytes" << std::endl;
     return packet;
 }

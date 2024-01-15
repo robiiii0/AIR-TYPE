@@ -47,7 +47,7 @@ void Client::createButton(std::function<void()> func, std::string text,
     }
 }
 
-void Client::createText(
+uint32_t Client::createText(
     std::string text, sf::Font &font,
     Engine::Entity::Component::GenericComponents::Vector2f position,
     Engine::Entity::Component::GenericComponents::Vector2f scale,
@@ -64,6 +64,7 @@ void Client::createText(
 
     _gameEngine.getEntityManager()->addComponent(text_entity, textComponent);
     addEntity(text_entity);
+    return text_entity;
 }
 
 void Client::LoadTextureMissile(std::string paths) {

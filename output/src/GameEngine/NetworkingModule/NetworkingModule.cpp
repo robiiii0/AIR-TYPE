@@ -7,6 +7,8 @@
 
 #include "NetworkingModule.hpp"
 
+#include <iostream>
+
 Engine::Network::NetworkingModule::NetworkingModule(int                port,
                                                     NetworkingTypeEnum type,
                                                     int max_clients) :

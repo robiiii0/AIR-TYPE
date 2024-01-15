@@ -13,6 +13,9 @@ Server::~Server() {}
 
 int Server::run() {
     _running = true;
+    _win = 0;
+    _score = 0;
+    _life = 3;
     _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
     _update_time = std::chrono::high_resolution_clock::now();
     srand(time(NULL));
@@ -62,8 +65,6 @@ void Server::applyTickrate() {
         if (tickrate / SERVER_TICKRATE < 0.9) color = "\033[1;33m";
         if (tickrate / SERVER_TICKRATE < 0.8) color = "\033[1;31m";
         std::string color_end = "\033[0m";
-        // std::cout << "Server Tickrate: " << color << tickrate << color_end
-        //           << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 
@@ -122,18 +123,19 @@ void Server::createPlayer(std::uint32_t id) {
 
 void Server::createEnnemy(std::uint32_t id) {
     float randomFloat = static_cast<float>(rand() % 800 + 1);
+    float randomX = static_cast<float>(rand() % 400 + 1950);
 
     _ennemyEntities.push_back(_gameEngine->getEntityManager()->createEntity());
     Engine::Entity::Component::GenericComponents::Vector2f position_data{
-        1800.0, randomFloat};
+        randomX, randomFloat};
 
     auto position = std::make_shared<
         Engine::Entity::Component::GenericComponents::Vector2fComponent>(
         position_data);
-    _gameEngine->getEntityManager()->addComponent(_ennemyEntities[id],
+    _gameEngine->getEntityManager()->addComponent(_ennemyEntities.back(),
                                                   position);
     std::string msg =
-        "add ennemy " + std::to_string(id) + " " +
+        "add ennemy " + std::to_string(_ennemyEntities.back()) + " " +
         std::to_string(position->getValue().x + (100 * _nb_clients)) + " " +
         std::to_string(position->getValue().y);
 
@@ -146,8 +148,8 @@ void Server::createEnnemy(std::uint32_t id) {
 }
 
 void Server::createMissile(std::uint32_t id) {
-    _missileEntities[_missileID] =
-        _gameEngine->getEntityManager()->createEntity();
+    _missileEntities.push_back(_gameEngine->getEntityManager()->createEntity());
+
     _missileID++;
 
     uint32_t entity_id = _playerEntities[id];
@@ -166,12 +168,11 @@ void Server::createMissile(std::uint32_t id) {
             auto position_missile =
                 std::make_shared<Engine::Entity::Component::GenericComponents::
                                      Vector2fComponent>(position_data);
-            _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
-                                                          position_missile);
+            _gameEngine->getEntityManager()->addComponent(
+                _missileEntities.back(), position_missile);
             std::string msg = "add missile " + std::to_string(id) + " " +
                               std::to_string(position_data.x) + " " +
                               std::to_string(position_data.y);
-            std::cout << msg << std::endl;
             _globalMessages.emplace(msg);
         }
     }
@@ -188,7 +189,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(-10.0)}};
+                                   {posComp->getValue().y + float(-20.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -203,7 +204,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
                     NewPosition = {{posComp->getValue().x},
-                                   {posComp->getValue().y + float(10.0)}};
+                                   {posComp->getValue().y + float(20.0)}};
                 posComp->setValue(NewPosition);
             }
         }
@@ -217,7 +218,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(10.0)},
+                    NewPosition = {{posComp->getValue().x + float(20.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -232,7 +233,7 @@ void Server::movePlayer(int type, std::uint32_t id) {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component2)) {
                 Engine::Entity::Component::GenericComponents::Vector2f
-                    NewPosition = {{posComp->getValue().x + float(-10.0)},
+                    NewPosition = {{posComp->getValue().x + float(-20.0)},
                                    {posComp->getValue().y}};
                 posComp->setValue(NewPosition);
             }
@@ -250,14 +251,15 @@ void Server::networkLoop() {
             "Welcome client " + std::to_string(client.getId()), client.getId());
         _nb_clients = _networkingModule->getClients().size();
         createPlayer(client.getId());
+        for (int i = 0; i < 2; i++) {
+            createEnnemy(i);
+        }
         // for (int i = 0; i < 5; i++)
         // createEnemy(i);
     }
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
             std::string packet = client.getBuffer()->readNextPacket();
-            std::cout << "Client " << client.getId() << " sent: " << packet
-                      << std::endl;  // TODO: handle packet
 
             if (packet == "attack") {
                 createMissile(client.getId());
@@ -294,9 +296,6 @@ void Server::networkLoop() {
             msg_client.push_back(msg);
         }
         while (!_clientMessages[client.getId()].empty()) {
-            std::cout << "Client " << client.getId()
-                      << " message: " << _clientMessages[client.getId()].front()
-                      << std::endl;
             msg_client.push_back(_clientMessages[client.getId()].front());
             // _networkingModule->sendMessage(
             // _clientMessages[client.getId()].front(), client.getId());
@@ -352,7 +351,17 @@ void Server::updateEnnemies() {
                     Engine::Entity::Component::GenericComponents::
                         Vector2fComponent>(component);
                 auto new_position = position->getValue();
-                new_position.x -= 0.01;
+
+                if (new_position.x < 0) {
+                    for (int i = 0; i < _ennemyEntities.size(); i++) {
+                        if (_ennemyEntities[i] == ennemy) {
+                            _ennemyEntities.erase(_ennemyEntities.begin() + i);
+                        }
+                    }
+                    _life--;
+                    createEnnemy(_ennemyEntities.size());
+                }
+                new_position.x -= 0.02;
                 position->setValue(new_position);
                 std::string msg = "add ennemy " + std::to_string(ennemy) + " " +
                                   std::to_string(position->getValue().x) + " " +
@@ -365,9 +374,8 @@ void Server::updateEnnemies() {
 
 void Server::updateMissile() {
     for (auto &missile : _missileEntities) {
-        auto components = _gameEngine->getEntityManager()
-                              ->getEntity(missile.second)
-                              ->_components;
+        auto components =
+            _gameEngine->getEntityManager()->getEntity(missile)->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
                 typeid(Engine::Entity::Component::GenericComponents::
@@ -378,10 +386,9 @@ void Server::updateMissile() {
                 auto new_position = position->getValue();
                 new_position.x += 0.02;
                 position->setValue(new_position);
-                std::string msg = "add missile " +
-                                  std::to_string(missile.second) + " " +
-                                  std::to_string(position->getValue().x) + " " +
-                                  std::to_string(position->getValue().y);
+                std::string msg = "add missile " + std::to_string(missile) +
+                                  " " + std::to_string(position->getValue().x) +
+                                  " " + std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
             }
         }
@@ -390,9 +397,8 @@ void Server::updateMissile() {
 
 uint32_t Server::isColliding() {
     for (auto &missile : _missileEntities) {
-        auto components = _gameEngine->getEntityManager()
-                              ->getEntity(missile.second)
-                              ->_components;
+        auto components =
+            _gameEngine->getEntityManager()->getEntity(missile)->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
                 typeid(Engine::Entity::Component::GenericComponents::
@@ -432,34 +438,42 @@ uint32_t Server::isColliding() {
     return 10000;
 }
 
+void Server::updateGameState() {
+    if (_ennemy_spawn_clock + std::chrono::seconds(60) <
+        std::chrono::high_resolution_clock::now()) {
+        _win = 1;
+    }
+    if (_life <= 0) _win = 2;
+    auto remaining_time = _ennemy_spawn_clock + std::chrono::seconds(60) -
+                          std::chrono::high_resolution_clock::now();
+    std::string msg =
+        "add gamestatus " + std::to_string(_win) + " " +
+        std::to_string(
+            std::chrono::duration_cast<std::chrono::seconds>(remaining_time)
+                .count()) +
+        " " + std::to_string(_life);
+    _globalMessages.emplace(msg);
+}
+
 void Server::update() {
     // ? update all entities
     updatePlayer();
-    // if (_update_time + std::chrono::microseconds(750) <
-    //     std::chrono::high_resolution_clock::now()) {
-    //     _update_time = std::chrono::high_resolution_clock::now();
     updateEnnemies();
     updateMissile();
     uint32_t ennemy = isColliding();
-    if (isColliding() != 10000) {
-        std::cout << "tema" << std::endl;
+    if (ennemy != 10000) {
         _gameEngine->getEntityManager()->destroyEntity(ennemy);
+        _score++;
         for (int i = 0; i < _ennemyEntities.size(); i++) {
             if (_ennemyEntities[i] == ennemy) {
                 _ennemyEntities.erase(_ennemyEntities.begin() + i);
+                createEnnemy(_ennemyEntities.size());
+                break;
             }
         }
-        // createEnnemy(ennemy);
-        std::cout << "tema 2" << std::endl;
     }
-    // }
-    if (_ennemy_spawn_clock + std::chrono::seconds(12) <
-        std::chrono::high_resolution_clock::now()) {
-        _ennemy_spawn_clock = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < 5; i++) {
-            createEnnemy(i);
-        }
-    }
+
+    updateGameState();
     // ? update all components
     // ? update all systems
 }
