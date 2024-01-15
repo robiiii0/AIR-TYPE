@@ -5,7 +5,6 @@
 #include "HmiModule.hpp"
 
 Engine::HmiModule::HmiModule() {
-    std::cout << "HmiModule created" << std::endl;
 }
 
 std::string Engine::HmiModule::keyEvent(int key) {

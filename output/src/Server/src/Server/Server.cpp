@@ -62,8 +62,6 @@ void Server::applyTickrate() {
         if (tickrate / SERVER_TICKRATE < 0.9) color = "\033[1;33m";
         if (tickrate / SERVER_TICKRATE < 0.8) color = "\033[1;31m";
         std::string color_end = "\033[0m";
-        // std::cout << "Server Tickrate: " << color << tickrate << color_end
-        //           << " / " << SERVER_TICKRATE << std::endl;
     }
 }
 
@@ -146,8 +144,8 @@ void Server::createEnnemy(std::uint32_t id) {
 }
 
 void Server::createMissile(std::uint32_t id) {
-    _missileEntities[_missileID] =
-        _gameEngine->getEntityManager()->createEntity();
+    _missileEntities.push_back(_gameEngine->getEntityManager()->createEntity());
+    
     _missileID++;
 
     uint32_t entity_id = _playerEntities[id];
@@ -166,12 +164,11 @@ void Server::createMissile(std::uint32_t id) {
             auto position_missile =
                 std::make_shared<Engine::Entity::Component::GenericComponents::
                                      Vector2fComponent>(position_data);
-            _gameEngine->getEntityManager()->addComponent(_missileEntities[id],
+            _gameEngine->getEntityManager()->addComponent(_missileEntities.back(),
                                                           position_missile);
             std::string msg = "add missile " + std::to_string(id) + " " +
                               std::to_string(position_data.x) + " " +
                               std::to_string(position_data.y);
-            std::cout << msg << std::endl;
             _globalMessages.emplace(msg);
         }
     }
@@ -256,8 +253,6 @@ void Server::networkLoop() {
     for (auto &client : _networkingModule->getClients()) {  // ? client update
         while (client.getBuffer()->hasPacket()) {
             std::string packet = client.getBuffer()->readNextPacket();
-            std::cout << "Client " << client.getId() << " sent: " << packet
-                      << std::endl;  // TODO: handle packet
 
             if (packet == "attack") {
                 createMissile(client.getId());
@@ -294,9 +289,6 @@ void Server::networkLoop() {
             msg_client.push_back(msg);
         }
         while (!_clientMessages[client.getId()].empty()) {
-            std::cout << "Client " << client.getId()
-                      << " message: " << _clientMessages[client.getId()].front()
-                      << std::endl;
             msg_client.push_back(_clientMessages[client.getId()].front());
             // _networkingModule->sendMessage(
             // _clientMessages[client.getId()].front(), client.getId());
@@ -366,7 +358,7 @@ void Server::updateEnnemies() {
 void Server::updateMissile() {
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
-                              ->getEntity(missile.second)
+                              ->getEntity(missile)
                               ->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
@@ -379,7 +371,7 @@ void Server::updateMissile() {
                 new_position.x += 0.02;
                 position->setValue(new_position);
                 std::string msg = "add missile " +
-                                  std::to_string(missile.second) + " " +
+                                  std::to_string(missile) + " " +
                                   std::to_string(position->getValue().x) + " " +
                                   std::to_string(position->getValue().y);
                 _globalMessages.emplace(msg);
@@ -391,7 +383,7 @@ void Server::updateMissile() {
 uint32_t Server::isColliding() {
     for (auto &missile : _missileEntities) {
         auto components = _gameEngine->getEntityManager()
-                              ->getEntity(missile.second)
+                              ->getEntity(missile)
                               ->_components;
         for (auto &component : components) {
             if (typeid(*component) ==
@@ -442,7 +434,6 @@ void Server::update() {
     updateMissile();
     uint32_t ennemy = isColliding();
     if (isColliding() != 10000) {
-        std::cout << "tema" << std::endl;
         _gameEngine->getEntityManager()->destroyEntity(ennemy);
         for (int i = 0; i < _ennemyEntities.size(); i++) {
             if (_ennemyEntities[i] == ennemy) {
@@ -450,7 +441,6 @@ void Server::update() {
             }
         }
         // createEnnemy(ennemy);
-        std::cout << "tema 2" << std::endl;
     }
     // }
     if (_ennemy_spawn_clock + std::chrono::seconds(12) <
