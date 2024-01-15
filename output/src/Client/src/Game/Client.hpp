@@ -31,6 +31,7 @@ enum GameState {
     SETTINGS,
     KEYBINDING,
     PAUSE,
+    WIN,
     GAMEOVER,
     EXIT,
 };
@@ -120,6 +121,9 @@ class Client {
         void LoadTextureEnemies(std::string paths);
         void LoadSound(std::string paths, bool loop, bool play, float volume);
 
+
+        void winMenu();
+        void loseMenu();
         void setMenu();
         void setSettings();
         void setGame();
@@ -132,6 +136,8 @@ class Client {
         void setupState();
 
         void handleExit();
+
+        void loadTextureEnd(std::string path);
 
         void playerInit();
         void HandleMovementManager(std::string command);
@@ -159,6 +165,7 @@ class Client {
         std::vector<sf::Texture> _texturesEnemies;
         std::vector<sf::Texture> _textureSetting;
         std::vector<sf::Texture> _texturesButton;
+        std::vector<sf::Texture> _texture_end_menu;
         sf::Texture              _backgroundTexture;
         sf::Texture              _textureMissile;
         sf::Texture              _textureBoss;

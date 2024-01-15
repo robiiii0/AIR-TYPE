@@ -32,6 +32,25 @@ void Client::setGame() {
     //              {0.10, 0.10}, sf::Color::White, 0);
 }
 
+
+void Client::winMenu()
+{
+    createBackground(_backgroundTexture);
+    createPlayer(_texture_end_menu[0], {500, 250});
+    createText("GG EZ", _fonts[0],
+               {static_cast<float>(_screenWidth / 2),
+                static_cast<float>(_screenHeight / 2)},
+               {1, 1}, sf::Color::White, 0);
+
+}
+
+
+void Client::loseMenu()
+{
+    createBackground(_backgroundTexture);
+    createPlayer(_texture_end_menu[1], {500, 250});
+}
+
 void Client::ChangeKeyBinding() {
     createBackground(_backgroundTexture);
     CreateSprite({450, 250}, {0.3, 0.3}, _textureSetting[UP_TEXTURE], "Key Up");

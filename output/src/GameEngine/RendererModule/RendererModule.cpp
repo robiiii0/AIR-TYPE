@@ -97,10 +97,8 @@ void Engine::RendererModule::RendererModule::update(
     
     for (auto id : id_list) {
         try {
-            std::cout << "peut etre la  " << id << " "<< entityManager.getNbEntites() << "ou " <<id_list.size() << std::endl;
             
             auto components = entityManager.getAllComponents(id);
-            std::cout << "oe cest la" << std::endl;
             for (auto &component : components) {
                 // Check if the component is of type parallaxComponent
                 if (auto parallaxComp = std::dynamic_pointer_cast<

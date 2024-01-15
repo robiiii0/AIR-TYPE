@@ -40,6 +40,12 @@ void Client::setupState() {
             break;
         case GameState::KEYBINDING:
             ChangeKeyBinding();
+        case GameState::WIN:
+            winMenu();
+            break;
+        case GameState::GAMEOVER:
+            loseMenu();
+            break;
         default:
             break;
     }

@@ -9,7 +9,11 @@ Client::Client() {
     _hmiModule = std::make_shared<Engine::HmiModule>();
     _ClientId = 8;
     _gameState = MENU;
+
     playerInit();
+    LoadBackground();
+    loadTextureEnd("src/Client/assets/Background/Top_1.png");
+    loadTextureEnd("src/Client/assets/Background/Game_Over_logo.png");
     LoadTextureParallax(
         "src/Client/assets/new_assets/background/1.png");
     LoadTextureParallax("src/Client/assets/new_assets/background/2.png");
@@ -41,8 +45,10 @@ Client::Client() {
     LoadTextureMissile("src/Client/assets/new_assets/shoot/shoot1.png");
     LoadTextureEnemies("src/Client/assets/new_assets/enemy/sprites/enemy5.png");
 
-    // LoadSound("src/Client/assets/Sound/music.wav", true, true, 50);
-    // LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
+    LoadSound("src/Client/assets/Sound/music.wav", true, false, 50);
+    LoadSound("src/Client/assets/Sound/click.wav", false, false, 50);
+    LoadSound("src/Client/assets/new_assets/shoot/shot.mp3", false, false, 50);
+
 }
 
 void Client::ConnectionWithServer() {
@@ -81,7 +87,6 @@ void Client::HandleMissileManager(
             uint32_t idMissile = createMissile(
                 missile.id, missile.x, missile.y);
             _destructible_entities.push_back(idMissile);  
-            std::cout << "je crée un missile" << std::endl;
         }
     }
 }
@@ -101,8 +106,6 @@ void Client::HandleEnemiesManagement(
 
 void Client::run() {
     setupState();
-
-
     while (_gameEngine.getRendererModule()->getWindow().isOpen()) {
         std::cout << "debut de boucle " << std::endl;
         if (_networkingModule != nullptr) {

@@ -10,6 +10,16 @@ void Client::LoadTextureParallax(std::string paths) {
     _texturesParallax.push_back(texture);
 }
 
+void Client::loadTextureEnd(std::string paths) {
+    sf::Texture texture;
+    if (texture.loadFromFile(paths) == false) {
+        std::cerr << "Error: could not load texture " << paths << std::endl;
+        exit(84);
+    }
+    texture.setSmooth(true);
+    _texture_end_menu.push_back(texture);
+}
+
 
 void Client::DuplicateParalax(sf::Texture &Texture, int i)
 {
