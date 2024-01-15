@@ -15,14 +15,38 @@ void Client::setMenu() {
 }
 
 void Client::setGame() {
+    for (auto entities : _entities) {
+        _gameEngine.getEntityManager()->destroyEntity(entities);
+    }
+    _entities.clear();
     ConnectionWithServer();
-    // createBackground(_backgroundTexture);
-    // createParallax(_texturesParallax);
-    createButton(std::bind(&Client::changeState, this, MENU), "",
-                 _texturesButton[0], _fonts[0],
-                 {static_cast<float>(_screenWidth / 1.05),
-                  static_cast<float>(_screenHeight / 1.05)},
-                 {0.10, 0.10}, sf::Color::White, 0);
+    createBackground(_backgroundTexture);
+    createParallax(_texturesParallax);
+    // createButton(std::bind(&Client::changeState, this, MENU), "",
+    //              _texturesButton[0], _fonts[0],
+    //              {static_cast<float>(_screenWidth / 1.05),
+    //               static_cast<float>(_screenHeight / 1.05)},
+    //              {0.10, 0.10}, sf::Color::White, 0);
+}
+
+void Client::winMenu() {
+    _sounds[Client::Music::WIN]->play();
+    createBackground(_backgroundTexture);
+    createPlayer(_texture_end_menu[0], {500, 250});
+    createText("GG EZ", _fonts[0],
+               {static_cast<float>(_screenWidth / 2),
+                static_cast<float>(_screenHeight / 2)},
+               {1, 1}, sf::Color::White, 0);
+}
+
+void Client::loseMenu() {
+    _sounds[Client::Music::LOSE]->play();
+    createBackground(_backgroundTexture);
+    createPlayer(_texture_end_menu[1], {500, 250});
+    createText("Get Ratio By R-Type", _fonts[0],
+               {static_cast<float>(_screenWidth / 2),
+                static_cast<float>(_screenHeight / 2)},
+               {1, 1}, sf::Color::White, 0);
 }
 
 void Client::ChangeKeyBinding() {

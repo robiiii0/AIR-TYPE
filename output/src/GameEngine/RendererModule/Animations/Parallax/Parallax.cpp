@@ -96,7 +96,7 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
             setPosition(4920, 900);
 
         } else {
-            setPosition(4920, 1080);
+            setPosition(1920 * 2, 0);
         }
     }
     if (isAnimated == true) {
@@ -107,7 +107,7 @@ void Engine::RendererModule::Components::parallaxComponent::runParallax() {
         }
     }
 
-    _sprite.move({-1, 0});
+    _sprite.move({_movement.first, _movement.second});
 }
 
 Engine::RendererModule::Components::parallaxComponent::~parallaxComponent() {}
