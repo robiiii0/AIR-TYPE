@@ -260,7 +260,7 @@ void Server::networkLoop() {
                       << std::endl;  // TODO: handle packet
 
             if (packet == "attack") {
-                createMissile(0);
+                createMissile(client.getId());
             }
 
             if (packet.find("move") != std::string::npos) {
